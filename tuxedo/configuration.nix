@@ -180,7 +180,7 @@ in
     asciinema tree usbutils nmap
     nix-tree inetutils openssl
     android-tools adb-sync scrcpy
-    p7zip nnn
+    p7zip nnn debootstrap
     # Agenix secret management.
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
 
