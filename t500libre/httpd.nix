@@ -14,6 +14,7 @@ let
   webmaster-email = lib.strings.fileContents config.age.secrets.webserver-account-webmaster-email.path;
   gnu-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-ip.path;
   gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
+  vr-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-vr-domain.path;
   # Agenix paths:
 
 in
@@ -23,6 +24,7 @@ in
   age.secrets.webserver-account-webmaster-email.file = secrets/webserver-account-webmaster-email.age;
   age.secrets.webserver-virtualhost-gnu-ip.file = secrets/webserver-virtualhost-gnu-ip.age;
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
+  age.secrets.webserver-virtualhost-vr-domain.file = secrets/webserver-virtualhost-vr-domain.age;
 
   services.httpd = {
     enable = true;
