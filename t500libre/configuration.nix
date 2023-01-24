@@ -15,6 +15,7 @@ let
   gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
   # Agenix paths:
   localhost-account-daniel-password = config.age.secrets.localhost-account-daniel-password.path;
+  localhost-account-gabriel-password = config.age.secrets.localhost-account-gabriel-password.path;
   localhost-account-root-password = config.age.secrets.localhost-account-root-password.path;
   sshserver-authorized-keys = config.age.secrets.sshserver-authorized-keys.path;
 
@@ -40,6 +41,7 @@ in
   age.secrets.acme-account-webmaster-email.file = secrets/acme-account-webmaster-email.age;
   age.secrets.localhost-account-root-password.file = secrets/localhost-account-root-password.age;
   age.secrets.localhost-account-daniel-password.file = secrets/localhost-account-daniel-password.age;
+  age.secrets.localhost-account-gabriel-password.file = secrets/localhost-account-gabriel-password.age;
   age.secrets.sshserver-authorized-keys.file = secrets/sshserver-authorized-keys.age;
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
 
@@ -119,6 +121,10 @@ in
   # Enable the avahi mDNS service.
   services.avahi.enable = true;
   services.avahi.hostName = "t500libre";
+
+  # MySQL server.
+  services.mysql.enable = true;
+  services.mysql.package = pkgs.mariadb;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -232,8 +238,15 @@ in
     extraGroups = [ "wheel" "wwwrun" ];
   };
 
+  # Guest account
+  users.users.gabriel = {
+    isNormalUser = true;
+    passwordFile = localhost-account-gabriel-password;
+    extraGroups = [ "wheel" "wwwrun" ];
+  };
+
   # Standard motd for all users of this host.
-  users.motd = lib.strings.fileContents "${./motd.txt}";
+  #users.motd = lib.strings.fileContents "${./motd.txt}";
 
   # Make the fish shell default for the entire system.
   programs.fish.enable = true;

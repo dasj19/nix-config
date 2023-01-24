@@ -123,6 +123,22 @@ in
           ${redirect-rules}
         '';
       };
+      # Gaming forum.
+      "${vr-domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        hostName = "${vr-domain}";
+        serverAliases = [
+          "www.${vr-domain}"
+        ];
+        documentRoot = "/var/www/${vr-domain}";
+        # serving php files as default.
+        locations."/".index = "index.php";
+        extraConfig = ''
+          # Redirects.
+          ${redirect-rules}
+        '';
+      };
     };
 
     extraConfig = ''

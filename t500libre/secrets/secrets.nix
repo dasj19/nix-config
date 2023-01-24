@@ -9,6 +9,7 @@ in
   # Keep this list in alphabetical order.
   "acme-account-webmaster-email.age".publicKeys = [ root t500libre ];
   "localhost-account-daniel-password.age".publicKeys = [ root t500libre ];
+  "localhost-account-gabriel-password.age".publicKeys = [ root t500libre ];
   "localhost-account-root-password.age".publicKeys = [ root t500libre ];
   "mailserver-account-daniel-aliases.age".publicKeys = [ root t500libre ];
   "mailserver-account-daniel-email.age".publicKeys = [ root t500libre ];
@@ -19,4 +20,5 @@ in
   "webserver-account-webmaster-email.age".publicKeys = [ root t500libre ];
   "webserver-virtualhost-gnu-domain.age".publicKeys = [ root t500libre ];
   "webserver-virtualhost-gnu-ip.age".publicKeys = [ root t500libre ];
+  "webserver-virtualhost-vr-domain.age".publicKeys = [ root t500libre ];
 }
