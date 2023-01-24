@@ -148,7 +148,7 @@ in
   # SSH server settings.
   services.openssh.extraConfig = "MaxAuthTries 20";
   services.openssh.ports = [ 2201 ];
-  services.openssh.permitRootLogin = "without-password";
+  services.openssh.settings.PermitRootLogin = "without-password";
 
   # Local DNS cache server. @TODO: Check to what extent is this used.
   services.resolved.enable = true;
