@@ -8,14 +8,13 @@ let
     Babel httpcore httpx httpx-socks uvloop requests
     langdetect lxml pyaml pygments python-dateutil werkzeug flask flask-babel h2
   ]; 
-  python-with-my-packages = pkgs.python310.withPackages my-python-packages;
+  python-with-my-packages = pkgs.python311.withPackages my-python-packages;
 
   # Agenix strings:
   acme-account-webmaster-email = lib.strings.fileContents config.age.secrets.acme-account-webmaster-email.path;
   gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
   # Agenix paths:
   localhost-account-daniel-password = config.age.secrets.localhost-account-daniel-password.path;
-  localhost-account-gabriel-password = config.age.secrets.localhost-account-gabriel-password.path;
   localhost-account-root-password = config.age.secrets.localhost-account-root-password.path;
   sshserver-authorized-keys = config.age.secrets.sshserver-authorized-keys.path;
 
@@ -41,7 +40,6 @@ in
   age.secrets.acme-account-webmaster-email.file = secrets/acme-account-webmaster-email.age;
   age.secrets.localhost-account-root-password.file = secrets/localhost-account-root-password.age;
   age.secrets.localhost-account-daniel-password.file = secrets/localhost-account-daniel-password.age;
-  age.secrets.localhost-account-gabriel-password.file = secrets/localhost-account-gabriel-password.age;
   age.secrets.sshserver-authorized-keys.file = secrets/sshserver-authorized-keys.age;
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
 
@@ -112,7 +110,6 @@ in
     apacheHttpd_2_4 php80 apacheHttpdPackages.mod_cspnonce
     libmodsecurity
     filtron
-    kanboard
 
     # Required for local searx instance:
     python-with-my-packages searx uwsgi shellcheck
@@ -235,13 +232,6 @@ in
   users.users.daniel = {
     isNormalUser = true;
     passwordFile = localhost-account-daniel-password;
-    extraGroups = [ "wheel" "wwwrun" ];
-  };
-
-  # Guest account
-  users.users.gabriel = {
-    isNormalUser = true;
-    passwordFile = localhost-account-gabriel-password;
     extraGroups = [ "wheel" "wwwrun" ];
   };
 

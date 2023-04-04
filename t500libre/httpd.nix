@@ -14,7 +14,6 @@ let
   webmaster-email = lib.strings.fileContents config.age.secrets.webserver-account-webmaster-email.path;
   gnu-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-ip.path;
   gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
-  vr-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-vr-domain.path;
   # Agenix paths:
 
 in
@@ -24,7 +23,6 @@ in
   age.secrets.webserver-account-webmaster-email.file = secrets/webserver-account-webmaster-email.age;
   age.secrets.webserver-virtualhost-gnu-ip.file = secrets/webserver-virtualhost-gnu-ip.age;
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
-  age.secrets.webserver-virtualhost-vr-domain.file = secrets/webserver-virtualhost-vr-domain.age;
 
   services.httpd = {
     enable = true;
@@ -125,22 +123,6 @@ in
           ${redirect-rules}
         '';
       };
-      # Gaming forum.
-      "${vr-domain}" = {
-        forceSSL = true;
-        enableACME = true;
-        hostName = "${vr-domain}";
-        serverAliases = [
-          "www.${vr-domain}"
-        ];
-        documentRoot = "/var/www/${vr-domain}";
-        # serving php files as default.
-        locations."/".index = "index.php";
-        extraConfig = ''
-          # Redirects.
-          ${redirect-rules}
-        '';
-      };
     };
 
     extraConfig = ''
@@ -195,6 +177,7 @@ in
       Header set Expect-CT: 'max-age=86400, enforce, report-uri="https://searx.${gnu-domain}/about"'
       
       # https://infosec.mozilla.org/guidelines/web_security#x-frame-options
+      # Prevent website from framing this site.
       Header set X-Frame-Options: "DENY"
 
       # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection

@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  kanboard = pkgs.callPackage ./kanboard-pkg.nix { };
   # Agenix strings:
   gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
   # Agenix paths:
@@ -36,17 +37,16 @@ in
             mkdir -p $out
             for f in index.php jsonrpc.php ; do
               echo "<?php require('$out/config.php');" > $out/$f
-              tail -n+2 ${pkgs.kanboard}/share/kanboard/$f \
-                | sed 's^__DIR__^"${pkgs.kanboard}/share/kanboard"^' >> $out/$f
+              tail -n+2 "${kanboard}/share/kanboard/$f" \
+                | sed 's^__DIR__^"${kanboard}/share/kanboard"^' >> $out/$f
             done
             ln -s /var/lib/kanboard $out/data
             ln -s /var/www/kanboard/kanboard-config.php $out/config.php
           '')
-          { outPath = "${pkgs.kanboard}/share/kanboard"; meta.priority = 10; }
+          { outPath = "${kanboard}/share/kanboard"; meta.priority = 10; }
         ];
       };
-      listen = [
-        {
+      listen = [        {
           addr = "0.0.0.0";
           port = 8001;
         }
