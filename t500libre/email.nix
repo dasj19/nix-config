@@ -61,6 +61,12 @@
       };
     };
 
+  # Debug authentication. @see: https://serverfault.com/a/1020853
+  # Disabled to allow fail2ban to do its job.
+  #services.dovecot2.extraConfig = ''
+  #  auth_verbose = yes
+  #'';
+
   # Add extended spam information.
   services.rspamd.extraConfig = ''
     milter_headers {

@@ -76,10 +76,9 @@ in
     "cdrom" 
   ];
 
-  # Hostname + no DHCP on the machines networking interfaces.
-  networking.useDHCP = false;
+  # Hostname + DHCP on all the networking interfaces.
+  networking.useDHCP = true;
   networking.hostName = "t500libre";
-  networking.interfaces.enp0s25.useDHCP = true;
 
   # Select internationalization properties. @TODO: Recheck and revise these settings.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -219,6 +218,17 @@ in
     # WAN-open:
       53   # DNS      - Resolved 
   ];
+
+  # Enable basic fail2ban (Only has sshd jail).
+  services.fail2ban.enable = true;
+  services.fail2ban.jails = {
+    # Block dovecot failed login attepmts and aborted connections.
+    dovecot = ''
+      enabled = true
+      filter = dovecot[mode=aggressive]
+      maxretry = 3
+    '';
+  };
 
   # Allow immutable users.
   users.mutableUsers = false;

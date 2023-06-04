@@ -14,6 +14,11 @@ let
   webmaster-email = lib.strings.fileContents config.age.secrets.webserver-account-webmaster-email.path;
   gnu-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-ip.path;
   gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
+  archive-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-archive-ip.path;
+  firstguest-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-firstguest-ip.path;
+  firstguest-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-firstguest-domain.path;
+  secondguest-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-secondguest-ip.path;
+  secondguest-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-secondguest-domain.path;
   # Agenix paths:
 
 in
@@ -23,6 +28,12 @@ in
   age.secrets.webserver-account-webmaster-email.file = secrets/webserver-account-webmaster-email.age;
   age.secrets.webserver-virtualhost-gnu-ip.file = secrets/webserver-virtualhost-gnu-ip.age;
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
+  age.secrets.webserver-virtualhost-archive-ip.file = secrets/webserver-virtualhost-archive-ip.age;
+  age.secrets.webserver-virtualhost-firstguest-ip.file = secrets/webserver-virtualhost-firstguest-ip.age;
+  age.secrets.webserver-virtualhost-firstguest-domain.file = secrets/webserver-virtualhost-firstguest-domain.age;
+  age.secrets.webserver-virtualhost-secondguest-ip.file = secrets/webserver-virtualhost-secondguest-ip.age;
+  age.secrets.webserver-virtualhost-secondguest-domain.file = secrets/webserver-virtualhost-secondguest-domain.age;
+
 
   services.httpd = {
     enable = true;
@@ -93,6 +104,37 @@ in
           </LocationMatch>
         '';
       };
+      # The Archive box instance.
+      "archive.${gnu-domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        hostName = "archive.${gnu-domain}";
+        serverAliases = [
+          "www.archive.${gnu-domain}"
+        ]; 
+        documentRoot = "/var/www/archive.${gnu-domain}/";
+        logFormat = "combined";
+        extraConfig = ''
+          # Redirects.
+          ${redirect-rules}
+
+          <LocationMatch "/">
+            # Proxy the archivebox instance from the local network.
+            #ProxyPreserveHost On
+            ProxyPass http://${archive-ip}:8000/
+            ProxyPassReverse http://${archive-ip}:8000/
+
+            # Headers passed to the proxy.
+            #RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
+            # Relax CSP for admin paths.
+
+            # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
+            Header unset Content-Security-Policy
+            Header unset Clear-Site-Data
+          </LocationMatch>
+        '';
+      };
+      
       # Debian Souce List Generator for the masses.
       "dslg.${gnu-domain}" = {
         forceSSL = true;
@@ -123,7 +165,109 @@ in
           ${redirect-rules}
         '';
       };
+
+    # The first guest domain.
+      "${firstguest-domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        hostName = "${firstguest-domain}";
+        serverAliases = [
+          "www.${firstguest-domain}"
+        ]; 
+        documentRoot = "/var/www/${firstguest-domain}/";
+        logFormat = "combined";
+        extraConfig = ''
+          # Redirects.
+          ${redirect-rules}
+
+          <Proxy *>
+            Order deny,allow
+            Allow from all
+          </Proxy>
+
+          ProxyPreserveHost On
+          SSLProxyEngine on
+           # Proxy the wordpress instance from the local network.
+           #ProxyPreserveHost On
+           ProxyPass / http://${firstguest-ip}:10001/
+           ProxyPassReverse / http://${firstguest-ip}:10001/
+           #ProxyPassReverseCookieDomain 172.16.0.17 ${firstguest-domain}
+
+           # Send "Proxy" headers.
+           RequestHeader set X-Forwarded-Proto "https"
+           RequestHeader set X-Forwarded-Port "443"
+
+          <LocationMatch "/">
+            # Headers passed to the proxy.
+            #RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
+            # Relax CSP for admin paths.
+
+            # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
+            Header unset Content-Security-Policy
+            Header unset Permissions-Policy
+            Header unset X-Frame-Options
+            Header unset X-Permitted-Cross-Domain-Policies
+            Header unset Feature-Policy
+            Header unset Clear-Site-Data
+            Header unset Expect-CT
+            Header unset Cross-Origin-Embedder-Policy 
+            Header unset Cross-Origin-Opener-Policy
+            Header unset Cross-Origin-Resource-Policy
+          </LocationMatch>
+        '';
+      };
+
+      # The second guest domain.
+      "${secondguest-domain}" = {
+        forceSSL = true;
+        enableACME = true;
+        hostName = "${secondguest-domain}";
+        serverAliases = [
+          "www.${secondguest-domain}"
+        ]; 
+        documentRoot = "/var/www/${secondguest-domain}/";
+        logFormat = "combined";
+        extraConfig = ''
+          # Redirects.
+          ${redirect-rules}
+
+          <Proxy *>
+            Order deny,allow
+            Allow from all
+          </Proxy>
+
+          ProxyPreserveHost On
+          SSLProxyEngine on
+           # Proxy the wordpress instance from the local network.
+           #ProxyPreserveHost On
+           ProxyPass / http://${secondguest-ip}:10002/
+           ProxyPassReverse / http://${secondguest-ip}:10002/
+           #ProxyPassReverseCookieDomain 172.16.0.17 ${firstguest-domain}
+
+           # Send "Proxy" headers.
+           RequestHeader set X-Forwarded-Proto "https"
+           RequestHeader set X-Forwarded-Port "443"
+          <LocationMatch "/">
+            # Headers passed to the proxy.
+            #RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
+            # Relax CSP for admin paths.
+
+            # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
+            Header unset Content-Security-Policy
+            Header unset Permissions-Policy
+            Header unset X-Frame-Options
+            Header unset X-Permitted-Cross-Domain-Policies
+            Header unset Feature-Policy
+            Header unset Clear-Site-Data
+            Header unset Expect-CT
+            Header unset Cross-Origin-Embedder-Policy 
+            Header unset Cross-Origin-Opener-Policy
+            Header unset Cross-Origin-Resource-Policy
+          </LocationMatch>
+        '';
+      };
     };
+
 
     extraConfig = ''
       <Directory /var/www>
