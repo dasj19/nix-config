@@ -166,7 +166,7 @@ in
         '';
       };
 
-    # The first guest domain.
+      # The first guest domain.
       "${firstguest-domain}" = {
         forceSSL = true;
         enableACME = true;
@@ -191,7 +191,6 @@ in
            #ProxyPreserveHost On
            ProxyPass / http://${firstguest-ip}:10001/
            ProxyPassReverse / http://${firstguest-ip}:10001/
-           #ProxyPassReverseCookieDomain 172.16.0.17 ${firstguest-domain}
 
            # Send "Proxy" headers.
            RequestHeader set X-Forwarded-Proto "https"
@@ -238,7 +237,6 @@ in
            #ProxyPreserveHost On
            ProxyPass / http://${secondguest-ip}:10002/
            ProxyPassReverse / http://${secondguest-ip}:10002/
-           #ProxyPassReverseCookieDomain 172.16.0.17 ${firstguest-domain}
 
            # Send "Proxy" headers.
            RequestHeader set X-Forwarded-Proto "https"
