@@ -198,11 +198,7 @@ in
            RequestHeader set X-Forwarded-Port "443"
 
           <LocationMatch "/">
-            # Headers passed to the proxy.
-            #RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
-            # Relax CSP for admin paths.
-
-            # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
+            # Disable most of the security headers for this host.
             Header unset Content-Security-Policy
             Header unset Permissions-Policy
             Header unset X-Frame-Options
@@ -248,11 +244,8 @@ in
            RequestHeader set X-Forwarded-Proto "https"
            RequestHeader set X-Forwarded-Port "443"
           <LocationMatch "/">
-            # Headers passed to the proxy.
-            #RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
-            # Relax CSP for admin paths.
 
-            # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
+            # Disable most of the security headers for this host.
             Header unset Content-Security-Policy
             Header unset Permissions-Policy
             Header unset X-Frame-Options
