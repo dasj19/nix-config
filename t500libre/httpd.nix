@@ -253,7 +253,7 @@ in
             Header unset Feature-Policy
             Header unset Clear-Site-Data
             Header unset Expect-CT
-            Header unset Cross-Origin-Embedder-Policy 
+            Header unset Cross-Origin-Embedder-Policy
             Header unset Cross-Origin-Opener-Policy
             Header unset Cross-Origin-Resource-Policy
           </LocationMatch>
