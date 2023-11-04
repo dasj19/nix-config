@@ -4,6 +4,7 @@
 let 
 
   # A custom python used mainly for searx dependencies.
+  # @todo: migrate to searx-ng
   my-python-packages = python-packages: with python-packages; [
     Babel httpcore httpx httpx-socks uvloop requests
     langdetect lxml pyaml pygments python-dateutil werkzeug flask flask-babel h2
@@ -45,10 +46,9 @@ in
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
 
-  # Linux kernel - Using a LTS kernel.
+  # Linux kernel - Using a LTS kernel. 5.15 is good until October 2026.
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_5_15;
 
   # Disable at boot. @TODO: Recheck and update this list some day.
@@ -106,12 +106,12 @@ in
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
 
     # Server applications.
-    apacheHttpd_2_4 php80 apacheHttpdPackages.mod_cspnonce
+    apacheHttpd_2_4 php82 apacheHttpdPackages.mod_cspnonce
     libmodsecurity
     filtron
 
     # Required for local searx instance:
-    python-with-my-packages searx uwsgi shellcheck
+    python-with-my-packages /* searx */ uwsgi shellcheck
   ];
 
   # Enable the avahi mDNS service.
@@ -159,11 +159,11 @@ in
     "1.0.0.1"
   ];
 
-  # Control the lidswitch behaviour.
+  # Control the laptop lidswitch behaviour.
   services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchDocked = "ignore";
 
-  # Startup a main searx server. Not a nixos stock because of better customizability.
+  # Startup a main searx server. Nixos removed support for searx.
   systemd.services.searx = {
       wantedBy      = [ "multi-user.target" ]; 
       after         = [ "network.target" ];
@@ -195,7 +195,20 @@ in
   # ACME properties.
   security.acme.acceptTerms = true;
   security.acme.defaults.email = acme-account-webmaster-email;
-  
+  security.acme.defaults.webroot = "/var/lib/acme/acme-challenge/";
+  security.acme.certs = {
+    "archive.gnu.style" = {
+      webroot = "/var/lib/acme/acme-challenge/";
+    };
+    "searx.gnu.style" = {
+      webroot = "/var/lib/acme/acme-challenge/";
+    };
+    "mail.gnu.style" = {
+      webroot = "/var/lib/acme/acme-challenge/";
+    };
+  };
+
+
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     # PORT - PROTOCOL - SERVER   - APP
@@ -235,18 +248,18 @@ in
 
   # The root user.
   users.users.root = {
-    passwordFile = localhost-account-root-password;
+    hashedPasswordFile = localhost-account-root-password;
   };
 
   # Local unpriviledged user accunt.
   users.users.daniel = {
     isNormalUser = true;
-    passwordFile = localhost-account-daniel-password;
+    hashedPasswordFile = localhost-account-daniel-password;
     extraGroups = [ "wheel" "wwwrun" ];
   };
 
   # Standard motd for all users of this host.
-  #users.motd = lib.strings.fileContents "${./motd.txt}";
+  users.motdFile = "/etc/nixos/motd.txt";
 
   # Make the fish shell default for the entire system.
   programs.fish.enable = true;
@@ -277,5 +290,5 @@ in
   users.groups.searx = {};
 
   # Initial version. Consult manual before changing.
-  system.stateVersion = "20.09";
+  system.stateVersion = "21.11";
 }

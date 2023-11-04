@@ -3,11 +3,18 @@
 let
     # Using this repeatedly in every virtual host because a global redirect is not currently posssible.
     redirect-rules = ''
+      # Remember: order of redirect conditions matter!
       # Generic redirect www to non-www for all the domains on the server.
-      RewriteEngine On
-      RewriteOptions Inherit
-      RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-      RewriteRule ^/(.*) https://%1/''$1 [R=301,L]
+      # Generic HTTTP to HTTPS redirect for all the domains on the server.
+
+#      RewriteEngine On
+#      RewriteOptions Inherit
+#      # Redirect all www trafic to non-www https.
+#      RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+#      RewriteRule ^/(.*) https://%1/''$1 [R=301,L]
+#      # Redirect all http traffic to https.
+#      RewriteCond %{HTTPS} !=on
+#      RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     '';
 
   # Agenix strings:
@@ -15,11 +22,6 @@ let
   gnu-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-ip.path;
   gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
   archive-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-archive-ip.path;
-  firstguest-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-firstguest-ip.path;
-  firstguest-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-firstguest-domain.path;
-  secondguest-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-secondguest-ip.path;
-  secondguest-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-secondguest-domain.path;
-  # Agenix paths:
 
 in
 
@@ -29,18 +31,14 @@ in
   age.secrets.webserver-virtualhost-gnu-ip.file = secrets/webserver-virtualhost-gnu-ip.age;
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
   age.secrets.webserver-virtualhost-archive-ip.file = secrets/webserver-virtualhost-archive-ip.age;
-  age.secrets.webserver-virtualhost-firstguest-ip.file = secrets/webserver-virtualhost-firstguest-ip.age;
-  age.secrets.webserver-virtualhost-firstguest-domain.file = secrets/webserver-virtualhost-firstguest-domain.age;
-  age.secrets.webserver-virtualhost-secondguest-ip.file = secrets/webserver-virtualhost-secondguest-ip.age;
-  age.secrets.webserver-virtualhost-secondguest-domain.file = secrets/webserver-virtualhost-secondguest-domain.age;
 
-
+  # Apache webserver with virtualhosts. @todo: migrate to caddy.
   services.httpd = {
     enable = true;
     enablePHP = true;
-    adminAddr = webmaster-email;
+    adminAddr = "${webmaster-email}";
     extraModules = [
-      "proxy" "headers" "proxy_uwsgi"
+      "headers" "proxy" "proxy_http" "proxy_uwsgi"
       # 3rd party apache2 modules.
       { name = "cspnonce"; path = "${pkgs.apacheHttpdPackages.mod_cspnonce}/modules/mod_cspnonce.so"; }
     ];
@@ -52,28 +50,19 @@ in
     sslCiphers = "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256";
 
     # Disable access and error logs and per-host logging.
-    # logFormat = "none";
-    # logPerVirtualHost = false;
+    logFormat = "none";
+    logPerVirtualHost = false;
 
     virtualHosts = {
-      # Exposing the main domain content when accessing directly by IP.
-      "ip-based" = {
-        addSSL = true;
-        hostName = gnu-ip;
-        documentRoot = "/var/www/${gnu-domain}/";
-        # Using self signed certificate.
-        sslServerCert = "/var/www/localhost.crt";
-        sslServerKey = "/var/www/localhost.key";
-      };
       # Use only for SSL certificates. The mailserver should take care of the rest.
       "mail.${gnu-domain}" = {
-        forceSSL = true;
         enableACME = true;
+        forceSSL = true;
       };
       # Search engine instance.
       "searx.${gnu-domain}" = {
-        forceSSL = true;
         enableACME = true;
+        forceSSL = true;
         hostName = "searx.${gnu-domain}";
         serverAliases = [
           "www.searx.${gnu-domain}"
@@ -106,8 +95,8 @@ in
       };
       # The Archive box instance.
       "archive.${gnu-domain}" = {
-        forceSSL = true;
         enableACME = true;
+        forceSSL = true;
         hostName = "archive.${gnu-domain}";
         serverAliases = [
           "www.archive.${gnu-domain}"
@@ -137,8 +126,11 @@ in
       
       # Debian Souce List Generator for the masses.
       "dslg.${gnu-domain}" = {
-        forceSSL = true;
+        # forceSSL uses 302 Found redirects, using own 301 redirects in 'extraConfig'.
+        #addSSL = true;
         enableACME = true;
+        #inherit acmeRoot;
+        forceSSL = true;
         hostName = "dslg.${gnu-domain}";
         serverAliases = [
           "www.dslg.${gnu-domain}"
@@ -153,8 +145,11 @@ in
       };
       # Overall map of the services hosted at the gnu domain.
       "${gnu-domain}" = {
-        forceSSL = true;
+        # forceSSL uses 302 Found redirects, using own 301 redirects in 'extraConfig'.
+        #addSSL = true;
         enableACME = true;
+        #inherit acmeRoot;
+        forceSSL = true;
         hostName = gnu-domain;
         serverAliases = [
           "www.${gnu-domain}"
@@ -166,100 +161,7 @@ in
         '';
       };
 
-      # The first guest domain.
-      "${firstguest-domain}" = {
-        forceSSL = true;
-        enableACME = true;
-        hostName = "${firstguest-domain}";
-        serverAliases = [
-          "www.${firstguest-domain}"
-        ]; 
-        documentRoot = "/var/www/${firstguest-domain}/";
-        logFormat = "combined";
-        extraConfig = ''
-          # Redirects.
-          ${redirect-rules}
-
-          <Proxy *>
-            Order deny,allow
-            Allow from all
-          </Proxy>
-
-          ProxyPreserveHost On
-          SSLProxyEngine on
-           # Proxy the wordpress instance from the local network.
-           #ProxyPreserveHost On
-           ProxyPass / http://${firstguest-ip}:10001/
-           ProxyPassReverse / http://${firstguest-ip}:10001/
-
-           # Send "Proxy" headers.
-           RequestHeader set X-Forwarded-Proto "https"
-           RequestHeader set X-Forwarded-Port "443"
-
-          <LocationMatch "/">
-            # Disable most of the security headers for this host.
-            Header unset Content-Security-Policy
-            Header unset Permissions-Policy
-            Header unset X-Frame-Options
-            Header unset X-Permitted-Cross-Domain-Policies
-            Header unset Feature-Policy
-            Header unset Clear-Site-Data
-            Header unset Expect-CT
-            Header unset Cross-Origin-Embedder-Policy 
-            Header unset Cross-Origin-Opener-Policy
-            Header unset Cross-Origin-Resource-Policy
-          </LocationMatch>
-        '';
-      };
-
-      # The second guest domain.
-      "${secondguest-domain}" = {
-        forceSSL = true;
-        enableACME = true;
-        hostName = "${secondguest-domain}";
-        serverAliases = [
-          "www.${secondguest-domain}"
-        ]; 
-        documentRoot = "/var/www/${secondguest-domain}/";
-        logFormat = "combined";
-        extraConfig = ''
-          # Redirects.
-          ${redirect-rules}
-
-          <Proxy *>
-            Order deny,allow
-            Allow from all
-          </Proxy>
-
-          ProxyPreserveHost On
-          SSLProxyEngine on
-           # Proxy the wordpress instance from the local network.
-           #ProxyPreserveHost On
-           ProxyPass / http://${secondguest-ip}:10002/
-           ProxyPassReverse / http://${secondguest-ip}:10002/
-
-           # Send "Proxy" headers.
-           RequestHeader set X-Forwarded-Proto "https"
-           RequestHeader set X-Forwarded-Port "443"
-          <LocationMatch "/">
-
-            # Disable most of the security headers for this host.
-            Header unset Content-Security-Policy
-            Header unset Permissions-Policy
-            Header unset X-Frame-Options
-            Header unset X-Permitted-Cross-Domain-Policies
-            Header unset Feature-Policy
-            Header unset Clear-Site-Data
-            Header unset Expect-CT
-            Header unset Cross-Origin-Embedder-Policy
-            Header unset Cross-Origin-Opener-Policy
-            Header unset Cross-Origin-Resource-Policy
-          </LocationMatch>
-        '';
-      };
     };
-
-
     extraConfig = ''
       <Directory /var/www>
         Options Indexes FollowSymLinks MultiViews
@@ -283,7 +185,7 @@ in
 
       # Setting specific SSL Curves.
       # https://raymii.org/s/tutorials/Strong_SSL_Security_On_Apache2.html
-      SSLOpenSSLConfCmd Curves X25519:secp521r1:secp384r1:prime256v1
+      #SSLOpenSSLConfCmd Curves X25519:secp521r1:secp384r1:prime256v1
 
       # Enable and configure OCSP Stapling.
       # https://raymii.org/s/tutorials/OCSP_Stapling_on_Apache2.html

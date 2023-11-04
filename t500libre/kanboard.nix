@@ -12,6 +12,7 @@ in
    # Agenix secrets.
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
 
+  # php settings for kanboard,
   services.phpfpm.pools.kanboard = {
     user = "kanboard";
     group = "kanboard";
@@ -21,12 +22,16 @@ in
       "pm.max_children" = 4;
     };
   };
+
+  # kanboard user.
   users.users.kanboard.isSystemUser = true;
   users.users.kanboard.group = "kanboard";
   users.groups.kanboard.members = ["kanboard" "nginx" ];
 
+  # database for kanboard.
   services.postgresql.enable = true;
 
+  # webserver with virtualhosts. @todo: migrate to caddy.
   services.nginx = {
     enable = true;
     virtualHosts."kanboard.${gnu-domain}" = {

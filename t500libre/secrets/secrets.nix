@@ -19,9 +19,5 @@ in
   "webserver-account-webmaster-email.age".publicKeys = [ root t500libre ];
   "webserver-virtualhost-gnu-domain.age".publicKeys = [ root t500libre ];
   "webserver-virtualhost-gnu-ip.age".publicKeys = [ root t500libre ];
-  "webserver-virtualhost-firstguest-domain.age".publicKeys = [ root t500libre ];
-  "webserver-virtualhost-firstguest-ip.age".publicKeys = [ root t500libre ];
-  "webserver-virtualhost-secondguest-domain.age".publicKeys = [ root t500libre ];
-  "webserver-virtualhost-secondguest-ip.age".publicKeys = [ root t500libre ];
   "webserver-virtualhost-archive-ip.age".publicKeys = [ root t500libre ];
 }

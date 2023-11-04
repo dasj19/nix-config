@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
   let
+    # NixOS Simple Mail Server release branch.
     release = "master";
     # Agenix paths:
     mailserver-account-daniel-password = config.age.secrets.mailserver-account-daniel-password.path;
@@ -11,11 +12,12 @@
     mailserver-account-daniel-email = lib.strings.fileContents config.age.secrets.mailserver-account-daniel-email.path;
     
   in {
+    # Fetch the email server.
     imports = [
       (builtins.fetchTarball {
         url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
         # This hash needs to be updated
-        sha256 = "0h35al73p15z9v8zb6hi5nq987sfl5wp4rm5c8947nlzlnsjl61x";
+        sha256 = "01n68yg8h56rg187iwb9jgncw9q4vzbxb2p420gcg6q6fj4xwb0b";
       })
     ];
 
@@ -27,15 +29,13 @@
     age.secrets.mailserver-account-daniel-aliases.file = secrets/mailserver-account-daniel-aliases.age;
     age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
 
+    # Setup for the mailserver.
     mailserver = {
       enable = true;
 
-      # Use Let's Encrypt instead of self-signed certificate.
-      # Set to manual because apache takes care of the SSL
-      # @TODO: make the path dynamic through a variable if possible.
-      certificateScheme = 1;
-      certificateFile = "/var/lib/acme/.lego/mail.${gnu-domain}/549839e4ae8616de7ad5/mail.${gnu-domain}.crt";
-      keyFile = "/var/lib/acme/.lego/mail.${gnu-domain}/549839e4ae8616de7ad5/mail.${gnu-domain}.key";
+      # Uses Let's Encrypt instead of self-signed certificate.
+      # The apache2 webserver takes care of getting the certificate.
+      certificateScheme = "acme";
 
       fqdn = mailserver-fqdn;
       # list of domains in format: [ "domain.tld" ];
@@ -71,6 +71,9 @@
   services.rspamd.extraConfig = ''
     milter_headers {
       use = ["x-spamd-bar", "x-spam-level", "x-spam-flag", "x-spam-status", "x-spamd-result", "spam-header", "authentication-results"];
+    }
+    actions {
+      greylist = 6; # Apply greylisting when reaching this score
     }
   '';
 }
