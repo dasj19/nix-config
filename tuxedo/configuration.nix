@@ -29,7 +29,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Linux kernel - Using a stable (non-lts) kernel.
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_0;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
   boot.extraModulePackages = with config.boot.kernelPackages; [ tuxedo-keyboard nvidia_x11 ];
   boot.blacklistedKernelModules = [
     "i2c_nvidia_gpu" # https://www.kernel.org/doc/html/latest/i2c/busses/i2c-nvidia-gpu.html
@@ -52,6 +52,7 @@ in
 
   # Internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = [ "all" ];
   console = {
     font = "Lat2-Terminus16";
     keyMap = "es";
@@ -129,35 +130,39 @@ in
     home = "/home/daniel";
     extraGroups = [ "wheel" "docker" "audio" "libvirtd" ];
     description = localhost-account-daniel-fullname;
-    passwordFile = localhost-account-daniel-password;
+    hashedPasswordFile = localhost-account-daniel-password;
   };
 
   # The root user.
   users.users.root = {
-    passwordFile = localhost-account-root-password;
+    hashedPasswordFile = localhost-account-root-password;
   };
+
+  #services.teamviewer.enable = true;
 
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     # Development.
     firefox-devedition-bin
-    php
+    php82
+    kcachegrind graphviz
+    fontforge-gtk
     vscodium #vscode-with-extensions
     arduino
     insomnia
     dbeaver
-    nix-review nix-prefetch
+    nixpkgs-review nix-prefetch
 
     # Drivers and Firmware.
-    hplip #hplipWithPlugin
+    hplip hplipWithPlugin
     cups ntfs3g
 
     # Desktop apps.
     gnome.gnome-tweaks gnome-network-displays freerdp
-    gparted evolutionWithPlugins  evolution-ews
+    gparted evolutionWithPlugins
     firefox-bin tor-browser-bundle-bin
-    qbittorrent ungoogled-chromium meld
+    qbittorrent  ungoogled-chromium meld
     strawberry osdlyrics
     gimp pdfarranger drawio inkscape
     signal-desktop
@@ -165,22 +170,23 @@ in
     gcstar
     czkawka
     protonvpn-gui element-desktop
+    filezilla
     
-    kodi
-    #(pkgs.kodi.passthru.withPackages (kodiPkgs: with kodiPkgs; [
-    #  a4ksubtitles
-    #]))
+    go2tv simple-dlna-browser
 
     #Localization
-    poedit aspell aspellDicts.ro gtranslator
+    poedit aspell aspellDicts.ro
 
     # CLI Utilities.
     lshw wget git cpufrequtils youtube-dl yt-dlp
-    ffmpeg dconf shntool flac cuetools
+    ffmpeg dconf jq
+    shntool flac cuetools
     asciinema tree usbutils nmap
     nix-tree inetutils openssl
     android-tools adb-sync scrcpy
-    p7zip nnn debootstrap
+    p7zip nnn debootstrap screen
+    xorriso hdparm
+
     # Agenix secret management.
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
 
@@ -188,19 +194,26 @@ in
     libreoffice-fresh
 
     # Streaming & Recording.
-    #obs-studio
+    obs-studio
     shotcut
+    kdenlive mediainfo #glaxnimate
 
     # Virtualization.
     virt-manager docker-compose
 
     # Games.
-    xonotic superTux superTuxKart mars
+    #xonotic superTux superTuxKart mars
+
+    # P2P.
+    radarr
 
     # Temporary.
     gnome-multi-writer woeusb
-    android-tools
+    eiskaltdcpp
+    #vosk
+
     # Temp proprietary.
+
   ];
 
   # Local postgresql server.
@@ -223,44 +236,48 @@ in
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22
+    3000 # EiskaltDC++
+    3001 # EiskaltDC++
     3389 # RDP connections
     3333 # LBRY Dameon
     4444 # LBRY Streams
-    5278
-    5279
-    5280
     5567 # LBRY P2P
-    9003
+    6250 # EiskaltDC++ DHT
     50001 # LBRY Wallet
   ];
   networking.firewall.allowedUDPPorts = [ 22 3389 9003
-    5278
-    5279
-    5280
+    3000 # EiskaltDC++
+    3001 # EiskaltDC++
+    6250 # EiskaltDC++ DHT
     4444 # LBRY Streams
   ];
 
   # Enable fish as the default shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
+  users.motdFile = "/etc/nixos/motd.txt";
 
   # Fish customizations.
-  programs.fish.shellInit = ''
-    echo "${banner}"
-    echo "TUXEDO XA15"
-    echo (date "+%T - %F")
-  '';
   programs.fish.interactiveShellInit = ''
     # Forcing true colors.
     set -g fish_term24bit 1
     # Empty fish greeting. @TODO: make it a fish option upstream.
     set -g fish_greeting ""
+    # Printout customized output on shell init.
+    echo "${banner}"
+    echo "TUXEDO XA15"
+    echo (date "+%T - %F")
   '';
 
   environment.shellAliases = {
     # change nixos-rebuild to use my own version of nixpkgs.
     nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/projects/nixpkgs --keep-going";
   };
+
+  # Keep until https://github.com/NixOS/nixpkgs/issues/230097 gets sorted out.
+  #environment.variables = {
+  #  QT_QPA_PLATFORM = "wayland";
+  #};
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "22.05";
