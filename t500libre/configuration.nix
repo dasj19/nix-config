@@ -3,22 +3,15 @@
 
 let 
 
-  # A custom python used mainly for searx dependencies.
-  # @todo: migrate to searx-ng
-  my-python-packages = python-packages: with python-packages; [
-    Babel httpcore httpx httpx-socks uvloop requests
-    langdetect lxml pyaml pygments python-dateutil werkzeug flask flask-babel h2
-  ]; 
-  python-with-my-packages = pkgs.python311.withPackages my-python-packages;
-
   # Agenix strings:
   acme-account-webmaster-email = lib.strings.fileContents config.age.secrets.acme-account-webmaster-email.path;
   gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
+  searxng-secret = lib.strings.fileContents config.age.secrets.searxng-secret.path;
+
   # Agenix paths:
   localhost-account-daniel-password = config.age.secrets.localhost-account-daniel-password.path;
   localhost-account-root-password = config.age.secrets.localhost-account-root-password.path;
   sshserver-authorized-keys = config.age.secrets.sshserver-authorized-keys.path;
-
 
 in
 
@@ -43,6 +36,7 @@ in
   age.secrets.localhost-account-daniel-password.file = secrets/localhost-account-daniel-password.age;
   age.secrets.sshserver-authorized-keys.file = secrets/sshserver-authorized-keys.age;
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
+  age.secrets.searxng-secret.file = secrets/searxng-secret.age;
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -97,21 +91,17 @@ in
 
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
-    # Libraries
-
     # CLI utils.
     wget vim w3m git netcat-gnu tree lynx
-    powertop dnsutils openssl lsof
+    powertop dnsutils openssl lsof nmap
+
     # Secrets management, agenix.
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
 
     # Server applications.
-    apacheHttpd_2_4 php82 apacheHttpdPackages.mod_cspnonce
-    libmodsecurity
-    filtron
-
-    # Required for local searx instance:
-    python-with-my-packages /* searx */ uwsgi shellcheck
+    apacheHttpd_2_4 apacheHttpdPackages.mod_cspnonce libmodsecurity
+    php82
+    searxng
   ];
 
   # Enable the avahi mDNS service.
@@ -144,7 +134,7 @@ in
   # SSH server settings.
   services.openssh.extraConfig = "MaxAuthTries 20";
   services.openssh.ports = [ 2201 ];
-  services.openssh.settings.PermitRootLogin = "without-password";
+  services.openssh.settings.PermitRootLogin = "yes";
 
   # Local DNS cache server. @TODO: Check to what extent is this used.
   services.resolved.enable = true;
@@ -163,34 +153,17 @@ in
   services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchDocked = "ignore";
 
-  # Startup a main searx server. Nixos removed support for searx.
-  systemd.services.searx = {
-      wantedBy      = [ "multi-user.target" ]; 
-      after         = [ "network.target" ];
-      description   = "Start a searx instance.";
-      serviceConfig = {
-        User = "searx";
-        ExecStart = ''
-           ${python-with-my-packages}/bin/python3 /var/www/searx.${gnu-domain}/searx/webapp.py
-        '';
-        Environment = [
-          "SEARX_SETTINGS_PATH=/var/www/searx.${gnu-domain}/searx-config-1.0.yml"
-        ];         
+
+  services.searx = {
+    enable = true;
+    settings = {
+      server = {
+        port = 8100;
+        bind_address = "127.0.0.1";
+        secret_key = searxng-secret;
       };
-   };
- 
-  # Startup a filtron server.
-  systemd.services.filtron = {
-      wantedBy = [ "multi-user.target" ]; 
-      after = [ "network.target" ];
-      description = "Start a filtron instance.";
-      serviceConfig = {
-        User = "filtron";
-        ExecStart = ''
-          ${pkgs.filtron}/bin/filtron -api "127.0.0.1:4005" -rules /var/www/filtron/filtron-rules.json -target "127.0.0.1:8100"
-        '';
-      };
-   };
+    };
+  };
 
   # ACME properties.
   security.acme.acceptTerms = true;
@@ -220,11 +193,9 @@ in
       993  # IMAPS    - Dovecot
       2201 # SSH      - OpenSSH
     # LAN-open:
-    # 4822 #          - Guacamole
       8001 # HTTP     - Nginx    - Kanboard
     # Host-restricted:
     # 8100 # HTTP     - Werkzeug - Searx
-    # 4005 # HTTP     - Fasthttp - Filtron
   ];
   networking.firewall.allowedUDPPorts = [
     # PORT - PROTOCOL - SERVER   - APP
@@ -279,15 +250,6 @@ in
     # Includes the path to the nixpkgs fork to pickup our own updates.
     nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --keep-going";
   };
-
-  # System users and their groups.
-  users.users.filtron.group = "filtron";
-  users.users.filtron.isSystemUser = true;
-  users.groups.filtron = {};
-
-  users.users.searx.group = "searx";
-  users.users.searx.isSystemUser = true;
-  users.groups.searx = {};
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "21.11";

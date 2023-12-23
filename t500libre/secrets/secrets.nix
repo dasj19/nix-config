@@ -15,6 +15,7 @@ in
   "mailserver-account-daniel-password.age".publicKeys = [ root t500libre ];
   "mailserver-domains.age".publicKeys = [ root t500libre ];
   "mailserver-fqdn.age".publicKeys = [ root t500libre ];
+  "searxng-secret.age".publicKeys = [ root t500libre ];
   "sshserver-authorized-keys.age".publicKeys = [ root t500libre ];
   "webserver-account-webmaster-email.age".publicKeys = [ root t500libre ];
   "webserver-virtualhost-gnu-domain.age".publicKeys = [ root t500libre ];

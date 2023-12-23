@@ -1,21 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-    # Using this repeatedly in every virtual host because a global redirect is not currently posssible.
-    redirect-rules = ''
-      # Remember: order of redirect conditions matter!
-      # Generic redirect www to non-www for all the domains on the server.
-      # Generic HTTTP to HTTPS redirect for all the domains on the server.
-
-#      RewriteEngine On
-#      RewriteOptions Inherit
-#      # Redirect all www trafic to non-www https.
-#      RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-#      RewriteRule ^/(.*) https://%1/''$1 [R=301,L]
-#      # Redirect all http traffic to https.
-#      RewriteCond %{HTTPS} !=on
-#      RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-    '';
 
   # Agenix strings:
   webmaster-email = lib.strings.fileContents config.age.secrets.webserver-account-webmaster-email.path;
@@ -26,7 +11,7 @@ let
 in
 
 {
-   # Agenix secrets.
+  # Agenix secrets.
   age.secrets.webserver-account-webmaster-email.file = secrets/webserver-account-webmaster-email.age;
   age.secrets.webserver-virtualhost-gnu-ip.file = secrets/webserver-virtualhost-gnu-ip.age;
   age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
@@ -70,8 +55,6 @@ in
         documentRoot = "/var/www/searx.${gnu-domain}/";
         logFormat = "combined";
         extraConfig = ''
-          # Redirects.
-          ${redirect-rules}
           # Forward traffic to a modified opensearch.xml. (Mainly added support for https links)
           Alias  "/opensearch.xml" "/var/www/searx.${gnu-domain}/opensearch.xml"
           ProxyPassMatch "\/opensearch\.xml" "!"
@@ -85,8 +68,8 @@ in
           <LocationMatch "/">
             # Proxy the searx instance.
             #ProxyPreserveHost On
-            ProxyPass http://127.0.0.1:4004/
-            ProxyPassReverse http://127.0.0.1:4004/
+            ProxyPass http://127.0.0.1:8100/
+            ProxyPassReverse http://127.0.0.1:8100/
 
             # Headers passed to the proxy.
             RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
@@ -104,9 +87,6 @@ in
         documentRoot = "/var/www/archive.${gnu-domain}/";
         logFormat = "combined";
         extraConfig = ''
-          # Redirects.
-          ${redirect-rules}
-
           <LocationMatch "/">
             # Proxy the archivebox instance from the local network.
             #ProxyPreserveHost On
@@ -138,10 +118,6 @@ in
         documentRoot = "/var/www/dslg.${gnu-domain}/";
         # serving php files as default.
         locations."/".index = "index.php";
-        extraConfig = ''
-          # Redirects.
-          ${redirect-rules}
-        '';
       };
       # Overall map of the services hosted at the gnu domain.
       "${gnu-domain}" = {
@@ -155,10 +131,6 @@ in
           "www.${gnu-domain}"
         ];
         documentRoot = "/var/www/${gnu-domain}/"; # "/var/www/gnu-domain/"
-        extraConfig = ''
-          # Redirects.
-          ${redirect-rules}
-        '';
       };
 
     };
