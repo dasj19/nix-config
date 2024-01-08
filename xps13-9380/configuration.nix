@@ -81,48 +81,51 @@
   };
 
   environment.systemPackages = with pkgs; [
-     # CLIs
+     # CLIs.
      (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
-     nmap
-     screen
-     wget
-     php82
-     php82Packages.composer
-     zip
-     xar
      bchunk
      bsdiff
-     python3
-     yt-dlp
      git
      nixpkgs-review
+     nmap
+     screen
+     tree
+     wget
+     xar
+     yt-dlp
+     zip
 
-     # GUIs
+     # GUIs.
+     chromium
+     evolution
      firefox
+     fontforge-gtk
+
      tvheadend
      libreoffice-still
      tor-browser-bundle-bin
-     fontforge-gtk
      wineWowPackages.stable
      winetricks mono freetype fontconfig
      ghidra
-     #chromium
-     evolution
      gimp vlc
      qbittorrent
      tribler
      remmina
-     #element-desktop
-     #protonvpn-gui
-     #signal-desktop
+     element-desktop
+     protonvpn-gui
+     signal-desktop
 
-     # Defelopment.
-     vscodium meld insomnia
+     # Development.
      filezilla
+     insomnia
+     meld
+     python3
+     vscodium
 
      # Tempporary.
      #heimdall heimdall-gui
-     libusb1 usbutils
+     libusb1
+     usbutils
      xd
   ];
 
