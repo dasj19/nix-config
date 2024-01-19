@@ -17,7 +17,7 @@
       (builtins.fetchTarball {
         url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
         # This hash needs to be updated
-        sha256 = "0pnfyg4icsvrw390a227m8b1j5w8awicx5aza3d0fiyyzpnrpn5a";
+        sha256 = "14n9z1rjrj03fzpyb9hj4qvgmsbv033c8h2jr77wa8zbryjcvcs8";
       })
     ];
 
@@ -66,6 +66,12 @@
   #services.dovecot2.extraConfig = ''
   #  auth_verbose = yes
   #'';
+
+  # Enable required extensions.
+  services.dovecot2.sieve.extensions = [
+    # To file spam into spam folder.
+    "fileinto"
+  ];
 
   # Add extended spam information.
   services.rspamd.extraConfig = ''
