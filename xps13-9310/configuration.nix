@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, lib, pkgs, ... }:
 
 let
@@ -27,12 +23,10 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  networking.hostName = "xps13-9310"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Latest kernel. For mic support.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "xps13-9310"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -81,7 +75,7 @@ in
 
   # Adding an extra layout.
   services.xserver.extraLayouts.esrodk = {
-    description = "Spanish +ro/dk diacritics";
+    description = "Spanish with roda diacritics";
     languages = ["spa"];
     symbolsFile = /etc/nixos/esrodk;
   };
@@ -119,10 +113,7 @@ in
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Underpriviledged user account.
   users.users.daniel = {
     isNormalUser = true;
     description = localhost-account-daniel-fullname;
@@ -133,32 +124,48 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     # Agenix secret management.
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
 
     # CLI.
-    nano git docker docker-compose tree platformsh #php81Packages.composer
-    exa dos2unix bash
+    docker
+    docker-compose
+    git
+    jq
+    nano
+    platformsh
+    tree
+
     # GUI.
-    firefox firefox-devedition-bin chromium google-chrome opera
-    slack evolution zoom-us
-    vscodium meld insomnia dbeaver postman
+    chromium
+    dbeaver
+    element-desktop
+    evolution
+    filezilla
+    firefox
+    firefox-devedition-bin
+    gimp
+    gnome.gnome-tweaks
+    google-chrome
+    libreoffice-still
+    meld
+    insomnia
+    opera
+    tor-browser-bundle-bin
+    slack
+    vscode
+    vscodium
+    zoom-us
+
     # Libraries.
+    nodejs_20
     php81
+    php81Packages.phpcs
   ];
 
   virtualisation.docker.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # List services that you want to enable:
 
@@ -166,10 +173,10 @@ in
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [
+    22 # OpenSSH
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # Enable fish as the default shell.
   programs.fish.enable = true;
@@ -185,39 +192,14 @@ in
       '';
   };
 
-  # Enable expanding of aliases for bash globally. (Needed for gchooks project).
-  #programs.bash.shellInit = ''
-  #  shopt -s expand_aliases
-  #'';
-
-  networking.hosts = {
-  "127.0.0.1" = [ "kdb" "kdk" "kirke" "orderflow" ];
-  };
 
   environment.shellAliases = {
     # change nixos-rebuild to use my own version of nixpkgs.
-    nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/nixpkgs --keep-going";
-    # Replace ls commands with exa counterparts.
-    
-    ls  = "exa";                                                         # ls replacement
-    l   = "exa -lbF --git";                                              # list, size, type, git
-    ll  = "exa -lbGF --git";                                             # long list
-    llm = "exa -lbGd --git --sort=modified";                             # long list, modified date sort
-    la  = "exa -lbhHigUmuSa --time-style=long-iso --git --color-scale";  # all list
-    lx  = "exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale"; # all + extended list
-
-    # specialty views
-    lS  = "exa -1";      	                                         # one column, just names
-    lt  = "exa --tree --level=2";                                        # tree
+    nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/nixpkgs --log-format bars-with-logs --keep-going";
   };
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  # Initial state. Check the manual before changing the state!
+  system.stateVersion = "23.05";
 
 }
 
