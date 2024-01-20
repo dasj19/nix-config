@@ -42,8 +42,8 @@ in
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
 
-  # Linux kernel - Using a LTS kernel. 5.15 is good until October 2026.
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_5_15;
+  # Linux kernel - Using a LTS kernel. 6.1 is good until December 2026.
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
 
   # Disable at boot. @TODO: Recheck and update this list some day.
   boot.blacklistedKernelModules = [
@@ -248,7 +248,7 @@ in
   # Custom shell aliases.
   environment.shellAliases = {
     # Includes the path to the nixpkgs fork to pickup our own updates.
-    nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --keep-going";
+    nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --log-format bar-with-logs --keep-going";
   };
 
   # Initial version. Consult manual before changing.
