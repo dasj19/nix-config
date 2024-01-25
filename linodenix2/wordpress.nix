@@ -31,7 +31,11 @@ patchedWordpress = pkgs.wordpress.overrideAttrs (old: {
 blogstream = pkgs.stdenv.mkDerivation rec {
   name = "blogstream";
   version = "1.1";
-  src = /etc/nixos/wordpress/blogstream-main.zip;
+  src = builtins.fetchGit {
+    url = "ssh://git@github.com/dasj19/blogstream.git";
+    ref = "main";
+    rev = "d4785df6b8317640297e2f13a731fe945030b0a7";
+  };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
   # Installing simply means copying all files to the output directory
