@@ -34,7 +34,7 @@ blogstream = pkgs.stdenv.mkDerivation rec {
   src = builtins.fetchGit {
     url = "ssh://git@github.com/dasj19/blogstream.git";
     ref = "main";
-    rev = "d4785df6b8317640297e2f13a731fe945030b0a7";
+    rev = "2f5333c19ccbf0e1f50ad2c41470f8cde0e000fe";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -332,6 +332,21 @@ hyper-cache = pkgs.stdenv.mkDerivation {
   '';
 };
 
+# https://downloads.wordpress.org/plugin/very-simple-contact-form.14.9.zip
+very-simple-contact-form = pkgs.stdenv.mkDerivation {
+  name = "very-simple-contact-form";
+  # Download the plugin from the wordpress site
+  src = pkgs.fetchurl {
+    url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.14.9.zip";
+    sha256 = "09h2bgvpx1s54s2v8jci3r2qw0lmmxki0ndj6cxaj1c2ck73832d";
+  };
+  # We need unzip to build this package
+  buildInputs = [ pkgs.unzip ];
+  # Installing simply means copying all files to the output directory
+  installPhase = ''
+    mkdir -p $out; cp -R * $out/
+  '';
+};
 
 
 # https://downloads.wordpress.org/plugin/say-it.4.0.1.zip
@@ -401,7 +416,8 @@ in
         inherit humanstxt;
         # Miscellaneous.
         inherit add-featured-image-to-rss-feed;
-        inherit mx-time-zone-clocks; 
+        inherit mx-time-zone-clocks;
+        inherit very-simple-contact-form;
         inherit wpforms-lite;
         # Cache performance and compression.
         inherit worpress-gzip-compression;
