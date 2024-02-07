@@ -236,20 +236,6 @@ wp-pagenavi = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/wpforms-lite.1.8.6.2.zip
-wpforms-lite = pkgs.stdenv.mkDerivation {
-  name = "wpforms-lite";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/wpforms-lite.1.8.6.2.zip";
-    sha256 = "0zp6bv2sk0jdv2ady95g2zl6h29g5903p1ls0ra1sva2y418g0xs";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
-
 # https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.2.zip
 add-featured-image-to-rss-feed = pkgs.stdenv.mkDerivation {
   name = "add-featured-image-to-rss-feed";
@@ -418,7 +404,6 @@ in
         inherit add-featured-image-to-rss-feed;
         inherit mx-time-zone-clocks;
         inherit very-simple-contact-form;
-        inherit wpforms-lite;
         # Cache performance and compression.
         inherit worpress-gzip-compression;
         inherit hyper-cache;
