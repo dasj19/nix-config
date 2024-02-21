@@ -52,10 +52,10 @@
   ];
 
   # Configure keymap in X11
-  services.xserver.layout = "es";
+  services.xserver.xkb.layout = "es";
 
   # Adding an extra layout.
-  services.xserver.extraLayouts.esrodk = {
+  services.xserver.xkb.extraLayouts.esrodk = {
     description = "Spanish +ro/dk diacritics";
     languages = ["dan" "eng" "rum" "spa"];
     symbolsFile = /etc/nixos/esrodk;
@@ -85,18 +85,22 @@
      (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
      bchunk
      bsdiff
+     gdb
      git
+     libxslt
      nixpkgs-review
      nmap
+     procmail
      screen
      tree
+     uudeview
      wget
      xar
      yt-dlp
      zip
+     zstd
 
      # GUIs.
-     chromium
      evolution
      firefox
      fontforge-gtk
@@ -109,7 +113,6 @@
      ghidra
      gimp vlc
      qbittorrent
-     tribler
      remmina
      element-desktop
      protonvpn-gui
