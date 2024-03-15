@@ -29,6 +29,10 @@ in
     "cache.armv7l.xyz-1:kBY/eGnBAYiqYfg0fy0inWhshUo+pGFM3Pj7kIkmlBk="
   ];
 
+  # Emulate arm.
+  boot.binfmt.emulatedSystems = [ "armv7l-linux" ];
+
+
   # Agenix secrets.
   age.secrets.localhost-account-daniel-password.file = secrets/localhost-account-daniel-password.age;
   age.secrets.localhost-account-daniel-fullname.file = secrets/localhost-account-daniel-fullname.age;
@@ -37,9 +41,6 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Emulate arm.
-  boot.binfmt.emulatedSystems = [ "armv7l-linux" ];
 
   # Linux kernel - Using a stable LTS kernel.
   # Check if the latest kernel is used:
@@ -74,7 +75,7 @@ in
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.layout = "esrodk,es,dk,ro";
+  services.xserver.xkb.layout = "esrodk,es,dk,ro";
   # TODO: Disable because of nonfree license. Then find a solution for HDMI output.
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -84,7 +85,7 @@ in
   ];
 
   # Adding an extra layout.
-  services.xserver.extraLayouts.esrodk = {
+  services.xserver.xkb.extraLayouts.esrodk = {
     description = "Spanish +ro/dk diacritics";
     languages = ["spa"];
     symbolsFile = /etc/nixos/esrodk;
