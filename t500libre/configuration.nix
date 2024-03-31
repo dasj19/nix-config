@@ -81,7 +81,7 @@ in
     "da_DK.UTF-8/UTF-8"
     "en_US.UTF-8/UTF-8"
   ];
-  # Font an keymap for the console.
+  # Font and keymap for the console.
   console = {
     font = "Lat2-Terminus16";
     keyMap = "es";
