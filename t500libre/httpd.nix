@@ -90,6 +90,8 @@ in
             # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
             Header unset Content-Security-Policy
             Header unset Clear-Site-Data
+            # Allow framing of the archive site.
+            Header unset X-Frame-Options
           </LocationMatch>
         '';
       };
