@@ -43,6 +43,7 @@ in
   boot.loader.grub.device = "/dev/sda";
 
   # Linux kernel - Using a LTS kernel. 6.1 is good until December 2026.
+  # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
 
   # Disable at boot. @TODO: Recheck and update this list some day.
@@ -80,7 +81,7 @@ in
     "da_DK.UTF-8/UTF-8"
     "en_US.UTF-8/UTF-8"
   ];
-  # Font an keymap for the console.
+  # Font and keymap for the console.
   console = {
     font = "Lat2-Terminus16";
     keyMap = "es";
@@ -131,6 +132,18 @@ in
     }
   ];
 
+  # A searxng instance.
+  services.searx = {
+    enable = true;
+    settings = {
+      server = {
+        port = 8100;
+        bind_address = "127.0.0.1";
+        secret_key = searxng-secret;
+      };
+    };
+  };
+
   # SSH server settings.
   services.openssh.extraConfig = "MaxAuthTries 20";
   services.openssh.ports = [ 2201 ];
@@ -153,22 +166,11 @@ in
   services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchDocked = "ignore";
 
-
-  services.searx = {
-    enable = true;
-    settings = {
-      server = {
-        port = 8100;
-        bind_address = "127.0.0.1";
-        secret_key = searxng-secret;
-      };
-    };
-  };
-
   # ACME properties.
   security.acme.acceptTerms = true;
   security.acme.defaults.email = acme-account-webmaster-email;
   security.acme.defaults.webroot = "/var/lib/acme/acme-challenge/";
+  # Use variables for domain names.
   security.acme.certs = {
     "archive.gnu.style" = {
       webroot = "/var/lib/acme/acme-challenge/";
@@ -195,7 +197,7 @@ in
     # LAN-open:
       8001 # HTTP     - Nginx    - Kanboard
     # Host-restricted:
-    # 8100 # HTTP     - Werkzeug - Searx
+    # 8100 # HTTP     - Werkzeug - SearxNG
   ];
   networking.firewall.allowedUDPPorts = [
     # PORT - PROTOCOL - SERVER   - APP

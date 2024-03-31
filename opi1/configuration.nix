@@ -15,9 +15,18 @@ in
   # Enables the generation of /boot/extlinux/extlinux.conf
   boot.loader.generic-extlinux-compatible.enable = true;
 
+  nix.settings.substituters = [
+    "https://cache.nixos.org"
+    "https://cache.armv7l.xyz/?trusted=1"
+  ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "cache.armv7l.xyz-1:kBY/eGnBAYiqYfg0fy0inWhshUo+pGFM3Pj7kIkmlBk="
+  ];
+
   networking.hostName = "opi1";
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
 
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";

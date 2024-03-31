@@ -65,16 +65,13 @@ in
   ];
 
   # Configure keymap in X11
-  services.xserver = {
-    layout = "esrodk,es,dk,ro";
-    xkbVariant = "";
-  };
+  services.xserver.xkb.layout = "esrodk,es,dk,ro";
 
   # Configure console keymap
   console.keyMap = "es";
 
   # Adding an extra layout.
-  services.xserver.extraLayouts.esrodk = {
+  services.xserver.xkb.extraLayouts.esrodk = {
     description = "Spanish with roda diacritics";
     languages = ["spa"];
     symbolsFile = /etc/nixos/esrodk;
@@ -130,6 +127,8 @@ in
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
 
     # CLI.
+    awscli2
+    codeium
     docker
     docker-compose
     git
@@ -195,7 +194,7 @@ in
 
   environment.shellAliases = {
     # change nixos-rebuild to use my own version of nixpkgs.
-    nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/nixpkgs --log-format bars-with-logs --keep-going";
+    nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/nixpkgs --log-format bar-with-logs --keep-going";
   };
 
   # Initial state. Check the manual before changing the state!

@@ -55,16 +55,6 @@ in
         documentRoot = "/var/www/searx.${gnu-domain}/";
         logFormat = "combined";
         extraConfig = ''
-          # Forward traffic to a modified opensearch.xml. (Mainly added support for https links)
-          Alias  "/opensearch.xml" "/var/www/searx.${gnu-domain}/opensearch.xml"
-          ProxyPassMatch "\/opensearch\.xml" "!"
-
-          # Forward traffic for robots.txt and sitemap.xml
-          Alias  "/robots.txt" "/var/www/searx.${gnu-domain}/robots.txt"
-          ProxyPassMatch "\/robots\.txt" "!"
-          Alias  "/sitemap.xml" "/var/www/searx.${gnu-domain}/sitemap.xml"
-          ProxyPassMatch "\/sitemap\.xml" "!"
-
           <LocationMatch "/">
             # Proxy the searx instance.
             #ProxyPreserveHost On
@@ -100,6 +90,8 @@ in
             # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
             Header unset Content-Security-Policy
             Header unset Clear-Site-Data
+            # Allow framing of the archive site.
+            Header unset X-Frame-Options
           </LocationMatch>
         '';
       };
@@ -130,7 +122,7 @@ in
         serverAliases = [
           "www.${gnu-domain}"
         ];
-        documentRoot = "/var/www/${gnu-domain}/"; # "/var/www/gnu-domain/"
+        documentRoot = "/var/www/${gnu-domain}/";
       };
 
     };
@@ -171,9 +163,6 @@ in
       # https://httpd.apache.org/docs/current/mod/mod_ssl.html
       SSLStrictSNIVHostCheck on
 
-      # Fixing faulty mime type configuration for xml files.
-      AddType application/xml .xml
-
       # Enable HSTS over HTTPS only
       # @see https://https.cio.gov/hsts/
       # @see https://hstspreload.org/
@@ -182,9 +171,6 @@ in
       # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
       Header set Access-Control-Allow-Origin: *
 
-      # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect-CT
-      Header set Expect-CT: 'max-age=86400, enforce, report-uri="https://searx.${gnu-domain}/about"'
-      
       # https://infosec.mozilla.org/guidelines/web_security#x-frame-options
       # Prevent website from framing this site.
       Header set X-Frame-Options: "DENY"
