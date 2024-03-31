@@ -79,8 +79,11 @@ in
   # INSTALLED PACKAGES:
   environment.systemPackages = with pkgs; [
     # CLI tools.
-    wget git wp-cli
+    gdb
+    git
     libwebp
+    wget
+    wp-cli
 
     # Miscellaneous.
     inetutils
