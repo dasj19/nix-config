@@ -42,9 +42,9 @@ in
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
 
-  # Linux kernel - Using a LTS kernel. 6.1 is good until December 2026.
+  # Linux kernel - Using a LTS kernel. 6.6 is good until December 2026.
   # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
 
   # Disable at boot. @TODO: Recheck and update this list some day.
   boot.blacklistedKernelModules = [
