@@ -26,7 +26,7 @@ in
   # Latest kernel. For mic support.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "xps13-9310"; # Define your hostname.
+  networking.hostName = "xps13-9310";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -58,9 +58,15 @@ in
 
   # Disable unused gnome packages.
   environment.gnome.excludePackages = with pkgs; [
-    gnome-photos gnome.geary gnome.gnome-music
-    gnome.gnome-weather gnome.gnome-clocks gnome.cheese
-    gnome-tour gnome-connections gnome.gnome-logs
+    cheese
+    geary
+    gnome-photos
+    gnome.gnome-music
+    gnome.gnome-weather
+    gnome.gnome-clocks
+    gnome-tour
+    gnome-connections
+    gnome.gnome-logs
     gnome.gnome-maps
   ];
 
@@ -92,6 +98,17 @@ in
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  # Hardware acceleration for intel based graphics cards.
+  environment.variables = {
+    VDPAU_DRIVER = lib.mkIf config.hardware.graphics.enable (lib.mkDefault "va_gl");
+  };
+
+  hardware.graphics.extraPackages = with pkgs; [
+    (if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then vaapiIntel else intel-vaapi-driver)
+    libvdpau-va-gl
+    intel-media-driver
+  ];
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -126,27 +143,40 @@ in
     # Agenix secret management.
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
 
+
     # CLI.
     awscli2
     codeium
+    php82Packages.composer
+    cypress
     docker
     docker-compose
     git
+    goaccess
     jq
     nano
+    pciutils
     platformsh
     tree
+    wget
+    xvfb-run
+    yarn
+
+    # Drivers and firmware.
+    intel-gmmlib
+    glibc
 
     # GUI.
     chromium
-    dbeaver
+    drawio
+    dbeaver-bin
     element-desktop
     evolution
     filezilla
     firefox
     firefox-devedition-bin
     gimp
-    gnome.gnome-tweaks
+    gnome-tweaks
     google-chrome
     libreoffice-still
     meld
@@ -154,14 +184,18 @@ in
     opera
     tor-browser-bundle-bin
     slack
+    vlc
     vscode
     vscodium
     zoom-us
 
     # Libraries.
     nodejs_20
-    php81
-    php81Packages.phpcs
+    php82
+    stdenv.cc.cc.lib
+
+    # Temporary
+    xorg.xorgserver
   ];
 
   virtualisation.docker.enable = true;
@@ -191,10 +225,19 @@ in
       '';
   };
 
+  programs.nix-ld.enable = true;
+
+  programs.nix-ld.libraries = with pkgs; [
+
+    cypress
+  ];
+
 
   environment.shellAliases = {
     # change nixos-rebuild to use my own version of nixpkgs.
     nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/nixpkgs --log-format bar-with-logs --keep-going";
+
+    xvfb = "/run/current-system/sw/bin/xvfb-run";
   };
 
   # Initial state. Check the manual before changing the state!
