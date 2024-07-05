@@ -10,7 +10,7 @@ in
       (builtins.fetchTarball {
         url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
         # This hash needs to be updated
-        sha256 = "122vm4n3gkvlkqmlskiq749bhwfd0r71v6vcmg1bbyg4998brvx8";
+        sha256 = "1a2d5j56y6vcdnqckjlk5qq8sb6n4flshich82p9x5p9fzrcx2ns";
       })
     ];
 

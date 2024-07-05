@@ -34,7 +34,7 @@ blogstream = pkgs.stdenv.mkDerivation rec {
   src = builtins.fetchGit {
     url = "ssh://git@github.com/dasj19/blogstream.git";
     ref = "main";
-    rev = "2f5333c19ccbf0e1f50ad2c41470f8cde0e000fe";
+    rev = "ba32aa4f83dcdba8c75e680482080bd43701dba7";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -121,6 +121,19 @@ easy-wp-meta-description = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
+# https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.3.zip
+wp-robots-txt = pkgs.stdenv.mkDerivation {
+  name = "wp-robots-txt";
+  # Download the plugin from the wordpress site
+  src = pkgs.fetchurl {
+    url = "https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.3.zip";
+    sha256 = "17884j8rx8f10b307y0jr9d72yhy62zxd2nwyp5pqara6x55sazb";
+  };
+  # We need unzip to build this package
+  buildInputs = [ pkgs.unzip ];
+  # Installing simply means copying all files to the output directory
+  installPhase = "mkdir -p $out; cp -R * $out/";
+};
 
 # https://downloads.wordpress.org/plugin/wordpress-gzip-compression.1.0.zip
 worpress-gzip-compression = pkgs.stdenv.mkDerivation {
@@ -180,14 +193,13 @@ stop-xml-rpc = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/advanced-custom-fields.6.2.2.zip
-# https://downloads.wordpress.org/plugin/advanced-custom-fields.6.2.5.zip
+# https://downloads.wordpress.org/plugin/advanced-custom-fields.6.2.7.zip
 advanced-custom-fields = pkgs.stdenv.mkDerivation {
   name = "advanced-custom-fields";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.2.5.zip";
-    sha256 = "1qwgww1fkix1j8c1sdpr0099h16q5msvpj1k35cg80jsyl0r6bhx";
+    url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.2.7.zip";
+    sha256 = "0cm33xi43i4r2afl7m573611xg8aqhrp5mabsiabb9rg71mkyz79";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -202,20 +214,6 @@ tinymce-advanced = pkgs.stdenv.mkDerivation {
   src = pkgs.fetchurl {
     url = "https://downloads.wordpress.org/plugin/tinymce-advanced.5.9.2.zip";
     sha256 = "1iv9zpxmdllqqq28cx1nr425jnv5nf1pnv95s0krq3wxvhsnck7c";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
-
-# https://downloads.wordpress.org/plugin/cluevo-lms.1.11.0.zip
-cluevo-lms = pkgs.stdenv.mkDerivation {
-  name = "cluevo-lms";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/cluevo-lms.1.11.0.zip";
-    hash = "sha256-Enmw4lbBljLOsdUA1D0Psg0Wq3sTioyZR3/fGOu/o7U=";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -264,13 +262,13 @@ edit-author-slug = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/redirection.5.4.1.zip
+# https://downloads.wordpress.org/plugin/redirection.5.4.2.zip
 redirection = pkgs.stdenv.mkDerivation {
   name = "redirection";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/redirection.5.4.1.zip";
-    sha256 = "14cgymm1xj3m6li4yzryb186wmg5f7ffjc750m2g4d7lmjqfifsl";
+    url = "https://downloads.wordpress.org/plugin/redirection.5.4.2.zip";
+    sha256 = "1vpjy93q58r67w8cffxl4sfybl3fcs1cwai6ap5pnq04cb9k6izg";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -278,13 +276,13 @@ redirection = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/images-to-webp.4.6.zip
+# https://downloads.wordpress.org/plugin/images-to-webp.4.7.zip
 images-to-webp = pkgs.stdenv.mkDerivation {
   name = "images-to-webp";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/images-to-webp.4.6.zip";
-    sha256 = "1kpqqm3h8jf4ani394wd9ln5xbk7f4pvpbkya0046s4rkn5103m0";
+    url = "https://downloads.wordpress.org/plugin/images-to-webp.4.7.zip";
+    sha256 = "0dcrb99f0by9bnfpmqbv1i2ngbfh9apkqw8mlv0mz938bzaj5qbk";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -318,13 +316,13 @@ hyper-cache = pkgs.stdenv.mkDerivation {
   '';
 };
 
-# https://downloads.wordpress.org/plugin/very-simple-contact-form.14.9.zip
+# https://downloads.wordpress.org/plugin/very-simple-contact-form.15.6.zip
 very-simple-contact-form = pkgs.stdenv.mkDerivation {
   name = "very-simple-contact-form";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.14.9.zip";
-    sha256 = "09h2bgvpx1s54s2v8jci3r2qw0lmmxki0ndj6cxaj1c2ck73832d";
+    url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.15.6.zip";
+    sha256 = "1m3rj74py8hmpl75igkvfi0pv43sdzf8xsplhd0h5wzlq09w7wyr";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -348,14 +346,36 @@ say-it = pkgs.stdenv.mkDerivation rec {
   '';
 };
 
-# https://downloads.wordpress.org/plugin/mx-time-zone-clocks.4.1.zip  
+# https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.zip
 mx-time-zone-clocks = pkgs.stdenv.mkDerivation rec {
   name = "mx-time-zone-clocks";
   version = "3.9";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/mx-time-zone-clocks.4.1.zip";
-    sha256 = "0qni1f1yh4f471039abjgysfnhx2xq0zkz6lsdy92k4p39fhq9lv";
+    url = "https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.zip";
+    sha256 = "00yw616442k484dmfjb6i5jcmsay2jfjd86ic4vv21x1kpr1x2jq";
+  };
+  # We need unzip to build this package
+  buildInputs = [ pkgs.unzip pkgs.libwebp ];
+  # Installing simply means copying all files to the output directory
+  installPhase = ''
+    mkdir -p $out; cp -R * $out/
+    # Convert the png clock faces to webp.
+    cd $out/includes/admin/assets/img
+    for FILE in *.png; do
+      cwebp "''$FILE" -o "''$FILE.webp";
+    done;
+  '';
+};
+
+# https://downloads.wordpress.org/plugin/speculation-rules.1.0.1.zip
+speculation-rules = pkgs.stdenv.mkDerivation rec {
+  name = "speculation-rules";
+  version = "1.0.0";
+  # Download the plugin from the wordpress site
+  src = pkgs.fetchurl {
+    url = "https://downloads.wordpress.org/plugin/speculation-rules.1.0.1.zip";
+    sha256 = "05hh3hhkvcdvyazhgh9lik3gm1zc40j27w5wrbb703f20i78xc3j";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -364,6 +384,32 @@ mx-time-zone-clocks = pkgs.stdenv.mkDerivation rec {
     mkdir -p $out; cp -R * $out/
   '';
 };
+
+# https://downloads.wordpress.org/plugin/cool-tag-cloud.zip
+cool-tag-cloud = pkgs.stdenv.mkDerivation rec {
+  name = "cool-tag-cloud";
+  version = "2.29";
+  # Download the plugin from the wordpress site
+  src = pkgs.fetchurl {
+    url = "https://downloads.wordpress.org/plugin/cool-tag-cloud.zip";
+    sha256 = "029yjqrpyrjw1z9mbxgp2aw8icb0gpg0qfb5g46mpnph4clbc2h3";
+  };
+  # We need unzip to build this package
+  buildInputs = [ pkgs.unzip pkgs.libwebp ];
+  # Installing simply means copying all files to the output directory
+  installPhase = ''
+    mkdir -p $out; cp -R * $out/
+    # convert all images to webp.
+    cd $out/inc/images
+    for FILE in *.png; do
+      cwebp "''$FILE" -o "''$FILE.webp";
+    done;
+  '';
+};
+
+# @TOCONSIDER: https://wordpress.org/plugins/performance-lab/
+# https://wordpress.org/plugins/performant-translations/
+# Got them from: https://profiles.wordpress.org/wordpressdotorg/
 
 in
 {
@@ -398,10 +444,12 @@ in
         # SEO
         inherit edit-author-slug;
         inherit easy-wp-meta-description;
-        inherit redirection;
         inherit humanstxt;
+        inherit redirection;
+        inherit wp-robots-txt;
         # Miscellaneous.
         inherit add-featured-image-to-rss-feed;
+        inherit cool-tag-cloud;
         inherit mx-time-zone-clocks;
         inherit very-simple-contact-form;
         # Cache performance and compression.
@@ -410,6 +458,7 @@ in
         inherit images-to-webp;
         inherit disable-json-api;
         inherit stop-xml-rpc;
+        inherit speculation-rules;
       };
 
       # Add romanian language.
@@ -436,7 +485,6 @@ in
       plugins = {
         inherit say-it;
         inherit classic-editor;
-        inherit cluevo-lms;
         inherit tinymce-advanced;
         # SEO.
         inherit humanstxt;
