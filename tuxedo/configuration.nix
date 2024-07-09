@@ -32,6 +32,13 @@ in
   # Emulate arm.
   boot.binfmt.emulatedSystems = [ "armv7l-linux" ];
 
+  nix.distributedBuilds = true;
+  # Useful when the builder has a faster internet connection than yours
+  nix.extraOptions = ''
+    builders-use-substitutes = true
+  '';
+  nix.settings.trusted-users = [ "root" "daniel" ];
+
 
   # Agenix secrets.
   age.secrets.localhost-account-daniel-password.file = secrets/localhost-account-daniel-password.age;
@@ -85,12 +92,9 @@ in
   ];
 
   # Adding an extra layout.
-  services.xserver.xkb.extraLayouts.esrodk = {
-    description = "Spanish +ro/dk diacritics";
-    languages = ["spa"];
-    symbolsFile = /etc/nixos/esrodk;
-  };
-
+  services.xserver.xkb.extraLayouts.esrodk.description = "Spanish +ro/dk diacritics";
+  services.xserver.xkb.extraLayouts.esrodk.languages = ["spa"];
+  services.xserver.xkb.extraLayouts.esrodk.symbolsFile = /etc/nixos/esrodk;
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -98,15 +102,21 @@ in
 
   # Disable unused gnome packages.
   environment.gnome.excludePackages = with pkgs; [
-    gnome-photos gnome.geary gnome.gnome-music
-    gnome.gnome-weather gnome.gnome-clocks gnome.cheese
-    gnome-tour gnome-connections gnome.gnome-logs
+    gnome-photos
+    geary
+    gnome.gnome-music
+    gnome.gnome-weather
+    gnome.gnome-clocks
+    cheese
+    gnome-tour
+    gnome-connections
+    gnome.gnome-logs
     gnome.gnome-maps
   ];
 
   # Gnome changes.
   services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
-    gnome.gnome-terminal
+    gnome-terminal
   ];
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
       [org.gnome.Terminal.Legacy.Settings]
@@ -119,7 +129,7 @@ in
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplip ];
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
   # DESKTOP CUSTOMIZATIONS. #
 
@@ -140,19 +150,20 @@ in
   users.mutableUsers = false;
 
   # Main user.
-  users.users.daniel = {
-    isNormalUser = true;
-    home = "/home/daniel";
-    extraGroups = [ "wheel" "docker" "audio" "libvirtd" ];
-    description = localhost-account-daniel-fullname;
-    hashedPasswordFile = localhost-account-daniel-password;
-  };
+  users.users.daniel.isNormalUser = true;
+  users.users.daniel.home = "/home/daniel";
+  users.users.daniel.description = localhost-account-daniel-fullname;
+  users.users.daniel.hashedPasswordFile = localhost-account-daniel-password;
+  users.users.daniel.extraGroups = [
+    "wheel"
+    "docker"
+    "audio"
+    "libvirtd"
+    "dialout"
+  ];
 
   # The root user.
-  users.users.root = {
-    hashedPasswordFile = localhost-account-root-password;
-  };
-
+  users.users.root.hashedPasswordFile = localhost-account-root-password;
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
@@ -161,47 +172,82 @@ in
     php82
     kcachegrind graphviz
     fontforge-gtk
-    vscodium #vscode-with-extensions
+    vscodium
     arduino
     insomnia
-    dbeaver
-    nixpkgs-review nix-prefetch nix-serve
-    python3
+    dbeaver-bin
+    nixpkgs-review
+    nix-prefetch
+    nix-serve
 
     # Drivers and Firmware.
-    hplip hplipWithPlugin
+    hplipWithPlugin
     cups ntfs3g
 
     # Desktop apps.
-    gnome.gnome-tweaks gnome-network-displays freerdp
-    gparted evolutionWithPlugins
-    firefox-bin tor-browser-bundle-bin
-    qbittorrent  #ungoogled-chromium
+    gnome-tweaks
+    gnome-network-displays
+    freerdp
+    gparted
+    evolutionWithPlugins
+    firefox-bin
+    tor-browser-bundle-bin
+    qbittorrent
+    ungoogled-chromium
     meld
-    strawberry osdlyrics
-    gimp pdfarranger drawio inkscape
+    strawberry
+    osdlyrics
+    gimp
+    pdfarranger
+    inkscape
     signal-desktop
     vlc lbry
     gcstar
     czkawka
-    protonvpn-gui element-desktop
+    protonvpn-gui
     filezilla
     ventoy
+    #bitcoin - disabled 09072024, fails to build
     
+    # Electron apps.
+    element-desktop
+    drawio
+    discord
     go2tv simple-dlna-browser
 
     #Localization
-    poedit aspell aspellDicts.ro
+    poedit
+    aspell
+    aspellDicts.ro
 
     # CLI Utilities.
-    lshw wget git cpufrequtils youtube-dl yt-dlp
-    ffmpeg dconf jq
-    shntool flac cuetools
-    asciinema tree usbutils nmap
-    nix-tree inetutils openssl
-    android-tools adb-sync scrcpy
-    p7zip nnn debootstrap screen
-    xorriso hdparm
+    lshw
+    wget
+    git
+    cpufrequtils
+    yt-dlp
+    ffmpeg
+    dconf
+    jq
+    shntool
+    flac
+    cuetools
+    asciinema
+    tree
+    usbutils
+    nmap
+    nix-tree
+    inetutils
+    openssl
+    android-tools
+    adb-sync
+    scrcpy
+    p7zip
+    nnn
+    debootstrap
+    screen
+    xorriso
+    hdparm
 
     # Agenix secret management.
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
@@ -212,31 +258,32 @@ in
     # Streaming & Recording.
     obs-studio
     shotcut
-    kdenlive mediainfo #glaxnimate
+    kdenlive
+    mediainfo
+    glaxnimate
 
     # Virtualization.
-    virt-manager docker-compose
+    virt-manager
+    docker-compose
 
     # Games.
-    #xonotic superTux superTuxKart mars
+    xonotic
+    superTux
+    superTuxKart
+    mars
 
     # P2P.
     radarr
+    #eiskaltdcpp - disabled 09072024, fails to build
 
     # Temporary.
-    gnome-multi-writer woeusb
-    eiskaltdcpp
-    #vosk
-
-    # Temp proprietary.
-
+    gnome-multi-writer
+    woeusb
   ];
 
   # Local postgresql server.
   services.postgresql.enable = true;
-  services.postgresql.authentication = ''
-    host all all 127.0.0.1/32 password
-  '';
+  services.postgresql.authentication = "host all all 127.0.0.1/32 password";
 
   # Still enabled because of nvidia firmware.
   nixpkgs.config.allowUnfree = true;
@@ -249,9 +296,7 @@ in
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.banner = banner;
-  services.openssh.settings = {
-    PubkeyAuthentication = true;
-  };
+  services.openssh.settings.PubkeyAuthentication = true;
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
@@ -290,39 +335,33 @@ in
   '';
 
   # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
-  hardware.nvidia = {
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
 
     # Modesetting is required.
-    modesetting.enable = true;
+  hardware.nvidia.modesetting.enable = true;
 
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    powerManagement.enable = false;
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
+  # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+  hardware.nvidia.powerManagement.enable = false;
+  # Fine-grained power management. Turns off GPU when not in use.
+  # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+  hardware.nvidia.powerManagement.finegrained = false;
 
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
+  # Use the NVidia open source kernel module (not to be confused with the
+  # independent third-party "nouveau" open source driver).
+  # Support is limited to the Turing and later architectures. Full list of
+  # supported GPUs is at:
+  # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
+  # Only available from driver 515.43.04+
+  # Currently alpha-quality/buggy, so false is currently the recommended setting.
+  hardware.nvidia.open = false;
 
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
+  # Enable the Nvidia settings menu,
+  # accessible via `nvidia-settings`.
+  hardware.nvidia.nvidiaSettings = true;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
+  # Optionally, you may need to select the appropriate driver version for your specific GPU.
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   environment.shellAliases = {
     # change nixos-rebuild to use my own version of nixpkgs.
