@@ -170,7 +170,8 @@ in
     # Development.
     firefox-devedition-bin
     php82
-    kcachegrind graphviz
+    kcachegrind
+    graphviz
     fontforge-gtk
     vscodium
     arduino
@@ -207,7 +208,7 @@ in
     protonvpn-gui
     filezilla
     ventoy
-    #bitcoin - disabled 09072024, fails to build
+    bitcoin
     
     # Electron apps.
     element-desktop
@@ -274,7 +275,7 @@ in
 
     # P2P.
     radarr
-    #eiskaltdcpp - disabled 09072024, fails to build
+    eiskaltdcpp
 
     # Temporary.
     gnome-multi-writer
