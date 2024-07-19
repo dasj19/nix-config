@@ -1,11 +1,27 @@
 { config, lib, pkgs, ... }:
 
+let
+  variables = import ./secrets/variables.nix;
+in
+
 {
   imports =
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Include email-related software configuration.
+      ./email.nix
+      # Agenix secret management tool.
+      "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
     ];
+
+  # Files that holds the secrets.
+  age.secrets.cloudflare-dns-api-credentials.file = ./secrets/cloudflare-dns-api-credentials.age;
+  # File containing the following variables.
+  # CLOUDFLARE_EMAIL=
+  # CF_DNS_API_TOKEN=
+  # CF_ZONE_API_TOKEN=
+  age.secrets.mailserver-account-daniel-password.file = ./secrets/mailserver-account-daniel-password.age;
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -35,7 +51,7 @@
      # CLI.
      git
      wget
-  ];
+  ] ++ [ (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {}) ];
 
   # List services.
 
@@ -67,6 +83,12 @@
   networking.firewall.allowedUDPPorts = [
 
   ];
+
+  # ACME settings.
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = variables.webmasterEmail;
+  security.acme.defaults.dnsProvider = "cloudflare";
+  security.acme.defaults.credentialsFile = config.age.secrets.cloudflare-dns-api-credentials.path;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix).
