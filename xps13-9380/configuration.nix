@@ -22,6 +22,9 @@
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Kernel.
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+
   networking.hostName = "xps13-9380";
 
   # Enable networking via network manager.
@@ -83,7 +86,7 @@
     isNormalUser = true;
     description = lib.strings.fileContents config.age.secrets.daniel-fullname.path;
     hashedPasswordFile = config.age.secrets.daniel-password.path;
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
   };
   users.users.root = {
     hashedPasswordFile = config.age.secrets.root-password.path;
@@ -96,6 +99,8 @@
     bsdiff
     gdb
     git
+    iat
+    ffmpeg
     libxslt
     nixpkgs-review
     nmap
@@ -108,18 +113,22 @@
     xar
     yt-dlp
     zip
+    unrar
     zstd
     kermit
     w3m
+    shntool
     tftp-hpa
 
     # GUIs.
     evolution
+    cuetools
     firefox
     fontforge-gtk
     gparted
     gnome-tweaks
-
+    brasero
+    halloy
     libreoffice-still
     tor-browser-bundle-bin
     wineWowPackages.stable
@@ -129,6 +138,8 @@
     vlc
     qbittorrent
     remmina
+    virtualbox
+    poedit
     # Electron apps.
     element-desktop
     protonvpn-gui
@@ -193,7 +204,24 @@
     set -g fish_greeting ""
   '';
 
- nixpkgs.config.allowUnfree = true;
+  # Cross-shell prompt.
+  programs.starship.enable = true;
+  # Starship configuration.
+  programs.starship.settings = {
+    add_newline = false;
+  };
+
+
+  nixpkgs.config.allowUnfree = true;
+
+  fonts.packages = with pkgs; [
+    noto-fonts-emoji
+    noto-fonts-cjk
+    font-awesome
+    symbola
+    material-icons
+  ];
+
 
   environment.shellAliases = {
     # change nixos-rebuild to use my own version of nixpkgs.
