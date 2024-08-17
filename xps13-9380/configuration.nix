@@ -6,9 +6,9 @@
     ./hardware-configuration.nix
   ];
 
-  # Temp TFTP server.
-  services.atftpd.enable = true;
-  services.atftpd.root = "/srv/tftp";
+  # Enable OpenGL support.
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
 
   # SOPS settings.
   sops.defaultSopsFile = ./secrets/variables.yaml;
@@ -27,12 +27,17 @@
   # Kernel.
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
 
+  # Networking settings.
   networking.hostName = "xps13-9380";
-
-  # Enable networking via network manager.
+  networking.firewall.allowedTCPPorts = [
+    22 # OpenSSH
+  ];
+  networking.firewall.allowedUDPPorts = [
+    69 # TFTPD
+  ];
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
+  # Local time.
   time.timeZone = "Europe/Copenhagen";
 
   # Select internationalisation properties.
@@ -44,12 +49,22 @@
     xterm
   ];
 
-  # Enable LxQt lightweight DE.
-  services.xserver.desktopManager.lxqt.enable = true;
-
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Configure keymap in X11
+  services.xserver.xkb.layout = "es";
+
+  # Configure console keymap
+  console.keyMap = "es";
+
+  # Adding an extra layout.
+  services.xserver.xkb.extraLayouts.esrodk = {
+    description = "Spanish +ro/dk diacritics";
+    languages = ["dan" "eng" "rum" "spa"];
+    symbolsFile = /etc/nixos/esrodk;
+  };
 
   # Exclude unnecessary GNOME programs.
   environment.gnome.excludePackages = with pkgs; [
@@ -65,25 +80,12 @@
     gnome.gnome-maps
   ];
 
-  # Configure keymap in X11
-  services.xserver.xkb.layout = "es";
-
-  # Adding an extra layout.
-  services.xserver.xkb.extraLayouts.esrodk = {
-    description = "Spanish +ro/dk diacritics";
-    languages = ["dan" "eng" "rum" "spa"];
-    symbolsFile = /etc/nixos/esrodk;
-  };
-
-  # Configure console keymap
-  console.keyMap = "es";
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Allow updating of password hashes.
   users.mutableUsers = false;
-  # Unpriviledged user account with a secret description.
+  # Unpriviledged account.
   users.users.daniel = {
     isNormalUser = true;
     description = "${gitSecrets.fullName}";
@@ -167,16 +169,17 @@
 
     # Tempporary.
     discord
-    #heimdall heimdall-gui
+    heimdall
+    heimdall-gui
     libusb1
     usbutils
     xd
     pkgs.tt
   ];
 
-  # Enable OpenGL support.
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
+  # Temp TFTP server.
+  services.atftpd.enable = true;
+  services.atftpd.root = "/srv/tftp";
 
   # Virtualisation.
   virtualisation.docker.enable = true;
@@ -184,15 +187,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    22 # OpenSSH
-  ];
-  networking.firewall.allowedUDPPorts = [
-    69 # TFTPD
-  ];
-
- # Enable fish as the default shell.
+  # Enable fish as the default shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
@@ -214,9 +209,6 @@
     add_newline = false;
   };
 
-
-  nixpkgs.config.allowUnfree = true;
-
   fonts.packages = with pkgs; [
     noto-fonts-emoji
     noto-fonts-cjk
@@ -225,9 +217,7 @@
     material-icons
   ];
 
-
   environment.shellAliases = {
-    # change nixos-rebuild to use my own version of nixpkgs.
     # Provide sass-embedded from nixos.
     sass-embedded = "${pkgs.dart-sass}/bin/sass --embeded";
     dart = "${pkgs.dart-sass}/bin/dart-sass";
@@ -243,7 +233,12 @@
 
   '';
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Nix and Nixpkgs configurations.
+  nix.settings.experimental-features = [
+    "flakes"
+    "nix-command"
+  ];
+  nixpkgs.config.allowUnfree = true;
 
   # Check documentation if you want/need to change this.
   system.stateVersion = "22.11";
