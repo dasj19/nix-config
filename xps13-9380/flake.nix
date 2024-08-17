@@ -4,11 +4,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    agenix.url = "github:ryantm/agenix";
     sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, agenix, sops-nix, ... }:
+  outputs = { self, nixpkgs, sops-nix, ... }:
 
   let
     gitSecrets = builtins.fromJSON(builtins.readFile "${self}/secrets/git-secrets.json");
@@ -22,7 +21,6 @@
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        agenix.nixosModules.default
         sops-nix.nixosModules.sops
       ];
     };
