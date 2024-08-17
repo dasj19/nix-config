@@ -10,6 +10,12 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
+  # Boot parameters.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+
   # SOPS settings.
   sops.defaultSopsFile = ./secrets/variables.yaml;
   sops.age.generateKey = true;
@@ -18,14 +24,6 @@
   # SOPS secrets.
   sops.secrets.daniel_password = {};
   sops.secrets.root_password = {};
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Kernel.
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
 
   # Networking settings.
   networking.hostName = "xps13-9380";
@@ -85,7 +83,8 @@
 
   # Allow updating of password hashes.
   users.mutableUsers = false;
-  # Unpriviledged account.
+
+  # Underpriviledged account.
   users.users.daniel = {
     isNormalUser = true;
     description = "${gitSecrets.fullName}";
