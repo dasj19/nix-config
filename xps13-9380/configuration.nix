@@ -63,7 +63,7 @@
   services.xserver.xkb.extraLayouts.esrodk = {
     description = "Spanish +ro/dk diacritics";
     languages = ["dan" "eng" "rum" "spa"];
-    symbolsFile = /etc/nixos/esrodk;
+    symbolsFile = ./esrodk;
   };
 
   # Exclude unnecessary GNOME programs.
