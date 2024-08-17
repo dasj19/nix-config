@@ -1,21 +1,23 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, gitSecrets, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # Agenix via fetchTarball
-      "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/master.tar.gz"}/modules/age.nix"
     ];
 
   # Temp TFTP server.
   services.atftpd.enable = true;
   services.atftpd.root = "/srv/tftp";
 
+  # SOPS secrets.
+  sops.defaultSopsFile = ./secrets/variables.yaml;
+  sops.age.generateKey = true;
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+
   # Agenix secrets.
-  age.secrets.daniel-fullname.file = /etc/nixos/secrets/daniel-fullname.age;
-  age.secrets.daniel-password.file = /etc/nixos/secrets/daniel-password.age;
-  age.secrets.root-password.file = /etc/nixos/secrets/root-password.age;
+  age.secrets.daniel-password.file = ./secrets/daniel-password.age;
+  age.secrets.root-password.file = ./secrets/root-password.age;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -84,7 +86,7 @@
   # Unpriviledged user account with a secret description.
   users.users.daniel = {
     isNormalUser = true;
-    description = lib.strings.fileContents config.age.secrets.daniel-fullname.path;
+    description = "${gitSecrets.fullName}";
     hashedPasswordFile = config.age.secrets.daniel-password.path;
     extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
   };
@@ -94,7 +96,6 @@
 
   environment.systemPackages = with pkgs; [
     # CLIs.
-    (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
     bchunk
     bsdiff
     gdb
@@ -120,6 +121,11 @@
     shntool
     tftp-hpa
 
+    # Encryption.
+    age
+    git-crypt
+    sops
+
     # GUIs.
     evolution
     cuetools
@@ -138,8 +144,8 @@
     vlc
     qbittorrent
     remmina
-    virtualbox
     poedit
+
     # Electron apps.
     element-desktop
     protonvpn-gui
@@ -174,8 +180,6 @@
 
   # Virtualisation.
   virtualisation.docker.enable = true;
-  virtualisation.waydroid.enable = true;
-  virtualisation.libvirtd.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -239,6 +243,8 @@
      mv -f /lib64/ld-linux-x86-64.so.2.tmp /lib64/ld-linux-x86-64.so.2 # atomically replace
 
   '';
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Check documentation if you want/need to change this.
   system.stateVersion = "22.11";

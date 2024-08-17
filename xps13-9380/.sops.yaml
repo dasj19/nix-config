@@ -1,0 +1,9 @@
+keys:
+  - &daniel age1zm7tf4xkjeaastpmae37u3vk4chz98fyversvxqq9jxms2eyc96q5sn8la
+  - &xps13-9380 age1g5vwvcjh767e8grrqy9uuc392fsyljkfn7wl4xuz73r5504vv39shdyj46
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *daniel
+      - *xps13-9380
