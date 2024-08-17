@@ -1,23 +1,23 @@
 { config, pkgs, lib, gitSecrets, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Temp TFTP server.
   services.atftpd.enable = true;
   services.atftpd.root = "/srv/tftp";
 
-  # SOPS secrets.
+  # SOPS settings.
   sops.defaultSopsFile = ./secrets/variables.yaml;
   sops.age.generateKey = true;
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
-  # Agenix secrets.
-  age.secrets.daniel-password.file = ./secrets/daniel-password.age;
-  age.secrets.root-password.file = ./secrets/root-password.age;
+  # SOPS secrets.
+  sops.secrets.daniel_password = {};
+  sops.secrets.root_password = {};
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -87,11 +87,11 @@
   users.users.daniel = {
     isNormalUser = true;
     description = "${gitSecrets.fullName}";
-    hashedPasswordFile = config.age.secrets.daniel-password.path;
+    hashedPasswordFile = config.sops.secrets.daniel_password.path;
     extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
   };
   users.users.root = {
-    hashedPasswordFile = config.age.secrets.root-password.path;
+    hashedPasswordFile = config.sops.secrets.root_password.path;
   };
 
   environment.systemPackages = with pkgs; [
