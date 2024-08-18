@@ -95,6 +95,11 @@ in
     # CLI utils.
     wget vim w3m git netcat-gnu tree lynx
     powertop dnsutils openssl lsof nmap
+    rathole
+
+    # Encryption.
+    git-crypt
+    sops
 
     # Secrets management, agenix.
     (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
@@ -136,6 +141,12 @@ in
   services.searx = {
     enable = true;
     settings = {
+      use_default_settings = {
+        engines = {
+          # for some reason remove directive does not work on "qwant".
+          keep_only = [ "google" "duckduckgo" ];
+        };
+      };
       server = {
         port = 8100;
         bind_address = "127.0.0.1";
