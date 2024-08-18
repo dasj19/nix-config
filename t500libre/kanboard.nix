@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, gitSecrets, ... }:
 
 let
   kanboard = pkgs.callPackage ./kanboard-pkg.nix { };
 
-  gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
+ # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
 
 in

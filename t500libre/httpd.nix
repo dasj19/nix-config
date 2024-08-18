@@ -1,25 +1,16 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, gitSecrets, ... }:
 
 let
 
-  gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
+  # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
   webmaster-email = gitSecrets.gnuDomainWebmaster;
   gnu-ip = gitSecrets.gnuIp;
   archive-ip = gitSecrets.archiveIp;
 
-  # Agenix strings:
- # webmaster-email = lib.strings.fileContents config.age.secrets.webserver-account-webmaster-email.path;
- # gnu-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-ip.path;
- # archive-ip = lib.strings.fileContents config.age.secrets.webserver-virtualhost-archive-ip.path;
-
 in
 
 {
-  # Agenix secrets.
-  #age.secrets.webserver-account-webmaster-email.file = secrets/webserver-account-webmaster-email.age;
-  #age.secrets.webserver-virtualhost-gnu-ip.file = secrets/webserver-virtualhost-gnu-ip.age;
-  #age.secrets.webserver-virtualhost-archive-ip.file = secrets/webserver-virtualhost-archive-ip.age;
 
   # Apache webserver with virtualhosts. @todo: migrate to caddy.
   services.httpd = {

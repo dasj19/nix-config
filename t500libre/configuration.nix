@@ -1,8 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, gitSecrets, ... }:
 
 
 let
-  gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
+
+  # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
   acme-webmaster = gitSecrets.acmeWebmaster;
   searxng-secret = gitSecrets.searxngSecret;
@@ -91,7 +92,6 @@ in
     # CLI utils.
     wget vim w3m git netcat-gnu tree lynx
     powertop dnsutils openssl lsof nmap
-    rathole
 
     # Encryption.
     git-crypt

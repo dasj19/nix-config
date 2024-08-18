@@ -1,9 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, gitSecrets, ... }:
 
   let
     # NixOS Simple Mail Server release branch.
     release = "master";
 
+    # Git secrets.
     gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
     mailserver-fqdn = gitSecrets.mailserverFqdn;
     mailserver-daniel-email = gitSecrets.mailserverDanielEmail;
