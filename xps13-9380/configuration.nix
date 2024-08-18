@@ -1,5 +1,12 @@
 { config, pkgs, lib, gitSecrets, ... }:
 
+let
+
+  # Git secrets.
+  daniel-fullname = gitSecrets.danielFullname;
+
+in
+
 {
   imports = [
     # Include the results of the hardware scan.
@@ -87,7 +94,7 @@
   # Underpriviledged account.
   users.users.daniel = {
     isNormalUser = true;
-    description = "${gitSecrets.fullName}";
+    description = daniel-fullname;
     hashedPasswordFile = config.sops.secrets.daniel_password.path;
     extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
   };
@@ -121,6 +128,7 @@
     w3m
     shntool
     tftp-hpa
+    smartmontools
 
     # Encryption.
     age
