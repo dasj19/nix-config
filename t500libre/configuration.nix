@@ -87,8 +87,18 @@ in
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
     # CLI utils.
-    wget vim w3m git netcat-gnu tree lynx
-    powertop dnsutils openssl lsof nmap
+    wget
+    vim
+    w3m
+    git
+    netcat-gnu
+    tree
+    lynx
+    powertop
+    dnsutils
+    openssl
+    lsof
+    nmap
 
     # Encryption.
     age
@@ -96,14 +106,12 @@ in
     sops
 
     # Server applications.
-    apacheHttpd_2_4 apacheHttpdPackages.mod_cspnonce libmodsecurity
+    apacheHttpd_2_4
+    apacheHttpdPackages.mod_cspnonce
+    libmodsecurity
     php82
     searxng
   ];
-
-  # Enable the avahi mDNS service.
-  services.avahi.enable = true;
-  services.avahi.hostName = "t500libre";
 
   # MySQL server.
   services.mysql.enable = true;
@@ -111,14 +119,14 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-#  services.openssh.authorizedKeysFiles = [ sshserver-authorized-keys ];
 
   services.openssh.hostKeys = [
     {
       bits = 4096;
       openSSHFormat = true;
       path = "/etc/ssh/ssh_host_rsa_key";
-      rounds = 100; type = "rsa";
+      rounds = 100;
+      type = "rsa";
     }
     {
       comment = "t500libre";
@@ -174,13 +182,13 @@ in
   security.acme.defaults.webroot = "/var/lib/acme/acme-challenge/";
   # Use variables for domain names.
   security.acme.certs = {
-    "archive.gnu.style" = {
+    "archive.${gnu-domain}" = {
       webroot = "/var/lib/acme/acme-challenge/";
     };
-    "searx.gnu.style" = {
+    "searx.${gnu-domain}" = {
       webroot = "/var/lib/acme/acme-challenge/";
     };
-    "mail.gnu.style" = {
+    "mail.${gnu-domain}" = {
       webroot = "/var/lib/acme/acme-challenge/";
     };
   };
@@ -206,17 +214,6 @@ in
     # WAN-open:
       53   # DNS      - Resolved 
   ];
-
-  # Enable basic fail2ban (Only has sshd jail).
-  services.fail2ban.enable = true;
-  services.fail2ban.jails = {
-    # Block dovecot failed login attepmts and aborted connections.
-    dovecot = ''
-      enabled = true
-      filter = dovecot[mode=aggressive]
-      maxretry = 3
-    '';
-  };
 
   # Allow immutable users.
   users.mutableUsers = false;
@@ -248,12 +245,6 @@ in
     # Empty fish greeting.
     set -g fish_greeting ""
   '';
-
-  # Custom shell aliases.
-  environment.shellAliases = {
-    # Includes the path to the nixpkgs fork to pickup our own updates.
-    nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --log-format bar-with-logs --keep-going";
-  };
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "21.11";
