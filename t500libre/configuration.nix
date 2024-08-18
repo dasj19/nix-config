@@ -8,11 +8,6 @@ let
   acme-webmaster = gitSecrets.acmeWebmaster;
   searxng-secret = gitSecrets.searxngSecret;
 
-  # Agenix paths:
-  localhost-account-daniel-password = config.age.secrets.localhost-account-daniel-password.path;
-  localhost-account-root-password = config.age.secrets.localhost-account-root-password.path;
-  sshserver-authorized-keys = config.age.secrets.sshserver-authorized-keys.path;
-
 in
 
 {
@@ -26,14 +21,7 @@ in
       ./kanboard.nix
       # Email server configuration.
       ./email.nix
-      # Agenix secret management.
-      "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
     ];
-
-  # Agenix secrets.
-  age.secrets.localhost-account-root-password.file = secrets/localhost-account-root-password.age;
-  age.secrets.localhost-account-daniel-password.file = secrets/localhost-account-daniel-password.age;
-  age.secrets.sshserver-authorized-keys.file = secrets/sshserver-authorized-keys.age;
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -68,6 +56,15 @@ in
     "cdrom" 
   ];
 
+  # sops settings.
+  sops.defaultSopsFile = ./secrets/variables.yaml;
+  sops.age.generateKey = true;
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+
+  # sops secrets.
+  sops.secrets.root_password = {};
+  sops.secrets.daniel_password = {};
+
   # Hostname + DHCP on all the networking interfaces.
   networking.useDHCP = true;
   networking.hostName = "t500libre";
@@ -94,11 +91,9 @@ in
     powertop dnsutils openssl lsof nmap
 
     # Encryption.
+    age
     git-crypt
     sops
-
-    # Secrets management, agenix.
-    (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
 
     # Server applications.
     apacheHttpd_2_4 apacheHttpdPackages.mod_cspnonce libmodsecurity
@@ -116,7 +111,7 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.authorizedKeysFiles = [ sshserver-authorized-keys ];
+#  services.openssh.authorizedKeysFiles = [ sshserver-authorized-keys ];
 
   services.openssh.hostKeys = [
     {
@@ -228,13 +223,13 @@ in
 
   # The root user.
   users.users.root = {
-    hashedPasswordFile = localhost-account-root-password;
+    hashedPasswordFile = config.sops.secrets.root_password.path;
   };
 
   # Local unpriviledged user accunt.
   users.users.daniel = {
     isNormalUser = true;
-    hashedPasswordFile = localhost-account-daniel-password;
+    hashedPasswordFile = config.sops.secrets.daniel_password.path;
     extraGroups = [ "wheel" "wwwrun" ];
   };
 

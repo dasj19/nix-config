@@ -8,11 +8,8 @@
     gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
     mailserver-fqdn = gitSecrets.mailserverFqdn;
     mailserver-daniel-email = gitSecrets.mailserverDanielEmail;
+    gnu-domain = gitSecrets.gnuDomain;
 
-    # Agenix paths:
-    mailserver-account-daniel-password = config.age.secrets.mailserver-account-daniel-password.path;
-    mailserver-account-daniel-aliases = config.age.secrets.mailserver-account-daniel-aliases.path;
-    
   in {
     # Fetch the email server.
     imports = [
@@ -23,10 +20,8 @@
       })
     ];
 
-    # Agenix secret files.
-    age.secrets.mailserver-domains.file = secrets/mailserver-domains.age;
-    age.secrets.mailserver-account-daniel-password.file = secrets/mailserver-account-daniel-password.age;
-    age.secrets.mailserver-account-daniel-aliases.file = secrets/mailserver-account-daniel-aliases.age;
+    # Sops secrets.
+    sops.secrets.daniel_email_password = {};
 
     # Setup for the mailserver.
     mailserver = {
@@ -38,14 +33,18 @@
 
       fqdn = mailserver-fqdn;
       # list of domains in format: [ "domain.tld" ];
-      domains = import config.age.secrets.mailserver-domains.path;
+      domains = [ gnu-domain ];
       loginAccounts = {
            # Account name in the form of "username@domain.tld".
            "${mailserver-daniel-email}" = {
               # Password can be generated running: 'mkpasswd -sm bcrypt'.
-              hashedPasswordFile = mailserver-account-daniel-password;
+              hashedPasswordFile = config.sops.secrets.daniel_email_password.path;
               # List of aliases in format: [ "username@domain.tld" ].
-              aliases = import mailserver-account-daniel-aliases;
+              aliases = [
+                "postmaster@${gnu-domain}"
+                "tor@${gnu-domain}"
+                "webmaster@${gnu-domain}"
+              ];
           };
       };
       # Index the body of the mails to perform full text search.
