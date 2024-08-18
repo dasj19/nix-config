@@ -3,13 +3,14 @@
   let
     # NixOS Simple Mail Server release branch.
     release = "master";
+
+    gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
+    mailserver-fqdn = gitSecrets.mailserverFqdn;
+    mailserver-daniel-email = gitSecrets.mailserverDanielEmail;
+
     # Agenix paths:
     mailserver-account-daniel-password = config.age.secrets.mailserver-account-daniel-password.path;
     mailserver-account-daniel-aliases = config.age.secrets.mailserver-account-daniel-aliases.path;
-    # Agenix strings:
-    gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;    
-    mailserver-fqdn = lib.strings.fileContents config.age.secrets.mailserver-fqdn.path;
-    mailserver-account-daniel-email = lib.strings.fileContents config.age.secrets.mailserver-account-daniel-email.path;
     
   in {
     # Fetch the email server.
@@ -22,12 +23,9 @@
     ];
 
     # Agenix secret files.
-    age.secrets.mailserver-fqdn.file = secrets/mailserver-fqdn.age;
     age.secrets.mailserver-domains.file = secrets/mailserver-domains.age;
-    age.secrets.mailserver-account-daniel-email.file = secrets/mailserver-account-daniel-email.age;
     age.secrets.mailserver-account-daniel-password.file = secrets/mailserver-account-daniel-password.age;
     age.secrets.mailserver-account-daniel-aliases.file = secrets/mailserver-account-daniel-aliases.age;
-    age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
 
     # Setup for the mailserver.
     mailserver = {
@@ -42,7 +40,7 @@
       domains = import config.age.secrets.mailserver-domains.path;
       loginAccounts = {
            # Account name in the form of "username@domain.tld".
-           "${mailserver-account-daniel-email}" = {
+           "${mailserver-daniel-email}" = {
               # Password can be generated running: 'mkpasswd -sm bcrypt'.
               hashedPasswordFile = mailserver-account-daniel-password;
               # List of aliases in format: [ "username@domain.tld" ].

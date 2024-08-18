@@ -2,15 +2,13 @@
 
 let
   kanboard = pkgs.callPackage ./kanboard-pkg.nix { };
-  # Agenix strings:
-  gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
-  # Agenix paths:
+
+  gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
+  gnu-domain = gitSecrets.gnuDomain;
 
 in
 
 {
-   # Agenix secrets.
-  age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
 
   # php settings for kanboard,
   services.phpfpm.pools.kanboard = {

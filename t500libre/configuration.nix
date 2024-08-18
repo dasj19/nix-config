@@ -1,12 +1,11 @@
 { config, lib, pkgs, ... }:
 
 
-let 
-
-  # Agenix strings:
-  acme-account-webmaster-email = lib.strings.fileContents config.age.secrets.acme-account-webmaster-email.path;
-  gnu-domain = lib.strings.fileContents config.age.secrets.webserver-virtualhost-gnu-domain.path;
-  searxng-secret = lib.strings.fileContents config.age.secrets.searxng-secret.path;
+let
+  gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
+  gnu-domain = gitSecrets.gnuDomain;
+  acme-webmaster = gitSecrets.acmeWebmaster;
+  searxng-secret = gitSecrets.searxngSecret;
 
   # Agenix paths:
   localhost-account-daniel-password = config.age.secrets.localhost-account-daniel-password.path;
@@ -31,12 +30,9 @@ in
     ];
 
   # Agenix secrets.
-  age.secrets.acme-account-webmaster-email.file = secrets/acme-account-webmaster-email.age;
   age.secrets.localhost-account-root-password.file = secrets/localhost-account-root-password.age;
   age.secrets.localhost-account-daniel-password.file = secrets/localhost-account-daniel-password.age;
   age.secrets.sshserver-authorized-keys.file = secrets/sshserver-authorized-keys.age;
-  age.secrets.webserver-virtualhost-gnu-domain.file = secrets/webserver-virtualhost-gnu-domain.age;
-  age.secrets.searxng-secret.file = secrets/searxng-secret.age;
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -179,7 +175,7 @@ in
 
   # ACME properties.
   security.acme.acceptTerms = true;
-  security.acme.defaults.email = acme-account-webmaster-email;
+  security.acme.defaults.email = acme-webmaster;
   security.acme.defaults.webroot = "/var/lib/acme/acme-challenge/";
   # Use variables for domain names.
   security.acme.certs = {
