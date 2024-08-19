@@ -104,6 +104,10 @@ in
   };
 
   environment.systemPackages = with pkgs; [
+    # Nix ecosystem.
+    nix-search-cli
+    nixpkgs-review
+
     # CLIs.
     bchunk
     bsdiff
@@ -112,7 +116,6 @@ in
     iat
     ffmpeg
     libxslt
-    nixpkgs-review
     nmap
     procmail
     screen
