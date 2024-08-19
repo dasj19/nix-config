@@ -216,7 +216,8 @@ in
   ];
 
   # Allow immutable users.
-  users.mutableUsers = false;
+  # Consider adopting userbord: https://github.com/NixOS/nixpkgs/pull/332719
+  # users.mutableUsers = false;
 
   # The root user.
   users.users.root = {
