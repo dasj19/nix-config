@@ -1,5 +1,12 @@
 { config, pkgs, lib, gitSecrets, ... }:
 
+let
+
+  # Git secrets.
+  daniel-fullname = gitSecrets.danielFullname;
+
+in
+
 {
   imports = [
     # Include the results of the hardware scan.
@@ -12,7 +19,7 @@
 
   # Boot parameters.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader.efi.efiSysMountPoint = "/efi";
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
 
@@ -82,12 +89,13 @@
   services.printing.enable = true;
 
   # Allow updating of password hashes.
-  users.mutableUsers = false;
+  # Consider adopt userborn after it is merged: https://github.com/NixOS/nixpkgs/pull/332719
+  #  users.mutableUsers = false;
 
   # Underpriviledged account.
   users.users.daniel = {
     isNormalUser = true;
-    description = "${gitSecrets.fullName}";
+    description = daniel-fullname;
     hashedPasswordFile = config.sops.secrets.daniel_password.path;
     extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
   };
@@ -121,6 +129,7 @@
     w3m
     shntool
     tftp-hpa
+    smartmontools
 
     # Encryption.
     age
