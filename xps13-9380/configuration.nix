@@ -19,7 +19,7 @@ in
 
   # Boot parameters.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader.efi.efiSysMountPoint = "/efi";
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
 
@@ -89,7 +89,8 @@ in
   services.printing.enable = true;
 
   # Allow updating of password hashes.
-  users.mutableUsers = false;
+  # Consider adopt userborn after it is merged: https://github.com/NixOS/nixpkgs/pull/332719
+  #  users.mutableUsers = false;
 
   # Underpriviledged account.
   users.users.daniel = {
