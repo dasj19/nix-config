@@ -217,7 +217,40 @@ in
   programs.starship.enable = true;
   # Starship configuration.
   programs.starship.settings = {
+    # No new line before the prompt.
     add_newline = false;
+    # Module configuration.
+    line_break = {
+      disabled = true;
+    };
+    hostname = {
+      ssh_only = false;
+    };
+    localip = {
+      ssh_only = false;
+      disabled = false;
+    };
+    sudo = {
+      disabled = false;
+    };
+    status = {
+      disabled = false;
+      map_symbol = true;
+    };
+    git_status = {
+      disabled = false;
+      conflicted = "🏳";
+      ahead = "🏎💨";
+      behind = "😰";
+      diverged = "😵";
+      up_to_date = "✓";
+      untracked = "🤷";
+      stashed = "📦";
+      modified = "📝";
+      staged = "[++\($count\)](green)";
+      renamed = "👅";
+      deleted = "🗑";
+    };
   };
 
   fonts.packages = with pkgs; [
