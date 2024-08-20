@@ -213,6 +213,21 @@ in
     echo (date "+%T - %F")
   '';
 
+  # DESKTOP CUSTOMIZATIONS. #
+
+  # Custom user directories.
+  # Run "xdg-user-dirs-update --force" after changing theese.
+  environment.etc."xdg/user-dirs.defaults".text = ''
+    DESKTOP=system/desktop
+    DOWNLOAD=downloads
+    TEMPLATES=system/templates
+    PUBLICSHARE=system/public
+    DOCUMENTS=documents
+    MUSIC=media/music
+    PICTURES=media/photos
+    VIDEOS=media/video
+  '';
+
   # Cross-shell prompt.
   programs.starship.enable = true;
   # Starship configuration.
@@ -223,8 +238,29 @@ in
     line_break = {
       disabled = true;
     };
+    username = {
+      show_always = true;
+      format = "[$user]($style)@";
+    };
     hostname = {
       ssh_only = false;
+      format = "[$ssh_symbol$hostname]($style)  ";
+    };
+    directory = {
+      format = "[ $path ]($style)";
+      truncation_length = 3;
+      truncation_symbol = "…/";
+    };
+    directory.substitutions = {
+      documents = "󰈙 ";
+      downloads = " ";
+      music = "󰎄 ";
+      photos = " ";
+      video = "󰃽 ";
+      workspace = " ";
+    };
+    time = {
+      disabled = false;
     };
     localip = {
       ssh_only = false;
@@ -251,12 +287,21 @@ in
       renamed = "👅";
       deleted = "🗑";
     };
+    php = {
+      disabled = true;
+    };
+    nodejs = {
+      disabled = true;
+    };
   };
 
+
+  fonts.fontconfig.enable = true;
   fonts.packages = with pkgs; [
     noto-fonts-emoji
     noto-fonts-cjk
     font-awesome
+    fira-code-nerdfont
     symbola
     material-icons
   ];
