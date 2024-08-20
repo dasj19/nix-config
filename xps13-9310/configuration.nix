@@ -1,15 +1,19 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, gitSecrets, ... }:
 
 let
 
   # Agenix strings:
   localhost-account-daniel-fullname = lib.strings.fileContents config.age.secrets.localhost-account-daniel-fullname.path;
 
+  # Git secrets.
+  localhost-alias1 = gitSecrets.localhostAlias1;
+
 in
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Agenix for dealing with secrets.
       "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
@@ -162,6 +166,10 @@ in
     xvfb-run
     yarn
 
+    # Cryptography.
+    git-crypt
+    sops
+
     # Drivers and firmware.
     intel-gmmlib
     glibc
@@ -170,7 +178,7 @@ in
     chromium
     drawio
     dbeaver-bin
-    element-desktop
+    #element-desktop
     evolution
     filezilla
     firefox
@@ -196,6 +204,7 @@ in
 
     # Temporary
     xorg.xorgserver
+    microsoft-edge
   ];
 
   virtualisation.docker.enable = true;
@@ -232,6 +241,57 @@ in
     cypress
   ];
 
+  programs.starship.enable = true;
+  # Starship configuration.
+  programs.starship.settings = {
+    # No new line before the prompt.
+    add_newline = false;
+    # Module configuration.
+    line_break = {
+      disabled = true;
+    };
+    username = {
+      show_always = true;
+    };
+    hostname = {
+      ssh_only = false;
+    };
+    time = {
+      disabled = false;
+    };
+    localip = {
+      ssh_only = false;
+      disabled = false;
+    };
+    sudo = {
+      disabled = false;
+    };
+    status = {
+      disabled = false;
+      map_symbol = true;
+    };
+    git_status = {
+      disabled = false;
+      conflicted = "🏳";
+      ahead = "🏎💨";
+      behind = "😰";
+      diverged = "😵";
+      up_to_date = "✓";
+      untracked = "🤷";
+      stashed = "📦";
+      modified = "📝";
+      staged = "[++\($count\)](green)";
+      renamed = "👅";
+      deleted = "🗑";
+    };
+    php = {
+      disabled = true;
+    };
+    nodejs = {
+      disabled = true;
+    };
+  };
+
 
   environment.shellAliases = {
     # change nixos-rebuild to use my own version of nixpkgs.
@@ -240,8 +300,13 @@ in
     xvfb = "/run/current-system/sw/bin/xvfb-run";
   };
 
+  networking.hosts = {
+    "127.0.0.1" = [ localhost-alias1 ];
+  };
+
   # Initial state. Check the manual before changing the state!
   system.stateVersion = "23.05";
 
 }
+
 
