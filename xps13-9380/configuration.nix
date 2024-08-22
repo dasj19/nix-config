@@ -1,4 +1,4 @@
-{ config, pkgs, lib, gitSecrets, ... }:
+{ config, pkgs, lib, gitSecrets, nixos-artwork, ... }:
 
 let
 
@@ -17,11 +17,19 @@ in
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
+  # Enable sound with pipewire.
+  hardware.pulseaudio.enable = false;
+  services.pipewire.enable = true;
+  services.pipewire.audio.enable = true;
+
   # Boot parameters.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.efiSysMountPoint = "/efi";
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+
+  # tmpfs.
+  boot.tmp.useTmpfs = true;
 
   # SOPS settings.
   sops.defaultSopsFile = ./secrets/variables.yaml;
@@ -39,6 +47,7 @@ in
   ];
   networking.firewall.allowedUDPPorts = [
     69 # TFTPD
+    5353 # Avahi
   ];
   networking.networkmanager.enable = true;
 
@@ -111,6 +120,7 @@ in
     # CLIs.
     bchunk
     bsdiff
+    eza
     gdb
     git
     iat
@@ -191,6 +201,11 @@ in
   # Temp TFTP server.
   services.atftpd.enable = true;
   services.atftpd.root = "/srv/tftp";
+
+  # mDNS server.
+  services.avahi.enable = true;
+  services.avahi.nssmdns4 = true;
+  services.avahi.nssmdns6 = true;
 
   # Virtualisation.
   virtualisation.docker.enable = true;
@@ -306,10 +321,17 @@ in
     material-icons
   ];
 
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+  stylix.image = "${nixos-artwork.wallpapers.simple-dark-gray}/share/artwork/gnome/nix-wallpaper-simple-dark-gray.png";
+
   environment.shellAliases = {
     # Provide sass-embedded from nixos.
     sass-embedded = "${pkgs.dart-sass}/bin/sass --embeded";
     dart = "${pkgs.dart-sass}/bin/dart-sass";
+    # Eza for well-known ls aliases, we still keep vanilla ls.
+    ll = "eza -lh --icons --grid --group-directories-first";
+    la = "eza -lah --icons --grid --group-directories-first";
   };
 
   # Needed by jekyll project. @TODO: groom.
@@ -327,6 +349,10 @@ in
     "flakes"
     "nix-command"
   ];
+  nix.settings.auto-optimise-store = true;
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 10d";
+
   nixpkgs.config.allowUnfree = true;
 
   # Check documentation if you want/need to change this.

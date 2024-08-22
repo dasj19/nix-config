@@ -5,9 +5,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     sops-nix.url = "github:Mic92/sops-nix";
+    stylix.url = "github:danth/stylix";
   };
 
-  outputs = { self, nixpkgs, sops-nix, ... }:
+  outputs = { self, nixpkgs, sops-nix, stylix, ... }:
 
   let
     gitSecrets = builtins.fromJSON(builtins.readFile "${self}/secrets/git-secrets.json");
@@ -22,6 +23,7 @@
       modules = [
         ./configuration.nix
         sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
       ];
     };
   };
