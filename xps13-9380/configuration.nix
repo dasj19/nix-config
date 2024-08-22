@@ -21,6 +21,10 @@ in
   hardware.pulseaudio.enable = false;
   services.pipewire.enable = true;
   services.pipewire.audio.enable = true;
+  services.pipewire.pulse.enable = true;
+  services.pipewire.jack.enable = true;
+  services.pipewire.alsa.enable = true;
+  services.pipewire.alsa.support32Bit = true;
 
   # Boot parameters.
   boot.loader.systemd-boot.enable = true;
@@ -143,6 +147,7 @@ in
     shntool
     tftp-hpa
     smartmontools
+    dconf
 
     # Encryption.
     age
@@ -150,6 +155,7 @@ in
     sops
 
     # GUIs.
+    dconf-editor
     evolution
     cuetools
     firefox
