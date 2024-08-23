@@ -2,13 +2,12 @@
 
   description = "The xps13-9380 flake";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    sops-nix.url = "github:Mic92/sops-nix";
-    stylix.url = "github:danth/stylix";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.sops-nix.url = "github:Mic92/sops-nix";
+  inputs.stylix.url = "github:danth/stylix";
+  inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-  outputs = { self, nixpkgs, sops-nix, stylix, ... }:
+  outputs = { self, nixpkgs, nixos-hardware, sops-nix, stylix, ... }:
 
   let
     gitSecrets = builtins.fromJSON(builtins.readFile "${self}/secrets/git-secrets.json");
@@ -24,6 +23,7 @@
         ./configuration.nix
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
+        nixos-hardware.nixosModules.dell-xps-13-9380
       ];
     };
   };

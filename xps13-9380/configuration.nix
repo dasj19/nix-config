@@ -35,6 +35,9 @@ in
   # tmpfs.
   boot.tmp.useTmpfs = true;
 
+  # Firmware update manager. Run 'sudo fwupdmgr update' to trigger updates.
+  services.fwupd.enable = true;
+
   # SOPS settings.
   sops.defaultSopsFile = ./secrets/variables.yaml;
   sops.age.generateKey = true;
