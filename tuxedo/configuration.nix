@@ -19,18 +19,16 @@ in
       "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
     ];
 
-  # Nix build settings. @TODO: move to a server machine like contbao1.
+  # Nix build settings. @TODO: consider hosting a hydra.
   nix.settings.substituters = [
     "https://cache.nixos.org"
-    "https://cache.armv7l.xyz/?trusted=1"
   ];
   nix.settings.trusted-public-keys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    "cache.armv7l.xyz-1:kBY/eGnBAYiqYfg0fy0inWhshUo+pGFM3Pj7kIkmlBk="
   ];
 
-  # Emulate arm.
-  boot.binfmt.emulatedSystems = [ "armv7l-linux" ];
+  # Emulate arm32 and arm64.
+  boot.binfmt.emulatedSystems = [ "armv7l-linux" "aarch64-linux" ];
 
   nix.distributedBuilds = true;
   # Useful when the builder has a faster internet connection than yours
@@ -167,6 +165,8 @@ in
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
+    # Compiling.
+    gnumake bison flex gcc clang
     # Development.
     firefox-devedition-bin
     php82
@@ -209,6 +209,7 @@ in
     filezilla
     ventoy
     bitcoin
+    soulseekqt
     
     # Electron apps.
     element-desktop
@@ -296,7 +297,6 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.banner = banner;
   services.openssh.settings.PubkeyAuthentication = true;
 
   # Open ports in the firewall.
@@ -321,7 +321,7 @@ in
   # Enable fish as the default shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
-  users.motdFile = "/etc/nixos/motd.txt";
+  #users.motdFile = "/etc/nixos/motd.txt";
 
   # Fish customizations.
   programs.fish.interactiveShellInit = ''
