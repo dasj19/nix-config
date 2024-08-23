@@ -60,7 +60,7 @@ in
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
-  networking.hostName = "tuxedo";
+  networking.hostName = "tuxedo-xa15";
 
   # The base time zone.
   time.timeZone = "Europe/Copenhagen";
@@ -364,10 +364,10 @@ in
   # Optionally, you may need to select the appropriate driver version for your specific GPU.
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-  environment.shellAliases = {
+ # environment.shellAliases = {
     # change nixos-rebuild to use my own version of nixpkgs.
-    nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/projects/nixpkgs --keep-going --log-format bar-with-logs";
-  };
+ #   nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/projects/nixpkgs --keep-going --log-format bar-with-logs";
+ # };
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "22.05";
