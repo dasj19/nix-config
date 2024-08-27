@@ -3,6 +3,7 @@
   description = "The dasj-lab flake";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  #inputs.nixpkgs.url = "path:/home/daniel/workspace/nixpkgs/";
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.stylix.url = "github:danth/stylix";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
