@@ -26,7 +26,7 @@ in
     isNormalUser = true;
     description = daniel-fullname;
     hashedPasswordFile = config.sops.secrets.daniel_password.path;
-    extraGroups = [ "networkmanager" "wheel" "docker" "dialout" ];
+    extraGroups = [ "audio" "networkmanager" "wheel" "docker" "dialout" ];
   };
   users.users.root = {
     hashedPasswordFile = config.sops.secrets.root_password.path;

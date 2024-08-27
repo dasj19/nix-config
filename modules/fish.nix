@@ -10,8 +10,8 @@
     set -g fish_term24bit 1
     # Empty fish greeting. @TODO: make it a fish option upstream.
     set -g fish_greeting ""
-    # Pasting hostname and current date.
-    echo "xps13-9380"
+    # System information and current date.
+    fastfetch
     echo (date "+%T - %F")
   '';
 }

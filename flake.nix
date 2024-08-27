@@ -29,5 +29,18 @@
         nixos-hardware.nixosModules.dell-xps-13-9380
       ];
     };
+    nixosConfigurations.tuxedo-xa15 = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
+      system = "x86_64-linux";
+      modules = [
+        ./machines/tuxedo-xa15/configuration.nix
+        sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
+        #nixos-hardware.nixosModules.tuxedo-xa15 # does not exist yet.
+      ];
+    };
   };
 }

@@ -4,6 +4,9 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # Enable gnome-keyring.
+  services.gnome.gnome-keyring.enable = true;
+
   # Exclude unnecessary GNOME programs.
   environment.gnome.excludePackages = with pkgs; [
     gnome-photos
