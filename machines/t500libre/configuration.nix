@@ -26,6 +26,8 @@ in
       ./../../modules/keyboard.nix
       ./../../modules/locale.nix
       ./../../modules/users.nix
+      # Profile.
+      ./../../profiles/server.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -222,20 +224,6 @@ in
 
   # Standard motd for all users of this host.
   users.motdFile = "/etc/nixos/motd.txt";
-
-  # Don't build documentation on this server.
-  documentation.enable = false;
-  documentation.man.enable = false;
-  documentation.info.enable = false;
-  documentation.nixos.enable = false;
-  documentation.doc.enable = false;
-  documentation.dev.enable = false;
-
-  # Nix and Nixpkgs configurations.
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-  ];
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "21.11";
