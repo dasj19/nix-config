@@ -1,4 +1,4 @@
-{ config, pkgs, lib, gitSecrets, ... }:
+{ config, pkgs, lib, gitSecrets, sopsSecrets, ... }:
 
   let
     # NixOS Simple Mail Server release branch.
@@ -21,7 +21,7 @@
     ];
 
     # Sops secrets.
-    sops.secrets.daniel_email_password = {};
+    sops.secrets.daniel_gnu_email_password = {};
 
     # Setup for the mailserver.
     mailserver = {
@@ -38,7 +38,7 @@
            # Account name in the form of "username@domain.tld".
            "${mailserver-daniel-email}" = {
               # Password can be generated running: 'mkpasswd -sm bcrypt'.
-              hashedPasswordFile = config.sops.secrets.daniel_email_password.path;
+              hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
               # List of aliases in format: [ "username@domain.tld" ].
               aliases = [
                 "postmaster@${gnu-domain}"

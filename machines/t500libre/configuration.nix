@@ -1,4 +1,4 @@
-{ config, lib, pkgs, gitSecrets, ... }:
+{ config, lib, pkgs, gitSecrets, sopsSecrets, ... }:
 
 
 let
@@ -25,6 +25,7 @@ in
       ./../../modules/fish.nix
       ./../../modules/keyboard.nix
       ./../../modules/locale.nix
+      ./../../modules/users.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -59,11 +60,6 @@ in
     # Peripherals.
     "cdrom" 
   ];
-
-  # sops settings.
-  sops.defaultSopsFile = ./secrets/variables.yaml;
-  sops.age.generateKey = true;
-  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
   # sops secrets.
   sops.secrets.root_password = {};
