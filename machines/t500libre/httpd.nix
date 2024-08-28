@@ -6,7 +6,7 @@ let
   gnu-domain = gitSecrets.gnuDomain;
   webmaster-email = gitSecrets.gnuDomainWebmaster;
   gnu-ip = gitSecrets.gnuIp;
-  archive-ip = gitSecrets.archiveIp;
+  archive-ip = gitSecrets.gnuArchiveIp;
 
 in
 

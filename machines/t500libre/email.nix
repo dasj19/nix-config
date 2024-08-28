@@ -5,9 +5,9 @@
     release = "master";
 
     # Git secrets.
-    gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
-    mailserver-fqdn = gitSecrets.mailserverFqdn;
-    mailserver-daniel-email = gitSecrets.mailserverDanielEmail;
+#    gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
+    mailserver-fqdn = gitSecrets.gnuMailserverFqdn;
+    mailserver-daniel-email = gitSecrets.gnuMailserverDanielEmail;
     gnu-domain = gitSecrets.gnuDomain;
 
   in {

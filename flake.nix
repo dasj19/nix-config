@@ -16,6 +16,19 @@
   in
 
   {
+    nixosConfigurations.t500libre = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
+      system = "x86_64-linux";
+      modules = [
+        ./machines/t500libre/configuration.nix
+        sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
+        nixos-hardware.nixosModules.lenovo-thinkpad
+      ];
+    };
     nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit gitSecrets;

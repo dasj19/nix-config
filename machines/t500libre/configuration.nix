@@ -5,8 +5,8 @@ let
 
   # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
-  acme-webmaster = gitSecrets.acmeWebmaster;
-  searxng-secret = gitSecrets.searxngSecret;
+  acme-webmaster = gitSecrets.gnuAcmeWebmaster;
+  searxng-secret = gitSecrets.gnuSearxngSecret;
 
 in
 
@@ -21,6 +21,10 @@ in
       ./kanboard.nix
       # Email server configuration.
       ./email.nix
+      # Modules.
+      ./../../modules/fish.nix
+      ./../../modules/keyboard.nix
+      ./../../modules/locale.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -68,21 +72,6 @@ in
   # Hostname + DHCP on all the networking interfaces.
   networking.useDHCP = true;
   networking.hostName = "t500libre";
-
-  # Select internationalization properties. @TODO: Recheck and revise these settings.
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.supportedLocales = [
-    "da_DK.UTF-8/UTF-8"
-    "en_US.UTF-8/UTF-8"
-  ];
-  # Font and keymap for the console.
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "es";
-  };
-
-  # System's Timezone.
-  time.timeZone = "Europe/Copenhagen";
 
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
@@ -237,19 +226,6 @@ in
 
   # Standard motd for all users of this host.
   users.motdFile = "/etc/nixos/motd.txt";
-
-  # Make the fish shell default for the entire system.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
-
-  # Fish shell customizations.
-  # @TODO: consider transforming these into nix options for fish.
-  programs.fish.interactiveShellInit = ''
-    # Enable true color for the terminal.
-    set -g fish_term24bit 1
-    # Empty fish greeting.
-    set -g fish_greeting ""
-  '';
 
   # Don't build documentation on this server.
   documentation.enable = false;
