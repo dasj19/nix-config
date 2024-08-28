@@ -4,15 +4,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # Modules.
-    ./../../modules/audio.nix
-    ./../../modules/fish.nix
-    ./../../modules/gnome.nix
-    ./../../modules/keyboard.nix
-    ./../../modules/locale.nix
-    ./../../modules/starship.nix
-    ./../../modules/stylix.nix
-    ./../../modules/users.nix
+    # Profiles.
+    ./../../profiles/laptop.nix
   ];
 
   # Enable OpenGL support.
@@ -37,99 +30,22 @@
     22 # OpenSSH
   ];
   networking.firewall.allowedUDPPorts = [
-    69 # TFTPD
     5353 # Avahi
   ];
   networking.networkmanager.enable = true;
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.excludePackages = with pkgs; [
-    xterm
-  ];
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
+  # Host specific packages.
   environment.systemPackages = with pkgs; [
-    # Nix ecosystem.
-    nix-search-cli
-    nixpkgs-review
-
-    # CLIs.
-    bchunk
-    bsdiff
-    eza
-    gdb
-    git
-    iat
-    ffmpeg
-    libxslt
-    nmap
-    procmail
-    screen
-    busybox
-    tree
-    uudeview
-    wget
-    xar
-    yt-dlp
-    zip
-    unrar
-    zstd
-    kermit
-    w3m
-    shntool
-    tftp-hpa
-    smartmontools
-    dconf
-
-    # Encryption.
-    age
-    git-crypt
-    sops
-
-    # GUIs.
-    dconf-editor
-    evolution
-    cuetools
-    firefox
-    fontforge-gtk
-    gparted
-    brasero
-    halloy
-    libreoffice-still
-    tor-browser-bundle-bin
-    wineWowPackages.stable
-    winetricks mono freetype fontconfig
-    ghidra
-    gimp
-    vlc
-    qbittorrent
-    remmina
-    poedit
-
-    # Electron apps.
-    element-desktop
-    protonvpn-gui
-    signal-desktop
-    ungoogled-chromium
-    discord
-
     # Development.
     dart-sass
     docker-compose
     filezilla
-    insomnia
     jekyll
-    meld
     php83
     php83Packages.composer
     python3
-    vscodium
 
     # Tempporary.
-    discord
     heimdall
     heimdall-gui
     libusb1
@@ -138,9 +54,8 @@
     pkgs.tt
   ];
 
-  # Temp TFTP server.
-  services.atftpd.enable = true;
-  services.atftpd.root = "/srv/tftp";
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # mDNS server.
   services.avahi.enable = true;
@@ -165,19 +80,6 @@
     material-icons
   ];
 
-  # Custom user directories.
-  # Run "xdg-user-dirs-update --force" after changing theese.
-  environment.etc."xdg/user-dirs.defaults".text = ''
-    DESKTOP=system/desktop
-    DOWNLOAD=downloads
-    TEMPLATES=system/templates
-    PUBLICSHARE=system/public
-    DOCUMENTS=documents
-    MUSIC=media/music
-    PICTURES=media/photos
-    VIDEOS=media/video
-  '';
-
   environment.shellAliases = {
     # Provide sass-embedded from nixos.
     sass-embedded = "${pkgs.dart-sass}/bin/sass --embeded";
@@ -196,15 +98,6 @@
      mv -f /lib64/ld-linux-x86-64.so.2.tmp /lib64/ld-linux-x86-64.so.2 # atomically replace
 
   '';
-
-  # Nix and Nixpkgs configurations.
-  nix.settings.experimental-features = [
-    "flakes"
-    "nix-command"
-  ];
-  nix.settings.auto-optimise-store = true;
-  nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 10d";
 
   nixpkgs.config.allowUnfree = true;
 

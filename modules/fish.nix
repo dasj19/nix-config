@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+  # Required packages.
+  environment.systemPackages = with pkgs; [
+    fish
+    fastfetch
+  ];
+
   # Enable fish as the default shell.
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;

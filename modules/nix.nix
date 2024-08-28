@@ -13,4 +13,15 @@
     builders-use-substitutes = true
   '';
   nix.settings.trusted-users = [ "root" "daniel" ];
+
+  # Nix and Nixpkgs configurations.
+  nix.settings.experimental-features = [
+    "flakes"
+    "nix-command"
+  ];
+
+  # Nix store and garbage collection.
+  nix.settings.auto-optimise-store = true;
+  nix.gc.automatic = true;
+  nix.gc.options = "--delete-older-than 10d";
 }
