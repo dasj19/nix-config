@@ -1,5 +1,6 @@
 {
   imports = [
+    ./../modules/aliases.nix
     ./../modules/fish.nix
     ./../modules/folders.nix
     ./../modules/keyboard.nix

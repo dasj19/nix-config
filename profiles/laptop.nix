@@ -1,18 +1,18 @@
 { pkgs, ... }:
 {
   imports = [
+    # Profiles.
+    ./base.nix
     # Modules.
     ./../modules/audio.nix
     ./../modules/gnome.nix
-    # Profiles.
-    ./base.nix
   ];
+
+  # Some laptop packages are unfree.
+  nixpkgs.config.allowUnfree = true;
+
   # Laptop packages.
   environment.systemPackages = with pkgs; [
-    # Nix ecosystem.
-    nix-search-cli
-    nixpkgs-review
-
     # CLIs.
     bchunk
     dconf
@@ -25,6 +25,7 @@
     smartmontools
     tree
     unrar
+    usbutils
     wget
     w3m
     xar

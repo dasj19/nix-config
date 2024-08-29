@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   # Nix build settings. @TODO: consider hosting a hydra.
   nix.settings.substituters = [
@@ -18,6 +19,13 @@
   nix.settings.experimental-features = [
     "flakes"
     "nix-command"
+  ];
+
+  # Packages for nix ecosystem.
+  environment.systemPackages = with pkgs; [
+    nix-search-cli
+    nixos-option # This: https://github.com/NixOS/nixpkgs/pull/313497 will work with flakes.
+    nixpkgs-review
   ];
 
   # Nix store and garbage collection.
