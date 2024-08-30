@@ -16,34 +16,19 @@
     # CLIs.
     asciinema
     bchunk
-    cpufrequtils
     cuetools
     dconf
-    eza
     ffmpeg
     flac
-    jq
-    lshw
-    git
     inetutils
-    nmap
-    screen
     shntool
-    smartmontools
-    tree
     unrar
     usbutils
-    wget
     w3m
     xar
     yt-dlp
     zip
     zstd
-
-    # Encryption.
-    age
-    git-crypt
-    sops
 
     # GUIs.
     brasero

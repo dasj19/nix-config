@@ -148,10 +148,9 @@ in
     insomnia
     dbeaver-bin
 
-
     # Drivers and Firmware.
-    hplipWithPlugin
-    cups ntfs3g
+    cups
+    ntfs3g
 
     # Desktop apps.
     gnome-tweaks
@@ -213,9 +212,6 @@ in
     # Virtualization.
     virt-manager
     docker-compose
-
-    # Games.
-
 
     # P2P.
     radarr
