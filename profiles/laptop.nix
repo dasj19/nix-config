@@ -14,11 +14,18 @@
   # Laptop packages.
   environment.systemPackages = with pkgs; [
     # CLIs.
+    asciinema
     bchunk
+    cpufrequtils
+    cuetools
     dconf
     eza
     ffmpeg
+    flac
+    jq
+    lshw
     git
+    inetutils
     nmap
     screen
     shntool
