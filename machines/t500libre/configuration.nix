@@ -19,13 +19,12 @@ in
       ./httpd.nix
       # Kanboard configuration.
       ./kanboard.nix
-      # Email server configuration.
-      ./email.nix
       # Modules.
       ./../../modules/fish.nix
       ./../../modules/keyboard.nix
       ./../../modules/locale.nix
       ./../../modules/users.nix
+      ./../../modules/email-server.nix
       # Profile.
       ./../../profiles/server.nix
     ];

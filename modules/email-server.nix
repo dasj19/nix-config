@@ -1,24 +1,13 @@
 { config, pkgs, lib, gitSecrets, sopsSecrets, ... }:
 
   let
-    # NixOS Simple Mail Server release branch.
-    release = "master";
 
     # Git secrets.
-#    gitSecrets = builtins.fromJSON(builtins.readFile ./secrets/git-secrets.json);
     mailserver-fqdn = gitSecrets.gnuMailserverFqdn;
     mailserver-daniel-email = gitSecrets.gnuMailserverDanielEmail;
     gnu-domain = gitSecrets.gnuDomain;
 
   in {
-    # Fetch the email server.
-    imports = [
-      (builtins.fetchTarball {
-        url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
-        # This hash needs to be updated
-        sha256 = "1j0r52ij5pw8b8wc5xz1bmm5idwkmsnwpla6smz8gypcjls860ma";
-      })
-    ];
 
     # Sops secrets.
     sops.secrets.daniel_gnu_email_password = {};

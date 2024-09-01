@@ -7,8 +7,9 @@
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.stylix.url = "github:danth/stylix";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
+  inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
-  outputs = { self, nixpkgs, nixos-hardware, sops-nix, stylix, ... }:
+  outputs = { self, nixpkgs, nixos-hardware, sops-nix, simple-nixos-mailserver, stylix, ... }:
 
   let
     gitSecrets = builtins.fromJSON(builtins.readFile "${self}/secrets/git-secrets.json");
@@ -27,6 +28,7 @@
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
         nixos-hardware.nixosModules.lenovo-thinkpad
+        simple-nixos-mailserver.nixosModule
       ];
     };
     nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
