@@ -14,29 +14,21 @@
   # Laptop packages.
   environment.systemPackages = with pkgs; [
     # CLIs.
+    asciinema
     bchunk
+    cuetools
     dconf
-    eza
     ffmpeg
-    git
-    nmap
-    screen
+    flac
+    inetutils
     shntool
-    smartmontools
-    tree
     unrar
     usbutils
-    wget
     w3m
     xar
     yt-dlp
     zip
     zstd
-
-    # Encryption.
-    age
-    git-crypt
-    sops
 
     # GUIs.
     brasero
