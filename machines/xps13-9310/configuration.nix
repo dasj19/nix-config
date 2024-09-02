@@ -6,7 +6,7 @@ let
   localhost-account-daniel-fullname = lib.strings.fileContents config.age.secrets.localhost-account-daniel-fullname.path;
 
   # Git secrets.
-  localhost-alias1 = gitSecrets.localhostAlias1;
+  localhost-alias1 = gitSecrets.xps139310HostAlias1;
 
 in
 
@@ -17,6 +17,8 @@ in
       ./hardware-configuration.nix
       # Agenix for dealing with secrets.
       "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
+      # Profiles.
+      ./../../profiles/laptop.nix
     ];
 
   # Agenix secrets.
@@ -34,58 +36,6 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Copenhagen";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_DK.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "da_DK.UTF-8";
-    LC_IDENTIFICATION = "da_DK.UTF-8";
-    LC_MEASUREMENT = "da_DK.UTF-8";
-    LC_MONETARY = "da_DK.UTF-8";
-    LC_NAME = "da_DK.UTF-8";
-    LC_NUMERIC = "da_DK.UTF-8";
-    LC_PAPER = "da_DK.UTF-8";
-    LC_TELEPHONE = "da_DK.UTF-8";
-    LC_TIME = "da_DK.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Disable unused gnome packages.
-  environment.gnome.excludePackages = with pkgs; [
-    cheese
-    geary
-    gnome-photos
-    gnome.gnome-music
-    gnome.gnome-weather
-    gnome.gnome-clocks
-    gnome-tour
-    gnome-connections
-    gnome.gnome-logs
-    gnome.gnome-maps
-  ];
-
-  # Configure keymap in X11
-  services.xserver.xkb.layout = "esrodk,es,dk,ro";
-
-  # Configure console keymap
-  console.keyMap = "es";
-
-  # Adding an extra layout.
-  services.xserver.xkb.extraLayouts.esrodk = {
-    description = "Spanish with roda diacritics";
-    languages = ["spa"];
-    symbolsFile = /etc/nixos/esrodk;
-  };
 
   # Custom user directories.
   # Run "xdg-user-dirs-update --force" after changing theese.

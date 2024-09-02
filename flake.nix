@@ -31,6 +31,20 @@
         simple-nixos-mailserver.nixosModule
       ];
     };
+    nixosConfigurations.xps13-9310 = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
+      system = "x86_64-linux";
+      modules = [
+        ./machines/xps13-9310/configuration.nix
+        # todo: setup sops on this host.
+        sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
+        nixos-hardware.nixosModules.dell-xps-13-9310
+      ];
+    };
     nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit gitSecrets;
