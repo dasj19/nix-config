@@ -1,9 +1,6 @@
-{ config, lib, pkgs, gitSecrets, ... }:
+{ config, lib, pkgs, gitSecrets, sopsSecrets, ... }:
 
 let
-
-  # Agenix strings:
-  localhost-account-daniel-fullname = lib.strings.fileContents config.age.secrets.localhost-account-daniel-fullname.path;
 
   # Git secrets.
   localhost-alias1 = gitSecrets.xps139310HostAlias1;
@@ -15,14 +12,9 @@ in
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # Agenix for dealing with secrets.
-      "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
       # Profiles.
       ./../../profiles/laptop.nix
     ];
-
-  # Agenix secrets.
-  age.secrets.localhost-account-daniel-fullname.file = secrets/localhost-account-daniel-fullname.age;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -36,19 +28,6 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Custom user directories.
-  # Run "xdg-user-dirs-update --force" after changing theese.
-  environment.etc."xdg/user-dirs.defaults".text = ''
-    DESKTOP=system/desktop
-    DOWNLOAD=downloads
-    TEMPLATES=system/templates
-    PUBLICSHARE=system/public
-    DOCUMENTS=documents
-    MUSIC=media/music
-    PICTURES=media/photos
-    VIDEOS=media/video
-  '';
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -80,22 +59,11 @@ in
     #media-session.enable = true;
   };
 
-  # Underpriviledged user account.
-  users.users.daniel = {
-    isNormalUser = true;
-    description = localhost-account-daniel-fullname;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [ /* no user packages */ ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    # Agenix secret management.
-    (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {})
-
 
     # CLI.
     awscli2
@@ -190,57 +158,6 @@ in
 
     cypress
   ];
-
-  programs.starship.enable = true;
-  # Starship configuration.
-  programs.starship.settings = {
-    # No new line before the prompt.
-    add_newline = false;
-    # Module configuration.
-    line_break = {
-      disabled = true;
-    };
-    username = {
-      show_always = true;
-    };
-    hostname = {
-      ssh_only = false;
-    };
-    time = {
-      disabled = false;
-    };
-    localip = {
-      ssh_only = false;
-      disabled = false;
-    };
-    sudo = {
-      disabled = false;
-    };
-    status = {
-      disabled = false;
-      map_symbol = true;
-    };
-    git_status = {
-      disabled = false;
-      conflicted = "🏳";
-      ahead = "🏎💨";
-      behind = "😰";
-      diverged = "😵";
-      up_to_date = "✓";
-      untracked = "🤷";
-      stashed = "📦";
-      modified = "📝";
-      staged = "[++\($count\)](green)";
-      renamed = "👅";
-      deleted = "🗑";
-    };
-    php = {
-      disabled = true;
-    };
-    nodejs = {
-      disabled = true;
-    };
-  };
 
 
   environment.shellAliases = {
