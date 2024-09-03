@@ -1,11 +1,5 @@
 { config, lib, pkgs, gitSecrets, sopsSecrets, ... }:
 
-let
-
-  banner = lib.strings.fileContents "${./motd.txt}";
-  
-in
-
 {
   
   imports = [
