@@ -32,10 +32,10 @@
 
     # GUIs.
     brasero
-    cuetools
     dconf-editor
     evolution
     firefox
+    flacon
     fontforge-gtk
     ghidra
     gimp
