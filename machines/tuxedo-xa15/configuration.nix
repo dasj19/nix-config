@@ -125,22 +125,15 @@
     "psmouse"
   ];
 
-
-
-
-  # List packages installed in system profile.
+  # List packages specific to this host installed in system profile.
   environment.systemPackages = with pkgs; [
 
     # Development.
-    firefox-devedition-bin
     php83
     kcachegrind
     graphviz
     fontforge-gtk
-    vscodium
     arduino
-    insomnia
-    dbeaver-bin
 
     # Drivers and Firmware.
     ntfs3g
@@ -148,28 +141,16 @@
     # Desktop apps.
     freerdp
     gparted
-    evolutionWithPlugins
-    firefox-bin
-    tor-browser-bundle-bin
-    qbittorrent
-    ungoogled-chromium
     meld
     strawberry
     osdlyrics
     gimp
-    pdfarranger
     inkscape
-    signal-desktop
     vlc
     lbry
     gcstar
-    czkawka
-    protonvpn-gui
     filezilla
     ventoy
-    element-desktop
-    drawio
-    discord
     go2tv
     simple-dlna-browser
 
@@ -183,13 +164,10 @@
     adb-sync
     scrcpy
     p7zip
-    nnn
+    nnn # compare with lf
     debootstrap
     xorriso
     hdparm
-
-    # Research & Text editing tools.
-    libreoffice-fresh
 
     # Streaming & Recording.
     obs-studio

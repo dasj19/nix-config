@@ -33,10 +33,11 @@
     # GUIs.
     brasero
     dconf-editor
-    evolution
+    drawio
+    evolutionWithPlugins
     firefox
     flacon
-    fontforge-gtk
+    czkawka
     ghidra
     gimp
     gparted
@@ -46,18 +47,23 @@
     qbittorrent
     remmina
     tor-browser-bundle-bin
+    pdfarranger
     vlc
-
-    # Electron apps.
+    libreoffice-fresh
     element-desktop
     discord
+    signal-desktop
     protonvpn-gui
     signal-desktop
     ungoogled-chromium
+    tor-browser-bundle-bin
 
     # Development.
+    fontforge-gtk
     insomnia
     meld
     vscodium
+    firefox-devedition-bin
+    dbeaver-bin
   ];
 }
