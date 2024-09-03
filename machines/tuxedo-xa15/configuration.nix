@@ -149,12 +149,9 @@ in
     dbeaver-bin
 
     # Drivers and Firmware.
-    cups
     ntfs3g
 
     # Desktop apps.
-    gnome-tweaks
-    gnome-network-displays
     freerdp
     gparted
     evolutionWithPlugins
@@ -169,20 +166,18 @@ in
     pdfarranger
     inkscape
     signal-desktop
-    vlc lbry
+    vlc
+    lbry
     gcstar
     czkawka
     protonvpn-gui
     filezilla
     ventoy
-    bitcoin
-    soulseekqt
-    
-    # Electron apps.
     element-desktop
     drawio
     discord
-    go2tv simple-dlna-browser
+    go2tv
+    simple-dlna-browser
 
     #Localization
     poedit
@@ -211,11 +206,12 @@ in
 
     # Virtualization.
     virt-manager
-    docker-compose
 
     # P2P.
     radarr
     eiskaltdcpp
+    bitcoin
+    soulseekqt
 
     # Temporary.
     brightnessctl

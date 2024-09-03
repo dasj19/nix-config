@@ -30,5 +30,6 @@
   # Include gnome-packages as part of system-packages.  
   environment.systemPackages = with pkgs; [
     gnome-tweaks
+    gnome-network-displays
   ];
 }
