@@ -5,21 +5,29 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   #inputs.nixpkgs.url = "path:/home/daniel/workspace/projects/nixpkgs";
 
+  inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.stylix.url = "github:danth/stylix";
   inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.stylix.inputs.home-manager.follows = "home-manager";
+  inputs.stylix.inputs.flake-compat.follows = "flake-compat";
+
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
   inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.simple-nixos-mailserver.inputs.flake-compat.follows = "flake-compat";
+
 
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+  
 
   outputs = { self, nixpkgs, nixos-hardware, sops-nix, simple-nixos-mailserver, stylix, home-manager, ... }:
 
