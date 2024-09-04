@@ -16,6 +16,7 @@
   # These should be CLI-only packages.
   environment.systemPackages = with pkgs; [
     # CLI.
+    bat
     cpufrequtils
     eza
     git
