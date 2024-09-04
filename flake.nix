@@ -15,19 +15,14 @@
   inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.flake-compat.follows = "flake-compat";
 
-
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
-  inputs.nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
   inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
   inputs.simple-nixos-mailserver.inputs.flake-compat.follows = "flake-compat";
 
-
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-  
 
   outputs = { self, nixpkgs, nixos-hardware, sops-nix, simple-nixos-mailserver, stylix, home-manager, ... }:
 
