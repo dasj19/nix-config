@@ -44,6 +44,18 @@
         stylix.nixosModules.stylix
         nixos-hardware.nixosModules.lenovo-thinkpad
         simple-nixos-mailserver.nixosModule
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.daniel = import ./machines/xps13-9380/home.nix;
+
+          # Optionally, use home-manager.extraSpecialArgs to pass
+          # arguments to home.nix
+          home-manager.extraSpecialArgs = {
+            inherit gitSecrets;
+          };
+        }
       ];
     };
     nixosConfigurations.xps13-9310 = nixpkgs.lib.nixosSystem {
