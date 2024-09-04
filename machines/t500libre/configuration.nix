@@ -72,28 +72,14 @@ in
 
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
-    # Nix ecosystem.
-    nix-search-cli
-
     # CLI utils.
-    wget
-    vim
     w3m
-    git
     netcat-gnu
-    tree
     lynx
     powertop
     dnsutils
     openssl
     lsof
-    nmap
-    smartmontools
-
-    # Encryption.
-    age
-    git-crypt
-    sops
 
     # Server applications.
     apacheHttpd_2_4
