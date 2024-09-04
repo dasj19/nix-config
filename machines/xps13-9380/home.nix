@@ -12,6 +12,11 @@
   programs.git.enable = true;
   programs.git.userName = gitSecrets.danielFullname;
   programs.git.userEmail = gitSecrets.danielPersonalEmail;
+  programs.git.ignores = [
+    # ignore secret files.
+    "git-crypt-key"
+  ];
+  programs.git.difftastic.enable = true;
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
