@@ -1,4 +1,4 @@
-{ config, pkgs, lib, gitSecrets, sopsSecrets, nixos-artwork, ... }:
+{ config, pkgs, lib, gitSecrets, sopsSecrets, ... }:
 
 {
   imports = [
