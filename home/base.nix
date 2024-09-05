@@ -1,4 +1,4 @@
-{ config, pkgs, gitSecrets, ... }:
+{ lib, config, pkgs, gitSecrets, ... }:
 
 {
   home.username = "daniel";
@@ -10,8 +10,8 @@
   news.display = "show";
 
   programs.git.enable = true;
-  programs.git.userName = gitSecrets.danielFullname;
-  programs.git.userEmail = gitSecrets.danielPersonalEmail;
+  programs.git.userName = lib.mkDefault gitSecrets.danielFullname;
+  programs.git.userEmail = lib.mkDefault gitSecrets.danielPersonalEmail;
   programs.git.ignores = [
     # ignore secret files.
     "git-crypt-key"
