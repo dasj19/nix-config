@@ -18,4 +18,14 @@
       "clipboard-indicator@tudmotu.com"
     ];
   };
+
+  programs.vscode.enable = true;
+  programs.vscode.package = pkgs.vscodium;
+  programs.vscode.extensions = with pkgs.vscode-extensions; [
+
+  ];
+
+  programs.vscode.userSettings = {
+    "[php]"."editor.tabSize" = 2;
+  };
 }

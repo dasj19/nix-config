@@ -17,6 +17,7 @@
     "git-crypt-key"
   ];
   programs.git.difftastic.enable = true;
+  programs.git.difftastic.display = "inline";
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
