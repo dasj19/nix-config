@@ -43,22 +43,6 @@ in
     intel-media-driver
   ];
 
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -69,7 +53,6 @@ in
     awscli2
     codeium
     php82Packages.composer
-    php82Packages.php-codesniffer
     cypress
     docker
     docker-compose
@@ -83,6 +66,11 @@ in
     wget
     xvfb-run
     yarn
+
+    # Libraries.
+    nodejs_20
+    php82
+    stdenv.cc.cc.lib
 
     # Cryptography.
     git-crypt
@@ -115,11 +103,6 @@ in
     vscodium
     zoom-us
 
-    # Libraries.
-    nodejs_20
-    php82
-    stdenv.cc.cc.lib
-
     # Temporary
     xorg.xorgserver
     microsoft-edge
@@ -138,13 +121,6 @@ in
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
-  # Enable fish as the default shell.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
-
-  # Allowed shells.
-  environment.shells = [ pkgs.bashInteractive pkgs.fish ];
-
   system.activationScripts = {
     bashsh.text =
       ''
@@ -155,15 +131,12 @@ in
   programs.nix-ld.enable = true;
 
   programs.nix-ld.libraries = with pkgs; [
-
     cypress
   ];
 
-
+  # Shell settings.
+  environment.shells = [ pkgs.bashInteractive pkgs.fish ];
   environment.shellAliases = {
-    # change nixos-rebuild to use my own version of nixpkgs.
-    nixos-rebuild = "nixos-rebuild -I nixpkgs=/home/daniel/workspace/nixpkgs --log-format bar-with-logs --keep-going";
-
     xvfb = "/run/current-system/sw/bin/xvfb-run";
   };
 
