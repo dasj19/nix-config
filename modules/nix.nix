@@ -23,6 +23,7 @@
 
   # Packages for nix ecosystem.
   environment.systemPackages = with pkgs; [
+    hydra-check
     nix-search-cli
     nix-prefetch
     nix-serve
