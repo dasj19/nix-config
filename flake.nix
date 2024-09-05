@@ -24,7 +24,19 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = { self, nixpkgs, nixos-hardware, sops-nix, simple-nixos-mailserver, stylix, home-manager, ... }:
+  #inputs.nixos-generators.url = "github:nix-community/nixos-generators";
+  #inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
+
+  outputs = {
+    self,
+    nixpkgs,
+    nixos-hardware,
+    sops-nix,
+    simple-nixos-mailserver,
+    stylix,
+    home-manager,
+    ... 
+  }:
 
   let
     gitSecrets = builtins.fromJSON(builtins.readFile "${self}/secrets/git-secrets.json");
@@ -120,6 +132,19 @@
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
         #nixos-hardware.nixosModules.tuxedo-xa15 # does not exist yet.
+        home-manager.nixosModules.home-manager
+        # TODO: Move inside machines folder.
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.daniel = import ./home/laptop.nix;
+
+          # Optionally, use home-manager.extraSpecialArgs to pass
+          # arguments to home.nix
+          home-manager.extraSpecialArgs = {
+            inherit gitSecrets;
+          };
+        }
       ];
     };
   };

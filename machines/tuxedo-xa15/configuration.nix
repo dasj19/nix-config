@@ -203,6 +203,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PubkeyAuthentication = true;
+  
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "22.05";
