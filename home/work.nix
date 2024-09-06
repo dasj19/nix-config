@@ -18,6 +18,13 @@ in
   '';
 
   programs.vscode.userSettings = {
+    # If it complains about unwritable settings.js check: https://github.com/nix-community/home-manager/issues/1800
+    "github.copilot.enable" = {
+      "*" = true;
+      "plaintext" = false;
+      "markdown" = false;
+      "scminput" = false;
+    };
     "php.format.codeStyle" = "Drupal";
     "phpcs.standard" = phpStandards;
     "phpcs.executablePath" = "/home/daniel/.config/composer/vendor/bin/phpcs";
