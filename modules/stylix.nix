@@ -17,8 +17,4 @@
   stylix.fonts.sansSerif.name = "UbuntuMono Nerd Font";
   stylix.fonts.monospace.package = pkgs.fira-code-nerdfont;
   stylix.fonts.monospace.name = "FiraCode Nerd Font";
-
-  
-
-  
 }

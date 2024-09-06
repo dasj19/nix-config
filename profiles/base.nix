@@ -23,6 +23,7 @@
     jq
     lf
     lshw
+    legit
     nmap
     screen
     smartmontools

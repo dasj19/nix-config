@@ -1,4 +1,4 @@
-{ config, pkgs, gitSecrets, ... }:
+{ pkgs, gitSecrets, nix-vscode-extensions, ... }:
 
 {
   imports = [
@@ -24,9 +24,14 @@
   programs.vscode.extensions = with pkgs.vscode-extensions; [
     # Nix language support.
     jnoortheen.nix-ide
+    # At the moment Codeium is installed from the marketplace vsix file.
+    # codeium.codeium does not properly work with the Nix ecosystem
+    # as it requires to download the language server from github.
   ];
 
   programs.vscode.userSettings = {
     "[php]"."editor.tabSize" = 2;
+    "codeium.enableConfig"."*" = true;
+    "codeium.enableConfig"."nix" = true;
   };
 }

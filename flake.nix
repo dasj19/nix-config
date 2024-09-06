@@ -14,6 +14,8 @@
   inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.flake-compat.follows = "flake-compat";
+  inputs.stylix.inputs.systems.follows = "systems";
+  inputs.stylix.inputs.flake-utils.follows = "flake-utils";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
@@ -24,6 +26,20 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+  inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+  inputs.nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nix-vscode-extensions.inputs.flake-compat.follows = "flake-compat";
+  inputs.nix-vscode-extensions.inputs.flake-utils.follows = "flake-utils";
+
+  inputs.vscode-server.url = "github:nix-community/nixos-vscode-server";
+  inputs.vscode-server.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.vscode-server.inputs.flake-utils.follows = "flake-utils";
+
+  inputs.systems.url = "github:nix-systems/x86_64-linux";
+
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.flake-utils.inputs.systems.follows = "systems";
+
   #inputs.nixos-generators.url = "github:nix-community/nixos-generators";
   #inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -31,10 +47,12 @@
     self,
     nixpkgs,
     nixos-hardware,
+    nix-vscode-extensions,
     sops-nix,
     simple-nixos-mailserver,
     stylix,
     home-manager,
+    vscode-server,
     ... 
   }:
 
@@ -86,9 +104,6 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/work.nix;
-
-          # Optionally, use home-manager.extraSpecialArgs to pass
-          # arguments to home.nix
           home-manager.extraSpecialArgs = {
             inherit gitSecrets;
           };
@@ -99,6 +114,7 @@
       specialArgs = {
         inherit gitSecrets;
         inherit sopsSecrets;
+        inherit nix-vscode-extensions;
       };
       system = "x86_64-linux";
       modules = [
@@ -106,19 +122,27 @@
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
         nixos-hardware.nixosModules.dell-xps-13-9380
+
+        # These are not yet used by the xps13-9380 machine.
+        vscode-server.nixosModules.default
+        ({ config, pkgs, ... }: {
+          services.vscode-server.enable = true;
+          services.vscode-server.enableFHS = true;
+        })
+
         home-manager.nixosModules.home-manager
         # TODO: Move inside machines folder.
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
-
-          # Optionally, use home-manager.extraSpecialArgs to pass
-          # arguments to home.nix
           home-manager.extraSpecialArgs = {
             inherit gitSecrets;
+            inherit nix-vscode-extensions;
           };
         }
+
+
       ];
     };
     nixosConfigurations.tuxedo-xa15 = nixpkgs.lib.nixosSystem {
