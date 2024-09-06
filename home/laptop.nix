@@ -22,7 +22,8 @@
   programs.vscode.enable = true;
   programs.vscode.package = pkgs.vscodium;
   programs.vscode.extensions = with pkgs.vscode-extensions; [
-
+    # Nix language support.
+    jnoortheen.nix-ide
   ];
 
   programs.vscode.userSettings = {
