@@ -51,7 +51,6 @@ in
 
     # CLI.
     awscli2
-    codeium
     php82Packages.composer
     cypress
     docker
