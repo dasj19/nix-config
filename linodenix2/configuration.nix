@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   variables = import ./secrets/variables.nix;
@@ -69,7 +69,7 @@ in
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  # Setting internationalisation properties to english locale and spanish keyboard.
+  # Setting internationalization properties to english locale and spanish keyboard.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
@@ -116,7 +116,7 @@ in
 
   # Custom shell aliases.
   environment.shellAliases = {
-    # Use the path to the local nixpkgs repo to rely on aditionally-tested binaries.
+    # Use the path to the local nixpkgs repo to rely on additionally-tested binaries.
     # Use the bar-with-logs to display a nicer progress.
     nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --log-format bar-with-logs --keep-going";
   };

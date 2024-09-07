@@ -1,4 +1,4 @@
-{ config, pkgs, lib, gitSecrets, sopsSecrets, ... }:
+{ config, gitSecrets, ... }:
 
   let
 
@@ -24,16 +24,16 @@
       # list of domains in format: [ "domain.tld" ];
       domains = [ gnu-domain ];
       loginAccounts = {
-           # Account name in the form of "username@domain.tld".
-           "${mailserver-daniel-email}" = {
-              # Password can be generated running: 'mkpasswd -sm bcrypt'.
-              hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
-              # List of aliases in format: [ "username@domain.tld" ].
-              aliases = [
-                "postmaster@${gnu-domain}"
-                "tor@${gnu-domain}"
-                "webmaster@${gnu-domain}"
-              ];
+          # Account name in the form of "username@domain.tld".
+          "${mailserver-daniel-email}" = {
+            # Password can be generated running: 'mkpasswd -sm bcrypt'.
+            hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
+            # List of aliases in format: [ "username@domain.tld" ].
+            aliases = [
+              "postmaster@${gnu-domain}"
+              "tor@${gnu-domain}"
+              "webmaster@${gnu-domain}"
+            ];
           };
       };
       # Index the body of the mails to perform full text search.

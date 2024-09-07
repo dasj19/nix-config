@@ -24,15 +24,15 @@ in
         "${variables.primaryDomain}"
       ];
       loginAccounts = {
-         "${variables.danielEmail}" = {
-              # For generating new hashed passwords use the following commands.
-              # nix shell -p apacheHttpd
-              # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
-              hashedPasswordFile = config.age.secrets.mailserver-account-daniel-password.path;
+        "${variables.danielEmail}" = {
+          # For generating new hashed passwords use the following commands.
+          # nix shell -p apacheHttpd
+          # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
+          hashedPasswordFile = config.age.secrets.mailserver-account-daniel-password.path;
 
-              # List of email aliases: "username@domain.tld" .
-              aliases = [ variables.postmasterEmail variables.webmasterEmail ];
-          };
+          # List of email aliases: "username@domain.tld" .
+          aliases = [ variables.postmasterEmail variables.webmasterEmail ];
+        };
       };
       # Index the body of the mails to perform full text search.
       fullTextSearch = {

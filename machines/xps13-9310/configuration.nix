@@ -1,4 +1,4 @@
-{ config, lib, pkgs, gitSecrets, sopsSecrets, ... }:
+{ config, lib, pkgs, gitSecrets, ... }:
 
 let
 
@@ -121,10 +121,9 @@ in
   # networking.firewall.allowedUDPPorts = [ ... ];
 
   system.activationScripts = {
-    bashsh.text =
-      ''
-        ln -sf /run/current-system/sw/bin/bash /bin/bash
-      '';
+    bashsh.text = ''
+      ln -sf /run/current-system/sw/bin/bash /bin/bash
+    '';
   };
 
   programs.nix-ld.enable = true;

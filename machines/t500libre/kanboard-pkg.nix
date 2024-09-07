@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     description = "Kanban project management software";
     homepage = "https://kanboard.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ lheckemann ];
+    maintainers = with maintainers; [ dasj19 ];
   };
 }

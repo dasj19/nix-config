@@ -1,4 +1,4 @@
-{ config, lib, pkgs, gitSecrets, ... }:
+{ pkgs, gitSecrets, ... }:
 
 let
 
@@ -12,7 +12,7 @@ in
 
 {
 
-  # Apache webserver with virtualhosts. @todo: migrate to caddy.
+  # Apache webserver with virtual hosts. @todo: migrate to caddy.
   services.httpd = {
     enable = true;
     enablePHP = true;
@@ -91,7 +91,7 @@ in
         '';
       };
       
-      # Debian Souce List Generator for the masses.
+      # Debian Source List Generator for the masses.
       "dslg.${gnu-domain}" = {
         # forceSSL uses 302 Found redirects, using own 301 redirects in 'extraConfig'.
         #addSSL = true;
@@ -129,7 +129,7 @@ in
         allow from all
       </Directory>
 
-      # These headers were vaildated with the following online checkers:
+      # These headers were validated with the following online checkers:
       # https://observatory.mozilla.org/analyze/<domain>
       # https://www.serpworx.com/check-security-headers/?url=<domain>
       # https://geekflare.com/tools/secure-headers-test
@@ -138,7 +138,7 @@ in
       # https://www.atatus.com/tools/security-header#url=https://<domain>
       # https://www.vulnerar.com/scans/http-security-header
 
-      # Change the default Server header that usually cotains the version of the Apache server.
+      # Change the default Server header that usually contains the version of the Apache server.
       # https://httpd.apache.org/docs/2.4/mod/core.html#servertokens
       ServerTokens Prod
 
@@ -193,7 +193,7 @@ in
       Header set Permissions-Policy: "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=*, document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=*, geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=*, publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=*, clipboard-write=*, gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), vertical-scroll=()"
 
       # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
-      # Do not allows refferer information when protocol is downgraded.
+      # Do not allows referrer information when protocol is downgraded.
       Header set Referrer-Policy "no-referrer-when-downgrade"
 
       # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
@@ -220,7 +220,7 @@ in
       # Listen for virtual host requests on all IP addresses
       # NameVirtualHost *:443
 
-      # Accept connections for these vhosts from non-SNI clients
+      # Accept connections for these virtual hosts from non-SNI clients
       SSLStrictSNIVHostCheck off
 
       # Enable SSL stapling.

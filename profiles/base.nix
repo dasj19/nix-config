@@ -22,6 +22,7 @@
     git
     jq
     lf
+    lsof
     lshw
     legit
     nmap

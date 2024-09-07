@@ -18,7 +18,7 @@ in
   '';
 
   programs.vscode.userSettings = {
-    # If it complains about unwritable settings.js check: https://github.com/nix-community/home-manager/issues/1800
+    # If it complains about read-only settings.js check: https://github.com/nix-community/home-manager/issues/1800
     "github.copilot.enable" = {
       "*" = true;
       "plaintext" = false;

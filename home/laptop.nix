@@ -30,8 +30,7 @@
     # Editor enhancements.
     oderwat.indent-rainbow
 
-    # At the moment Codeium is installed from the marketplace vsix file.
-    # codeium.codeium does not properly work with the Nix ecosystem
+    # At the moment Codeium does not properly work with the Nix ecosystem
     # as it requires to download the language server from github.
     codeium.codeium
   ];

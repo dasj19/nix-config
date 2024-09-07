@@ -11,7 +11,7 @@ in
       ./hardware-configuration.nix
       # Include email-related software configuration.
       ./email.nix
-      # Agenix secret management tool.
+      # agenix secret management tool.
       "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
     ];
 
@@ -32,15 +32,15 @@ in
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  # Select internationalisation properties.
+  # Select internationalization properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  # Font and keymap for the console.
+  # Font and keyboard layout for the console.
   console = {
     font = "Lat2-Terminus16";
     keyMap = "es";
   };
 
-  # Unpriviledged user account.
+  # Unprivileged user account.
   users.users.daniel = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
@@ -48,9 +48,9 @@ in
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
-     # CLI.
-     git
-     wget
+    # CLI.
+    git
+    wget
   ] ++ [ (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {}) ];
 
   # List services.

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, gitSecrets, sopsSecrets, ... }:
+{ config, pkgs, gitSecrets, ... }:
 
 
 let
@@ -79,7 +79,6 @@ in
     powertop
     dnsutils
     openssl
-    lsof
 
     # Server applications.
     apacheHttpd_2_4
@@ -148,7 +147,7 @@ in
     "1.0.0.1"
   ];
 
-  # Control the laptop lidswitch behaviour.
+  # Control the laptop lidswitch behavior.
   services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchDocked = "ignore";
 
@@ -192,7 +191,7 @@ in
   ];
 
   # Allow immutable users.
-  # Consider adopting userbord: https://github.com/NixOS/nixpkgs/pull/332719
+  # Consider adopting userborn: https://github.com/NixOS/nixpkgs/pull/332719
   # users.mutableUsers = false;
 
   # The root user.
@@ -200,7 +199,7 @@ in
     hashedPasswordFile = config.sops.secrets.root_password.path;
   };
 
-  # Local unpriviledged user accunt.
+  # Local unprivileged user account.
   users.users.daniel = {
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets.daniel_password.path;

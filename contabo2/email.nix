@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 
 let
   release = "master";
@@ -24,7 +24,7 @@ in
         "${variables.primaryDomain}"
       ];
       loginAccounts = {
-         "${variables.danielEmail}" = {
+        "${variables.danielEmail}" = {
               # For generating new hashed passwords use the following commands.
               # nix shell -p apacheHttpd
               # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location

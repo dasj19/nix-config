@@ -5,7 +5,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # Unmerged code for tuxedo-drivers. @TODO: remove once it is merged in unstable, perpare a profile in nixos-hardware.
+    # Unmerged code for tuxedo-drivers. @TODO: remove once it is merged in unstable, prepare a profile in nixos-hardware.
     # "${inputs.tuxedo-drivers}/nixos/modules/hardware/tuxedo-drivers.nix"
 
     # Profile.
@@ -18,7 +18,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  # TODO: Disable because of nonfree license. Then find a solution for HDMI output.
+  # TODO: Disable because of non-free license. Then find a solution for HDMI output.
   services.xserver.videoDrivers = [ "nvidia" ];
 
   # Disable unused xserver packages.
@@ -30,7 +30,7 @@
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
-   # Enable control of keyboard lights via openrgb.
+  # Enable control of keyboard lights via openrgb.
   services.hardware.openrgb.enable = true;
 
   # AMD.
@@ -52,7 +52,7 @@
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
-    # Modesetting is required.
+  # Modesetting is required.
   hardware.nvidia.modesetting.enable = true;
 
   # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
@@ -91,7 +91,7 @@
     3000 # EiskaltDC++
     3001 # EiskaltDC++
     3389 # RDP connections
-    3333 # LBRY Dameon
+    3333 # LBRY Daemon
     4444 # LBRY Streams
     5567 # LBRY P2P
     6250 # EiskaltDC++ DHT

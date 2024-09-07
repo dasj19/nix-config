@@ -31,7 +31,7 @@
     php83Packages.composer
     python3
 
-    # Tempporary.
+    # Temporary.
     # ...
   ];
 
@@ -50,9 +50,9 @@
   # Needed by jekyll project. @TODO: groom.
   # https://discourse.nixos.org/t/making-lib64-ld-linux-x86-64-so-2-available/19679
   system.activationScripts.ldso = lib.stringAfter [ "usrbinenv" ] ''
-     mkdir -m 0755 -p /lib64
-     ln -sfn ${pkgs.glibc.out}/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2.tmp
-     mv -f /lib64/ld-linux-x86-64.so.2.tmp /lib64/ld-linux-x86-64.so.2 # atomically replace
+    mkdir -m 0755 -p /lib64
+    ln -sfn ${pkgs.glibc.out}/lib64/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2.tmp
+    mv -f /lib64/ld-linux-x86-64.so.2.tmp /lib64/ld-linux-x86-64.so.2 # atomically replace
   '';
 
   # Check documentation if you want/need to change this.

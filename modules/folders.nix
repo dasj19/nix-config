@@ -1,6 +1,6 @@
 {
   # Custom user directories.
-  # Run "xdg-user-dirs-update --force" after changing theese.
+  # Run "xdg-user-dirs-update --force" after changing these.
   environment.etc."xdg/user-dirs.defaults".text = ''
     DESKTOP=system/desktop
     DOWNLOAD=downloads

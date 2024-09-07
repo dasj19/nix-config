@@ -26,7 +26,7 @@ in
   # Consider adopt userborn after it is merged: https://github.com/NixOS/nixpkgs/pull/332719
   #  users.mutableUsers = false;
 
-  # Underpriviledged account.
+  # Underprivileged account.
   users.users.daniel = {
     isNormalUser = true;
     description = daniel-fullname;

@@ -407,13 +407,13 @@ cool-tag-cloud = pkgs.stdenv.mkDerivation rec {
   '';
 };
 
-# @TOCONSIDER: https://wordpress.org/plugins/performance-lab/
+# @CONSIDER: https://wordpress.org/plugins/performance-lab/
 # https://wordpress.org/plugins/performant-translations/
 # Got them from: https://profiles.wordpress.org/wordpressdotorg/
 
 in
 {
-  # phpfpm with custom extensions.
+  # php-fpm with custom extensions.
   services.phpfpm.phpOptions = ''
     extension=${pkgs.php82Extensions.imagick}/lib/php/extensions/imagick.so
   '';
@@ -507,8 +507,8 @@ in
 
     virtualHosts."www.${variables.primaryDomain}" = {
       extraConfig = ''
-         # Redirect www to non-ww with https.
-         redir https://{labels.1}.{labels.0}{uri} permanent
+        # Redirect www to non-ww with https.
+        redir https://{labels.1}.{labels.0}{uri} permanent
       '';
     };
     virtualHosts."${variables.primaryDomain}" = {
@@ -518,7 +518,7 @@ in
         rewrite @images {path}.webp
         # Definition of supported images.
         @images {
-          # Apparently this is more efficitent than regex matching.
+          # Apparently this is more efficient than regex matching.
           # https://caddyserver.com/docs/caddyfile/matchers#file
           # https://caddy.community/t/correct-way-to-set-expires-on-caddy-2/7914/13
           file
@@ -526,7 +526,7 @@ in
         }
         # Definition of supported assets.
         @assets {
-          # Apparently this is more efficitent than regex matching.
+          # Apparently this is more efficient than regex matching.
           # https://caddyserver.com/docs/caddyfile/matchers#file
           # https://caddy.community/t/correct-way-to-set-expires-on-caddy-2/7914/13
           file

@@ -1,9 +1,9 @@
-{ config, lib, pkgs, gitSecrets, ... }:
+{ config, pkgs, gitSecrets, ... }:
 
 let
   kanboard = pkgs.callPackage ./kanboard-pkg.nix { };
 
- # Git secrets.
+  # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
 
 in
@@ -29,7 +29,7 @@ in
   # database for kanboard.
   services.postgresql.enable = true;
 
-  # webserver with virtualhosts. @todo: migrate to caddy.
+  # webserver with virtual hosts. @todo: migrate to caddy.
   services.nginx = {
     enable = true;
     virtualHosts."kanboard.${gnu-domain}" = {
