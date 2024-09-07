@@ -1,4 +1,4 @@
-{ lib, config, pkgs, gitSecrets, ... }:
+{ lib, gitSecrets, ... }:
 
 {
   home.username = "daniel";

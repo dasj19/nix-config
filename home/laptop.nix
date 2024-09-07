@@ -27,6 +27,8 @@
     jnoortheen.nix-ide
     # Spell checker.
     streetsidesoftware.code-spell-checker
+    # Editor enhancements.
+    oderwat.indent-rainbow
 
     # At the moment Codeium is installed from the marketplace vsix file.
     # codeium.codeium does not properly work with the Nix ecosystem
