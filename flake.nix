@@ -114,7 +114,6 @@
       specialArgs = {
         inherit gitSecrets;
         inherit sopsSecrets;
-        inherit nix-vscode-extensions;
       };
       system = "x86_64-linux";
       modules = [
@@ -130,19 +129,22 @@
           services.vscode-server.enableFHS = true;
         })
 
+        # Extend nixpkgs with VSCode extensions.
+        {
+          nixpkgs.overlays = [
+            nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
+          ]; 
+        }
+
         home-manager.nixosModules.home-manager
-        # TODO: Move inside machines folder.
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
           home-manager.extraSpecialArgs = {
             inherit gitSecrets;
-            inherit nix-vscode-extensions;
           };
         }
-
-
       ];
     };
     nixosConfigurations.tuxedo-xa15 = nixpkgs.lib.nixosSystem {
@@ -157,14 +159,10 @@
         stylix.nixosModules.stylix
         #nixos-hardware.nixosModules.tuxedo-xa15 # does not exist yet.
         home-manager.nixosModules.home-manager
-        # TODO: Move inside machines folder.
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
-
-          # Optionally, use home-manager.extraSpecialArgs to pass
-          # arguments to home.nix
           home-manager.extraSpecialArgs = {
             inherit gitSecrets;
           };

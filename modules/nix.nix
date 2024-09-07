@@ -24,11 +24,13 @@
   # Packages for nix ecosystem.
   environment.systemPackages = with pkgs; [
     hydra-check
+    nil
     nix-search-cli
     nix-prefetch
     nix-serve
     nix-tree
     nixos-option # This: https://github.com/NixOS/nixpkgs/pull/313497 will work with flakes.
+    nixpkgs-fmt
     nixpkgs-review
   ];
 
