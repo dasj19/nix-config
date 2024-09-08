@@ -32,6 +32,8 @@ in
 
               # List of email aliases: "username@domain.tld" .
               aliases = [ variables.postmasterEmail variables.webmasterEmail ];
+              # Catch all emails from the primary domain.
+              catchAll = [ variables.primaryDomain ];
           };
       };
       # Index the body of the mails to perform full text search.
