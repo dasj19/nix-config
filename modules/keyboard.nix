@@ -1,7 +1,7 @@
 {
-  # Configure keymap in X11
+  # Configure keyboard layout in X11.
   services.xserver.xkb.layout = "esrodk,es,dk,ro";
-  # Configure console keymap
+  # Configure console keyboard layout.
   console.keyMap = "es";
 
   # Adding an extra layout.

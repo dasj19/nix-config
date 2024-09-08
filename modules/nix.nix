@@ -40,6 +40,6 @@
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 10d";
 
-  # Provides hints for missing commands.
+  # Provides hints for commands that are missing from the system.
   programs.command-not-found.enable = true;
 }
