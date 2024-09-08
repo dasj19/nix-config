@@ -7,6 +7,7 @@
 
   home.packages = with pkgs; [
     gnomeExtensions.clipboard-indicator
+    gnomeExtensions.activate_gnome
   ];
 
   dconf.enable = true;
@@ -15,7 +16,8 @@
 
     # `Active gnome-extensions.
     enabled-extensions = [
-      "clipboard-indicator@tudmotu.com" 
+      "clipboard-indicator@tudmotu.com"
+      "activate_gnome@isjerryxiao"
     ];
   };
 

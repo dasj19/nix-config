@@ -1,4 +1,4 @@
-{ config, pkgs, lib, gitSecrets, sopsSecrets, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
