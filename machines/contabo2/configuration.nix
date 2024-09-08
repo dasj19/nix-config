@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, gitSecrets, ... }:
 
 let
-  variables = import ./secrets/variables.nix;
+#  variables = import ./secrets/variables.nix;
+  daniel-domain = gitSecrets.danielPrimaryDomain;
+
 in
 
 {
@@ -87,7 +89,7 @@ in
 
   # ACME settings.
   security.acme.acceptTerms = true;
-  security.acme.defaults.email = variables.webmasterEmail;
+  security.acme.defaults.email = "webmaster@${daniel-domain}";
   security.acme.defaults.dnsProvider = "cloudflare";
   security.acme.defaults.credentialsFile = config.age.secrets.cloudflare-dns-api-credentials.path;
 
@@ -98,7 +100,7 @@ in
   # Custom shell aliases.
   environment.shellAliases = {
     # Includes the path to the nixpkgs fork to pickup our own updates.
-    nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --log-format bar-with-logs --keep-going";
+    #nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --log-format bar-with-logs --keep-going";
   };
 
   # Initial version. Consult manual before changing.

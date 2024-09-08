@@ -62,6 +62,32 @@
   in
 
   {
+    nixosConfigurations.contabo2 = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
+      system = "x86_64-linux";
+      modules = [
+        ./machines/contabo2/configuration.nix
+        sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
+        #nixos-hardware.nixosModules.lenovo-thinkpad
+        #simple-nixos-mailserver.nixosModule
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.daniel = import ./home/server.nix;
+
+          # Optionally, use home-manager.extraSpecialArgs to pass
+          # arguments to home.nix
+          home-manager.extraSpecialArgs = {
+            inherit gitSecrets;
+          };
+        }
+      ];
+    };
     nixosConfigurations.t500libre = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit gitSecrets;

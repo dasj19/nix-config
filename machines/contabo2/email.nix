@@ -1,8 +1,12 @@
-{ config, ... }:
+{ config, gitSecrets, ... }:
 
 let
   release = "master";
-  variables = import ./secrets/variables.nix;
+#  variables = import ./secrets/variables.nix;
+  daniel-domain = gitSecrets.danielPrimaryDomain;
+  daniel-email = gitSecrets.danielHackerEmail;
+  daniel-fqdn = gitSecrets.danielMailserverFqdn;
+
 in
 
 {
@@ -16,24 +20,24 @@ in
 
     mailserver = {
       enable = true;
-      fqdn =  variables.fqdn;
+      fqdn = daniel-fqdn;
       # Use Let's Encrypt instead of self-signed certificate.
       # The Caddy webserver takes care of certificates via ACME.
       certificateScheme = "acme";
       domains = [
-        "${variables.primaryDomain}"
+        "${daniel-domain}"
       ];
       loginAccounts = {
-        "${variables.danielEmail}" = {
+        "${daniel-email}" = {
               # For generating new hashed passwords use the following commands.
               # nix shell -p apacheHttpd
               # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
               hashedPasswordFile = config.age.secrets.mailserver-account-daniel-password.path;
 
               # List of email aliases: "username@domain.tld" .
-              aliases = [ variables.postmasterEmail variables.webmasterEmail ];
+              aliases = [ "postmaster@${daniel-domain}" "webmaster@${daniel-domain}" ];
               # Catch all emails from the primary domain.
-              catchAll = [ variables.primaryDomain ];
+              catchAll = [ daniel-domain ];
           };
       };
       # Index the body of the mails to perform full text search.
