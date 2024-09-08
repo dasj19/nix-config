@@ -50,6 +50,7 @@ in
   environment.systemPackages = with pkgs; [
     # CLI.
     git
+    git-crypt
     wget
   ] ++ [ (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {}) ];
 
