@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  # Nix build settings. @TODO: consider hosting a hydra.
+  # Nix build settings.
   nix.settings.substituters = [
     "https://cache.nixos.org"
   ];
@@ -9,10 +9,6 @@
   ];
 
   nix.distributedBuilds = true;
-  # Useful when the builder has a faster internet connection than yours
-  nix.extraOptions = ''
-    builders-use-substitutes = true
-  '';
   nix.settings.trusted-users = [ "root" "daniel" ];
 
   # Nix and Nixpkgs configurations.
@@ -39,6 +35,14 @@
   nix.settings.auto-optimise-store = true;
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 10d";
+
+  nix.extraOptions = ''
+    # Useful when the builder has a faster internet connection than yours
+    builders-use-substitutes = true
+    
+    # Do not warn when dirty git repo is used.
+    warn-dirty = false
+  '';
 
   # Provides hints for commands that are missing from the system.
   programs.command-not-found.enable = true;
