@@ -27,6 +27,7 @@
     nil
     nix-search-cli
     nix-prefetch
+    nix-prefetch-git
     nix-serve
     nix-tree
     nixos-option # This: https://github.com/NixOS/nixpkgs/pull/313497 will work with flakes.
@@ -38,4 +39,7 @@
   nix.settings.auto-optimise-store = true;
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 10d";
+
+  # Provides hints for missing commands.
+  programs.command-not-found.enable = true;
 }

@@ -25,6 +25,7 @@
     lsof
     lshw
     legit
+    ncdu
     nmap
     screen
     smartmontools
