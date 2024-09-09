@@ -43,17 +43,24 @@ in
     # AI assistant.
     github.copilot
 
-    # Templating extension.
-    mblode.twig-language
+    # Cross-language debugging.
+    formulahendry.code-runner
 
-    # PHP helper extensions.
-    bmewburn.vscode-intelephense-client
+    # Drupal syntax highlighter.
+    vs-code-drupal-vsix
 
     # Git enhancements.
     waderyan.gitblame
 
-    # Drupal syntax highlighter.
-    vs-code-drupal-vsix
+    # Language support.
+    redhat.vscode-yaml
+
+    # PHP helpers.
+    bmewburn.vscode-intelephense-client
+    devsense.composer-php-vscode
+
+    # Templating.
+    mblode.twig-language
   ];
 
   programs.vscode.userSettings = {
