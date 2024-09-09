@@ -5,19 +5,28 @@
     ./base.nix
   ];
 
-  home.packages = with pkgs; [
-    gnomeExtensions.clipboard-indicator
-    gnomeExtensions.activate_gnome
+  # Install gnome extensions.
+  # To be enabled in dconf.settings.enable-extensions.
+  home.packages = with pkgs.gnomeExtensions; [
+    activate_gnome
+    burn-my-windows
+    clipboard-indicator
+    desktop-cube
+    kando-integration
   ];
 
   dconf.enable = true;
   dconf.settings."org/gnome/shell" = {
     disable-user-extensions = false;
 
-    # `Active gnome-extensions.
+    # Active gnome-extensions.
+    # Changes take effect after restarting gnome-shell / logging out.
     enabled-extensions = [
       "clipboard-indicator@tudmotu.com"
       "activate_gnome@isjerryxiao"
+      "desktop-cube@schneegans.github.com"
+      "kando-integration@kando-menu.github.io"
+      "burn-my-windows@schneegans.github.com.zip"
     ];
   };
 
@@ -27,6 +36,9 @@
 
   programs.vscode.extensions =
   let
+      # Manually installed extensions.
+      # At the moment stock Codeium does not properly work with the Nix ecosystem
+      # as it requires to download the language server from github.
       codium-vsix = pkgs.vscode-utils.buildVscodeMarketplaceExtension rec {
         mktplcRef = {
           name = "codeium";
@@ -64,16 +76,15 @@
     with pkgs.vscode-marketplace; with pkgs.vscode-extensions; [
     # Nix language support.
     jnoortheen.nix-ide
+
     # Spell checker.
     streetsidesoftware.code-spell-checker
+
     # Editor enhancements.
     oderwat.indent-rainbow
 
-    # At the moment Codeium does not properly work with the Nix ecosystem
-    # as it requires to download the language server from github.
-    
+    # AI Assistant.
     codium-vsix
-
   ];
 
   programs.vscode.userSettings = {
