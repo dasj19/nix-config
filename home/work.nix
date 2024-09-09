@@ -49,6 +49,9 @@ in
     # PHP helper extensions.
     bmewburn.vscode-intelephense-client
 
+    # Git enhancements.
+    waderyan.gitblame
+
     # Drupal syntax highlighter.
     vs-code-drupal-vsix
   ];
