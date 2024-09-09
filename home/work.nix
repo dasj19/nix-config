@@ -1,4 +1,4 @@
-{ lib, config, pkgs, gitSecrets, ... }:
+{ pkgs, gitSecrets, ... }:
 
 let
   phpStandards = "Drupal,DrupalPractice,SlevomatCodingStandard,VariableAnalysis";
@@ -17,6 +17,12 @@ in
     set PATH $PATH $HOME/.config/composer/vendor/bin
   '';
 
+  programs.vscode.extensions = with pkgs.vscode-marketplace; with pkgs.vscode-extensions; [
+    github.copilot
+    mblode.twig-language
+    bmewburn.vscode-intelephense-client
+  ];
+
   programs.vscode.userSettings = {
     # If it complains about read-only settings.js check: https://github.com/nix-community/home-manager/issues/1800
     "github.copilot.enable" = {
@@ -26,6 +32,7 @@ in
       "scminput" = false;
     };
     "php.format.codeStyle" = "Drupal";
+    "phpcs.enable" = true;
     "phpcs.standard" = phpStandards;
     "phpcs.executablePath" = "/home/daniel/.config/composer/vendor/bin/phpcs";
     "phpResolver.phpSnifferCommand" = "/home/daniel/.config/composer/vendor/bin/phpcs";

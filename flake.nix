@@ -134,6 +134,13 @@
             inherit gitSecrets;
           };
         }
+
+        # Extend nixpkgs with VSCode extensions.
+        {
+          nixpkgs.overlays = [
+            nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
+          ]; 
+        }
       ];
     };
     nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
