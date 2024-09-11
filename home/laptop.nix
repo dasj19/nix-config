@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -26,8 +26,20 @@
       "activate_gnome@isjerryxiao"
       "desktop-cube@schneegans.github.com"
       "kando-integration@kando-menu.github.io"
-      "burn-my-windows@schneegans.github.com.zip"
+      "burn-my-windows@schneegans.github.com"
     ];
+  };
+
+  # Setup a burn-my-windows profile.
+  home.file."./.config/burn-my-windows/profiles/custom.conf".enable = true;
+  home.file."./.config/burn-my-windows/profiles/custom.conf".text = ''
+    [burn-my-windows-profile]
+    paint-brush-enable-effect=false
+    fire-enable-effect=false
+    tv-enable-effect=true
+  '';
+  dconf.settings."org/gnome/shell/extensions/burn-my-windows" = {
+    active-profile = "${config.home.homeDirectory}/.config/burn-my-windows/profiles/custom.conf";
   };
 
   programs.vscode.enable = true;
