@@ -9,6 +9,8 @@ in
 {
   imports =
     [
+      # Profile.
+      ./../../profiles/server.nix
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Include email-related software configuration.
@@ -33,14 +35,6 @@ in
 
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
-
-  # Select internationalization properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-  # Font and keyboard layout for the console.
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "es";
-  };
 
   # Unprivileged user account.
   users.users.daniel = {
@@ -92,10 +86,6 @@ in
   security.acme.defaults.email = "webmaster@${daniel-domain}";
   security.acme.defaults.dnsProvider = "cloudflare";
   security.acme.defaults.credentialsFile = config.age.secrets.cloudflare-dns-api-credentials.path;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix).
-  system.copySystemConfiguration = true;
 
   # Custom shell aliases.
   environment.shellAliases = {
