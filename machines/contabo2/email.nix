@@ -2,7 +2,6 @@
 
 let
   release = "master";
-#  variables = import ./secrets/variables.nix;
   daniel-domain = gitSecrets.danielPrimaryDomain;
   daniel-email = gitSecrets.danielHackerEmail;
   daniel-fqdn = gitSecrets.danielMailserverFqdn;

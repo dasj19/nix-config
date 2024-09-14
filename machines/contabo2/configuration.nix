@@ -1,9 +1,7 @@
 { config, lib, pkgs, gitSecrets, ... }:
 
 let
-#  variables = import ./secrets/variables.nix;
   daniel-domain = gitSecrets.danielPrimaryDomain;
-
 in
 
 {
