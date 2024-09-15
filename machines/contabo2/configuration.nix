@@ -1,7 +1,9 @@
 { config, lib, pkgs, gitSecrets, ... }:
 
 let
-  daniel-domain = gitSecrets.danielPrimaryDomain;
+  daniel-domain = gitSecrets.danielHackerDomain;
+  daniel-email = gitSecrets.danielHackerEmail;
+  daniel-fqdn = gitSecrets.danielMailserverFqdn;
 in
 
 {
@@ -9,21 +11,23 @@ in
     [
       # Profile.
       ./../../profiles/server.nix
+      # Modules.
+      ./../../modules/email-server.nix
+      ./../../modules/fish.nix
+      ./../../modules/keyboard.nix
+      ./../../modules/locale.nix
+      ./../../modules/users.nix
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # Include email-related software configuration.
-      ./email.nix
-      # agenix secret management tool.
-      "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/modules/age.nix"
     ];
 
-  # Files that holds the secrets.
-  age.secrets.cloudflare-dns-api-credentials.file = ./secrets/cloudflare-dns-api-credentials.age;
-  # File containing the following variables.
-  # CLOUDFLARE_EMAIL=
-  # CF_DNS_API_TOKEN=
-  # CF_ZONE_API_TOKEN=
-  age.secrets.mailserver-account-daniel-password.file = ./secrets/mailserver-account-daniel-password.age;
+  # sops secrets.
+  sops.secrets.root_password = {};
+  sops.secrets.daniel_password = {};
+  sops.secrets.daniel_daniel_email_password = {};
+  sops.secrets.cloudflare_email = {};
+  sops.secrets.cloudflare_dns_api_token = {};
+  sops.secrets.cloudflare_zone_api_token = {};
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -40,13 +44,32 @@ in
     extraGroups = [ "wheel" ];
   };
 
+  # Email server.
+  mailserver.fqdn = daniel-fqdn;
+  mailserver.domains = [
+    "${daniel-domain}"
+  ];
+  mailserver.loginAccounts = {
+    "${daniel-email}" = {
+       # For generating new hashed passwords use the following commands.
+       # nix shell -p apacheHttpd
+       # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
+       hashedPasswordFile = config.sops.secrets.daniel_daniel_email_password.path;
+
+       # List of email aliases: "username@domain.tld" .
+       aliases = [ "postmaster@${daniel-domain}" "webmaster@${daniel-domain}" ];
+       # Catch all emails from the primary domain.
+       catchAll = [ daniel-domain ];
+    };
+  };
+
   # System-wide packages.
   environment.systemPackages = with pkgs; [
     # CLI.
     git
     git-crypt
     wget
-  ] ++ [ (pkgs.callPackage "${builtins.fetchTarball "https://github.com/ryantm/agenix/archive/main.tar.gz"}/pkgs/agenix.nix" {}) ];
+  ];
 
   # List services.
 
@@ -83,12 +106,10 @@ in
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "webmaster@${daniel-domain}";
   security.acme.defaults.dnsProvider = "cloudflare";
-  security.acme.defaults.credentialsFile = config.age.secrets.cloudflare-dns-api-credentials.path;
-
-  # Custom shell aliases.
-  environment.shellAliases = {
-    # Includes the path to the nixpkgs fork to pickup our own updates.
-    #nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --log-format bar-with-logs --keep-going";
+  security.acme.defaults.credentialFiles = {
+    "CLOUDFLARE_EMAIL_FILE" = config.sops.secrets.cloudflare_email.path;
+    "CF_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare_dns_api_token.path;
+    "CF_ZONE_API_TOKEN_FILE" = config.sops.secrets.cloudflare_zone_api_token.path;
   };
 
   # Initial version. Consult manual before changing.

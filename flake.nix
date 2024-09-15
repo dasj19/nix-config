@@ -73,7 +73,7 @@
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
         #nixos-hardware.nixosModules.lenovo-thinkpad
-        #simple-nixos-mailserver.nixosModule
+        simple-nixos-mailserver.nixosModule
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
