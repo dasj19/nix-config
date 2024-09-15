@@ -7,6 +7,8 @@ let
   gnu-domain = gitSecrets.gnuDomain;
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
   searxng-secret = gitSecrets.gnuSearxngSecret;
+  mailserver-fqdn = gitSecrets.gnuMailserverFqdn;
+  mailserver-daniel-email = gitSecrets.gnuMailserverDanielEmail;
 
 in
 
@@ -65,10 +67,29 @@ in
   # sops secrets.
   sops.secrets.root_password = {};
   sops.secrets.daniel_password = {};
+  sops.secrets.daniel_gnu_email_password = {};
 
   # Hostname + DHCP on all the networking interfaces.
   networking.useDHCP = true;
   networking.hostName = "t500libre";
+
+  # Email server settings.
+  mailserver.fqdn = mailserver-fqdn;
+    # list of domains in format: [ "domain.tld" ];
+  mailserver.domains = [ gnu-domain ];
+  mailserver.loginAccounts = {
+      # Account name in the form of "username@domain.tld".
+      "${mailserver-daniel-email}" = {
+        # Password can be generated running: 'mkpasswd -sm bcrypt'.
+        hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
+        # List of aliases in format: [ "username@domain.tld" ].
+        aliases = [
+          "postmaster@${gnu-domain}"
+          "tor@${gnu-domain}"
+          "webmaster@${gnu-domain}"
+        ];
+      };
+  };
 
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
