@@ -17,7 +17,7 @@
   environment.systemPackages = with pkgs; [
     # CLI.
     bat
-    cpufrequtils
+    #cpufrequtils
     eza
     git
     jq

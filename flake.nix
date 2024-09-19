@@ -210,9 +210,15 @@
       ];
     };
     nixosConfigurations.cm4-nas = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
       system = "aarch64-linux";
       modules = [
         ./machines/cm4-nas/configuration.nix
+        sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
       ];
     };
   };

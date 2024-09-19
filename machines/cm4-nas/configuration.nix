@@ -1,9 +1,17 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, gitSecrets, ... }:
+
+let
+
+  mdmon-email = gitSecrets.danielPersonalEmail;
+
+in
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Profile.
+      ./../../profiles/server.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -37,6 +45,10 @@
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
+
+  boot.swraid.mdadmConf = ''
+    MAILADDR=${mdmon-email}
+  '';
 
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11";
