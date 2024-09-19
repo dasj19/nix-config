@@ -209,5 +209,11 @@
         }
       ];
     };
+    nixosConfigurations.cm4-nas = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        ./machines/cm4-nas/configuration.nix
+      ];
+    };
   };
 }
