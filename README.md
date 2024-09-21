@@ -23,6 +23,7 @@ The "secrets" are moved at the root level.
 
 |   Hostname  | Brand and model  |   CPU              |  RAM  |   GPU(s)                | Role | OS  | State |
 | :---------: | :--------------: | :----------------: | :---: | :---------------------: | :--: | :-: | :---: |
+| cm4-nas     | RaspberryPi CM4  | __________________ | 8  GB | _______________________ | ☁️   | ❄️  | ✅    |
 | contabo2    | Contabo KVM VPS  | AMD EPYC 7282      | 6  GB | Not Available           | ☁️   | ❄️  | ✅    |
 | tuxedo-xa15 | Tuxedo Book XA15 | AMD Ryzen 3000     | 64 GB | NVIDIA GeForce RTX 2070 | 💻️   | ❄️  | ✅    |
 | t500libre   | Lenovo T500      | Intel Core 2 T9600 | 8  GB | Disabled                | ☁️   | ❄️  | ✅    |
