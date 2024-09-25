@@ -2,7 +2,7 @@
 {
   stylix.enable = true;
   # Theme settings.
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/unikitty-dark.yaml";
   stylix.image = "${pkgs.adapta-backgrounds}/share/backgrounds/adapta/tealized.jpg";
   stylix.polarity = "dark";
   stylix.opacity.applications = 0.8;
