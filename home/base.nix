@@ -18,4 +18,5 @@
   ];
   programs.git.difftastic.enable = true;
   programs.git.difftastic.display = "inline";
+  programs.git.difftastic.background = "dark";
 }
