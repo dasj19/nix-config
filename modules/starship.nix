@@ -25,10 +25,12 @@
     directory.substitutions = {
       documents = "󰈙 ";
       downloads = " ";
+      media = "🎞️ ";
       music = "󰎄 ";
       photos = " ";
       video = "󰃽 ";
       workspace = " ";
+      "~" = " ";
     };
     time = {
       disabled = false;
