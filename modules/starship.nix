@@ -33,10 +33,6 @@
     time = {
       disabled = false;
     };
-    localip = {
-      ssh_only = false;
-      disabled = false;
-    };
     sudo = {
       disabled = false;
     };
