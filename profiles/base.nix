@@ -17,7 +17,6 @@
   environment.systemPackages = with pkgs; [
     # CLI.
     bat
-    #cpufrequtils
     eza
     git
     jq
@@ -27,6 +26,7 @@
     legit
     ncdu
     nmap
+    pciutils
     screen
     smartmontools
     tree

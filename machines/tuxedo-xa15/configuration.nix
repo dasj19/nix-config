@@ -41,12 +41,14 @@
   # Enable the Ryzen monitor.
   programs.ryzen-monitor-ng.enable = true;
 
+  services.thermald.enable = true;
+
   # Tuxedo keyboard support. (So that you can control the backlight).
   #hardware.tuxedo-drivers.enable = true;
 
   # Control programs.
-  hardware.tuxedo-rs.enable = true;
-  hardware.tuxedo-rs.tailor-gui.enable = true;
+  #hardware.tuxedo-rs.enable = true;
+  #hardware.tuxedo-rs.tailor-gui.enable = true;
 
   # Enable OpenGL
   hardware.graphics.enable = true;
@@ -85,6 +87,12 @@
   networking.interfaces.enp3s0f1.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
 
+  fileSystems."/mnt/md0" = {
+    device = "10.0.10.182:/md0";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" ];
+  };
+
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22   # OpenSSH
@@ -116,7 +124,7 @@
   # Linux kernel - Using a stable LTS kernel.
   # Check if the latest kernel is used:
   # ls -l /run/{booted,current}-system/kernel*
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_10;
 
   boot.blacklistedKernelModules = [
     # https://www.kernel.org/doc/html/latest/i2c/busses/i2c-nvidia-gpu.html
@@ -124,6 +132,14 @@
     # touchpad goes over i2c
     "psmouse"
   ];
+
+  hardware.new-lg4ff.enable = true;
+
+  hardware.usb-modeswitch.enable = true;
+  # boot.extraModprobeConfig = ''
+  #   # G923 support (added HID_QUIRK_HAVE_SPECIAL_DRIVER)
+  #   options usbhid quirks="0x046D:0xC267:0x080000,0x046D:0xC266:0x080000"
+  # '';
 
   # List packages specific to this host installed in system profile.
   environment.systemPackages = with pkgs; [
@@ -189,6 +205,25 @@
     brightnessctl
     keyleds
     openrgb
+    iperf
+
+    # Games.
+    evtest
+    oversteer
+    linuxConsoleTools
+    gamepad-tool
+    xboxdrv
+    retroarch-joypad-autoconfig
+    qjoypad
+    retroarchFull
+    retroarch-assets
+    (pkgs.callPackage "/home/daniel/workspace/projects/nix-config/pkgs/esde.nix" {}) 
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "freeimage-unstable-2021-11-01"
+    # required by mkchromecast
+    "python3.12-youtube-dl-2021.12.17"
   ];
 
   # Local postgresql server.
@@ -203,7 +238,10 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PubkeyAuthentication = true;
-  
+
+  # https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
+  nix.settings.max-jobs = 24;
+  nix.settings.cores = 1;
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "22.05";

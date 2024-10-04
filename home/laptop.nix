@@ -22,11 +22,11 @@
     # Active gnome-extensions.
     # Changes take effect after restarting gnome-shell / logging out.
     enabled-extensions = [
-      "clipboard-indicator@tudmotu.com"
       "activate_gnome@isjerryxiao"
+      "burn-my-windows@schneegans.github.com"
+      "clipboard-indicator@tudmotu.com"
       "desktop-cube@schneegans.github.com"
       "kando-integration@kando-menu.github.io"
-      "burn-my-windows@schneegans.github.com"
     ];
   };
 
@@ -54,16 +54,16 @@
       codium-vsix = pkgs.vscode-utils.buildVscodeMarketplaceExtension rec {
         mktplcRef = {
           name = "codeium";
-          version = "1.17.1";
+          version = "1.17.4";
           publisher = "Codeium";
         };
         vsix = builtins.fetchurl {
-            url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Codeium/vsextensions/codeium/1.17.1/vspackage";
-            sha256 = "1ds9qcp7q2a84ia78ggwshlnj988sylv8zfh9zvdhbwb77lh93v1";
+            url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Codeium/vsextensions/codeium/1.17.4/vspackage";
+            sha256 = "17l6r2j9mdvvzfs33l8lcvh3xnn2012dvx92w7x46w9diw2fkyms";
           };
         language-server = builtins.fetchurl {
-          url = "https://github.com/Exafunction/codeium/releases/download/language-server-v1.16.1/language_server_linux_x64";
-          sha256 = "0rsrc51p4mccy4xzs4mk6x1a53ay451m7cam95kzpkva7rbk9k8p";
+          url = "https://github.com/Exafunction/codeium/releases/download/language-server-v1.16.4/language_server_linux_x64.gz";
+          sha256 = "1x35l76ga4f3n73rinhfh5a6dxwz1labhw7smrw7ddzjwmhhs6m7";
         };
         
         nativeBuildInputs = [ pkgs.unzip ];
@@ -71,17 +71,19 @@
         unpackPhase = ''
           runHook preUnpack
           
-          mkdir -p extension/dist/40c19f24318b082e366fe4260c6c56b2316bb655
+          mkdir -p extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1
           unzip ${vsix}
 
-          # This does not work.
-          # cp ${language-server} extension/dist/40c19f24318b082e366fe4260c6c56b2316bb655/language_server_linux_x64
-          # chmod +777 extension/dist/40c19f24318b082e366fe4260c6c56b2316bb655/language_server_linux_x64
+          # This is unpractical, a better solution is needed.
+          # ln -s /home/daniel/system/home-manager/codium/language_server_linux_x64 extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1/language_server_linux_x64
+          ls -l ${language-server}
+          gunzip -c ${language-server} > extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1/language_server_linux_x64
+          chmod a+x,a+w extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1/language_server_linux_x64
 
-          ln -s /home/daniel/system/home-manager/codium/language_server_linux_x64 extension/dist/40c19f24318b082e366fe4260c6c56b2316bb655/language_server_linux_x64
           runHook postUnpack
         '';
         installPhase = ''
+        
         '';
       };
   in
