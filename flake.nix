@@ -3,7 +3,6 @@
   description = "The dasj-lab flake";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  #inputs.nixpkgs.url = "path:/home/daniel/workspace/projects/nixpkgs";
 
   inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
 
