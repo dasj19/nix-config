@@ -217,7 +217,6 @@
     qjoypad
     retroarchFull
     retroarch-assets
-    (pkgs.callPackage "/home/daniel/workspace/projects/nix-config/pkgs/esde.nix" {}) 
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
