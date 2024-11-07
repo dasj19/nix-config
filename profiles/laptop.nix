@@ -25,7 +25,6 @@
     unrar
     usbutils
     w3m
-    xar
     yt-dlp
     zip
     zstd
@@ -41,19 +40,15 @@
     ghidra
     gimp
     gparted
+    kando
     halloy
     libreoffice-still
     poedit
     qbittorrent
     remmina
-    tor-browser-bundle-bin
     pdfarranger
     vlc
     libreoffice-fresh
-    element-desktop
-    discord
-    signal-desktop
-    protonvpn-gui
     signal-desktop
     ungoogled-chromium
     tor-browser-bundle-bin
