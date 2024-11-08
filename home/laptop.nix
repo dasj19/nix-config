@@ -54,12 +54,12 @@
       codium-vsix = pkgs.vscode-utils.buildVscodeMarketplaceExtension rec {
         mktplcRef = {
           name = "codeium";
-          version = "1.17.4";
+          version = "1.21.10";
           publisher = "Codeium";
         };
         vsix = builtins.fetchurl {
-            url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Codeium/vsextensions/codeium/1.17.4/vspackage";
-            sha256 = "17l6r2j9mdvvzfs33l8lcvh3xnn2012dvx92w7x46w9diw2fkyms";
+            url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/Codeium/vsextensions/codeium/1.21.10/vspackage";
+            sha256 = "0vqlc88qagd4sq8flwdvybyrrdlmmmn4crc4dqdj3fkrcfnj1m3f";
           };
         language-server = builtins.fetchurl {
           url = "https://github.com/Exafunction/codeium/releases/download/language-server-v1.16.4/language_server_linux_x64.gz";
@@ -68,17 +68,18 @@
         
         nativeBuildInputs = [ pkgs.unzip ];
         buildInputs = [ pkgs.codeium ];
-        unpackPhase = ''
+        
+        unpackPhase = '' 
           runHook preUnpack
           
-          mkdir -p extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1
+          mkdir -p extension/dist
           unzip ${vsix}
 
           # This is unpractical, a better solution is needed.
-          # ln -s /home/daniel/system/home-manager/codium/language_server_linux_x64 extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1/language_server_linux_x64
-          ls -l ${language-server}
-          gunzip -c ${language-server} > extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1/language_server_linux_x64
-          chmod a+x,a+w extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1/language_server_linux_x64
+          ln -s /home/daniel/system/home-manager/codium extension/dist/b1b673a8fb8074357da4b4b8c7597b3ae37cb990
+          #ls -l ${language-server}
+          #gunzip -c ${language-server} > extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1/language_server_linux_x64
+          #chmod a+x,a+w extension/dist/079ca7882d78fc474f5e3839828a14f440d448e1/language_server_linux_x64
 
           runHook postUnpack
         '';
