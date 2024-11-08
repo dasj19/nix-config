@@ -1,4 +1,4 @@
-{ config, lib, pkgs, gitSecrets, ... }:
+{ config, pkgs, gitSecrets, ... }:
 
 let
   daniel-domain = gitSecrets.danielHackerDomain;
