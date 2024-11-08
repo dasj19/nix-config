@@ -30,6 +30,7 @@
     screen
     smartmontools
     tree
+    usbutils
     wget
 
     # Encryption.

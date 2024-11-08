@@ -13,7 +13,7 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Profiles.
-      ./../../profiles/laptop.nix
+      ./../../profiles/office.nix
     ];
 
   # Bootloader.
@@ -83,7 +83,6 @@ in
     chromium
     drawio
     dbeaver-bin
-    #element-desktop
     evolution
     filezilla
     firefox
@@ -91,7 +90,6 @@ in
     gimp
     gnome-tweaks
     google-chrome
-    libreoffice-still
     meld
     insomnia
     opera
@@ -109,9 +107,6 @@ in
 
   virtualisation.docker.enable = true;
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
   # Open ports in the firewall.
