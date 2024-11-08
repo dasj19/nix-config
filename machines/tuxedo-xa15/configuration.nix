@@ -1,12 +1,10 @@
-{ config, lib, pkgs, gitSecrets, sopsSecrets, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # Unmerged code for tuxedo-drivers. @TODO: remove once it is merged in unstable, prepare a profile in nixos-hardware.
-    # "${inputs.tuxedo-drivers}/nixos/modules/hardware/tuxedo-drivers.nix"
 
     # Profile.
     ./../../profiles/laptop.nix
@@ -43,12 +41,12 @@
 
   services.thermald.enable = true;
 
-  # Tuxedo keyboard support. (So that you can control the backlight).
-  #hardware.tuxedo-drivers.enable = true;
+  # Tuxedo drivers support.
+  hardware.tuxedo-drivers.enable = true;
 
   # Control programs.
-  #hardware.tuxedo-rs.enable = true;
-  #hardware.tuxedo-rs.tailor-gui.enable = true;
+  hardware.tuxedo-rs.enable = true;
+  hardware.tuxedo-rs.tailor-gui.enable = true;
 
   # Enable OpenGL
   hardware.graphics.enable = true;
@@ -70,7 +68,7 @@
   # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
   # Only available from driver 515.43.04+
   # Currently alpha-quality/buggy, so false is currently the recommended setting.
-  hardware.nvidia.open = true; # trying true;
+  hardware.nvidia.open = false;
 
   # Enable the Nvidia settings menu,
   # accessible via `nvidia-settings`.
@@ -80,7 +78,6 @@
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   # NETWORKING.
-
   networking.hostName = "tuxedo-xa15";
 
   networking.useDHCP = false;
@@ -124,7 +121,7 @@
   # Linux kernel - Using a stable LTS kernel.
   # Check if the latest kernel is used:
   # ls -l /run/{booted,current}-system/kernel*
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_10;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
 
   boot.blacklistedKernelModules = [
     # https://www.kernel.org/doc/html/latest/i2c/busses/i2c-nvidia-gpu.html
@@ -136,10 +133,6 @@
   hardware.new-lg4ff.enable = true;
 
   hardware.usb-modeswitch.enable = true;
-  # boot.extraModprobeConfig = ''
-  #   # G923 support (added HID_QUIRK_HAVE_SPECIAL_DRIVER)
-  #   options usbhid quirks="0x046D:0xC267:0x080000,0x046D:0xC266:0x080000"
-  # '';
 
   # List packages specific to this host installed in system profile.
   environment.systemPackages = with pkgs; [
@@ -155,20 +148,24 @@
     ntfs3g
 
     # Desktop apps.
-    freerdp
-    gparted
-    meld
-    strawberry
-    osdlyrics
-    gimp
-    inkscape
-    vlc
-    lbry
-    gcstar
+    discord
+    element-desktop
     filezilla
-    ventoy
+    freerdp
+    gcstar
+    gimp
     go2tv
+    gparted
+    inkscape
+    lbry
+    meld
+    osdlyrics
+    protonvpn-gui
     simple-dlna-browser
+    strawberry
+    tauon
+    ventoy
+    vlc    
 
     #Localization
     poedit
@@ -191,14 +188,15 @@
     kdenlive
     mediainfo
     glaxnimate
+    mkvtoolnix
 
     # Virtualization.
     virt-manager
 
     # P2P.
+    bitcoin
     radarr
     eiskaltdcpp
-    bitcoin
     soulseekqt
 
     # Temporary.
@@ -206,6 +204,7 @@
     keyleds
     openrgb
     iperf
+    conda
 
     # Games.
     evtest
@@ -224,6 +223,9 @@
     # required by mkchromecast
     "python3.12-youtube-dl-2021.12.17"
   ];
+
+  # Needed for codeium.
+  programs.nix-ld.enable = true;
 
   # Local postgresql server.
   services.postgresql.enable = true;
