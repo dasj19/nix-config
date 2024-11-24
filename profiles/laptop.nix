@@ -48,7 +48,6 @@
     remmina
     pdfarranger
     vlc
-    libreoffice-fresh
     signal-desktop
     ungoogled-chromium
     tor-browser-bundle-bin
