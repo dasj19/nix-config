@@ -14,8 +14,8 @@
   # Font settings.
   stylix.fonts.serif.package = pkgs.ubuntu-classic;
   stylix.fonts.serif.name = "Ubuntu Classic";
-  stylix.fonts.sansSerif.package = pkgs.fira-code-nerdfont;
+  stylix.fonts.sansSerif.package = pkgs.nerd-fonts.fira-code;
   stylix.fonts.sansSerif.name = "UbuntuMono Nerd Font";
-  stylix.fonts.monospace.package = pkgs.fira-code-nerdfont;
+  stylix.fonts.monospace.package = pkgs.nerd-fonts.fira-code;
   stylix.fonts.monospace.name = "FiraCode Nerd Font";
 }
