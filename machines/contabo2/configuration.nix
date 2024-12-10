@@ -9,6 +9,8 @@ in
 {
   imports =
     [
+      # Configuration.
+      ./webserver.nix
       # Profile.
       ./../../profiles/server.nix
       # Modules.
