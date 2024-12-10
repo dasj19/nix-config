@@ -98,7 +98,9 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22  # OpenSSH
+    22  # SSH    - OpenSSH
+    80  # HTTP   - Caddy Webserver.
+    443 # HTTPS  - Caddy Webserver.
   ];
   networking.firewall.allowedUDPPorts = [
 
