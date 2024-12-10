@@ -71,6 +71,8 @@ in
     git
     git-crypt
     wget
+    # Development and Operations.
+    php82Packages.composer
   ];
 
   # List services.
