@@ -12,6 +12,9 @@
     ./../modules/users.nix
   ];
 
+  # Enable fwupd - Firmware updater.
+  services.fwupd.enable = true;
+
   # Base packages are a must for every machine.
   # These should be CLI-only packages.
   environment.systemPackages = with pkgs; [
@@ -31,6 +34,7 @@
     smartmontools
     tree
     usbutils
+    unzip
     wget
 
     # Encryption.
