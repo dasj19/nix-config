@@ -3,6 +3,7 @@
   description = "The dasj-lab flake";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/nixpkgs/";
 
   inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
 
@@ -17,6 +18,8 @@
   inputs.stylix.inputs.flake-utils.follows = "flake-utils";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+  inputs.nix-alien.url = "github:thiagokokada/nix-alien";
 
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
   inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
@@ -46,6 +49,7 @@
     self,
     nixpkgs,
     nixos-hardware,
+    nix-alien,
     nix-vscode-extensions,
     sops-nix,
     simple-nixos-mailserver,
@@ -206,6 +210,13 @@
             inherit gitSecrets;
           };
         }
+        ({ self, system, ... }: {
+          environment.systemPackages = [
+            nix-alien
+          ];
+          # Optional, needed for `nix-alien-ld`
+          programs.nix-ld.enable = true;
+        })
       ];
     };
     nixosConfigurations.cm4-nas = nixpkgs.lib.nixosSystem {
