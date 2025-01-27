@@ -12,8 +12,6 @@
   mailserver.fullTextSearch.enable = true;
   # Index new email as they arrive.
   mailserver.fullTextSearch.autoIndex = true;
-  # This only applies to plain text attachments, binary attachments are never indexed.
-  mailserver.fullTextSearch.indexAttachments = true;
   # Tells dovecot to fail any body search query that cannot use an index.
   mailserver.fullTextSearch.enforced = "body";
 
