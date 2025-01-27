@@ -31,8 +31,6 @@
   environment.systemPackages = with pkgs; [
     gnome-tweaks
     gnome-network-displays
-    miraclecast
-    deskreen
-    mkchromecast
+    ghex
   ];
 }
