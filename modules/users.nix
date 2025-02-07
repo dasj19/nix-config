@@ -38,6 +38,8 @@ in
       "wheel"
       "docker"
       "dialout"
+      "scanner"
+      "lp"
     ];
   };
   users.users.root = {
