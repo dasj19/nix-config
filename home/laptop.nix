@@ -100,6 +100,16 @@
 
     # AI Assistant.
     codium-vsix
+
+  ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+
+    # Twig language support.
+    {
+      name = "twig-language";
+      publisher = "mblode";
+      version = "0.9.4";
+      hash = "sha256-TZRjodIQkgFlPlMaZs3K8Rrcl9XCUaz4/vnIaxU+SSA=";
+    }
   ];
 
   programs.vscode.userSettings = {
