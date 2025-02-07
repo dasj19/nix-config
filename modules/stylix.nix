@@ -1,6 +1,8 @@
 { pkgs, ...}:
 {
   stylix.enable = true;
+  stylix.targets.qt.enable = true;
+  stylix.targets.qt.platform = "qtct";
   # Theme settings.
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-sea.yaml";
   stylix.image = "${pkgs.adapta-backgrounds}/share/backgrounds/adapta/tealized.jpg";
