@@ -1,5 +1,28 @@
 { config, lib, pkgs, ... }:
 
+let
+  php = pkgs.php81.buildEnv {
+    extensions = { enabled, all }: enabled ++ (with all; [
+      amqp
+      ctype
+      iconv
+      intl
+      mbstring
+      openssl
+      pdo_pgsql
+      redis
+      sodium
+      tokenizer
+      xsl
+      xdebug 
+    ]);
+    extraConfig = ''
+      # Enable opening of files in vscode.
+      xdebug.file_link_format=vscodium://file/%f:%l
+    '';
+  };
+in
+
 {
   
   imports = [
@@ -12,54 +35,47 @@
     ./../../modules/games.nix
   ];
 
+  # Disable unused xserver packages.
+  services.xserver.excludePackages = with pkgs; [
+    xterm
+  ];
+
   # HARDWARE.
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  # TODO: Disable because of non-free license. Then find a solution for HDMI output.
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Disable unused xserver packages.
-  services.xserver.excludePackages = with pkgs; [
-    xterm
+  services.xserver.videoDrivers = [
+    "nvidia"
   ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
-  # Enable control of keyboard lights via openrgb.
-  services.hardware.openrgb.enable = true;
+  # Enable scanning support.
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
+  services.ipp-usb.enable = true;
 
   # AMD.
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # Enable ryzen_smu kernel driver.
-  hardware.cpu.amd.ryzen-smu.enable = true;
-  # Enable the Ryzen monitor.
-  programs.ryzen-monitor-ng.enable = true;
-
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   services.thermald.enable = true;
 
-  # Tuxedo drivers support.
-  hardware.tuxedo-drivers.enable = true;
+  # Tuxedo drivers support. Disabled until a new TUXEDO control center is packaged.
+  #hardware.tuxedo-drivers.enable = false;
 
-  # Control programs.
-  hardware.tuxedo-rs.enable = true;
-  hardware.tuxedo-rs.tailor-gui.enable = true;
+  # Control programs. Wait for the new TUXEDO control center to be packaged.
+  hardware.tuxedo-rs.enable = false;
+  hardware.tuxedo-rs.tailor-gui.enable = false;
 
   # Enable OpenGL
   hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
+  # hardware.graphics.enable32Bit = true;
+  # hardware.graphics.extraPackages = with pkgs; [
+  #   mesa
+  #   mesa.drivers
+  # ];
 
-  # Modesetting is required.
-  hardware.nvidia.modesetting.enable = true;
-
-  # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-  hardware.nvidia.powerManagement.enable = false;
-  # Fine-grained power management. Turns off GPU when not in use.
-  # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-  hardware.nvidia.powerManagement.finegrained = false;
 
   # Use the NVidia open source kernel module (not to be confused with the
   # independent third-party "nouveau" open source driver).
@@ -68,14 +84,15 @@
   # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
   # Only available from driver 515.43.04+
   # Currently alpha-quality/buggy, so false is currently the recommended setting.
-  hardware.nvidia.open = false;
+  hardware.nvidia.open = true;
 
   # Enable the Nvidia settings menu,
   # accessible via `nvidia-settings`.
   hardware.nvidia.nvidiaSettings = true;
-
-  # Optionally, you may need to select the appropriate driver version for your specific GPU.
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  # Needed for properly suspend.
+  hardware.nvidia.powerManagement.enable = true;
+  hardware.nvidia.modesetting.enable = true;
 
   # NETWORKING.
   networking.hostName = "tuxedo-xa15";
@@ -118,41 +135,53 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Use suspend and hibernate instead of suspend. Use: 'systemctl suspend' to test.
+  systemd.services."systemd-suspend-then-hibernate".aliases = [ "systemd-suspend.service" ];
+
+
+  hardware.cpu.amd.ryzen-smu.enable = true;
+
+  services.fwupd.enable = true;
+
   # Linux kernel - Using a stable LTS kernel.
   # Check if the latest kernel is used:
   # ls -l /run/{booted,current}-system/kernel*
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
-
-  boot.blacklistedKernelModules = [
-    # https://www.kernel.org/doc/html/latest/i2c/busses/i2c-nvidia-gpu.html
-    "i2c_nvidia_gpu"
-    # touchpad goes over i2c
-    "psmouse"
+  # https://www.linuxstart.com/which-linux-kernel-to-use/
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelParams = [
+    # Needed to avoid bad wakeup after suspend.
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    "nvidia.NVreg_TemporaryFilePath=/tmp"
   ];
-
-  hardware.new-lg4ff.enable = true;
-
-  hardware.usb-modeswitch.enable = true;
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.nvidia_x11_beta
+  ];
 
   # List packages specific to this host installed in system profile.
   environment.systemPackages = with pkgs; [
 
     # Development.
-    php83
+    php
+    php.packages.composer
     kcachegrind
     graphviz
     fontforge-gtk
     arduino
+    symfony-cli
+    nodejs_22
+    pomodoro-gtk
+    postgresql
 
     # Drivers and Firmware.
     ntfs3g
 
     # Desktop apps.
     discord
+    digikam
     element-desktop
     filezilla
     freerdp
-    gcstar
+    #gcstar
     gimp
     go2tv
     gparted
@@ -168,7 +197,6 @@
     vlc    
 
     #Localization
-    poedit
     aspell
     aspellDicts.ro
 
@@ -181,6 +209,7 @@
     debootstrap
     xorriso
     hdparm
+    mariadb
 
     # Streaming & Recording.
     obs-studio
@@ -192,12 +221,14 @@
 
     # Virtualization.
     virt-manager
+    virtiofsd
 
     # P2P.
     bitcoin
     radarr
     eiskaltdcpp
     soulseekqt
+    sabnzbd
 
     # Temporary.
     brightnessctl
@@ -205,36 +236,45 @@
     openrgb
     iperf
     conda
+    kodi
+    bitmagnet
 
     # Games.
     evtest
     oversteer
     linuxConsoleTools
     gamepad-tool
-    xboxdrv
     retroarch-joypad-autoconfig
     qjoypad
     retroarchFull
     retroarch-assets
+    emulationstation-de
+
+    # support both 32- and 64-bit applications
+    wineWowPackages.stable
+    # winetricks (all versions)
+    winetricks
+    # native wayland support (unstable)
+    wineWowPackages.waylandFull
   ];
 
+  # Reqiured by emulationstation-de.
   nixpkgs.config.permittedInsecurePackages = [
     "freeimage-unstable-2021-11-01"
-    # required by mkchromecast
-    "python3.12-youtube-dl-2021.12.17"
   ];
 
   # Needed for codeium.
   programs.nix-ld.enable = true;
 
   # Local postgresql server.
-  services.postgresql.enable = true;
-  services.postgresql.authentication = "host all all 127.0.0.1/32 password";
+  #services.postgresql.enable = true;
+  #services.postgresql.authentication = "host all all 127.0.0.1/32 password";
 
   programs.dconf.enable = true;
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
+  virtualisation.waydroid.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
