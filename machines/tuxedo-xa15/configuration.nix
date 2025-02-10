@@ -61,10 +61,9 @@ in
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   services.thermald.enable = true;
 
-  # Tuxedo drivers support. Disabled until a new TUXEDO control center is packaged.
-  #hardware.tuxedo-drivers.enable = false;
-
-  # Control programs. Wait for the new TUXEDO control center to be packaged.
+  # Tuxedo drivers support.
+  hardware.tuxedo-drivers.enable = true;
+  # Control programs.
   hardware.tuxedo-rs.enable = false;
   hardware.tuxedo-rs.tailor-gui.enable = false;
 
@@ -110,19 +109,13 @@ in
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22   # OpenSSH
-    3000 # EiskaltDC++
-    3001 # EiskaltDC++
     3389 # RDP connections
     3333 # LBRY Daemon
     4444 # LBRY Streams
     5567 # LBRY P2P
-    6250 # EiskaltDC++ DHT
     50001 # LBRY Wallet
   ];
   networking.firewall.allowedUDPPorts = [
-    3000 # EiskaltDC++
-    3001 # EiskaltDC++
-    6250 # EiskaltDC++ DHT
     4444 # LBRY Streams
   ];
 
@@ -138,20 +131,24 @@ in
   # Use suspend and hibernate instead of suspend. Use: 'systemctl suspend' to test.
   systemd.services."systemd-suspend-then-hibernate".aliases = [ "systemd-suspend.service" ];
 
-
+  # System Management Unit kernel driver.
   hardware.cpu.amd.ryzen-smu.enable = true;
 
   services.fwupd.enable = true;
 
-  # Linux kernel - Using a stable LTS kernel.
+  # Linux kernel.
   # Check if the latest kernel is used:
   # ls -l /run/{booted,current}-system/kernel*
   # https://www.linuxstart.com/which-linux-kernel-to-use/
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.kernelParams = [
     # Needed to avoid bad wakeup after suspend.
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_TemporaryFilePath=/tmp"
+
+    # Tuxedo keyboard.
+    "tuxedo_keyboard.mode=0"
+    "tuxedo_keyboard.brightness=0"
   ];
   boot.extraModulePackages = [
     config.boot.kernelPackages.nvidia_x11_beta
@@ -199,17 +196,20 @@ in
     #Localization
     aspell
     aspellDicts.ro
+    poedit
 
     # CLI Utilities.
     android-tools
     adb-sync
-    scrcpy
-    p7zip
-    nnn # compare with lf
+    brightnessctl
     debootstrap
-    xorriso
+    iperf
     hdparm
+    p7zip
     mariadb
+    nnn # compare with lf
+    scrcpy
+    xorriso
 
     # Streaming & Recording.
     obs-studio
@@ -226,18 +226,9 @@ in
     # P2P.
     bitcoin
     radarr
-    eiskaltdcpp
     soulseekqt
     sabnzbd
-
-    # Temporary.
-    brightnessctl
-    keyleds
-    openrgb
-    iperf
-    conda
     kodi
-    bitmagnet
 
     # Games.
     evtest
@@ -248,7 +239,7 @@ in
     qjoypad
     retroarchFull
     retroarch-assets
-    emulationstation-de
+    #emulationstation-de
 
     # support both 32- and 64-bit applications
     wineWowPackages.stable
@@ -266,11 +257,7 @@ in
   # Needed for codeium.
   programs.nix-ld.enable = true;
 
-  # Local postgresql server.
-  #services.postgresql.enable = true;
-  #services.postgresql.authentication = "host all all 127.0.0.1/32 password";
-
-  programs.dconf.enable = true;
+  # Virtualization.
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
