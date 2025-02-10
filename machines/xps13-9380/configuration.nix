@@ -30,9 +30,6 @@
     php83
     php83Packages.composer
     python3
-
-    # Temporary.
-    # ...
   ];
 
   # Enable CUPS to print documents.
@@ -40,6 +37,7 @@
 
   # Virtualisation.
   virtualisation.docker.enable = true;
+  virtualisation.waydroid.enable = true;
 
   environment.shellAliases = {
     # Provide sass-embedded from nixos.
