@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   php = pkgs.php81.buildEnv {
@@ -40,8 +40,6 @@ in
     xterm
   ];
 
-  # HARDWARE.
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.videoDrivers = [
@@ -52,46 +50,8 @@ in
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
-  # Enable scanning support.
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
-  services.ipp-usb.enable = true;
-
-  # AMD.
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  services.thermald.enable = true;
-
-  # Tuxedo drivers support.
-  hardware.tuxedo-drivers.enable = true;
-  # Control programs.
-  hardware.tuxedo-rs.enable = false;
-  hardware.tuxedo-rs.tailor-gui.enable = false;
-
-  # Enable OpenGL
-  hardware.graphics.enable = true;
-  # hardware.graphics.enable32Bit = true;
-  # hardware.graphics.extraPackages = with pkgs; [
-  #   mesa
-  #   mesa.drivers
-  # ];
-
-
-  # Use the NVidia open source kernel module (not to be confused with the
-  # independent third-party "nouveau" open source driver).
-  # Support is limited to the Turing and later architectures. Full list of
-  # supported GPUs is at:
-  # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-  # Only available from driver 515.43.04+
-  # Currently alpha-quality/buggy, so false is currently the recommended setting.
-  hardware.nvidia.open = true;
-
-  # Enable the Nvidia settings menu,
-  # accessible via `nvidia-settings`.
-  hardware.nvidia.nvidiaSettings = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
-  # Needed for properly suspend.
-  hardware.nvidia.powerManagement.enable = true;
-  hardware.nvidia.modesetting.enable = true;
+  # Not supported by the cpu model.
+  services.thermald.enable = false;
 
   # NETWORKING.
   networking.hostName = "tuxedo-xa15";
@@ -99,12 +59,6 @@ in
   networking.useDHCP = false;
   networking.interfaces.enp3s0f1.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
-
-  fileSystems."/mnt/md0" = {
-    device = "10.0.10.182:/md0";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" ];
-  };
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
@@ -130,9 +84,6 @@ in
 
   # Use suspend and hibernate instead of suspend. Use: 'systemctl suspend' to test.
   systemd.services."systemd-suspend-then-hibernate".aliases = [ "systemd-suspend.service" ];
-
-  # System Management Unit kernel driver.
-  hardware.cpu.amd.ryzen-smu.enable = true;
 
   services.fwupd.enable = true;
 
@@ -247,11 +198,6 @@ in
     winetricks
     # native wayland support (unstable)
     wineWowPackages.waylandFull
-  ];
-
-  # Reqiured by emulationstation-de.
-  nixpkgs.config.permittedInsecurePackages = [
-    "freeimage-unstable-2021-11-01"
   ];
 
   # Needed for codeium.
