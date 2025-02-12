@@ -117,35 +117,6 @@
         }
       ];
     };
-    nixosConfigurations.xps13-9310 = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit gitSecrets;
-        inherit sopsSecrets;
-      };
-      system = "x86_64-linux";
-      modules = [
-        ./machines/xps13-9310/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
-        nixos-hardware.nixosModules.dell-xps-13-9310
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/work.nix;
-          home-manager.extraSpecialArgs = {
-            inherit gitSecrets;
-          };
-        }
-
-        # Extend nixpkgs with VSCode extensions.
-        {
-          nixpkgs.overlays = [
-            nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
-          ]; 
-        }
-      ];
-    };
     nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit gitSecrets;
