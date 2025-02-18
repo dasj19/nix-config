@@ -7,6 +7,8 @@ in
 
 {
   imports = [
+    # Profile.
+    ./../../profiles/server.nix
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     # Include email-related software configuration.
@@ -73,11 +75,11 @@ in
   time.timeZone = "Europe/Copenhagen";
 
   # Setting internationalization properties to english locale and spanish keyboard.
-  i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "es";
-  };
+  # i18n.defaultLocale = "en_US.UTF-8";
+  # console = {
+  #   font = "Lat2-Terminus16";
+  #   keyMap = "es";
+  # };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -111,40 +113,40 @@ in
   services.openssh.sftpServerExecutable = "internal-sftp";
 
   # Enable fish as the default shell.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
+  # programs.fish.enable = true;
+  # users.defaultUserShell = pkgs.fish;
 
-  # Fish shell customizations.
-  programs.fish.interactiveShellInit = ''
-    # Forcing true color in the terminals.
-    set -g fish_term24bit 1
-    # Empty fish greeting. @TODO: consider making it a nix option for fish.
-    set -g fish_greeting ""
-    # Add custom message to the fish prompt.
-    echo 'LINODENIX _2_'
-  '';
+  # # Fish shell customizations.
+  # programs.fish.interactiveShellInit = ''
+  #   # Forcing true color in the terminals.
+  #   set -g fish_term24bit 1
+  #   # Empty fish greeting. @TODO: consider making it a nix option for fish.
+  #   set -g fish_greeting ""
+  #   # Add custom message to the fish prompt.
+  #   echo 'LINODENIX _2_'
+  # '';
 
   # Don't build documentation on this server.
-  documentation.enable = false;
-  documentation.man.enable = false;
-  documentation.info.enable = false;
-  documentation.nixos.enable = false;
-  documentation.doc.enable = false;
-  documentation.dev.enable = false;
+  # documentation.enable = false;
+  # documentation.man.enable = false;
+  # documentation.info.enable = false;
+  # documentation.nixos.enable = false;
+  # documentation.doc.enable = false;
+  # documentation.dev.enable = false;
 
-  users.mutableUsers = false;
-  users.users.daniel = {
-    isNormalUser = true;
-    description = daniel-fullname;
-    hashedPasswordFile = config.sops.secrets.daniel_password.path;
-    extraGroups = [
-      "wheel"
-    ];
-  };
+  # users.mutableUsers = false;
+  # users.users.daniel = {
+  #   isNormalUser = true;
+  #   description = daniel-fullname;
+  #   hashedPasswordFile = config.sops.secrets.daniel_password.path;
+  #   extraGroups = [
+  #     "wheel"
+  #   ];
+  # };
 
-  users.users.root = {
-    hashedPasswordFile = config.sops.secrets.root_password.path;
-  };
+  # users.users.root = {
+  #   hashedPasswordFile = config.sops.secrets.root_password.path;
+  # };
 
   # Initial state version. Consult manual before changing.
   system.stateVersion = "22.11";
