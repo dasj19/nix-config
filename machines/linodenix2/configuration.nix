@@ -26,9 +26,6 @@ in
   sops.secrets.cloudflare_dns_api_token = {};
   sops.secrets.cloudflare_zone_api_token = {};
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-
   # Host and network settings.
   networking.enableIPv6  = true;
   networking.hostName = "linodenix2";

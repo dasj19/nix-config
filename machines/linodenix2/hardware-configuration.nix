@@ -10,6 +10,8 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  # Use the GRUB 2 boot loader.
+  boot.loader.grub.enable = true;
   boot.loader.grub.forceInstall = true;
 
   boot.loader.grub.device = "nodev";
