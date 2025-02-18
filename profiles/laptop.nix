@@ -6,6 +6,7 @@
     # Modules.
     ./../modules/audio.nix
     ./../modules/gnome.nix
+    ./../modules/stylix.nix
   ];
 
   config = {
