@@ -1,26 +1,19 @@
 { config, gitSecrets, pkgs, sopsSecrets, ... }:
 
 let
-#  gitSecrets = builtins.fromJSON(builtins.readFile /etc/nixos/secrets/git-secrets.json);
-
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
   daniel-fullname = gitSecrets.danielFullname;
 in
 
 {
   imports = [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # Include email-related software configuration.
-      ./email.nix
-      # Include the wordpress web sites.
-      ./wordpress.nix
-      # sops secret management tool.
- #     "${builtins.fetchTarball {
- #       url = "https://github.com/Mic92/sops-nix/archive/07af005bb7d60c7f118d9d9f5530485da5d1e975.tar.gz";
- #     #  sha256 = "07xsfr8pvw0jpcrd098ivsjvbzg6ihjjranbsxiklv41arxgb51p";
- #     }}/modules/sops"
-    ]; 
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    # Include email-related software configuration.
+    ./email.nix
+    # Include the wordpress web sites.
+    ./wordpress.nix
+  ]; 
 
   sops.defaultSopsFile = sopsSecrets;
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
@@ -130,13 +123,6 @@ in
     # Add custom message to the fish prompt.
     echo 'LINODENIX _2_'
   '';
-
-  # Custom shell aliases.
-  environment.shellAliases = {
-    # Use the path to the local nixpkgs repo to rely on additionally-tested binaries.
-    # Use the bar-with-logs to display a nicer progress.
-    nixos-rebuild = "nixos-rebuild -I nixpkgs=/root/workspace/nixpkgs --log-format bar-with-logs --keep-going";
-  };
 
   # Don't build documentation on this server.
   documentation.enable = false;

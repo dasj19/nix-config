@@ -1,15 +1,12 @@
 { config, gitSecrets, lib, pkgs, ... }:
 
 let
+  imigrant-database = gitSecrets.imigrantDatabase;
+  imigrant-domain = gitSecrets.imigrantDomain;
+  daneza-database = gitSecrets.danezaDatabase;
+  daneza-domain = gitSecrets.danezaDomain;
 
-#gitSecrets = builtins.fromJSON(builtins.readFile /etc/nixos/secrets/git-secrets.json);
-
-imigrant-database = gitSecrets.imigrantDatabase;
-imigrant-domain = gitSecrets.imigrantDomain;
-daneza-database = gitSecrets.danezaDatabase;
-daneza-domain = gitSecrets.danezaDomain;
-
-patchedWordpress = pkgs.wordpress.overrideAttrs (old: {
+  patchedWordpress = pkgs.wordpress.overrideAttrs (old: {
 
   installPhase = old.installPhase + ''
     mkdir -p $out/share/wordpress/wp-content/languages/themes

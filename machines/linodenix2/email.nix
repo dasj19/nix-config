@@ -1,24 +1,12 @@
-{ config, gitSecrets, lib, pkgs, ... }:
+{ config, gitSecrets, ... }:
 
 let
-  release = "master";
-
-#  gitSecrets = builtins.fromJSON(builtins.readFile /etc/nixos/secrets/git-secrets.json);
-
   daniel-imigrant-email = gitSecrets.danielImigrantEmail;
   imigrant-domain = gitSecrets.imigrantDomain;
   imigrant-fqdn = gitSecrets.imigrantMailserverFqdn;
 in
 
 {
-#    imports = [
-#      (builtins.fetchTarball {
-#        url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/${release}/nixos-mailserver-${release}.tar.gz";
-#        # This hash needs to be updated
-#        sha256 = "1h79jqxbaj03n6fcn7dvdry5apykqvw40xlrg9jwbwjl5ykn2qhj";
-#      })
-#    ];
-
     sops.secrets.daniel_imigrant_email_password = {};
 
     mailserver = {
