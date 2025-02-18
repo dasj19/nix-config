@@ -2,8 +2,9 @@
 
   description = "The dasj-lab flake";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/nixpkgs/";
+#  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:dasj19/nixpkgs/caddy-protocol";
+#  inputs.nixpkgs.url = "path:///root/workspace/nixpkgs/";
 
   inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.1.0.tar.gz";
 
@@ -78,6 +79,31 @@
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
         #nixos-hardware.nixosModules.lenovo-thinkpad
+        simple-nixos-mailserver.nixosModule
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.daniel = import ./home/server.nix;
+
+          # Optionally, use home-manager.extraSpecialArgs to pass
+          # arguments to home.nix
+          home-manager.extraSpecialArgs = {
+            inherit gitSecrets;
+          };
+        }
+      ];
+    };
+    nixosConfigurations.linodenix2 = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
+      system = "x86_64-linux";
+      modules = [
+        ./machines/linodenix2/configuration.nix
+        sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
         simple-nixos-mailserver.nixosModule
         home-manager.nixosModules.home-manager
         {
