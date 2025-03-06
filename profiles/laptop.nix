@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     # Profiles.
@@ -6,58 +6,66 @@
     # Modules.
     ./../modules/audio.nix
     ./../modules/gnome.nix
+    ./../modules/stylix.nix
   ];
 
-  # Some laptop packages are unfree.
-  nixpkgs.config.allowUnfree = true;
+  config = {
+    
+    # Some laptop packages are unfree.
+    nixpkgs.config.allowUnfree = lib.mkDefault true;
 
-  # Laptop packages.
-  environment.systemPackages = with pkgs; [
-    # CLIs.
-    asciinema
-    bchunk
-    cuetools
-    dconf
-    ffmpeg
-    flac
-    inetutils
-    shntool
-    unrar
-    usbutils
-    w3m
-    yt-dlp
-    zip
-    zstd
+    # Enable CUPS to print documents from laptops.
+    services.printing.enable = true;
+    services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
-    # GUIs.
-    brasero
-    dconf-editor
-    drawio
-    evolutionWithPlugins
-    firefox
-    flacon
-    czkawka
-    ghidra
-    gimp
-    gparted
-    kando
-    halloy
-    libreoffice-still
-    poedit
-    qbittorrent
-    remmina
-    pdfarranger
-    vlc
-    signal-desktop
-    ungoogled-chromium
-    tor-browser-bundle-bin
+    # Laptop packages.
+    environment.systemPackages = with pkgs; [
+      # CLIs.
+      asciinema
+      bchunk
+      cuetools
+      dconf
+      ffmpeg
+      flac
+      inetutils
+      shntool
+      unrar
+      usbutils
+      w3m
+      yt-dlp
+      zip
+      zstd
 
-    # Development.
-    fontforge-gtk
-    insomnia
-    meld
-    vscodium
-    firefox-devedition-bin
-    dbeaver-bin
-  ];
+      # GUIs.
+      brasero
+      czkawka
+      dconf-editor
+      drawio
+      evolutionWithPlugins
+      firefox
+      flacon
+      ghidra
+      gimp
+      gparted
+      halloy
+      kando
+      libreoffice-still
+      pdfarranger
+      poedit
+      qbittorrent
+      remmina
+      signal-desktop
+      tor-browser-bundle-bin
+      ungoogled-chromium
+      vlc
+
+      # Development.
+      dbeaver-bin
+      firefox-devedition-bin
+      fontforge-gtk
+      insomnia
+      meld
+      vscodium
+    ]; 
+  };
 }

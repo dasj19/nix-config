@@ -7,27 +7,28 @@ You can look and get inspired about how I use nixOS.
 This was made public for the sole purpose of sharing configurations and inspire others.
 
 # Contents
-Each folder will contain the configuration for one server/machine.
-So every folder is going to be symlinked to /etc/nixos on a given system.
-Secrets are encoded with the help of agenix.
+The configuration now uses flakes and each folder under **machines** contains configuration for one server/machine.
+Secrets are encoded with the help of sopsnix.
+Certain not-so-sensitive information is hidden using git-crypt.
 I hide public IPs, domain names, and other information I deem sensitive.
 
 # Structure
-Right now I am moving the configuration from host-based folders to module-based folders in order
+The configuration uses flakes and is modular in order
 to reuse configuration across machines and have the code as DRY as possible.
-The "machines" folder will have the host configuration with each machine including a certain number of modules.
+The "machines" folder contains host configurations with one folder per machine machine. Usually only configuration.nix and hardware-configuration.nix is present here.
 The "modules" folder contains reusable pieces of code, modules meant to be used across machines.
-The "secrets" are moved at the root level.
+The "secrets" folder contains secrets that can be used globally across individual machine configurations.
+The "profiles" folder contains a bare-bones profile where to start off when adding a new host to machines.
+The "home" folder contains home-manager configurations.
 
 # Machines
 
 |   Hostname  | Brand and model  |   CPU              |  RAM  |   GPU(s)                | Role | OS  | State |
 | :---------: | :--------------: | :----------------: | :---: | :---------------------: | :--: | :-: | :---: |
-| cm4-nas     | RaspberryPi CM4  | __________________ | 8  GB | _______________________ | ☁️   | ❄️  | ✅    |
+| cm4-nas     | RaspberryPi CM4  | Cortex-A72         | 8  GB | Not Available           | ☁️   | ❄️  | ✅    |
 | contabo2    | Contabo KVM VPS  | AMD EPYC 7282      | 6  GB | Not Available           | ☁️   | ❄️  | ✅    |
-| tuxedo-xa15 | Tuxedo Book XA15 | AMD Ryzen 3000     | 64 GB | NVIDIA GeForce RTX 2070 | 💻️   | ❄️  | ✅    |
 | t500libre   | Lenovo T500      | Intel Core 2 T9600 | 8  GB | Disabled                | ☁️   | ❄️  | ✅    |
-| xps13-9310  | Dell XPS13 9310  | ______________     | 32 GB | _______________________ | 💻️   | ❄️  | ✅    |
+| tuxedo-xa15 | Tuxedo Book XA15 | AMD Ryzen 3000     | 64 GB | NVIDIA GeForce RTX 2070 | 💻️   | ❄️  | ✅    |
 | xps13-9380  | Dell XPS13 9380  | Intel i7-8565U     | 8  GB | Intel UHD Graphics 620  | 💻️   | ❄️  | ✅    |
 
 

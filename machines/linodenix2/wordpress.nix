@@ -1,11 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, gitSecrets, lib, pkgs, ... }:
 
 let
+  imigrant-database = gitSecrets.imigrantDatabase;
+  imigrant-domain = gitSecrets.imigrantDomain;
+  daneza-database = gitSecrets.danezaDatabase;
+  daneza-domain = gitSecrets.danezaDomain;
 
-# Import host-specific variables.
-variables = import ./secrets/variables.nix;
-
-patchedWordpress = pkgs.wordpress.overrideAttrs (old: {
+  patchedWordpress = pkgs.wordpress.overrideAttrs (old: {
 
   installPhase = old.installPhase + ''
     mkdir -p $out/share/wordpress/wp-content/languages/themes
@@ -21,8 +22,8 @@ patchedWordpress = pkgs.wordpress.overrideAttrs (old: {
 
     # Symlink to a module config file.
     # This is still not editable from the wordpress panel but can be changed manually.
-    ln -s /var/lib/wordpress/${variables.primaryDomain}/cache/advanced-cache.php $out/share/wordpress/wp-content/advanced-cache.php
-    ln -s /var/lib/wordpress/${variables.primaryDomain}/blogstream-currency.json $out/share/wordpress/wp-content/blogstream-currency.json
+    ln -s /var/lib/wordpress/${imigrant-domain}/cache/advanced-cache.php $out/share/wordpress/wp-content/advanced-cache.php
+    ln -s /var/lib/wordpress/${imigrant-domain}/blogstream-currency.json $out/share/wordpress/wp-content/blogstream-currency.json
   '';
     
 });
@@ -94,12 +95,13 @@ oceanly-news = pkgs.stdenv.mkDerivation rec {
 };
 
 # Wordpress plugin 'classic-editor'.
+# https://downloads.wordpress.org/plugin/classic-editor.1.6.4.zip
 classic-editor = pkgs.stdenv.mkDerivation {
   name = "classic-editor";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/classic-editor.1.6.3.zip";
-    sha256 = "0ldkxdpffjfja9jrsmygsysmsad2ngkbydkbzj3q4i0yczi625lj";
+    url = "https://downloads.wordpress.org/plugin/classic-editor.1.6.4.zip";
+    sha256 = "1yapp0s1ji0qk6hhdyxv9lwrlmy6r6yq60id1pqsv9j23lc53zwn";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -113,7 +115,7 @@ easy-wp-meta-description = pkgs.stdenv.mkDerivation {
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
     url = "https://downloads.wordpress.org/plugin/easy-wp-meta-description.1.2.6.zip";
-    hash = "sha256-k/gQ3ryTuM1YpTO393dL3jOdyrKBNIDdCbOdpaYlAqM=";
+    hash = "sha256-1pnB4k0WHrH0WlT9giEKgPrIJt1DuMa1XmpbY78j15M=";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -194,12 +196,13 @@ stop-xml-rpc = pkgs.stdenv.mkDerivation {
 };
 
 # https://downloads.wordpress.org/plugin/advanced-custom-fields.6.2.7.zip
+# https://downloads.wordpress.org/plugin/advanced-custom-fields.6.3.5.zip
 advanced-custom-fields = pkgs.stdenv.mkDerivation {
   name = "advanced-custom-fields";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.2.7.zip";
-    sha256 = "0cm33xi43i4r2afl7m573611xg8aqhrp5mabsiabb9rg71mkyz79";
+    url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.3.5.zip";
+    sha256 = "1xqxawa6i1ykwg2ligyrizmh67mqsy08nx6fnawy5gr9w71brr8n";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -263,12 +266,13 @@ edit-author-slug = pkgs.stdenv.mkDerivation {
 };
 
 # https://downloads.wordpress.org/plugin/redirection.5.4.2.zip
+# https://downloads.wordpress.org/plugin/redirection.5.5.0.zip
 redirection = pkgs.stdenv.mkDerivation {
   name = "redirection";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/redirection.5.4.2.zip";
-    sha256 = "1vpjy93q58r67w8cffxl4sfybl3fcs1cwai6ap5pnq04cb9k6izg";
+    url = "https://downloads.wordpress.org/plugin/redirection.5.5.0.zip";
+    sha256 = "1c2pq4wylbc6p1g2gc2l7shvkr0xyln14982q1ri9bbfi9ymfvw1";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -306,23 +310,17 @@ hyper-cache = pkgs.stdenv.mkDerivation {
   # Installing simply means copying all files to the output directory
   installPhase = ''
     mkdir -p $out; cp -R * $out/
-
-    # change the cache directory
-    #substituteInPlace $out/plugin.php \
-    #  --replace "WP_CONTENT_DIR" "'/var/lib/wordpress/${variables.primaryDomain}'"
-    #substituteInPlace $out/options.php \
-    #  --replace "WP_CONTENT_DIR" "'/var/lib/wordpress/${variables.primaryDomain}'"
-
   '';
 };
 
 # https://downloads.wordpress.org/plugin/very-simple-contact-form.15.6.zip
+# https://downloads.wordpress.org/plugin/very-simple-contact-form.16.3.zip
 very-simple-contact-form = pkgs.stdenv.mkDerivation {
   name = "very-simple-contact-form";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.15.6.zip";
-    sha256 = "1m3rj74py8hmpl75igkvfi0pv43sdzf8xsplhd0h5wzlq09w7wyr";
+    url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.16.3.zip";
+    sha256 = "1sj6gh27n9nk2sw9fc8allq128bhw59ys142k99f9bhcg8260j6q";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -334,26 +332,44 @@ very-simple-contact-form = pkgs.stdenv.mkDerivation {
 
 
 # https://downloads.wordpress.org/plugin/say-it.4.0.1.zip
+#say-it = pkgs.stdenv.mkDerivation rec {
+#  name = "say-it";
+#  version = "4.0.2";
+#  src = /etc/nixos/wordpress/say-it.zip;
+#  # We need unzip to build this package
+#  buildInputs = [ pkgs.unzip ];
+#  # Installing simply means copying all files to the output directory
+#  installPhase = ''
+#    mkdir -p $out; cp -R * $out/
+#  '';
+#};
+
+# Say-it with updated composer dependencies.
 say-it = pkgs.stdenv.mkDerivation rec {
   name = "say-it";
   version = "4.0.2";
-  src = /etc/nixos/wordpress/say-it.zip;
+  src = pkgs.fetchurl {
+    url = "https://github.com/dasj19/say-it/releases/download/init/init.zip";
+    sha256 = "18xhw3lkvgaw10bwm1j5jsaa3y8rcyriswsz9jxr4cpi8r27l4nc";
+  };
   # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
+  buildInputs = [ pkgs.unzip  ];
   # Installing simply means copying all files to the output directory
   installPhase = ''
     mkdir -p $out; cp -R * $out/
   '';
 };
 
+
 # https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.zip
+# https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.1.zip
 mx-time-zone-clocks = pkgs.stdenv.mkDerivation rec {
   name = "mx-time-zone-clocks";
   version = "3.9";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.zip";
-    sha256 = "00yw616442k484dmfjb6i5jcmsay2jfjd86ic4vv21x1kpr1x2jq";
+    url = "https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.1.zip";
+    sha256 = "107dmf2qm1cn4jcql1gwyz6mfv1n2sfra9ag4rmnpb512axmr2mf";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip pkgs.libwebp ];
@@ -369,13 +385,14 @@ mx-time-zone-clocks = pkgs.stdenv.mkDerivation rec {
 };
 
 # https://downloads.wordpress.org/plugin/speculation-rules.1.0.1.zip
+# https://downloads.wordpress.org/plugin/speculation-rules.1.3.1.zip
 speculation-rules = pkgs.stdenv.mkDerivation rec {
   name = "speculation-rules";
   version = "1.0.0";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/speculation-rules.1.0.1.zip";
-    sha256 = "05hh3hhkvcdvyazhgh9lik3gm1zc40j27w5wrbb703f20i78xc3j";
+    url = "https://downloads.wordpress.org/plugin/speculation-rules.1.3.1.zip";
+    sha256 = "01ig06zjl9bcn19sv431kq4wqjvl6d10pp9nw277vgkgz6ijq1h9";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -422,16 +439,16 @@ in
   # Note the .sites - the upstream module says this is the new syntax,
   # the old is only supported because of a hack at the very top of the module
   services.wordpress.sites = {
-    "${variables.primaryDomain}" = {
+    "${imigrant-domain}" = {
       package = patchedWordpress;
       database.host = "localhost";
-      database.name = "${variables.primaryDatabase}";
+      database.name = "${imigrant-database}";
       database.createLocally = true;
 
       settings = {
         WP_CACHE = true;
         # hyper-cache options.
-        HYPER_CACHE_FOLDER = "/var/lib/wordpress/${variables.primaryDomain}/cache";
+        HYPER_CACHE_FOLDER = "/var/lib/wordpress/${imigrant-domain}/cache";
       };
     
       themes = {
@@ -468,10 +485,10 @@ in
       };
     };
 
-    "${variables.secondaryDomain}" = {
+    "${daneza-domain}" = {
       package = patchedWordpress;
       database.host = "localhost";
-      database.name = "${variables.secondaryDatabase}";
+      database.name = "${daneza-database}";
       database.createLocally = true;
       # Add romanian language.
       languages = [ pkgs.wordpressPackages.languages.ro_RO ];
@@ -505,13 +522,13 @@ in
       }
     '';
 
-    virtualHosts."www.${variables.primaryDomain}" = {
+    virtualHosts."www.${imigrant-domain}" = {
       extraConfig = ''
         # Redirect www to non-ww with https.
         redir https://{labels.1}.{labels.0}{uri} permanent
       '';
     };
-    virtualHosts."${variables.primaryDomain}" = {
+    virtualHosts."${imigrant-domain}" = {
 
       extraConfig = ''
         # Rewrite image paths to existent .webp files.
@@ -594,7 +611,7 @@ in
         }
       '';
     };
-    virtualHosts."${variables.secondaryDomain}" = {
+    virtualHosts."${daneza-domain}" = {
       extraConfig = ''
         # Headers for humans.txt (used by homer to detect if server is online.)
         handle /humans.txt {
