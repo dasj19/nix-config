@@ -25,7 +25,7 @@ in
     
     # Allow updating of password hashes.
     # Consider adopt userborn after it is merged: https://github.com/NixOS/nixpkgs/pull/332719
-    users.mutableUsers = false;
+    users.mutableUsers = true;
 
     # Underprivileged account.
     users.users.daniel = {

@@ -2,9 +2,8 @@
 
   description = "The dasj-lab flake";
 
-#  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.nixpkgs.url = "github:dasj19/nixpkgs/caddy-protocol";
-#  inputs.nixpkgs.url = "path:///root/workspace/nixpkgs/";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/nixpkgs";
 
   inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.1.0.tar.gz";
 
@@ -33,7 +32,6 @@
 
   inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   inputs.nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nix-vscode-extensions.inputs.flake-compat.follows = "flake-compat";
   inputs.nix-vscode-extensions.inputs.flake-utils.follows = "flake-utils";
 
   inputs.vscode-server.url = "github:nix-community/nixos-vscode-server";
@@ -82,7 +80,7 @@
         simple-nixos-mailserver.nixosModule
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
+          #home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/server.nix;
 
@@ -107,7 +105,7 @@
         simple-nixos-mailserver.nixosModule
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
+          #home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/server.nix;
 
@@ -133,7 +131,7 @@
         simple-nixos-mailserver.nixosModule
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
+          #home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/server.nix;
 
@@ -143,6 +141,13 @@
             inherit gitSecrets;
           };
         }
+
+        # Extend nixpkgs with VSCode extensions.
+        #{
+        #  nixpkgs.overlays = [
+        #    nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
+        #  ]; 
+        #}
       ];
     };
     nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
@@ -165,15 +170,15 @@
         })
 
         # Extend nixpkgs with VSCode extensions.
-        {
-          nixpkgs.overlays = [
-            nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
-          ]; 
-        }
+        #{
+        #  nixpkgs.overlays = [
+        #    nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
+        #  ]; 
+        #}
 
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
+          #home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
           home-manager.extraSpecialArgs = {
@@ -195,14 +200,14 @@
         #nixos-hardware.nixosModules.tuxedo-xa15 # does not exist yet.
 
         # Extend nixpkgs with VSCode extensions.
-        {
-          nixpkgs.overlays = [
-            nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
-          ]; 
-        }
+        #{
+        #  nixpkgs.overlays = [
+        #    nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
+        #  ]; 
+        #}
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
+          #home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
           home-manager.extraSpecialArgs = {

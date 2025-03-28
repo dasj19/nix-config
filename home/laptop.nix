@@ -46,7 +46,9 @@
   programs.vscode.package = pkgs.vscodium;
   programs.vscode.mutableExtensionsDir = false;
 
-  programs.vscode.extensions =
+  nixpkgs.config.allowUnfree = true;
+
+  programs.vscode.profiles.default.extensions =
   let
       # Manually installed extensions.
       # At the moment stock Codeium does not properly work with the Nix ecosystem
@@ -112,7 +114,7 @@
     }
   ];
 
-  programs.vscode.userSettings = {
+  programs.vscode.profiles.default.userSettings = {
     # Editor settings.
     "[php]"."editor.tabSize" = 2;
     # AI Assistant.

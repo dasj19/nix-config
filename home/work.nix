@@ -1,17 +1,23 @@
-{ pkgs, ... }:
+{ pkgs, gitSecrets, ... }:
+
+let
+  phpStandards = "Drupal,DrupalPractice,SlevomatCodingStandard,VariableAnalysis";
+in
 
 {
   imports = [
     ./laptop.nix
   ];
 
-  # TODO: Update the value of these variables.
-  #programs.git.userName = gitSecrets.danielFullname;
-  #programs.git.userEmail = gitSecrets.danielWorkEmail;
+  programs.git.userName = gitSecrets.danielFullname;
+  programs.git.userEmail = gitSecrets.danielWorkEmail;
 
   programs.fish.enable = true;
+  programs.fish.interactiveShellInit = ''
+    set PATH $PATH $HOME/.config/composer/vendor/bin
+  '';
 
-  programs.vscode.extensions =
+  programs.vscode.profiles.default.extensions =
   let
       # Old drupal syntax highlight extension that still does its job.
       vs-code-drupal-vsix = pkgs.vscode-utils.buildVscodeMarketplaceExtension rec {
@@ -34,6 +40,8 @@
   in
   
   with pkgs.vscode-marketplace; with pkgs.vscode-extensions; [
+    # AI assistant.
+    github.copilot
 
     # Cross-language debugging.
     formulahendry.code-runner
@@ -54,5 +62,21 @@
     # Templating.
     mblode.twig-language
   ];
+
+  programs.vscode.profiles.default.userSettings = {
+    # If it complains about read-only settings.js check: https://github.com/nix-community/home-manager/issues/1800
+    "github.copilot.enable" = {
+      "*" = true;
+      "plaintext" = false;
+      "markdown" = false;
+      "scminput" = false;
+    };
+    "php.format.codeStyle" = "Drupal";
+    "phpcs.enable" = true;
+    "phpcs.standard" = phpStandards;
+    "phpcs.executablePath" = "/home/daniel/.config/composer/vendor/bin/phpcs";
+    "phpResolver.phpSnifferCommand" = "/home/daniel/.config/composer/vendor/bin/phpcs";
+    "phpResolver.phpStandards" = phpStandards;
+  };
 
 }
