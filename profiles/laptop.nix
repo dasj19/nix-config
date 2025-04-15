@@ -38,6 +38,7 @@
 
       # GUIs.
       brasero
+      brave
       czkawka
       dconf-editor
       drawio
@@ -54,7 +55,7 @@
       poedit
       qbittorrent
       remmina
-      signal-desktop
+      signal-desktop-bin
       tor-browser-bundle-bin
       ungoogled-chromium
       vlc
