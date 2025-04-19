@@ -196,13 +196,14 @@ in
     # CLI Utilities.
     android-tools
     adb-sync
-    scrcpy
-    p7zip
-    nnn # compare with lf
     debootstrap
-    xorriso
     hdparm
+    iat
     mariadb
+    nnn # compare with lf
+    p7zip
+    scrcpy
+    xorriso
 
     # Streaming & Recording.
     obs-studio
@@ -268,6 +269,14 @@ in
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
   virtualisation.waydroid.enable = true;
+
+  # Enable virtualbox.
+  nixpkgs.config.allowUnfree = true;
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+  # Guest additions.
+  virtualisation.virtualbox.guest.enable = true;
+  virtualisation.virtualbox.guest.dragAndDrop = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
