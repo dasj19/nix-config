@@ -108,6 +108,7 @@ Kanboard
 kcachegrind
 kdenlive
 keyleds
+kodi
 lazyload
 LBRY
 ldso
