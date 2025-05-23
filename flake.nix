@@ -15,7 +15,7 @@
   inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.flake-compat.follows = "flake-compat";
   inputs.stylix.inputs.systems.follows = "systems";
-  inputs.stylix.inputs.flake-utils.follows = "flake-utils";
+  # inputs.stylix.inputs.flake-utils.follows = "flake-utils"; 
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
@@ -200,11 +200,11 @@
         #nixos-hardware.nixosModules.tuxedo-xa15 # does not exist yet.
 
         # Extend nixpkgs with VSCode extensions.
-        #{
-        #  nixpkgs.overlays = [
-        #    nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
-        #  ]; 
-        #}
+        {
+          nixpkgs.overlays = [
+            nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
+          ]; 
+        }
         home-manager.nixosModules.home-manager
         {
           #home-manager.useGlobalPkgs = true;
