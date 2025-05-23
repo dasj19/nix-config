@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  php = pkgs.php81.buildEnv {
+  php = pkgs.php84.buildEnv {
     extensions = { enabled, all }: enabled ++ (with all; [
       amqp
       ctype
@@ -173,20 +173,16 @@ in
     discord
     element-desktop
     filezilla
-    freerdp
     #gcstar
     gimp
-    go2tv
     gparted
     inkscape
     lbry
     meld
     osdlyrics
     protonvpn-gui
-    simple-dlna-browser
     strawberry
     tauon
-    ventoy
     vlc    
 
     #Localization
@@ -196,7 +192,6 @@ in
     # CLI Utilities.
     android-tools
     adb-sync
-    debootstrap
     hdparm
     iat
     mariadb
@@ -208,9 +203,7 @@ in
     # Streaming & Recording.
     obs-studio
     shotcut
-    #kdenlive
     mediainfo
-    glaxnimate
     mkvtoolnix
 
     # Virtualization.
@@ -225,11 +218,7 @@ in
     sabnzbd
 
     # Temporary.
-    brightnessctl
-    keyleds
-    openrgb
     iperf
-    conda
     kodi
     bitmagnet
 
@@ -242,7 +231,7 @@ in
     qjoypad
     retroarchFull
     retroarch-assets
-    #emulationstation-de
+    emulationstation-de
 
     # support both 32- and 64-bit applications
     wineWowPackages.stable
@@ -252,28 +241,28 @@ in
     wineWowPackages.waylandFull
   ];
 
-  # Reqiured by emulationstation-de.
+  # Required by emulationstation-de.
   nixpkgs.config.permittedInsecurePackages = [
-    "freeimage-unstable-2021-11-01"
+    "freeimage-3.18.0-unstable-2024-04-18"
   ];
 
   # Needed for codeium.
   programs.nix-ld.enable = true;
 
-  # Local postgresql server.
-  #services.postgresql.enable = true;
-  #services.postgresql.authentication = "host all all 127.0.0.1/32 password";
-
   programs.dconf.enable = true;
+  
+  # Enable virtualisation daemons.
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
   virtualisation.waydroid.enable = true;
 
   # Enable virtualbox.
-  nixpkgs.config.allowUnfree = true;
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.host.enableExtensionPack = true;
+  users.users.daniel.extraGroups = [
+    "vboxusers"
+  ];
   # Guest additions.
   virtualisation.virtualbox.guest.enable = true;
   virtualisation.virtualbox.guest.dragAndDrop = true;
@@ -285,6 +274,48 @@ in
   # https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
   nix.settings.max-jobs = 24;
   nix.settings.cores = 1;
+
+  # Non-free software whitelist / shame list.
+  nixpkgs.config.allowUnfree = false;
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+    # Printer drivers.
+    "hplip" 
+
+    # Game emulation cores.
+    "libretro-fbalpha2012"
+    "libretro-fbneo"
+    "libretro-fmsx"
+    "libretro-genesis-plus-gx"
+    "libretro-mame2000"
+    "libretro-mame2003"
+    "libretro-mame2003-plus"
+    "libretro-mame2010"
+    "libretro-mame2015"
+    "libretro-opera"
+    "libretro-picodrive"
+    "libretro-snes9x"
+    "libretro-snes9x2002"
+    "libretro-snes9x2005"
+    "libretro-snes9x2005-plus"
+    "libretro-snes9x2010"
+    "gamepad-tool"
+
+    # Graphic drivers.
+    "nvidia-x11"
+    "nvidia-settings"
+
+    # Virtualization.
+    "Oracle_VirtualBox_Extension_Pack"
+    "virtualbox"
+
+    # Proprietary software.
+    "android-sdk-platform-tools"
+    "discord"
+    "drawio"
+    "soulseekqt"
+    "unrar"
+  ];
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "22.05";

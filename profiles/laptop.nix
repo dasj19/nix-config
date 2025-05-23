@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     # Profiles.
@@ -10,9 +10,6 @@
   ];
 
   config = {
-    
-    # Some laptop packages are unfree.
-    nixpkgs.config.allowUnfree = lib.mkDefault true;
 
     # Enable CUPS to print documents from laptops.
     services.printing.enable = true;

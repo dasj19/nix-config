@@ -10,8 +10,6 @@
   ];
 
   config = {
-    # Some office packages are unfree.
-    nixpkgs.config.allowUnfree = true;
 
     # Laptop packages.
     environment.systemPackages = with pkgs; [
