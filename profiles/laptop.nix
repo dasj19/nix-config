@@ -27,6 +27,7 @@
       dconf
       ffmpeg
       flac
+      gh
       inetutils
       shntool
       unrar
@@ -42,10 +43,9 @@
       czkawka
       dconf-editor
       drawio
-      evolutionWithPlugins
+      evolution
       firefox
       flacon
-      ghidra
       gimp
       gparted
       halloy
