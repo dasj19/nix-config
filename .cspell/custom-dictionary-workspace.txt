@@ -41,6 +41,7 @@ dasj
 dbeaver
 dconf
 debootstrap
+devbox
 devedition
 dialout
 difftastic

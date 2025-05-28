@@ -17,7 +17,7 @@ let
       xdebug 
     ]);
     extraConfig = ''
-      # Enable opening of files in vscode.
+      # Enable opening of files in vscodium.
       xdebug.file_link_format=vscodium://file/%f:%l
     '';
   };
@@ -124,6 +124,10 @@ in
     6250 # EiskaltDC++ DHT
     4444 # LBRY Streams
   ];
+
+  networking.hosts = {
+    "127.0.0.1" = [ "localhost" "devbox.dev" ];
+  };
 
   # SOFTWARE.
 
