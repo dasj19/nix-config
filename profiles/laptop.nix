@@ -55,6 +55,7 @@
       signal-desktop-bin
       tor-browser-bundle-bin
       ungoogled-chromium
+      usbimager
       vlc
 
       # Development.
