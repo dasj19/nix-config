@@ -1,20 +1,25 @@
 { config, pkgs, ... }:
 
 let 
+
   devbox-domain = "devbox.dev";
+
 in
 
 {
   # Using caddy webserver.
   services.caddy.enable = true;
 
+  services.caddy.globalConfig = ''
+    auto_https off
+  '';
+
   # Caddy virtual hosts.
-  services.caddy.virtualHosts."${devbox-domain}".extraConfig = ''
-
-    root * /var/www/${devbox-domain}/web
-    file_server
-    php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
-
+  services.caddy.virtualHosts."http://${devbox-domain}:80".extraConfig = ''
+      # Deliver files and interpret php.
+      root * /var/www/${devbox-domain}/
+      file_server
+      php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
   '';
 
   # PHP-FPM pools.

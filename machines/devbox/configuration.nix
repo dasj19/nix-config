@@ -4,6 +4,8 @@
   imports = [
     # Include the results of the hardware scan.
       ./hardware-configuration.nix
+    # Include local webserver configuration.
+      ./webserver.nix
   ];
 
   # Bootloader.
@@ -63,10 +65,11 @@
 
   # Network settings.
   networking.firewall.allowedTCPPorts = [
-    2222
-    8080
+    22
+    80
   ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [
+  ];
 
   # Check documentation before changing this.
   system.stateVersion = "25.11";

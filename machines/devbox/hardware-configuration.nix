@@ -11,6 +11,10 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  boot.kernelParams = [
+    "ipv6.disable=1"
+  ];
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/461c149c-fa8b-4b19-8c52-bcbfcac1730c";
       fsType = "ext4";
