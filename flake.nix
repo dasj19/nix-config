@@ -235,5 +235,12 @@
         stylix.nixosModules.stylix
       ];
     };
+    nixosConfigurations.devbox = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./machines/devbox/configuration.nix
+      ];
+    };
+
   };
 }
