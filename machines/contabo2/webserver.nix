@@ -1,4 +1,4 @@
-{ config, gitSecrets, lib, pkgs, ... }:
+{ config, gitSecrets, pkgs, ... }:
 
 let
   firm-domain = gitSecrets.firmDomain;
@@ -9,7 +9,7 @@ in
   # Using caddy webserver.
   services.caddy.enable = true;
 
-  # Caddy virtualhosts.
+  # Caddy virtual hosts.
   services.caddy.virtualHosts."www.${firm-domain}".extraConfig = ''
     redir https://${firm-domain}{uri} permanent
   '';
@@ -59,6 +59,6 @@ in
   services.mysql.initialScript = pkgs.writeText "setup.sql" ''
     CREATE DATABASE firm;
     GRANT ALL PRIVILEGES ON firm.* TO "firm"@"localhost" IDENTIFIED BY "firm" WITH GRANT OPTION;
- '';
+  '';
 
 }

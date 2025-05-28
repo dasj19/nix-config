@@ -106,6 +106,7 @@ jnoortheen
 joypad
 kanboard
 Kanboard
+kando
 kcachegrind
 kdenlive
 keyleds
@@ -224,6 +225,7 @@ ungoogled
 unrar
 unsized
 usbhid
+usbimager
 usbutils
 userborn
 usrbinenv
