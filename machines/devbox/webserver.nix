@@ -15,6 +15,7 @@ in
       # Self-signed certs. In FF about:config the network.stricttransportsecurity.preloadlist (HSTS) needs to be dissabled.
       # Created with: openssl req  -nodes -new -x509  -keyout server.key -out server.cert
       tls "/srv/certs/server.cert" "/srv/certs/server.key"
+
       # Deliver files and interpret php.
       root * /srv/www/${devbox-domain}/
       file_server
@@ -57,4 +58,8 @@ in
     '';
     phpEnv."PATH" = lib.makeBinPath [ pkgs.php84 ];
   };
+
+  # Mailcatcher.
+  services.mailcatcher.enable = true;
+  services.mailcatcher.http.ip = "0.0.0.0";
 }
