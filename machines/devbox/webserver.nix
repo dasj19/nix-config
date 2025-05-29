@@ -10,14 +10,13 @@ in
   # Using caddy webserver.
   services.caddy.enable = true;
 
-  services.caddy.globalConfig = ''
-    auto_https off
-  '';
-
   # Caddy virtual hosts.
-  services.caddy.virtualHosts."http://${devbox-domain}:80".extraConfig = ''
+  services.caddy.virtualHosts."https://${devbox-domain}:443".extraConfig = ''
+      # Self-signed certs. In FF about:config the network.stricttransportsecurity.preloadlist (HSTS) needs to be dissabled.
+      # Created with: openssl req  -nodes -new -x509  -keyout server.key -out server.cert
+      tls "/srv/certs/server.cert" "/srv/certs/server.key"
       # Deliver files and interpret php.
-      root * /var/www/${devbox-domain}/
+      root * /srv/www/${devbox-domain}/
       file_server
       php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
   '';
