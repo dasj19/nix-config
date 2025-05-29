@@ -55,6 +55,9 @@ in
       # Increase transfer filesizes.
       post_max_size=100M
       upload_max_filesize=100M
+      # Mailcatcher support for php.
+      sendmail_path=/run/current-system/sw/bin/catchmail
+      sendmail_from=mailcatcher@devbox.dev
     '';
     phpEnv."PATH" = lib.makeBinPath [ pkgs.php84 ];
   };
