@@ -55,6 +55,7 @@
   # System specific software.
   environment.systemPackages = with pkgs; [
     git
+    openssl
     wget
   ];
 
@@ -66,9 +67,10 @@
   # Network settings.
   networking.firewall.allowedTCPPorts = [
     22
-    80
+    443
   ];
   networking.firewall.allowedUDPPorts = [
+    443
   ];
 
   # Check documentation before changing this.
