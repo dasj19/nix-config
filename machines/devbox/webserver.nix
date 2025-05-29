@@ -35,10 +35,26 @@ in
       "pm.start_servers" = 2;
       "pm.min_spare_servers" = 2;
       "pm.max_spare_servers" = 5;
-      "php_admin_value[error_log]" = "stderr";
-      "php_admin_flag[log_errors]" = true;
+#      "php_admin_value[error_log]" = "stderr";
+#      "php_admin_flag[log_errors]" = true;
       "catch_workers_output" = true;
     };
+    phpOptions = ''
+      # Development settings for php.ini.
+      # Displaying errors to browser.
+      error_reporting=E_ALL
+      display_errors=On
+      display_startup_errors=On
+      # Enable error logging to file.
+      error_log=/var/log/php84_errors.log
+      # Unlimited error length.
+      log_errors_max_len=0
+      # Increase memory limit.
+      memory_limit=512M
+      # Increase transfer filesizes.
+      post_max_size=100M
+      upload_max_filesize=100M
+    '';
     phpEnv."PATH" = lib.makeBinPath [ pkgs.php84 ];
   };
 }
