@@ -49,7 +49,10 @@
   users.users.daniel = {
     isNormalUser = true;
     description = "Daniel";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
+  };
+  users.users.caddy = {
+    extraGroups = [ "vboxsf" ];
   };
 
   # System specific software.
