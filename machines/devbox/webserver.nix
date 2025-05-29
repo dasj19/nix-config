@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let 
 
@@ -39,5 +39,6 @@ in
       "php_admin_flag[log_errors]" = true;
       "catch_workers_output" = true;
     };
+    phpEnv."PATH" = lib.makeBinPath [ pkgs.php84 ];
   };
 }
