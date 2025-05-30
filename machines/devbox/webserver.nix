@@ -27,7 +27,16 @@ in
   services.phpfpm.pools."php84" = {
     user = "caddy";
     group = "caddy";
-    phpPackage = pkgs.php84;
+    phpPackage = pkgs.php84.buildEnv {
+      extensions = ({ enabled, all }: enabled ++ (with all; [
+        xdebug
+      ]));
+      extraConfig = ''
+        xdebug.mode=develop,profile
+        xdebug.start_with_request=trigger
+        xdebug.output_dir=/tmp/cachegrind
+      '';
+    };
     settings = {
       "listen.owner" = config.services.caddy.user;
       "pm" = "dynamic";
@@ -61,6 +70,8 @@ in
     '';
     phpEnv."PATH" = lib.makeBinPath [ pkgs.php84 ];
   };
+  # Allow php to access the system's /tmp folder instead of systemd isolated tmp.
+  systemd.services.phpfpm-php84.serviceConfig.PrivateTmp = lib.mkForce false;
 
   # Mailcatcher.
   services.mailcatcher.enable = true;
