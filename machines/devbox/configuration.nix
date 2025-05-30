@@ -58,7 +58,9 @@
   # System specific software.
   environment.systemPackages = with pkgs; [
     git
+    graphviz
     openssl
+    python3
     wget
   ];
 
