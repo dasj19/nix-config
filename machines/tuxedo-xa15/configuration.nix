@@ -61,12 +61,6 @@ in
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   services.thermald.enable = true;
 
-  # Tuxedo drivers support.
-  hardware.tuxedo-drivers.enable = true;
-  # Control programs.
-  hardware.tuxedo-rs.enable = false;
-  hardware.tuxedo-rs.tailor-gui.enable = false;
-
   # Enable OpenGL
   hardware.graphics.enable = true;
   # hardware.graphics.enable32Bit = true;
