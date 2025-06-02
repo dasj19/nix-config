@@ -225,6 +225,7 @@ in
     iperf
     kodi
     bitmagnet
+    openssl
 
     # Games.
     evtest

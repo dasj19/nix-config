@@ -60,7 +60,7 @@
 
       # Development.
       dbeaver-bin
-      firefox-devedition-bin
+      firefox-devedition
       fontforge-gtk
       insomnia
       meld

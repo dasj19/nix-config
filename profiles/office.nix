@@ -40,7 +40,7 @@
       insomnia
       meld
       vscodium
-      firefox-devedition-bin
+      firefox-devedition
       dbeaver-bin
     ];
   };

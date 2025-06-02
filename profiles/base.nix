@@ -28,6 +28,7 @@
     environment.systemPackages = with pkgs; [
       # CLI.
       bat
+      dmidecode
       eza
       git
       jq
