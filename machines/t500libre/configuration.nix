@@ -86,6 +86,7 @@ in
         ];
       };
   };
+  mailserver.stateVersion = 1;
 
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
@@ -135,7 +136,7 @@ in
       use_default_settings = {
         engines = {
           # for some reason remove directive does not work on "qwant".
-          keep_only = [ "google" "duckduckgo" ];
+          keep_only = [ "google" /* "duckduckgo" */ ];
         };
       };
       server = {
