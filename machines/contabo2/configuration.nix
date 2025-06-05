@@ -64,6 +64,8 @@ in
       catchAll = [ daniel-domain ];
     };
   };
+  # The current state version.
+  mailserver.stateVersion = 1;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
