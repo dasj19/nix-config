@@ -238,9 +238,6 @@ in
     extraGroups = [ "wheel" "wwwrun" ];
   };
 
-  # Standard motd for all users of this host.
-  users.motdFile = "/etc/nixos/motd.txt";
-
   # Consult manual before changing.
   system.stateVersion = "24.11";
 }
