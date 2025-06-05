@@ -1,4 +1,4 @@
-{ config, pkgs, gitSecrets, ... }:
+{ config, gitSecrets, lib, pkgs, ... }:
 
 
 let
@@ -30,6 +30,15 @@ in
       # Profile.
       ./../../profiles/server.nix
     ];
+
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      # Overriding the rspamd package replacing vectorscan with hyperscan as it was in the 3.10.2 version. @TODO: check upstream to see if the issue is fixed.
+      rspamd = pkgs.rspamd.overrideAttrs (oldAttrs: {
+        buildInputs = builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs ++ [ pkgs.hyperscan ];
+      });
+    };
+  };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -87,6 +96,12 @@ in
       };
   };
   mailserver.stateVersion = 1;
+  # IMAPS only.
+  mailserver.enableImap = false;
+  mailserver.enableImapSsl = true;
+  # SMTPS only.
+  mailserver.enableSubmission = false;
+  mailserver.enableSubmissionSsl = true;
 
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
@@ -191,7 +206,6 @@ in
   networking.firewall.allowedTCPPorts = [
     # PORT - PROTOCOL - SERVER   - APP
     # WAN-open:
-      25   # SMTP     - Postfix
       80   # HTTP     - Apache2
       443  # HTTPS    - Apache2
       465  # SMTPS    - Postfix
