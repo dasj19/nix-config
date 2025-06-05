@@ -80,20 +80,20 @@ in
 
   # Email server settings.
   mailserver.fqdn = mailserver-fqdn;
-    # list of domains in format: [ "domain.tld" ];
+  # list of domains in format: [ "domain.tld" ];
   mailserver.domains = [ gnu-domain ];
   mailserver.loginAccounts = {
-      # Account name in the form of "username@domain.tld".
-      "${mailserver-daniel-email}" = {
-        # Password can be generated running: 'mkpasswd -sm bcrypt'.
-        hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
-        # List of aliases in format: [ "username@domain.tld" ].
-        aliases = [
-          "postmaster@${gnu-domain}"
-          "tor@${gnu-domain}"
-          "webmaster@${gnu-domain}"
-        ];
-      };
+    # Account name in the form of "username@domain.tld".
+    "${mailserver-daniel-email}" = {
+      # Password can be generated running: 'mkpasswd -sm bcrypt'.
+      hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
+      # List of aliases in format: [ "username@domain.tld" ].
+      aliases = [
+        "postmaster@${gnu-domain}"
+        "tor@${gnu-domain}"
+        "webmaster@${gnu-domain}"
+      ];
+    };
   };
   mailserver.stateVersion = 1;
   # IMAPS only.
