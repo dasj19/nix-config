@@ -108,12 +108,6 @@ in
   networking.interfaces.enp3s0f1.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
 
-  fileSystems."/mnt/md0" = {
-    device = "10.0.10.182:/md0";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" ];
-  };
-
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22   # OpenSSH

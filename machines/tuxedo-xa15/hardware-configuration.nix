@@ -49,7 +49,7 @@
         # Attempt mounting automatically with systemd.
         "x-systemd.automount"
         # Can only be mounted explicitly.
-        #"noauto"
+        "noauto"
       ];
     };
 
