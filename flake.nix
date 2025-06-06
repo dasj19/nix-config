@@ -15,7 +15,6 @@
   inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.flake-compat.follows = "flake-compat";
   inputs.stylix.inputs.systems.follows = "systems";
-  # inputs.stylix.inputs.flake-utils.follows = "flake-utils"; 
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
@@ -42,9 +41,6 @@
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.flake-utils.inputs.systems.follows = "systems";
-
-  #inputs.nixos-generators.url = "github:nix-community/nixos-generators";
-  #inputs.nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = {
     self,
