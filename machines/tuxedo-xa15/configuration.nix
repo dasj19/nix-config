@@ -159,7 +159,6 @@ in
 
   # List packages specific to this host installed in system profile.
   environment.systemPackages = with pkgs; [
-
     # Development.
     php
     php.packages.composer
@@ -204,6 +203,7 @@ in
     iat
     mariadb
     nnn # compare with lf
+    nvtopPackages.full
     p7zip
     scrcpy
     xorriso
@@ -330,6 +330,26 @@ in
     "cuda_nvcc"
     "cuda_cudart"
     "libcublas"
+
+    # nvtop dependencies.
+    "cuda-merged"
+    "cuda_cuobjdump"
+    "cuda_gdb"
+    "cuda_nvdisasm"
+    "cuda_nvprune"
+    "cuda_cupti"
+    "cuda_cuxxfilt"
+    "cuda_nvml_dev"
+    "cuda_nvrtc"
+    "cuda_nvtx"
+    "cuda_profiler_api"
+    "cuda_sanitizer_api"
+    "libcufft"
+    "libcurand"
+    "libcusolver"
+    "libnvjitlink"
+    "libcusparse"
+    "libnpp"
   ];
 
   # Initial version. Consult manual before changing.
