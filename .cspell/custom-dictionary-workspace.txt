@@ -38,6 +38,9 @@ ctype
 cuda
 cudart
 cuetools
+cuobjdump
+cupti
+cuxxfilt
 cwebp
 czkawka
 danth
@@ -120,7 +123,13 @@ lazyload
 LBRY
 ldso
 libcublas
+libcufft
+libcurand
+libcusolver
+libcusparse
 libmodsecurity
+libnpp
+libnvjitlink
 libretro
 libvdpau
 libvirtd
@@ -154,7 +163,13 @@ nosniff
 ntfs
 numtide
 nvcc
+nvdisasm
 nvme
+nvml
+nvprune
+nvrtc
+nvtop
+nvtx
 oceanly
 OCSP
 oderwat
