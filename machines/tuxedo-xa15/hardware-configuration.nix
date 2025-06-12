@@ -14,14 +14,40 @@
       "sd_mod"
       "rtsx_pci_sdmmc"
     ];
+
+    # Emulate arm32 and arm64.
+    boot.binfmt.emulatedSystems = [ "armv7l-linux" "aarch64-linux" ];
+
+    # Use the systemd-boot EFI boot loader.
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
     boot.initrd.kernelModules = [ ];
+    boot.initrd.verbose = false;
+    boot.consoleLogLevel = 0;
     boot.kernelModules = [ "kvm-amd" ];
 
-        # Linux kernel configuration options.
+    # Boot graphics instead of text.
+    boot.plymouth.enable = true;
+
+    # Linux kernel configuration options.
     boot.kernelParams = [
+      # Do not display errors and commands executed during boot.
+      "quiet" "splash"
+      "rd.systemd.show_status=false" "rd.udev.log_level=3"
+      "udev.log_priority=3" "boot.shell_on_fail"
+
+
       # Needed to avoid bad wakeup after suspend.
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
       "nvidia.NVreg_TemporaryFilePath=/tmp"
+
+      # Attempt to fix: nvidia-gpu 0000:06:00.3: i2c timeout error e0000000
+      "i2c_core.enable_i2c=1"
+
+      # Attempt to fix:
+      # ucsi_ccg 4-0008: ucsi_ccg_init failed - -110
+      # ucsi_ccg 4-0008: i2c_transfer failed -110
+      "usb_typec.disable=1"
 
       # Tuxedo keyboard.
       "tuxedo_keyboard.mode=0"

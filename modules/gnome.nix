@@ -13,6 +13,8 @@
 
     # Enable gnome-keyring.
     services.gnome.gnome-keyring.enable = true;
+    # Enable PAM for GDM.
+    security.pam.services.gdm.enable = true;
 
     # Exclude unnecessary GNOME programs.
     environment.gnome.excludePackages = with pkgs; [

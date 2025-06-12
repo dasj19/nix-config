@@ -133,13 +133,6 @@ in
 
   # SOFTWARE.
 
-  # Emulate arm32 and arm64.
-  boot.binfmt.emulatedSystems = [ "armv7l-linux" "aarch64-linux" ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   # Use suspend and hibernate instead of suspend. Use: 'systemctl suspend' to test.
   systemd.services."systemd-suspend-then-hibernate".aliases = [ "systemd-suspend.service" ];
 
@@ -148,14 +141,8 @@ in
 
   services.fwupd.enable = true;
 
-  boot.kernelParams = [
-    # Needed to avoid bad wakeup after suspend.
-    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-    "nvidia.NVreg_TemporaryFilePath=/tmp"
-  ];
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.nvidia_x11_beta
-  ];
+  # Manage the touchpad with libinput.
+  services.libinput.enable = true;
 
   # List packages specific to this host installed in system profile.
   environment.systemPackages = with pkgs; [
@@ -222,7 +209,7 @@ in
     bitcoin
     radarr
     eiskaltdcpp
-    soulseekqt
+    nicotine-plus
     sabnzbd
 
     # Temporary.
@@ -261,7 +248,7 @@ in
   programs.dconf.enable = true;
   
   # Enable virtualisation daemons.
-  virtualisation.libvirtd.enable = true;
+  #virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
   virtualisation.waydroid.enable = true;
@@ -272,13 +259,13 @@ in
   users.users.daniel.extraGroups = [
     "vboxusers"
   ];
-  # Guest additions.
-  virtualisation.virtualbox.guest.enable = true;
-  virtualisation.virtualbox.guest.dragAndDrop = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PubkeyAuthentication = true;
+
+  services.mysql.enable = true;
+  services.mysql.package = pkgs.mariadb;
 
   # https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
   nix.settings.max-jobs = 24;
