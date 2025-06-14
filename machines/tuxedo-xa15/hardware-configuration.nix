@@ -23,7 +23,11 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.initrd.kernelModules = [ ];
     boot.initrd.verbose = false;
-    boot.consoleLogLevel = 0;
+    # Report just alert, critical and error.
+    boot.consoleLogLevel = 3;
+
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_15;
+
     boot.kernelModules = [ "kvm-amd" ];
 
     # Boot graphics instead of text.
@@ -32,7 +36,8 @@
     # Linux kernel configuration options.
     boot.kernelParams = [
       # Do not display errors and commands executed during boot.
-      "quiet" "splash"
+      # https://discourse.nixos.org/t/removing-persistent-boot-messages-for-a-silent-boot/14835/9
+      "quiet"
       "rd.systemd.show_status=false" "rd.udev.log_level=3"
       "udev.log_priority=3" "boot.shell_on_fail"
 
@@ -41,13 +46,15 @@
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
       "nvidia.NVreg_TemporaryFilePath=/tmp"
 
-      # Attempt to fix: nvidia-gpu 0000:06:00.3: i2c timeout error e0000000
-      "i2c_core.enable_i2c=1"
-
       # Attempt to fix:
       # ucsi_ccg 4-0008: ucsi_ccg_init failed - -110
       # ucsi_ccg 4-0008: i2c_transfer failed -110
       "usb_typec.disable=1"
+
+      # Attempt to suppress ACPI kernel errors.
+
+      # Increase ACPI logging level.
+      "acpi.debug_level=0x2" "acpi.debug_layer=0xFFFFFFFF"
 
       # Tuxedo keyboard.
       "tuxedo_keyboard.mode=0"
@@ -55,6 +62,13 @@
     ];
     boot.extraModulePackages = [
       config.boot.kernelPackages.nvidia_x11_beta
+    ];
+    boot.blacklistedKernelModules = [
+      # Attempt to avoid: nvidia-gpu 0000:06:00.3: i2c timeout error e0000000
+      "i2c_nvidia_gpu"
+
+      # Attempt to avoid: psmouse serio2: synaptics: Unable to query device: -5
+      "psmouse"
     ];
 
 
@@ -89,9 +103,6 @@
     hardware.sane.enable = true;
     hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
-    # AMD.
-    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
     # Tuxedo drivers support.
     hardware.tuxedo-drivers.enable = true;
     # Control programs.
@@ -120,5 +131,9 @@
 
     # System Management Unit kernel driver.
     hardware.cpu.amd.ryzen-smu.enable = true;
+    hardware.cpu.amd.updateMicrocode = lib.mkForce true;
+
+    # Bluetooth.
+    hardware.bluetooth.powerOnBoot = false;
   };
 }

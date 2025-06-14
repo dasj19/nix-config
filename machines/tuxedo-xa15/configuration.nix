@@ -162,6 +162,7 @@ in
 
     # Drivers and Firmware.
     ntfs3g
+    linux-firmware # needed for bluetooth firmware.
 
     # Desktop apps.
     discord
@@ -188,6 +189,7 @@ in
     adb-sync
     hdparm
     iat
+    killall
     mariadb
     nnn # compare with lf
     nvtopPackages.full
