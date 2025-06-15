@@ -18,6 +18,7 @@
 
     # Exclude unnecessary GNOME programs.
     environment.gnome.excludePackages = with pkgs; [
+      decibels                # Simple audio player, I do not need it.
       cheese                  # Simple webcam application, I do not need it.
       geary                   # Email client, I use Evolution instead.
       gnome-backgrounds       # Wallpaper manager, I declare wallpapers via stylix.
@@ -32,6 +33,7 @@
       gnome-photos            # Advanced photo organizer, does much more than I need.
       gnome-tour              # Gnome tour for beginners, I can use the help menu instead.
       gnome-weather           # Weather service, I never use this.
+      snapshot                  # Simple webcam application, I do not need it.
       totem                   # Video player, I use vlc.
     ];
 
