@@ -118,6 +118,7 @@ kando
 kcachegrind
 kdenlive
 keyleds
+killall
 kodi
 lazyload
 LBRY
@@ -127,6 +128,7 @@ libcufft
 libcurand
 libcusolver
 libcusparse
+libinput
 libmodsecurity
 libnpp
 libnvjitlink
