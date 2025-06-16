@@ -81,15 +81,15 @@
       fsType = "vfat";
     };
 
+    # https://nixos.wiki/wiki/NFS
     fileSystems."/mnt/md0" = {
       device = "10.0.10.182:/md0";
       fsType = "nfs";
       # fstab options.
       options = [
-        # Attempt mounting automatically with systemd.
-        "x-systemd.automount"
-        # Can only be mounted explicitly.
-        "noauto"
+        "x-systemd.automount"         # Attempt mounting automatically with systemd.
+        "x-systemd.idle-timeout=600"  # Disconnect after 10 minutes of inactivity.
+        "noauto"                      # Can only be mounted explicitly.
       ];
     };
 
