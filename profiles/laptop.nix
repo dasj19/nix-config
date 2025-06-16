@@ -65,6 +65,9 @@
       insomnia
       meld
       vscodium
+
+      # Drivers.
+      ntfs3g
     ]; 
   };
 }
