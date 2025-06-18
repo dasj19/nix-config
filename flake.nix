@@ -238,5 +238,18 @@
       ];
     };
 
+    nixosConfigurations.t14 = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
+      system = "x86_64-linux";
+      modules = [
+        ./machines/t14/configuration.nix
+        sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
+      ];
+    };
+
   };
 }

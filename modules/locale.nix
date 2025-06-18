@@ -6,7 +6,7 @@
     time.timeZone = "Europe/Copenhagen";
 
     # Internationalization properties.
-    i18n.defaultLocale = "en_US.utf8";
+    i18n.defaultLocale = "en_DK.UTF-8";
     # Support all locales.
     i18n.supportedLocales = [ "all" ];
 
