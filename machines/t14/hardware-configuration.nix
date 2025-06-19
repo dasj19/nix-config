@@ -10,7 +10,7 @@
 
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [
-    config.boot.kernelPackages.nvidia_x11_beta
+    config.boot.kernelPackages.nvidiaPackages.legacy_470
   ];
 
   
@@ -38,7 +38,7 @@
 
   hardware.nvidia.open = false;
   hardware.nvidia.nvidiaSettings = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
 
   hardware.nvidia.prime.offload.enable = true;
   hardware.nvidia.prime.offload.enableOffloadCmd = true;

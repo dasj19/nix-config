@@ -59,6 +59,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
