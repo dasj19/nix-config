@@ -249,6 +249,8 @@
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
 
+        nixos-hardware.nixosModules.lenovo-thinkpad-t14
+
         home-manager.nixosModules.home-manager
         {
           #home-manager.useGlobalPkgs = true;
