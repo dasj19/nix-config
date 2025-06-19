@@ -92,6 +92,7 @@ gamepad
 gcstar
 geary
 geolocation
+ghex
 ghidra
 glaxnimate
 gmmlib
@@ -159,6 +160,7 @@ mkpasswd
 mktplc
 mkvtoolnix
 Modesetting
+mysqld
 nadim
 ncdu
 nerdfont
