@@ -183,6 +183,7 @@ osdlyrics
 pagenavi
 pciutils
 pdfarranger
+peazip
 pgsql
 phpcs
 phpfpm

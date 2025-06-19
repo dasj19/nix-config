@@ -172,6 +172,7 @@ in
     lbry
     meld
     osdlyrics
+    peazip
     protonvpn-gui
     strawberry
     tauon
