@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -50,12 +50,6 @@
     #media-session.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  #users.users.daniel = {
-  #  isNormalUser = true;
-  #  description = "Daniel Serbanescu";
-  #  extraGroups = [ "networkmanager" "wheel" ];
-  #};
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -65,13 +59,18 @@
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
-     git
+    # CLI.
+    nvtopPackages.full
   ];
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.xserver.videoDrivers = [
+    "nvidia"
+  ];
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
