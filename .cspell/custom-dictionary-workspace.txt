@@ -5,6 +5,7 @@ adapta
 agenix
 ahci
 akismet
+alsa
 amqp
 archivebox
 armv
@@ -19,6 +20,7 @@ bibata
 binfmt
 bitmagnet
 blogstream
+bmewburn
 Bootloader
 brasero
 brightnessctl
@@ -53,6 +55,7 @@ devedition
 dialout
 distro
 dlna
+dmask
 dnssec
 dnsutils
 dont
@@ -70,6 +73,7 @@ fastcgi
 fastfetch
 fbalpha
 fbneo
+felixfbecker
 fetchurl
 fileinto
 filezilla
@@ -78,6 +82,7 @@ Fira
 firewire
 flac
 flashplayer
+fmask
 fmsx
 fontforge
 freerdp
@@ -107,6 +112,7 @@ IMAP
 IMAPS
 inetutils
 inkscape
+intelephense
 iperf
 isjerryxiao
 iwlwifi
@@ -118,6 +124,7 @@ kando
 kcachegrind
 kdenlive
 keyleds
+keymap
 killall
 kodi
 lazyload
@@ -142,14 +149,17 @@ litellm
 localip
 logind
 lshw
+luks
 mailserver
 mame
+mblode
 mbstring
 mediainfo
 mkpasswd
 mktplc
 mkvtoolnix
 Modesetting
+nadim
 ncdu
 nerdfont
 netcat
@@ -189,6 +199,7 @@ phpcs
 phpfpm
 picodrive
 piix
+pipewire
 Pkgs
 platformsh
 pname
@@ -203,6 +214,7 @@ psobject
 Pubkey
 publickey
 PUBLICSHARE
+pulseaudio
 qbittorrent
 qjoypad
 qwant
@@ -213,6 +225,7 @@ remmina
 retroarch
 rspamd
 rsrc
+rtkit
 rtsx
 ryzen
 sabnzbd
