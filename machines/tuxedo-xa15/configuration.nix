@@ -136,9 +136,6 @@ in
   # Use suspend and hibernate instead of suspend. Use: 'systemctl suspend' to test.
   systemd.services."systemd-suspend-then-hibernate".aliases = [ "systemd-suspend.service" ];
 
-
-  hardware.cpu.amd.ryzen-smu.enable = true;
-
   services.fwupd.enable = true;
 
   # Manage the touchpad with libinput.
