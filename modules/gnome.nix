@@ -13,6 +13,7 @@
 
     # Enable gnome-keyring.
     services.gnome.gnome-keyring.enable = true;
+    security.pam.services.login.enableGnomeKeyring = true;
     # Disable PAM for GDM.
     security.pam.services.gdm.enable = false;
 
@@ -33,7 +34,7 @@
       gnome-photos            # Advanced photo organizer, does much more than I need.
       gnome-tour              # Gnome tour for beginners, I can use the help menu instead.
       gnome-weather           # Weather service, I never use this.
-      snapshot                  # Simple webcam application, I do not need it.
+      snapshot                # Simple webcam application, I do not need it.
       totem                   # Video player, I use vlc.
     ];
 
