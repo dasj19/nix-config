@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -21,7 +21,7 @@
   # Local time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  # Internationalisation.
+  # internationalization.
   i18n.defaultLocale = "en_DK.UTF-8";
 
   i18n.extraLocaleSettings = {
@@ -79,7 +79,7 @@
       port = 3336;
 
       # Development server settings.
-      # There are permission issues writing logfiles in /var/log, using /tmp for now.
+      # There are permission issues writing log files in /var/log, using /tmp for now.
       collation-server = "utf8_unicode_ci";
       character-set-server = "utf8";
       log-error = "/tmp/mysql_err.log";
