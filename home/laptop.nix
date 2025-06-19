@@ -23,7 +23,8 @@
     (lib.hm.gvariant.mkTuple [ "xkb" "us" ])
     (lib.hm.gvariant.mkTuple [ "xkb" "ro" ])
   ];
-
+  # Display battery percentage on the top bar,
+  dconf.settings."org/gnome/desktop/interface".show-battery-percentage = true;
   dconf.settings."org/gnome/shell" = {
     disable-user-extensions = false;
 

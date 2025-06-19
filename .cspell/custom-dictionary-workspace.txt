@@ -101,6 +101,7 @@ gparted
 graphviz
 greylist
 greylisting
+gvariant
 halloy
 HPKP
 hplip
