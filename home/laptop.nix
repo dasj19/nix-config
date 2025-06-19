@@ -16,6 +16,14 @@
   ];
 
   dconf.enable = true;
+  # Define the available keyboard layouts.
+  dconf.settings."org/gnome/desktop/input-sources".sources = [
+    (lib.hm.gvariant.mkTuple [ "xkb" "esrodk" ])
+    (lib.hm.gvariant.mkTuple [ "xkb" "es" ])
+    (lib.hm.gvariant.mkTuple [ "xkb" "us" ])
+    (lib.hm.gvariant.mkTuple [ "xkb" "ro" ])
+  ];
+
   dconf.settings."org/gnome/shell" = {
     disable-user-extensions = false;
 
