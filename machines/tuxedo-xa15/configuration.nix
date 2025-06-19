@@ -32,6 +32,7 @@ in
     # Profile.
     ./../../profiles/laptop.nix
     # Modules.
+    ./../../modules/ai.nix
     ./../../modules/games.nix
   ];
 
@@ -39,20 +40,6 @@ in
   services.xserver.excludePackages = with pkgs; [
     xterm
   ];
-
-  # Enable Ollama Cuda as a systemd service.
-  systemd.services.ollama-cuda = {
-    enable = true;
-    after = [ "network.target" ];
-    wantedBy = [ "default.target" ];
-    description = "Ollama Cuda server";
-    serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.ollama-cuda}/bin/ollama serve";
-        Environment = ''HOME=/home/daniel'';
-        Restart = "always";
-    };
-  };
 
   # HARDWARE.
 
@@ -152,8 +139,6 @@ in
     arduino
     symfony-cli
     nodejs_22
-    ollama-cuda
-    shell-gpt
     pomodoro-gtk
     postgresql
 

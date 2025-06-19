@@ -7,6 +7,9 @@
 
       # Profile.
       ./../../profiles/laptop.nix
+
+      # Modules.
+      ./../../modules/ai.nix
     ];
 
   # Bootloader.
