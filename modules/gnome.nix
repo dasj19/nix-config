@@ -21,6 +21,7 @@
     environment.gnome.excludePackages = with pkgs; [
       decibels                # Simple audio player, I do not need it.
       cheese                  # Simple webcam application, I do not need it.
+      file-roller             # Simple archive manager, I use peazip instead.
       geary                   # Email client, I use Evolution instead.
       gnome-backgrounds       # Wallpaper manager, I declare wallpapers via stylix.
       gnome-calendar          # Calendar application, I use Evolution.
