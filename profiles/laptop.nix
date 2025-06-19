@@ -40,7 +40,6 @@
       czkawka
       dconf-editor
       drawio
-      evolution
       firefox
       flacon
       gimp
@@ -51,12 +50,10 @@
       pdfarranger
       poedit
       qbittorrent
-      remmina
       signal-desktop-bin
       tor-browser-bundle-bin
       ungoogled-chromium
       usbimager
-      vlc
 
       # Development.
       dbeaver-bin

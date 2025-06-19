@@ -41,9 +41,15 @@
 
     # Include gnome-packages as part of system-packages.  
     environment.systemPackages = with pkgs; [
-      gnome-tweaks
-      gnome-network-displays
-      ghex
+      evolution               # Replacement for geary and gnome-calendar.
+      gnome-tweaks            # Extra setting manager for gnome.
+      gnome-network-displays  # Screen sharing app for gnome.
+      ghex                    # Gnome hex editor.
+      peazip                  # Replacement for file-roller.
+      remmina                 # Replacement for gnome-connections.
+      strawberry              # Replacement for gnome-music.
+      tauon                   # Replacement for gnome-music with lyrics support.
+      vlc                     # Replacement for totem.
     ];
   };
 }

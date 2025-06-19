@@ -22,16 +22,13 @@
 
       # GUIs.
       drawio
-      evolutionWithPlugins
       firefox
       czkawka
       gimp
       gparted
       kando
       libreoffice-still
-      remmina
       pdfarranger
-      vlc
       tor-browser-bundle-bin
       ungoogled-chromium
 
