@@ -25,11 +25,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      # Unlocking secrets.
+      - name: Unlocking git secrets
+        run: /run/current-system/sw/bin/git-crypt unlock /etc/nixos/git-crypt-key
+        
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Build definitons from the flake
         run: |
-          # Unlocking git secrets
-          /run/current-system/sw/bin/git-crypt unlock /etc/nixos/git-crypt-key
           # Building the flake for the t14 system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.t14.config.system.build.toplevel
