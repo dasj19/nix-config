@@ -29,4 +29,5 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Test
-          nix-build
+          cd /home/daniel/workspace/nix-config
+          nix build .#nixosConfigurations.t14.system
