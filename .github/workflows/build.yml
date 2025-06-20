@@ -1,16 +1,12 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
+  # Triggers the workflow on push events but only for the "master" branch
   push:
     branches: [ "master" ]
-  #pull_request:
-  #  branches: [ "master" ]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows manual run of this workflow from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -22,19 +18,23 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v4
 
       # Unlocking secrets.
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
-        
-      # Runs a set of commands using the runners shell
-      - name: Build definitons from the flake
+
+      # Building packages for t14.
+      - name: Build t14 system definitions from the flake
         run: |
           # Building the flake for the t14 system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.t14.config.system.build.toplevel
+
+      # Building packages for tuxedo-x15.
+      - name: Build tuxedo-xa15 system definitions from the flake
+        run: |
           # Building the flake for the tuxedo-xa15 system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.tuxedo-xa15.config.system.build.toplevel
