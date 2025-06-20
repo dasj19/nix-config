@@ -28,4 +28,5 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          nix --extra-experimental-features nix-command build .#nixosConfigurations.t14.system
+          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
+          build .#nixosConfigurations.t14.system
