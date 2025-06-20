@@ -25,6 +25,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      # Install build requirements.
+      - name: Install requirements
+        run: nix-shell -p git-crypt
+
       # Unlocking secrets.
       - name: Unlocking git secrets
         run: /run/current-system/sw/bin/git-crypt unlock /etc/nixos/git-crypt-key
