@@ -1,16 +1,16 @@
 { pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+    # Evolved version from the hardware scan.
+    ./hardware-configuration.nix
 
-      # Profile.
-      ./../../profiles/laptop.nix
+    # Profile.
+    ./../../profiles/laptop.nix
 
-      # Modules.
-      ./../../modules/ai.nix
-    ];
+    # Modules.
+    ./../../modules/ai.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -71,10 +71,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-
-  services.xserver.videoDrivers = [
-    "nvidia"
-  ];
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
