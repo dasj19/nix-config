@@ -1,4 +1,11 @@
-{ config, lib, modulesPath, ... }:
+{ config, lib, modulesPath, pkgs, pkgs-old-cudatoolkit, ... }:
+
+let
+    # This Cuda toolkit should be capable (10.1) with the CUDA capabilities (11.4) of nvidia-legacy-470 driver.
+    # Still having the following error in ollama:
+    # ggml_cuda_init: failed to initialize CUDA: CUDA driver version is insufficient for CUDA runtime version
+    old-cudatoolkit = pkgs-old-cudatoolkit.cudaPackages.cudatoolkit_10_1;
+in
 
 {
   imports = [
@@ -35,6 +42,23 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.graphics.enable = true;
+
+  hardware.nvidia-container-toolkit.enable = true;
+
+  # System-wide drivers and utilities.
+  environment.systemPackages = with pkgs; [
+    # Drivers.
+
+    # Utilities.
+    old-cudatoolkit
+    # cudatoolkit_11
+  ];
+
+  services.xserver.videoDrivers = [
+    "nvidia"
+  ];
 
   hardware.nvidia.open = false;
   hardware.nvidia.nvidiaSettings = true;
