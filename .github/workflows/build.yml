@@ -29,4 +29,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          build .#t14
+          build .#nixosConfigurations.t14.config.system.build.toplevel
