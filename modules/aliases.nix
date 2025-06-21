@@ -9,6 +9,21 @@
       # List files sorted by size ascending and descending.
       lt      = "du -sh * | sort -h";
       lr      = "du -sh * | sort -rh";
+      # Change file permissions.
+      cha     = "chmod a+rwx";
+      chr     = "chmod a+r";
+      chx     = "chmod a+x";
+      chw     = "chmod a+w";
+      # Assign ownership to current user, current group.
+      cho     = "chown $(whoami):$(id -gn $(whoami))";
+      # Git shortcuts.
+      gs      = "git status";
+      ga      = "git add";
+      gc      = "git commit";
+      gp      = "git push";
+      gd      = "git diff";
+      gl      = "git log";
+      g1      = "git log --oneline";
       # Quick(er) navigation.
       ".."    = "cd ..";
       h       = "cd ~";
@@ -21,6 +36,8 @@
       ports   = "netstat -tulanp";
       # Create a dir and enter it. https://stackoverflow.com/a/55620350
       indir   = "function indir; mkdir $argv; cd $argv; end; indir";
+      # Nix specific. OS update.
+      osup    = "sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs";
     };
   };
 }
