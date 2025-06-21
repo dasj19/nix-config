@@ -35,15 +35,12 @@
       zstd
 
       # GUIs.
-      brasero
       brave
       czkawka
-      dconf-editor
       drawio
       firefox
       flacon
       gimp
-      gparted
       halloy
       kando
       libreoffice-still
@@ -60,7 +57,6 @@
       firefox-devedition
       fontforge-gtk
       insomnia
-      meld
       vscodium
 
       # Drivers.

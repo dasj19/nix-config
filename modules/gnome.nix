@@ -41,10 +41,14 @@
 
     # Include gnome-packages as part of system-packages.  
     environment.systemPackages = with pkgs; [
+      brasero                 # Disc burning application.
+      dconf-editor            # Gnome registry editor.
       evolution               # Replacement for geary and gnome-calendar.
+      ghex                    # Gnome hex editor.
       gnome-tweaks            # Extra setting manager for gnome.
       gnome-network-displays  # Screen sharing app for gnome.
-      ghex                    # Gnome hex editor.
+      gparted                 # Gnome partition editor.
+      meld                    # Diff manager and editor.
       peazip                  # Replacement for file-roller.
       remmina                 # Replacement for gnome-connections.
       strawberry              # Replacement for gnome-music.
