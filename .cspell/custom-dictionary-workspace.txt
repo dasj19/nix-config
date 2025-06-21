@@ -170,6 +170,7 @@ mktplc
 mkvtoolnix
 Mnnxcxis
 Modesetting
+myip
 mysqld
 nadim
 ncdu
@@ -200,9 +201,11 @@ OCSP
 oderwat
 ohci
 ollama
+oneline
 openrgb
 optimise
 osdlyrics
+osup
 pagenavi
 pciutils
 pdfarranger
@@ -277,6 +280,7 @@ tmpfs
 toplevel
 topsites
 touchpad
+tulanp
 twentytwenty
 twentytwentyone
 twentytwentytwo
