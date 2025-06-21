@@ -1,8 +1,11 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    ollama-cuda
-    shell-gpt
+    # gpt4all-cuda    # Open GPT client with CUDA support.
+    ollama-cuda     # Ollama server with CUDA support.
+    shell-gpt       # ChatGPT/Ollama client.
+    tgpt            # ChatGPT client with no need for API keys.
+    video2x         # video upscaler with the help of cuda.
   ];
   # Enable Ollama Cuda as a systemd service.
   systemd.services.ollama-cuda = {
