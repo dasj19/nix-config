@@ -30,11 +30,13 @@ jobs:
         run: |
           # Building the flake for the t14 system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          build .#nixosConfigurations.t14.config.system.build.toplevel
+          build .#nixosConfigurations.t14.config.system.build.toplevel \
+          --keep-going
 
       # Building packages for tuxedo-x15.
       - name: Build tuxedo-xa15 system definitions from the flake
         run: |
           # Building the flake for the tuxedo-xa15 system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          build .#nixosConfigurations.tuxedo-xa15.config.system.build.toplevel
+          build .#nixosConfigurations.tuxedo-xa15.config.system.build.toplevel \
+          --keep-going
