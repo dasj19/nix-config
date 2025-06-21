@@ -34,6 +34,7 @@ codeium
 colordiff
 conexant
 contabo
+contile
 cpufrequtils
 cspnonce
 ctype
@@ -51,6 +52,8 @@ dasj
 dbeaver
 dconf
 debootstrap
+deepseek
+defaultenginename
 devbox
 devedition
 dialout
@@ -114,6 +117,7 @@ hwdep
 imagick
 IMAP
 IMAPS
+improvesearch
 indir
 inetutils
 inkscape
@@ -121,6 +125,7 @@ intelephense
 iperf
 isjerryxiao
 iwlwifi
+jetpack
 jnoortheen
 joypad
 kanboard
@@ -163,6 +168,7 @@ mediainfo
 mkpasswd
 mktplc
 mkvtoolnix
+Mnnxcxis
 Modesetting
 mysqld
 nadim
@@ -171,6 +177,7 @@ nerdfont
 netcat
 networkd
 networkmanager
+newtabpage
 nhlt
 nixos
 nixpkgs
@@ -242,6 +249,7 @@ Searx
 searxng
 Searxng
 secp
+sgptrc
 shmcb
 shntool
 shotcut
@@ -267,6 +275,7 @@ thinkpad
 tinymce
 tmpfs
 toplevel
+topsites
 touchpad
 twentytwenty
 twentytwentyone

@@ -58,7 +58,7 @@
   programs.firefox.enable = true;
   # Lock preferences in place.
   programs.firefox.preferencesStatus = "locked";
-  # Apply prefered policies. Inspired from https://discourse.nixos.org/t/combining-best-of-system-firefox-and-home-manager-firefox-settings/37721
+  # Apply preferred policies. Inspired from https://discourse.nixos.org/t/combining-best-of-system-firefox-and-home-manager-firefox-settings/37721
   programs.firefox.policies.DisableTelemetry = true;
   programs.firefox.policies.DisableFirefoxStudies = true;
   programs.firefox.policies.DontCheckDefaultBrowser = true;
