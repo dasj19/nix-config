@@ -5,8 +5,6 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/nixpkgs";
 
-  inputs.nixpkgs-old-cudatoolkit.url = "github:NixOS/nixpkgs/d1c3fea7ecbed758168787fe4e4a3157e52bc808";
-
   inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.1.0.tar.gz";
 
   inputs.sops-nix.url = "github:Mic92/sops-nix";
@@ -47,7 +45,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-old-cudatoolkit,
     nixos-hardware,
     nix-alien,
     nix-vscode-extensions,
@@ -247,11 +244,6 @@
       specialArgs = {
         inherit gitSecrets;
         inherit sopsSecrets;
-        pkgs-old-cudatoolkit = import nixpkgs-old-cudatoolkit {
-          inherit system;
-          config.allowUnfree = true;
-          config.nvidia.acceptLicense = true;
-        };
       };
       modules = [
         ./machines/t14/configuration.nix
