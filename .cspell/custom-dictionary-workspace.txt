@@ -39,6 +39,7 @@ cspnonce
 ctype
 cuda
 cudart
+cudatoolkit
 cuetools
 cuobjdump
 cupti
@@ -92,6 +93,7 @@ gamepad
 gcstar
 geary
 geolocation
+ggml
 ghex
 ghidra
 glaxnimate
@@ -112,6 +114,7 @@ hwdep
 imagick
 IMAP
 IMAPS
+indir
 inetutils
 inkscape
 intelephense
@@ -257,6 +260,7 @@ symfony
 sysstat
 tauon
 tealized
+tgpt
 thermald
 thiagokokada
 thinkpad
