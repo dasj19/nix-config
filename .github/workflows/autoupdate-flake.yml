@@ -23,7 +23,9 @@ jobs:
 
       # Updating the flake input references.
       - name: Run flake update command
-        run: nix flake update
+        run: |
+          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
+          flake update
 
       # Commit the updated flake.lock file
       - name: Commit and Push Changes
