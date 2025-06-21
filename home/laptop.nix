@@ -8,7 +8,6 @@
   # Install gnome extensions.
   # To be enabled in dconf.settings.enable-extensions.
   home.packages = with pkgs.gnomeExtensions; [
-    activate_gnome
     burn-my-windows
     clipboard-indicator
     desktop-cube
@@ -32,7 +31,6 @@
     # Active gnome-extensions.
     # Changes take effect after restarting gnome-shell / logging out.
     enabled-extensions = [
-      "activate_gnome@isjerryxiao"
       "burn-my-windows@schneegans.github.com"
       "clipboard-indicator@tudmotu.com"
       "desktop-cube@schneegans.github.com"
