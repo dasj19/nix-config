@@ -46,6 +46,10 @@
     '';
 
     # Provides hints for commands that are missing from the system.
-    programs.command-not-found.enable = true;
+    #programs.command-not-found.enable = true;
+    # Loads an index of all available nix packages.
+    programs.nix-index.enable = true;
+    programs.nix-index.enableFishIntegration = true;
+
   };
 }
