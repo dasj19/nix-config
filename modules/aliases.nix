@@ -20,6 +20,7 @@
       gs      = "git status";
       ga      = "git add";
       gc      = "git commit";
+      gch     = "git checkout";
       gp      = "git push";
       gd      = "git diff";
       gl      = "git log";
@@ -34,10 +35,12 @@
       op      = "nmap localhost -p 0-65535";
       p       = "ping 1.1";
       ports   = "netstat -tulanp";
-      # Create a dir and enter it. https://stackoverflow.com/a/55620350
+      # Create a dir and enter it.
+      # @see https://stackoverflow.com/a/55620350
       indir   = "function indir; mkdir $argv; cd $argv; end; indir";
-      # Nix specific. OS update.
+      # Nix specific. OS update. Flake update.
       osup    = "sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs";
+      flup    = "nix flake update";
     };
   };
 }
