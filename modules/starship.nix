@@ -11,6 +11,11 @@
       line_break = {
         disabled = true;
       };
+      # Automatically runs some commands that require sudo,
+      # spamming the logs with failed auth requests.
+      sudo = {
+        disabled = true;
+      };
       username = {
         show_always = true;
         format = "[$user]($style)@";
@@ -35,9 +40,6 @@
         "~" = " ";
       };
       time = {
-        disabled = false;
-      };
-      sudo = {
         disabled = false;
       };
       status = {
