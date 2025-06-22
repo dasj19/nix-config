@@ -10,6 +10,7 @@
 
     # Modules.
     ./../../modules/ai.nix
+    ./../../modules/builder.nix
   ];
 
   # Bootloader.
