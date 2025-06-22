@@ -40,3 +40,11 @@ jobs:
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.tuxedo-xa15.config.system.build.toplevel \
           --keep-going
+
+      # Building packages for contabo2.
+      - name: Build contabo2 system definitions from the flake
+        run: |
+          # Building the flake for the contabo2 system
+          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
+          build .#nixosConfigurations.contabo2.config.system.build.toplevel \
+          --keep-going
