@@ -208,7 +208,6 @@ in
     qjoypad
     retroarchFull
     retroarch-assets
-    emulationstation-de
 
     # support both 32- and 64-bit applications
     wineWowPackages.stable
@@ -216,11 +215,6 @@ in
     winetricks
     # native wayland support (unstable)
     wineWowPackages.waylandFull
-  ];
-
-  # Required by emulationstation-de.
-  nixpkgs.config.permittedInsecurePackages = [
-    "freeimage-3.18.0-unstable-2024-04-18"
   ];
 
   # Needed for codeium.
