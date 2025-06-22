@@ -27,6 +27,7 @@
       gh
       inetutils
       shntool
+      speedtest-cli
       unrar
       usbutils
       w3m

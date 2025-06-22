@@ -22,6 +22,7 @@
       gc      = "git commit";
       gch     = "git checkout";
       gp      = "git push";
+      gu      = "git pull";
       gd      = "git diff";
       gl      = "git log";
       g1      = "git log --oneline";
@@ -35,6 +36,7 @@
       op      = "nmap localhost -p 0-65535";
       p       = "ping 1.1";
       ports   = "netstat -tulanp";
+      t       = "speedtest-cli";
       # Create a dir and enter it.
       # @see https://stackoverflow.com/a/55620350
       indir   = "function indir; mkdir $argv; cd $argv; end; indir";
