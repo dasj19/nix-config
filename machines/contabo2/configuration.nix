@@ -65,7 +65,7 @@ in
     };
   };
   # The current state version.
-  mailserver.stateVersion = 1;
+  mailserver.stateVersion = 3;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
