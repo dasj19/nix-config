@@ -5,10 +5,41 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.luks.devices."luks-a2c62a27-7059-4ac5-ac4d-1408d3f86970".device = "/dev/disk/by-uuid/a2c62a27-7059-4ac5-ac4d-1408d3f86970";
 
+  # Graphical LUKS password dialog. Only supported by boot.initrd.systemd
+  # boot.initrd.unl0kr.enable = true;
+  # Boot graphics instead of text.
+  boot.plymouth.enable = true;
+
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [
+    # Do not display errors and commands executed during boot.
+    # https://discourse.nixos.org/t/removing-persistent-boot-messages-for-a-silent-boot/14835/9
+    "quiet"
+
+    # Suppresses ACPI errors:
+    # kernel: ACPI Error: Aborting method \_SB.HIDD._DSM due to previous error (AE_AML_OPERAND_TYPE) (20240827/psparse-529)
+    # kernel: ACPI Error: Aborting method \ADBG due to previous error (AE_AML_OPERAND_TYPE) (20240827/psparse-529)
+    # kernel: ACPI Error: AE_AML_OPERAND_TYPE, While resolving operands for [ToHexString] (20240827/dswexec-433)
+    # kernel: ACPI Error: Needed [Integer/String/Buffer], found [Package] 000000006a33ef16 (20240827/exresop-469)
+    "acpi_osi=!"                  # Disables OSI strings for the ACPI to pickup a generic configuration.
+    ''acpi_osi="Windows 2020"''   # Tells ACPI to behave as if it was Windows 2020.
+
+
+    # Disable panel self refresh function of the display.
+    # Attempt at fixing:
+    # i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=1102746 end=1102747)
+    # time 840 us, min 1073, max 1079, scanline start 1029, end 1086
+    "i915.enable_psr=0"
+    "i915.enable_dc=0"
+    "i915.atomic_support=0"
+  ];
   boot.extraModulePackages = [
 
   ];
