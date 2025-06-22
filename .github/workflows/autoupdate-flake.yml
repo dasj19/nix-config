@@ -35,3 +35,8 @@ jobs:
           git add flake.lock
           git commit -m "Automated flake update: $(date +'%Y-%m-%d %H:%M:%S')"
           git push
+      # Trigger a build using the CI
+      - name: Trigger build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build.yml
