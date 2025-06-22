@@ -48,6 +48,9 @@
     cudaPackages.cudatoolkit
   ];
 
+  # Enable the temperature management daemon.
+  services.thermald.enable = true;
+
   services.xserver.videoDrivers = [
     "nvidia"
   ];
