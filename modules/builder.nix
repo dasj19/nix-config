@@ -3,9 +3,13 @@
 {
   nix.buildMachines = [
     # Requires manual setup of ssh keys.
+    # The root user on host needs to be able to connect to the builder, preferably by ssh keys.
     {
       hostName = "contabo1";
-      system = "x86_64-linux";
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       protocol = "ssh-ng";
       maxJobs = 1;
       speedFactor = 2;
