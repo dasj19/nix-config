@@ -86,6 +86,7 @@ Fira
 firewire
 flac
 flashplayer
+flup
 fmask
 fmsx
 fontforge
