@@ -47,10 +47,12 @@ in
       hashedPasswordFile = config.sops.secrets.root_password.path;
     };
 
-    # sudo rules.
-    security.sudo.extraConfig = ''
-      # Increase the password ask timeout to 40 minutes.
-      Defaults timestamp_timeout=40
+    # Use sudo-rs instead of sudo.
+    security.sudo.enable = false;
+    security.sudo-rs.enable = true;
+    security.sudo-rs.extraConfig = ''
+      # Increase the password ask timeout to 60 minutes.
+      Defaults timestamp_timeout=60
     '';
   };
   
