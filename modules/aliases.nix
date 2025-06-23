@@ -32,6 +32,9 @@
       gd        = "git diff";
       gl        = "git log";
       g1        = "git log --oneline";
+      gf        = "git fetch";
+      gm        = "git merge";
+      gmu       = "git merge upstream/master";
       # Quick(er) navigation.
       ".."      = "cd ..";
       ".2"      = "cd ../../";
