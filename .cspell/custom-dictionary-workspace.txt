@@ -2,6 +2,7 @@
 aarch
 acpi
 adapta
+ADBG
 agenix
 ahci
 akismet
@@ -12,7 +13,9 @@ armv
 asciinema
 autoconfig
 automount
+autopair
 autoplay
+auxf
 awscli
 bashsh
 bchunk
@@ -64,6 +67,7 @@ dnssec
 dnsutils
 dont
 dslg
+dswexec
 dswload
 duckduckgo
 ehci
@@ -73,6 +77,8 @@ Embedder
 emulationstation
 esrodk
 evtest
+exresop
+fastboot
 fastcgi
 fastfetch
 fbalpha
@@ -104,11 +110,13 @@ glaxnimate
 gmmlib
 goaccess
 gparted
+gpuinfo
 graphviz
 greylist
 greylisting
 gvariant
 halloy
+HIDD
 HPKP
 hplip
 HSTS
@@ -226,8 +234,11 @@ powersave
 powertop
 pressbook
 protonvpn
+pscpu
+psmem
 psmouse
 psobject
+psparse
 Pubkey
 publickey
 PUBLICSHARE
@@ -246,6 +257,7 @@ rtkit
 rtsx
 ryzen
 sabnzbd
+scanline
 scrcpy
 sdmmc
 searx
@@ -321,4 +333,5 @@ xorg
 xorgserver
 xorriso
 xvfb
+zheader
 zstd
