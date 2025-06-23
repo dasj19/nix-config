@@ -7,6 +7,7 @@
       fish
       fastfetch
       grc
+      fzf
 
       # Fish plugins.
       fishPlugins.done                # Notify when long tasks are done.          Docs: https://github.com/franciscolourenco/done
