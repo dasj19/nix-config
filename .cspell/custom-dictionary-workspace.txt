@@ -321,6 +321,7 @@ wakeup
 waydroid
 webp
 webroot
+weekdate
 Werkzeug
 winetricks
 wlan

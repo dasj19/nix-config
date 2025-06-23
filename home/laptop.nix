@@ -103,6 +103,7 @@
   programs.vscode.package = pkgs.vscodium;
   programs.vscode.mutableExtensionsDir = false;
 
+  # Extensions enabled in VS Codium.
   programs.vscode.profiles.default.extensions =
     with pkgs.vscode-extensions; [
     # PHP.
@@ -142,7 +143,7 @@
   ];
 
   programs.vscode.profiles.default.userSettings = {
-    # Editor settings.
+    # Set default tab size.
     "[php]"."editor.tabSize" = 2;
     # AI Assistant.
     "codeium.enableConfig"."*" = true;

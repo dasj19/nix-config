@@ -13,7 +13,7 @@ buildFishPlugin {
     hash = "sha256-uoZ4eSFbZlsRfISIkJQp24qPUNqxeD0JbRb/gVdRYlA=";
   };
   meta = with lib; {
-    description = "Fish shell plugin to bring colors to man pages";
+    description = "Fish shell plugin that brings colors to man pages";
     homepage = "https://github.com/decors/fish-colored-man";
     license = licenses.mit;
     maintainers = [ maintainers.dasj19 ];
