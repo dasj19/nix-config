@@ -95,7 +95,7 @@ in
       ];
     };
   };
-  mailserver.stateVersion = 1;
+  mailserver.stateVersion = 3;
   # IMAPS only.
   mailserver.enableImap = false;
   mailserver.enableImapSsl = true;
