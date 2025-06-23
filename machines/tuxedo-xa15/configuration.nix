@@ -148,7 +148,6 @@ in
 
     # Desktop apps.
     discord
-    element-desktop
     filezilla
     #gcstar
     gimp

@@ -40,6 +40,7 @@
       brave
       czkawka
       drawio
+      element-desktop
       firefox
       flacon
       gimp
