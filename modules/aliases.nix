@@ -24,7 +24,7 @@
       cho       = "chown $(whoami):$(id -gn $(whoami))";
       # Git shortcuts.
       gs        = "git status";
-      gst       = "git stash";
+      gsh       = "git stash";
       ga        = "git add";
       gc        = "git commit";
       gch       = "git checkout";
