@@ -48,3 +48,11 @@ jobs:
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.contabo2.config.system.build.toplevel \
           --keep-going
+
+      # Building packages for t500libre.
+      - name: Build t500libre system definitions from the flake
+        run: |
+          # Building the flake for the t500libre system
+          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
+          build .#nixosConfigurations.t500libre.config.system.build.toplevel \
+          --keep-going
