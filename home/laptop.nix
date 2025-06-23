@@ -23,8 +23,31 @@
     (lib.hm.gvariant.mkTuple [ "xkb" "ro" ])
   ];
 
-  # Display battery percentage on the top bar,
-  dconf.settings."org/gnome/desktop/interface".show-battery-percentage = true;
+  dconf.settings."org/gnome/desktop/interface" = {
+    # Display the weekday in the date close to the clock.
+    clock-show-weekday = true;
+    # Disable the default hot-corners.
+    enable-hot-corners = false;
+    # Display battery percentage on the top bar.
+    show-battery-percentage = true;
+    # Set text scaling below 100%.
+    text-scaling-factor = 0.90;
+    toolbar-icons-size = "small";
+  };
+  dconf.settings."org/gnome/desktop/notifications" = {
+    # Disable notifications in the lock screen.
+    show-in-lock-screen = false;
+  };
+  # Accessibility.
+  dconf.settings."org/gnome/desktop/a11y" = {
+    # Disable notifications in the lock screen.
+    always-show-universal-access-status = true;
+  };
+  # Display week date (week number) in the top bar calendar.
+  dconf.settings."org/gnome/desktop/calendar".show-weekdate = true;
+  # Allow visual bell.
+  dconf.settings."org/gnome/desktop/wm/preferences".visual-bell = true;
+  # Gnome extensions.
   dconf.settings."org/gnome/shell" = {
     disable-user-extensions = false;
 
