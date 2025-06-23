@@ -24,6 +24,7 @@
       cho       = "chown $(whoami):$(id -gn $(whoami))";
       # Git shortcuts.
       gs        = "git status";
+      gst       = "git stash";
       ga        = "git add";
       gc        = "git commit";
       gch       = "git checkout";
@@ -49,9 +50,9 @@
       # Utils. background jobs, history shortcuts, simplified list of mounted partitions.
       j         = "jobs -l";
       o         = "history";
-      o1        = "history 10";
-      o2        = "history 20";
-      o3        = "history 30";
+      o1        = "history | head -10";
+      o2        = "history | head -20";
+      o3        = "history | head -30";
       mnt       = ''mount | awk -F " " "{ printf \"%s\t%s\n\",\$1,\$3; }" | column -t | egrep ^/dev/ | sort'';
       # Info about memory, cpu and gpu.
       meminfo   = "free -m -l -t -h";
