@@ -21,6 +21,27 @@ The "secrets" folder contains secrets that can be used globally across individua
 The "profiles" folder contains a bare-bones profile where to start off when adding a new host to machines.
 The "home" folder contains home-manager configurations.
 
+# Usage
+
+This repo holds configuration for NixOS machines I manage.
+The basic actions I need to do to deploy on a local machine follows:
+
+```
+cd path/to/repo/files/nix-config
+sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs
+```
+Or the short version (using the actual path and an alias defined in the aliases.nix module):
+```
+cd ~/workspace/projects/nix-config
+osup
+```
+Behind the scenes there are some workflows actions that help building the packages on a NixOS server I control.
+One action is responsible for building the packages for most of my machines.
+Another is updating the flake definitions each morning and triggers the build package action.
+Whenever I run *osup* on a machine that uses the builder.nix part of the building job is delegated
+to the remote server that has updated builds of my configuration, thus making the build faster.
+I also get emails when the automated build fails thus the failure does not propagate to all of the machines.
+
 # Machines
 
 |   Hostname  | Brand and model  |   CPU              |  RAM  |   GPU(s)                       | Role | OS  | State |
