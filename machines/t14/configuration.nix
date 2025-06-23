@@ -10,7 +10,6 @@
 
     # Modules.
     ./../../modules/ai.nix
-    ./../../modules/builder.nix
   ];
 
   networking.hostName = "t14";

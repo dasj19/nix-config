@@ -4,6 +4,7 @@
     # Profiles.
     ./base.nix
     # Modules.
+    ./../modules/builder.nix
     ./../modules/audio.nix
     ./../modules/gnome.nix
     ./../modules/stylix.nix
