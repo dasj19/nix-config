@@ -31,6 +31,7 @@
       colordiff
       dmidecode
       eza
+      gh
       git
       jq
       lf
