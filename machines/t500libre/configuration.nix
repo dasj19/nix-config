@@ -22,6 +22,7 @@ in
       # Kanboard configuration.
       ./kanboard.nix
       # Modules.
+      ./../../modules/builder.nix
       ./../../modules/fish.nix
       ./../../modules/keyboard.nix
       ./../../modules/locale.nix
