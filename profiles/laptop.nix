@@ -4,8 +4,9 @@
     # Profiles.
     ./base.nix
     # Modules.
-    ./../modules/builder.nix
     ./../modules/audio.nix
+    ./../modules/browsers.nix
+    ./../modules/builder.nix
     ./../modules/gnome.nix
     ./../modules/stylix.nix
   ];
@@ -37,11 +38,9 @@
       zstd
 
       # GUIs.
-      brave
       czkawka
       drawio
       element-desktop
-      firefox
       flacon
       gimp
       halloy
@@ -51,13 +50,10 @@
       poedit
       qbittorrent
       signal-desktop-bin
-      tor-browser-bundle-bin
-      ungoogled-chromium
       usbimager
 
       # Development.
       dbeaver-bin
-      firefox-devedition
       fontforge-gtk
       insomnia
       vscodium
