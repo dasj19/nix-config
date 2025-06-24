@@ -27,22 +27,36 @@
     # These should be CLI-only packages.
     environment.systemPackages = with pkgs; [
       # CLI.
+      aria2
       bat
       colordiff
+      cloc
+      dig
       dmidecode
+      dust
       eza
+      fd
       gh
       git
+      hexyl
+      htop
       jq
+      litecli
       lf
+      lolcat
       lsof
       lshw
       legit
       ncdu
       nmap
+      pandoc
       pciutils
+      procs
+      pstree
+      ripgrep-all
       screen
       smartmontools
+      tldr
       tree
       usbutils
       unzip

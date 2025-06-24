@@ -17,17 +17,23 @@
     services.printing.enable = true;
     services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
+    services.journald.extraConfig = "MaxRetentionSec=1week";
+
     # Laptop packages.
     environment.systemPackages = with pkgs; [
       # CLIs.
       asciinema
       bchunk
+      codeql
+      cowsay
       cuetools
       dconf
-      ffmpeg
+      ffmpeg-full
       flac
       gh
       inetutils
+      khard
+      neo-cowsay
       shntool
       speedtest-cli
       unrar
@@ -42,6 +48,7 @@
       drawio
       element-desktop
       flacon
+      flameshot
       gimp
       halloy
       kando
