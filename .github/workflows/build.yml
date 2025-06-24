@@ -21,12 +21,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v4
 
-      # Unlocking secrets.
+      # Unlocking secrets using the server's git-crypy key
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
 
       # Building packages for t14.
-      - name: Build t14 system definitions from the flake
+      - name: Build t14 packages
         run: |
           # Building the flake for the t14 system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
@@ -34,7 +34,7 @@ jobs:
           --keep-going
 
       # Building packages for tuxedo-x15.
-      - name: Build tuxedo-xa15 system definitions from the flake
+      - name: Build tuxedo-xa15 packages
         run: |
           # Building the flake for the tuxedo-xa15 system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
@@ -42,7 +42,7 @@ jobs:
           --keep-going
 
       # Building packages for contabo2.
-      - name: Build contabo2 system definitions from the flake
+      - name: Build contabo2 packages
         run: |
           # Building the flake for the contabo2 system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
@@ -50,7 +50,7 @@ jobs:
           --keep-going
 
       # Building packages for t500libre.
-      - name: Build t500libre system definitions from the flake
+      - name: Build t500libre packages
         run: |
           # Building the flake for the t500libre system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
