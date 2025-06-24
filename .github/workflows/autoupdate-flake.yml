@@ -4,7 +4,7 @@ name: Autoupdate flake
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   schedule:
-    - cron: '0 5 * * *'  # Runs daily at 5:00 UTC
+    - cron: '0 1 * * *'  # Runs daily at 1:00 UTC
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
