@@ -61,7 +61,7 @@
     nicotine-plus
   ];
 
-  # List services that you want to enable:
+  programs.usbtop.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
