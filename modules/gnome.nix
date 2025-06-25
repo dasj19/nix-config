@@ -55,5 +55,16 @@
       tauon                   # Replacement for gnome-music with lyrics support.
       vlc                     # Replacement for totem.
     ];
+
+    xdg.mime.enable = true;
+    xdg.mime.defaultApplications = {
+      "application/pdf" = "org.gnome.Evince.desktop";
+      "application/zip" = "peazip.desktop";
+      "video/mp4" = "vlc.desktop";
+      "video/mp2t" = "vlc.desktop";
+      "video/vnd.avi" = "vlc.desktop";
+      "video/webm" = "vlc.desktop";
+      "video/x-matroska" = "vlc.desktop";
+    };
   };
 }
