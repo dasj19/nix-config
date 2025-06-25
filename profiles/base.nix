@@ -23,6 +23,18 @@
     services.openssh.enable = true;
     services.openssh.settings.PubkeyAuthentication = true;
 
+    # Limit the space occupied by logs.
+    services.journald.extraConfig = ''
+      SystemMaxUse=200M
+    '';
+
+    # Log rotation.
+    services.logrotate.enable = true;
+    services.logrotate.settings.header = {
+      compress = true;
+    };
+
+
     # Base packages are a must for every machine.
     # These should be CLI-only packages.
     environment.systemPackages = with pkgs; [
