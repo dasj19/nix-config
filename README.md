@@ -1,16 +1,16 @@
 # nix-config
-Own nixos configurations
+Own (ever changing) nixos configurations
 
 # Purpose
 This repository servers my own needs and should not be used verbatim.
-You can look and get inspired about how I use nixOS.
+You can look and get inspired about how I use NixOS.
 This was made public for the sole purpose of sharing configurations and inspire others.
 
 # Contents
-The configuration now uses flakes and each folder under **machines** contains configuration for one server/machine.
-Secrets are encoded with the help of sopsnix.
-Certain not-so-sensitive information is hidden using git-crypt.
-I hide public IPs, domain names, and other information I deem sensitive.
+* The configuration now uses flakes and each folder under **machines** contains configuration for one server/machine.
+* Secrets are encoded with the help of sopsnix.
+* Certain not-so-sensitive information is hidden using git-crypt.
+* I hide public IPs, domain names, and other information I deem sensitive.
 
 # Structure
 The configuration uses flakes and is modular in order
