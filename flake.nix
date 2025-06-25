@@ -7,6 +7,9 @@
 
   inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.1.0.tar.gz";
 
+  inputs.nixos-artwork.url = "github:NixOS/nixos-artwork";
+  inputs.nixos-artwork.flake = false;
+
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -45,6 +48,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixos-artwork,
     nixos-hardware,
     nix-alien,
     nix-vscode-extensions,
@@ -243,6 +247,7 @@
       system = "x86_64-linux";
       specialArgs = {
         inherit gitSecrets;
+        inherit nixos-artwork;
         inherit sopsSecrets;
       };
       modules = [
