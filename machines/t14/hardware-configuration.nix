@@ -1,4 +1,4 @@
-{ config, lib, modulesPath, pkgs, ... }:
+{ config, gitSecrets, lib, modulesPath, pkgs, ... }:
 
 {
   imports = [
@@ -7,10 +7,23 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.editor = false;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 20;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.initrd.luks.devices."luks-a2c62a27-7059-4ac5-ac4d-1408d3f86970".device = "/dev/disk/by-uuid/a2c62a27-7059-4ac5-ac4d-1408d3f86970";
+  boot.initrd.luks.devices."luks-a2c62a27-7059-4ac5-ac4d-1408d3f86970" = {
+    device = "/dev/disk/by-uuid/a2c62a27-7059-4ac5-ac4d-1408d3f86970";
+    preOpenCommands = ''
+      echo "###############################################################"
+      echo -e "\033[31m If found, please contact Daniel:\033[0m"
+      echo -e "\033[31m Email: ${gitSecrets.danielPersonalEmail}\033[0m"
+      echo -e "\033[31m Phone: ${gitSecrets.danielPhoneNumber}\033[0m"
+      echo -e "\033[31m Thank you!\033[0m"
+      echo "###############################################################"
+    '';
+  };
+
 
   # Graphical LUKS password dialog. Only supported by boot.initrd.systemd
   # boot.initrd.unl0kr.enable = true;
@@ -39,11 +52,17 @@
     "i915.enable_psr=0"
     "i915.enable_dc=0"
     "i915.atomic_support=0"
+    # Disable frame buffer compression for the intel driver.
+    "i915.enable_fbc=0"
+    # Last resort.
+    "i915.fastboot=0"
   ];
   boot.extraModulePackages = [
 
   ];
 
+  boot.tmp.useTmpfs = true;
+  boot.tmp.cleanOnBoot = true;
   
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/fec75069-e0f2-4aca-b708-fafe7e37db2a";
@@ -68,16 +87,23 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [ intel-media-driver ];
 
   hardware.nvidia-container-toolkit.enable = true;
 
   # System-wide drivers and utilities.
   environment.systemPackages = with pkgs; [
     # Drivers.
-
+    linux-firmware # needed for the intel graphic card.
     # Utilities.
     cudaPackages.cudatoolkit
   ];
+
+  # SMART monitoring
+  services.smartd = {
+    enable = true;
+    notifications.mail.enable = true;
+  };
 
   # Enable the temperature management daemon.
   services.thermald.enable = true;
