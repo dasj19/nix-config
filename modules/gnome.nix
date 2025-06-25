@@ -60,6 +60,7 @@
     xdg.mime.defaultApplications = {
       "application/pdf" = "org.gnome.Evince.desktop";
       "application/zip" = "peazip.desktop";
+      "application/json" = "org.gnome.TextEditor.desktop";
       "video/mp4" = "vlc.desktop";
       "video/mp2t" = "vlc.desktop";
       "video/vnd.avi" = "vlc.desktop";
