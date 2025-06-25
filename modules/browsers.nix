@@ -27,6 +27,27 @@
   programs.firefox.policies.SearchEngines.Default = "DuckDuckGo";
   programs.firefox.policies.SearchEngines.PreventInstalls = true;
   programs.firefox.policies.SkipTermsOfUse = true;
+  # Adding extra search engines.
+  programs.firefox.policies.SearchEngines.Add = [
+    # Search NixOS packages with: "@np package-name".
+    {
+      Alias = "@np";
+      Description = "Search in NixOS Packages";
+      IconURL = "https://nixos.org/favicon.png";
+      Method = "GET";
+      Name = "NixOS Packages";
+      URLTemplate = "https://search.nixos.org/packages?from=0&size=200&sort=relevance&type=packages&query={searchTerms}";
+    }
+    # Search NixOS options with: "@no option-name".
+    {
+      Alias = "@no";
+      Description = "Search in NixOS Options";
+      IconURL = "https://nixos.org/favicon.png";
+      Method = "GET";
+      Name = "NixOS Options";
+      URLTemplate = "https://search.nixos.org/options?from=0&size=200&sort=relevance&type=packages&query={searchTerms}";
+    }
+  ];
 
   programs.firefox.policies.Homepage.StartPage = "previous-session";
 
