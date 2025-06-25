@@ -154,6 +154,7 @@
     nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit gitSecrets;
+        inherit nixos-artwork;
         inherit sopsSecrets;
       };
       system = "x86_64-linux";
@@ -191,6 +192,7 @@
     nixosConfigurations.tuxedo-xa15 = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit gitSecrets;
+        inherit nixos-artwork;
         inherit sopsSecrets;
       };
       system = "x86_64-linux";
