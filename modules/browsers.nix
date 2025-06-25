@@ -43,6 +43,11 @@
   programs.firefox.policies.Preferences."browser.search.order.1".Value = "DuckDuckGo";
   programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines".Value = "DuckDuckGo";
 
+  # Translations.
+  programs.firefox.policies.Preferences."browser.translations.enable".Value = true;
+  programs.firefox.policies.Preferences."browser.translations.automaticallyPopup".Value = true; # revisit this setting.
+  programs.firefox.policies.Preferences."browser.translations.neverTranslateLanguages".Value = "da,en,es,pt,ro";
+
   # Apply extensions to all instances of Firefox system-wide.
   programs.firefox.policies.ExtensionSettings = {
     "uBlock0@raymondhill.net" = {
