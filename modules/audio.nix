@@ -1,4 +1,3 @@
-{ ... }:
 {
   config = {
     # Enable sound with pipewire.

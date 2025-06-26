@@ -24,7 +24,7 @@
 
       # Local fish plugins. @todo submit upstream.
       # Brings colors to man pages, this works better than colored-man-pages.
-      (pkgs.callPackage ../pkgs/fish-colored-man.nix {buildFishPlugin = pkgs.fishPlugins.buildFishPlugin; } )
+      (pkgs.callPackage ../pkgs/fish-colored-man.nix {inherit (pkgs.fishPlugins) buildFishPlugin; } )
     ];
 
     # Enable fish as the default shell.

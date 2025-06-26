@@ -1,4 +1,3 @@
-{ ... }:
 {
   config = {
     # Cross-shell prompt.

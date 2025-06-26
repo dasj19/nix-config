@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   nix.buildMachines = [
     # Requires manual setup of ssh keys.

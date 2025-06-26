@@ -1,4 +1,3 @@
-{ ... }:
 {
   config = {
     # Custom user directories.

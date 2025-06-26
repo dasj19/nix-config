@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   config = {
     # Setup for the mailserver.

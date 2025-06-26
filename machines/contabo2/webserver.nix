@@ -33,7 +33,7 @@ in
   # ACME settings for the firm domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/) 
   security.acme.certs."${firm-domain}" = {
-      group = config.services.caddy.group;
+      inherit (config.services.caddy) group;
 
       domain = "${firm-domain}";
       extraDomainNames = [ "www.${firm-domain}" ];
@@ -42,7 +42,7 @@ in
       dnsPropagationCheck = true;
   };
   security.acme.certs."${daniel-domain}" = {
-      group = config.services.caddy.group;
+      inherit (config.services.caddy) group;
 
       domain = "${daniel-domain}";
       extraDomainNames = [ "www.${daniel-domain}" ];

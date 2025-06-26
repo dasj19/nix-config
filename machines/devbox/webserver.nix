@@ -69,9 +69,9 @@ in
     user = "caddy";
     group = "caddy";
     phpPackage = pkgs.php84.buildEnv {
-      extensions = ({ enabled, all }: enabled ++ (with all; [
+      extensions = { enabled, all }: enabled ++ (with all; [
         xdebug
-      ]));
+      ]);
       extraConfig = ''
         xdebug.mode=develop,profile
         xdebug.start_with_request=trigger

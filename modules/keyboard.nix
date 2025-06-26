@@ -1,4 +1,3 @@
-{ ... }:
 {
   config = {
     # Configure keyboard layout in X11.
