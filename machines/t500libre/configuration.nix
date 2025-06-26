@@ -1,4 +1,4 @@
-{ config, gitSecrets, lib, pkgs, ... }:
+{ config, gitSecrets, pkgs, ... }:
 
 
 let
@@ -13,24 +13,47 @@ let
 in
 
 {
-  imports =
-    [ 
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # Webserver configuration.
-      ./httpd.nix
-      # Kanboard configuration.
-      ./kanboard.nix
-      # Modules.
-      ./../../modules/builder.nix
-      ./../../modules/fish.nix
-      ./../../modules/keyboard.nix
-      ./../../modules/locale.nix
-      ./../../modules/users.nix
-      ./../../modules/email-server.nix
-      # Profile.
-      ./../../profiles/server.nix
-    ];
+  # sops secrets.
+  sops.secrets.root_password = {};
+  sops.secrets.daniel_password = {};
+  sops.secrets.daniel_gnu_email_password = {};
+
+  # Defining variables for the email-server module.
+  mailConfig = {
+    fqdn = mailserver-fqdn;
+    domains = [ gnu-domain ];
+    accounts = {
+      # Account name in the form of "username@domain.tld".
+      "${mailserver-daniel-email}" = {
+        # Password can be generated running: 'mkpasswd -sm bcrypt'.
+        hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
+        # List of aliases in format: [ "username@domain.tld" ].
+        aliases = [
+          "postmaster@${gnu-domain}"
+          "tor@${gnu-domain}"
+          "webmaster@${gnu-domain}"
+        ];
+      };
+    };
+  };
+
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    # Webserver configuration.
+    ./httpd.nix
+    # Kanboard configuration.
+    ./kanboard.nix
+    # Modules.
+    ./../../modules/builder.nix
+    ./../../modules/fish.nix
+    ./../../modules/keyboard.nix
+    ./../../modules/locale.nix
+    ./../../modules/users.nix
+    ./../../modules/email-server.nix { mailConfig }
+    # Profile.
+    ./../../profiles/server.nix
+  ];
 
   nixpkgs.config = {
     packageOverrides = pkgs: {
@@ -70,39 +93,9 @@ in
     "cdrom" 
   ];
 
-  # sops secrets.
-  sops.secrets.root_password = {};
-  sops.secrets.daniel_password = {};
-  sops.secrets.daniel_gnu_email_password = {};
-
   # Hostname + DHCP on all the networking interfaces.
   networking.useDHCP = true;
   networking.hostName = "t500libre";
-
-  # Email server settings.
-  mailserver.fqdn = mailserver-fqdn;
-  # list of domains in format: [ "domain.tld" ];
-  mailserver.domains = [ gnu-domain ];
-  mailserver.loginAccounts = {
-    # Account name in the form of "username@domain.tld".
-    "${mailserver-daniel-email}" = {
-      # Password can be generated running: 'mkpasswd -sm bcrypt'.
-      hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
-      # List of aliases in format: [ "username@domain.tld" ].
-      aliases = [
-        "postmaster@${gnu-domain}"
-        "tor@${gnu-domain}"
-        "webmaster@${gnu-domain}"
-      ];
-    };
-  };
-  mailserver.stateVersion = 3;
-  # IMAPS only.
-  mailserver.enableImap = false;
-  mailserver.enableImapSsl = true;
-  # SMTPS only.
-  mailserver.enableSubmission = false;
-  mailserver.enableSubmissionSsl = true;
 
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [

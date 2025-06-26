@@ -1,3 +1,4 @@
+{ mailConfig }:
 {
   config = {
     # Setup for the mailserver.
@@ -19,6 +20,21 @@
     #services.dovecot2.extraConfig = ''
     #  auth_verbose = yes
     #'';
+
+    # Email server settings.
+    mailserver.fqdn = mailConfig.fqdn;
+
+    # list of domains in format: [ "domain.tld" ];
+    mailserver.domains = mailConfig.domains;
+    mailserver.loginAccounts = mailConfig.accounts;
+
+    mailserver.stateVersion = 3;
+    # IMAPS only.
+    mailserver.enableImap = false;
+    mailserver.enableImapSsl = true;
+    # SMTPS only.
+    mailserver.enableSubmission = false;
+    mailserver.enableSubmissionSsl = true;
 
     # Enable required extensions.
     services.dovecot2.sieve.extensions = [
