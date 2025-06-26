@@ -12,11 +12,6 @@
     ./../../modules/ai.nix
   ];
 
-  networking.hostName = "t14";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
@@ -66,6 +61,10 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Setup hostname.s
+  networking.hostName = "t14";
+  # Enable networking
+  networking.networkmanager.enable = true;
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22 # OpenSSH
