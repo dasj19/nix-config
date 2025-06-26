@@ -13,6 +13,24 @@ let
 in
 
 {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    # Webserver configuration.
+    ./httpd.nix
+    # Kanboard configuration.
+    ./kanboard.nix
+    # Modules.
+    ./../../modules/builder.nix
+    ./../../modules/fish.nix
+    ./../../modules/keyboard.nix
+    ./../../modules/locale.nix
+    ./../../modules/users.nix
+    ./../../modules/email-server.nix
+    # Profile.
+    ./../../profiles/server.nix
+  ];
+
   # sops secrets.
   sops.secrets.root_password = {};
   sops.secrets.daniel_password = {};
@@ -36,24 +54,6 @@ in
       };
     };
   };
-
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    # Webserver configuration.
-    ./httpd.nix
-    # Kanboard configuration.
-    ./kanboard.nix
-    # Modules.
-    ./../../modules/builder.nix
-    ./../../modules/fish.nix
-    ./../../modules/keyboard.nix
-    ./../../modules/locale.nix
-    ./../../modules/users.nix
-    ./../../modules/email-server.nix
-    # Profile.
-    ./../../profiles/server.nix
-  ];
 
   nixpkgs.config = {
     packageOverrides = pkgs: {
