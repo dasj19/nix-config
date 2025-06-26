@@ -33,10 +33,8 @@
       statix # code linter for nix.
     ];
 
-    # Nix store and garbage collection.
+    # Nix store optimizations.
     nix.settings.auto-optimise-store = true;
-    nix.gc.automatic = true;
-    nix.gc.options = "--delete-older-than 10d";
 
     nix.extraOptions = ''
       # Useful when the builder has a faster internet connection than yours
@@ -52,5 +50,9 @@
     programs.nix-index.enable = true;
     programs.nix-index.enableFishIntegration = true;
 
+    # Activate the nh nix helper and use its cleanup options.
+    programs.nh.enable = true;
+    programs.nh.clean.enable = true;
+    programs.nh.clean.extraArgs = "--keep-since 10d --keep 5";
   };
 }
