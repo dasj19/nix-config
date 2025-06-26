@@ -29,14 +29,6 @@ in
           aliases = [ "postmaster@${imigrant-domain}" "webmaster@${imigrant-domain}"  ];
         };
       };
-      # Index the body of the mails to perform full text search.
-      fullTextSearch = {
-        enable = true;
-        # Index new email as they arrive.
-        autoIndex = true;
-        # Tells dovecot to fail any body search query that cannot use an index.
-        enforced = "body";
-      };
     };
 
   # Enable required extensions.
