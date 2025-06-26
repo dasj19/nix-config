@@ -37,16 +37,17 @@ in
       daniel-domain
     ];
     accounts = {
-    "${daniel-email}" = {
-      # For generating new hashed passwords use the following commands.
-      # nix shell -p apacheHttpd
-      # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
-      hashedPasswordFile = config.sops.secrets.daniel_daniel_email_password.path;
+      "${daniel-email}" = {
+        # For generating new hashed passwords use the following commands.
+        # nix shell -p apacheHttpd
+        # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
+        hashedPasswordFile = config.sops.secrets.daniel_daniel_email_password.path;
 
-      # List of email aliases: "username@domain.tld" .
-      aliases = [ "postmaster@${daniel-domain}" "webmaster@${daniel-domain}" ];
-      # Catch all emails from the primary domain.
-      catchAll = [ daniel-domain ];
+        # List of email aliases: "username@domain.tld" .
+        aliases = [ "postmaster@${daniel-domain}" "webmaster@${daniel-domain}" ];
+        # Catch all emails from the primary domain.
+        catchAll = [ daniel-domain ];
+      };
     };
   };
 
@@ -123,4 +124,3 @@ in
   system.stateVersion = "24.05";
 
 }
-
