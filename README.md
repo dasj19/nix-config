@@ -19,7 +19,7 @@ This was made public for the sole purpose of sharing configurations and inspire 
 # Structure
 The configuration uses flakes and is modular in order
 to reuse configuration across machines and have the code as DRY as possible.
-The "machines" folder contains host configurations with one folder per machine machine. Usually only configuration.nix and hardware-configuration.nix is present here.
+The "machines" folder contains host configurations with one folder per machine machine. Usually only configuration.nix and hardware.nix is present here.
 The "modules" folder contains reusable pieces of code, modules meant to be used across machines.
 The "secrets" folder contains secrets that can be used globally across individual machine configurations.
 The "profiles" folder contains a bare-bones profile where to start off when adding a new host to machines.

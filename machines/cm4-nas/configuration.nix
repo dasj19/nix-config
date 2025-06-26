@@ -7,12 +7,12 @@ let
 in
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # Profile.
-      ./../../profiles/server.nix
-    ];
+  imports = [
+    # Hardware config.
+    ./hardware.nix
+    # Profile.
+    ./../../profiles/server.nix
+  ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot.loader.grub.enable = false;

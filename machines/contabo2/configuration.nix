@@ -18,8 +18,8 @@ in
     ./../../modules/keyboard.nix
     ./../../modules/locale.nix
     ./../../modules/users.nix
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    # Hardware config.
+    ./hardware.nix
   ];
 
   # sops secrets.

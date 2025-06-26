@@ -9,11 +9,11 @@ in
   imports = [
     # Profile.
     ./../../profiles/server.nix
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    # Include email-related software configuration.
+    # Hardware config.
+    ./hardware.nix
+    # Email config.
     ./email.nix
-    # Include the wordpress web sites.
+    # Wordpress sites config.
     ./wordpress.nix
   ]; 
 

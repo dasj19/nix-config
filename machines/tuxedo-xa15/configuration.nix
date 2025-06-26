@@ -26,8 +26,8 @@ in
 {
   
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    # Hardware config.
+    ./hardware.nix
 
     # Profile.
     ./../../profiles/laptop.nix

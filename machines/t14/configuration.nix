@@ -2,8 +2,8 @@
 
 {
   imports = [
-    # Evolved version from the hardware scan.
-    ./hardware-configuration.nix
+    # Hardware config.
+    ./hardware.nix
 
     # Profile.
     ./../../profiles/laptop.nix
