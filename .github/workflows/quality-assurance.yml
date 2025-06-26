@@ -22,18 +22,12 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      # Setup nix.
+      # Setup nix-shell and run statix.
       - name: Setup nix
-        uses: nixbuild/nix-quick-install-action@v31
-
-      # Performing channel update.
-      - name: Update the nix channel.
-        run: |
-          export NIX_PATH=nixpkgs=channel:nixpkgs-unstable
-          nix-channel --update
-
-      # Run the code linter.
-      - name: Setup and run statix
-        run: |
-          nix-shell -p statix
-          statix check .
+        uses: workflow/nix-shell-action@v3
+        with:
+          packages: statix
+          # Run the code linter.
+          script: |
+            nix-shell -p statix
+            statix check .
