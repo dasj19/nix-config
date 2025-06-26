@@ -5,11 +5,11 @@
     mailConfig = {
       # The fqdn of the email server.
       fqdn = lib.mkOption {
-        type = lib.types.string;
+        type = lib.types.str;
       };
       # List of domains for the server to use.
       domains = lib.mkOption {
-        type = lib.types.listOf lib.types.string;
+        type = lib.types.listOf lib.types.str;
         default = false;
       };
       # Definitions of email accounts.

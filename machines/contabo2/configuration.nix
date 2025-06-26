@@ -7,21 +7,20 @@ let
 in
 
 {
-  imports =
-    [
-      # Configuration.
-      ./webserver.nix
-      # Profile.
-      ./../../profiles/server.nix
-      # Modules.
-      ./../../modules/email-server.nix
-      ./../../modules/fish.nix
-      ./../../modules/keyboard.nix
-      ./../../modules/locale.nix
-      ./../../modules/users.nix
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Configuration.
+    ./webserver.nix
+    # Profile.
+    ./../../profiles/server.nix
+    # Modules.
+    ./../../modules/email-server.nix
+    ./../../modules/fish.nix
+    ./../../modules/keyboard.nix
+    ./../../modules/locale.nix
+    ./../../modules/users.nix
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # sops secrets.
   sops.secrets.root_password = {};
@@ -30,6 +29,27 @@ in
   sops.secrets.cloudflare_email = {};
   sops.secrets.cloudflare_dns_api_token = {};
   sops.secrets.cloudflare_zone_api_token = {};
+
+  # Email server.
+  mailConfig = {
+    fqdn = daniel-fqdn;
+    domains = [
+      daniel-domain
+    ];
+    accounts = {
+    "${daniel-email}" = {
+      # For generating new hashed passwords use the following commands.
+      # nix shell -p apacheHttpd
+      # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
+      hashedPasswordFile = config.sops.secrets.daniel_daniel_email_password.path;
+
+      # List of email aliases: "username@domain.tld" .
+      aliases = [ "postmaster@${daniel-domain}" "webmaster@${daniel-domain}" ];
+      # Catch all emails from the primary domain.
+      catchAll = [ daniel-domain ];
+    };
+  };
+
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -45,27 +65,6 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
-
-  # Email server.
-  mailserver.fqdn = daniel-fqdn;
-  mailserver.domains = [
-    "${daniel-domain}"
-  ];
-  mailserver.loginAccounts = {
-    "${daniel-email}" = {
-      # For generating new hashed passwords use the following commands.
-      # nix shell -p apacheHttpd
-      # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
-      hashedPasswordFile = config.sops.secrets.daniel_daniel_email_password.path;
-
-      # List of email aliases: "username@domain.tld" .
-      aliases = [ "postmaster@${daniel-domain}" "webmaster@${daniel-domain}" ];
-      # Catch all emails from the primary domain.
-      catchAll = [ daniel-domain ];
-    };
-  };
-  # The current state version.
-  mailserver.stateVersion = 3;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
