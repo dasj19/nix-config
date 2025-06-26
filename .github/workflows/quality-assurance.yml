@@ -28,7 +28,9 @@ jobs:
 
       # Performing channel update.
       - name: Update the nix channel.
-        run: nix-channel --update
+        run: |
+          export NIX_PATH=nixpkgs=channel:nixpkgs-unstable
+          nix-channel --update
 
       # Run the code linter.
       - name: Setup and run statix
