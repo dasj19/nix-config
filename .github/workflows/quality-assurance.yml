@@ -29,5 +29,5 @@ jobs:
       # Run the code linter.
       - name: Setup and run statix
         run: |
-          nix-env -iA nixpkgs.statix
+          nix-shell -p statix
           statix check .
