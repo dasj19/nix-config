@@ -1,4 +1,4 @@
-{ config, gitSecrets, pkgs, ... }:
+{ config, gitSecrets, lib, pkgs, ... }:
 
 
 let
@@ -37,10 +37,10 @@ in
   sops.secrets.daniel_gnu_email_password = {};
 
   # Defining variables for the email-server module.
-  mailConfig = {
+  mailserver = {
     fqdn = mailserver-fqdn;
     domains = [ gnu-domain ];
-    accounts = {
+    loginAccounts = {
       # Account name in the form of "username@domain.tld".
       "${mailserver-daniel-email}" = {
         # Password can be generated running: 'mkpasswd -sm bcrypt'.

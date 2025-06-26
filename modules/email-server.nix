@@ -1,26 +1,24 @@
 { config, lib, ... }:
-{
-  # Custom options to be defines on hosts that require an email server.
-  options = {
-    mailConfig = {
-      # The fqdn of the email server.
-      fqdn = lib.mkOption {
-        type = lib.types.str;
-      };
-      # List of domains for the server to use.
-      domains = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = false;
-      };
-      # Definitions of email accounts.
-      accounts = lib.mkOption {
-        type = lib.types.anything;
-        default = false;
-      };
-    };
-  };
 
+{
   config = {
+
+
+#    assertions = lib.optionals config.mailserver.enable ([
+#      {
+#        assertion = config.mailserver.fqdn == "";
+#        message = "FQDN must be set.";
+#      }
+#      {
+#        assertion = config.mailserver.domains == [];
+#        message = "At least one domain must be set.";
+#      }
+#      {
+#        assertion = config.mailserver.loginAccounts == {};
+#        message = "loginAccounts must be set.";
+#      }
+#    ]);
+
     # Setup for the mailserver.
     mailserver.enable = true;
 
@@ -40,13 +38,6 @@
     #services.dovecot2.extraConfig = ''
     #  auth_verbose = yes
     #'';
-
-    # Email server settings.
-    mailserver.fqdn = config.mailConfig.fqdn;
-
-    # list of domains in format: [ "domain.tld" ];
-    mailserver.domains = config.mailConfig.domains;
-    mailserver.loginAccounts = config.mailConfig.accounts;
 
     mailserver.stateVersion = 3;
     # IMAPS only.
