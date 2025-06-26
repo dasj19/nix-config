@@ -30,6 +30,7 @@
       nixos-option # This: https://github.com/NixOS/nixpkgs/pull/313497 will work with flakes.
       nixpkgs-fmt
       nixpkgs-review
+      statix # code linter for nix.
     ];
 
     # Nix store and garbage collection.
