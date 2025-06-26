@@ -1,6 +1,10 @@
 # nix-config
 Own (ever changing) nixos configurations
 
+# Status
+CI: ![](https://github.com/dasj19/nix-config/actions/workflows/build.yml/badge.svg)
+QA: ![](https://github.com/dasj19/nix-config/actions/workflows/quality-assurance.yml/badge.svg)
+
 # Purpose
 This repository servers my own needs and should not be used verbatim.
 You can look and get inspired about how I use NixOS.
