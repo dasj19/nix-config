@@ -1,5 +1,20 @@
-{ mailConfig }:
+{ config, lib, ... }:
 {
+  options = {
+    mailConfig.fqdn = lib.mkOption {
+      type = lib.types.anything;
+      default = false;
+    };
+    mailConfig.domains = lib.mkOption {
+      type = lib.types.anything;
+      default = false;
+    };
+    mailConfig.accounts = lib.mkOption {
+      type = lib.types.anything;
+      default = false;
+    };
+  };
+
   config = {
     # Setup for the mailserver.
     mailserver.enable = true;
@@ -22,11 +37,11 @@
     #'';
 
     # Email server settings.
-    mailserver.fqdn = mailConfig.fqdn;
+    mailserver.fqdn = config.mailConfig.fqdn;
 
     # list of domains in format: [ "domain.tld" ];
-    mailserver.domains = mailConfig.domains;
-    mailserver.loginAccounts = mailConfig.accounts;
+    mailserver.domains = config.mailConfig.domains;
+    mailserver.loginAccounts = config.mailConfig.accounts;
 
     mailserver.stateVersion = 3;
     # IMAPS only.
