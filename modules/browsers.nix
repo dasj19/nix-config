@@ -95,6 +95,18 @@
       private_browsing = true;
       updates_disabled = true;
     };
+    "jid1-KKzOGWgsW3Ao4Q@jetpack" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/i-dont-care-about-cookies/latest.xpi";
+      installation_mode = "force_installed";
+      private_browsing = true;
+      updates_disabled = true;
+    };
+    "wayback_machine@mozilla.org" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/wayback-machine_new/latest.xpi";
+      installation_mode = "force_installed";
+      private_browsing = true;
+      updates_disabled = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [
