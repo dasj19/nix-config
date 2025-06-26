@@ -1,17 +1,22 @@
 { config, lib, ... }:
 {
+  # Custom options to be defines on hosts that require an email server.
   options = {
-    mailConfig.fqdn = lib.mkOption {
-      type = lib.types.anything;
-      default = false;
-    };
-    mailConfig.domains = lib.mkOption {
-      type = lib.types.anything;
-      default = false;
-    };
-    mailConfig.accounts = lib.mkOption {
-      type = lib.types.anything;
-      default = false;
+    mailConfig = {
+      # The fqdn of the email server.
+      fqdn = lib.mkOption {
+        type = lib.types.string;
+      };
+      # List of domains for the server to use.
+      domains = lib.mkOption {
+        type = lib.types.listOf lib.types.string;
+        default = false;
+      };
+      # Definitions of email accounts.
+      accounts = lib.mkOption {
+        type = lib.types.anything;
+        default = false;
+      };
     };
   };
 
