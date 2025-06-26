@@ -50,7 +50,7 @@ in
     ./../../modules/keyboard.nix
     ./../../modules/locale.nix
     ./../../modules/users.nix
-    ./../../modules/email-server.nix { mailConfig = mailConfig; }
+    ./../../modules/email-server.nix { mailConfig = config.mailConfig; }
     # Profile.
     ./../../profiles/server.nix
   ];
