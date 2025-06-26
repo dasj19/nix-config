@@ -22,9 +22,10 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
-      # Runs a set of commands using the runners shell
+      # Setup nix and update the nix channel.
       - name: Setup nix
         uses: nixbuild/nix-quick-install-action@v31
+        run: nix-channel --update
 
       # Run the code linter.
       - name: Setup and run statix
