@@ -22,6 +22,11 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v4
 
+      # Install nix.
+      - uses: cachix/install-nix-action@v18
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
       # Setup nix-shell and run statix.
       - name: Setup nix
         uses: workflow/nix-shell-action@v3
