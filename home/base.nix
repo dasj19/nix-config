@@ -13,7 +13,7 @@
   programs.git.userName = lib.mkDefault gitSecrets.danielFullname;
   programs.git.userEmail = lib.mkDefault gitSecrets.danielPersonalEmail;
   programs.git.ignores = [
-    # Ignore secret files.
+    # Do not track the following files files.
     "git-crypt-key"
   ];
 }
