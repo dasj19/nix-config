@@ -85,7 +85,7 @@
       cl      = "function cl; cd $argv; ls; end; cl";
       # Nix specific. OS update. Flake update.
       osup    = "sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs";
-      nhup    = "nh os switch .#nixosConfigurations.$(hostname)";
+      nhup    = "nh os switch .#nixosConfigurations.$(hostname)"; # calls sudo when needed.
       flup    = "nix flake update";
     };
   };
