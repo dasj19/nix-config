@@ -58,14 +58,23 @@
 
     xdg.mime.enable = true;
     xdg.mime.defaultApplications = {
-      "application/pdf" = "org.gnome.Evince.desktop";
-      "application/zip" = "peazip.desktop";
-      "application/json" = "org.gnome.TextEditor.desktop";
-      "video/mp4" = "vlc.desktop";
-      "video/mp2t" = "vlc.desktop";
-      "video/vnd.avi" = "vlc.desktop";
-      "video/webm" = "vlc.desktop";
-      "video/x-matroska" = "vlc.desktop";
+      "audio/mpeg"                = "vlc.desktop";
+      "audio/ogg"                 = "vlc.desktop";
+      "audio/flac"                = "org.strawberrymusicplayer.strawberry.desktop";
+      "application/gzip"          = "peazip.desktop";
+      "application/json"          = "org.gnome.TextEditor.desktop";
+      "application/octet-stream"  = "org.qbittorrent.qBittorrent.desktop";
+      "application/pdf"           = "org.gnome.Evince.desktop";
+      "application/x-bzip"        = "peazip.desktop";
+      "application/x-bzip2"       = "peazip.desktop";
+      "application/zip"           = "peazip.desktop";
+      "text/css"                  = "org.gnome.TextEditor.desktop";
+      "text/csv"                  = "org.gnome.TextEditor.desktop";
+      "video/mp4"                 = "vlc.desktop";
+      "video/mp2t"                = "vlc.desktop";
+      "video/vnd.avi"             = "vlc.desktop";
+      "video/webm"                = "vlc.desktop";
+      "video/x-matroska"          = "vlc.desktop";
     };
   };
 }

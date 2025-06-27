@@ -171,6 +171,7 @@ lshw
 luks
 mailserver
 mame
+matroska
 mblode
 mbstring
 mediainfo
@@ -276,7 +277,9 @@ SNIV
 soulseekqt
 soundcore
 spamd
+statix
 stdenv
+strawberrymusicplayer
 stylix
 substituters
 swraid
