@@ -9,6 +9,8 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
 
+    nix.settings.download-buffer-size = 1073741824; # 1GB
+
     nix.distributedBuilds = true;
     nix.settings.trusted-users = [ "root" "daniel" ];
 
