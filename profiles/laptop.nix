@@ -25,7 +25,6 @@
       asciinema
       bchunk
       codeql
-      cowsay
       cuetools
       dconf
       ffmpeg-full
