@@ -26,8 +26,6 @@
     # Report just alert, critical and error.
     boot.consoleLogLevel = 3;
 
-    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_15;
-
     boot.kernelModules = [ "kvm-amd" ];
 
     # Boot graphics instead of text.
