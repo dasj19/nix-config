@@ -57,6 +57,7 @@
     ];
 
     xdg.mime.enable = true;
+    # Find the desktop file in nix store with: find /nix/store/ -name "*application_name*desktop"
     xdg.mime.defaultApplications = {
       "audio/mpeg"                = "vlc.desktop";
       "audio/ogg"                 = "vlc.desktop";
@@ -68,6 +69,8 @@
       "application/x-bzip"        = "peazip.desktop";
       "application/x-bzip2"       = "peazip.desktop";
       "application/zip"           = "peazip.desktop";
+      "image/jpeg"                = "org.gnome.Loupe.desktop";
+      "image/png"                 = "org.gnome.Loupe.desktop";
       "text/css"                  = "org.gnome.TextEditor.desktop";
       "text/csv"                  = "org.gnome.TextEditor.desktop";
       "video/mp4"                 = "vlc.desktop";
