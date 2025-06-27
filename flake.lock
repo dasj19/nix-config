@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "awesome-linux-templates": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751037484,
+        "narHash": "sha256-FtGv8rzySWqEN7pVj1POnJwWKrXdqMHj8wyjpvBdWUs=",
+        "owner": "dasj19",
+        "repo": "awesome-linux-templates",
+        "rev": "2dfcb42cdd0099b9648eee47b5ad08c3c26f0073",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dasj19",
+        "repo": "awesome-linux-templates",
+        "type": "github"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -462,6 +478,7 @@
     },
     "root": {
       "inputs": {
+        "awesome-linux-templates": "awesome-linux-templates",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",

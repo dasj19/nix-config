@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ awesome-linux-templates, config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -159,4 +159,11 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "vscode-extension-bmewburn-vscode-intelephense-client"
   ];
+
+  # Populate linux user templates.
+  home.file."awesome-linux-templates" = {
+    target = "./system/templates";
+    source = "${awesome-linux-templates}/templates";
+    recursive = true;
+  };
 }

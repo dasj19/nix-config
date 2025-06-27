@@ -45,9 +45,13 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.flake-utils.inputs.systems.follows = "systems";
 
+  inputs.awesome-linux-templates.url = "github:dasj19/awesome-linux-templates";
+  inputs.awesome-linux-templates.flake = false;
+
   outputs = {
     self,
     nixpkgs,
+    awesome-linux-templates,
     nixos-artwork,
     nixos-hardware,
     nix-alien,
@@ -153,6 +157,7 @@
     };
     nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
       specialArgs = {
+        inherit awesome-linux-templates;
         inherit gitSecrets;
         inherit nixos-artwork;
         inherit sopsSecrets;
@@ -184,6 +189,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
           home-manager.extraSpecialArgs = {
+            inherit awesome-linux-templates;
             inherit gitSecrets;
           };
         }
@@ -191,6 +197,7 @@
     };
     nixosConfigurations.tuxedo-xa15 = nixpkgs.lib.nixosSystem {
       specialArgs = {
+        inherit awesome-linux-templates;
         inherit gitSecrets;
         inherit nixos-artwork;
         inherit sopsSecrets;
@@ -214,6 +221,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
           home-manager.extraSpecialArgs = {
+            inherit awesome-linux-templates;
             inherit gitSecrets;
           };
         }
@@ -248,6 +256,7 @@
     nixosConfigurations.t14 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {
+        inherit awesome-linux-templates;
         inherit gitSecrets;
         inherit nixos-artwork;
         inherit sopsSecrets;
@@ -265,6 +274,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
           home-manager.extraSpecialArgs = {
+            inherit awesome-linux-templates;
             inherit gitSecrets;
           };
         }

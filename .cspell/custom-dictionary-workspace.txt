@@ -190,6 +190,7 @@ networkd
 networkmanager
 newtabpage
 nhlt
+nhup
 nixos
 nixpkgs
 nmap
