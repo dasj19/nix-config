@@ -38,6 +38,7 @@ colordiff
 conexant
 contabo
 contile
+cowsay
 cpufrequtils
 cspnonce
 ctype
@@ -91,6 +92,7 @@ finegrained
 Fira
 firewire
 flac
+flameshot
 flashplayer
 flup
 fmask
@@ -144,6 +146,7 @@ kcachegrind
 kdenlive
 keyleds
 keymap
+khard
 killall
 kodi
 lazyload
