@@ -2,7 +2,7 @@
 
   description = "The dasj-lab flake";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/nixpkgs";
 
   inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.1.0.tar.gz";
@@ -67,7 +67,6 @@
   let
     gitSecrets = builtins.fromJSON(builtins.readFile "${self}/secrets/git-secrets.json");
     sopsSecrets = ./secrets/variables.yaml;
-    system = "x86_64-linux";
   in
 
   {
