@@ -160,6 +160,14 @@
     "vscode-extension-bmewburn-vscode-intelephense-client"
   ];
 
+  # Add Kando to the list of autostart programs.
+  xdg.configFile."autostart/kando.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Exec=kando
+    Name=Kando Autostart
+  '';
+
   # Populate linux user templates.
   home.file."awesome-linux-templates" = {
     target = "./system/templates";
