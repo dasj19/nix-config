@@ -65,6 +65,21 @@
   networking.hostName = "t14";
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # Disable NetworkManager's internal DNS resolution.
+  # https://wiki.nixos.org/wiki/NetworkManager
+  networking.networkmanager.dns = "none";
+
+  # Disable these and manage DNS ourselves.
+  networking.useDHCP = false;
+  networking.dhcpcd.enable = false;
+
+  # Configure DNS servers manually.
+  networking.nameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
+
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22 # OpenSSH
