@@ -70,6 +70,29 @@
   in
 
   {
+    nixosConfigurations.contabo1 = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
+      system = "x86_64-linux";
+      modules = [
+        ./machines/contabo1/configuration.nix
+        sops-nix.nixosModules.sops
+        stylix.nixosModules.stylix
+        simple-nixos-mailserver.nixosModule
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useUserPackages = true;
+          home-manager.users.daniel = import ./home/server.nix;
+
+          # Pass arguments to home.nix
+          home-manager.extraSpecialArgs = {
+            inherit gitSecrets;
+          };
+        }
+      ];
+    };
     nixosConfigurations.contabo2 = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit gitSecrets;
