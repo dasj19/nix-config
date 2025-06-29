@@ -1,7 +1,7 @@
 { config, gitSecrets, pkgs, sopsSecrets, ... }:
 
 let
-  fritweb-domain = gitSecrets.danielFritwebDomain;
+  fritweb-domain = gitSecrets.fritwebDomain;
 in
 
 {
