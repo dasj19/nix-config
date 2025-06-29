@@ -1,4 +1,4 @@
-{ config, gitSecrets, lib, pkgs, ... }:
+{ config, gitSecrets, pkgs, ... }:
 
 
 let

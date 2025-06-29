@@ -1,9 +1,13 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ lib, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+  ];
+
+  # Use the GRUB 2 boot loader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
 
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" ];
   boot.initrd.kernelModules = [ ];

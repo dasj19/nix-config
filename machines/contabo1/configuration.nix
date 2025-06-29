@@ -1,4 +1,8 @@
-{ config, lib, pkgs, sopsSecrets, ... }:
+{ config, gitSecrets, pkgs, sopsSecrets, ... }:
+
+let
+  fritweb-domain = gitSecrets.danielFritwebDomain;
+in
 
 {
   imports = [ 
@@ -6,6 +10,10 @@
     ./../../profiles/server.nix
     # Modules.
     ./../../modules/email-server.nix
+    ./../../modules/fish.nix
+    ./../../modules/keyboard.nix
+    ./../../modules/locale.nix
+    ./../../modules/users.nix
     # Include the results of the hardware scan.
     ./hardware.nix
     # Email server configuration.
@@ -22,10 +30,6 @@
   sops.secrets.cloudflare_email = {};
   sops.secrets.cloudflare_dns_api_token = {};
   sops.secrets.cloudflare_zone_api_token = {};
-
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
 
   networking.hostName = "contabo1";
   networking.enableIPv6  = true;
@@ -56,19 +60,6 @@
     tokenFile = "/etc/nixos/nix-config-runner.token";
     url = "https://github.com/dasj19/nix-config";
     extraPackages = [ pkgs.git-crypt ];
-  };
-
-
-  # Select internationalisation properties.
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "es";
-  };
-
-  # User account.
-  users.users.daniel = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
   };
 
   # Packages installed in system profile.
@@ -117,7 +108,7 @@
 
   # ACME settings.
   security.acme.acceptTerms = true;
-  security.acme.defaults.email = "daniel@serbanescu.dk"; # HIDE THIS
+  security.acme.defaults.email = "webmaster@${fritweb-domain}";
   security.acme.defaults.dnsProvider = "cloudflare";
   # security.acme.defaults.credentialsFile = config.age.secrets.cloudflare-dns-api-credentials.path;
   security.acme.defaults.credentialFiles = {
@@ -125,10 +116,6 @@
     "CF_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare_dns_api_token.path;
     "CF_ZONE_API_TOKEN_FILE" = config.sops.secrets.cloudflare_zone_api_token.path;
   };
-
-  # Enable fish as the default shell.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
 
   # Fish shell customizations.
   programs.fish.interactiveShellInit = ''

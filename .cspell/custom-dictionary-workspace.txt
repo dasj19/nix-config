@@ -5,6 +5,7 @@ adapta
 ADBG
 agenix
 ahci
+Airdc
 akismet
 alsa
 amqp
@@ -60,6 +61,7 @@ deepseek
 defaultenginename
 devbox
 devedition
+dhcpcd
 dialout
 distro
 dlna
@@ -99,6 +101,7 @@ fmask
 fmsx
 fontforge
 freerdp
+fritweb
 fullscreen
 fwupd
 gamepad
@@ -125,6 +128,8 @@ HSTS
 htpasswd
 humanstxt
 hwdep
+hyperscan
+icmpv
 imagick
 IMAP
 IMAPS
@@ -310,6 +315,7 @@ unrar
 unsized
 usbhid
 usbimager
+usbtop
 usbutils
 userborn
 usrbinenv
@@ -318,6 +324,7 @@ uwsgi
 vaapi
 vboxusers
 VDPAU
+vectorscan
 ventoy
 vfat
 virt
