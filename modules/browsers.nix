@@ -47,6 +47,15 @@
       Name = "NixOS Options";
       URLTemplate = "https://search.nixos.org/options?from=0&size=200&sort=relevance&type=packages&query={searchTerms}";
     }
+    # Search mynixos.com with: "@mn query".
+    {
+      Alias = "@mn";
+      Description = "Search on MyNixOS";
+      IconURL = "https://mynixos.com/favicon-32x32.png";
+      Method = "GET";
+      Name = "MyNixOS";
+      URLTemplate = "https://mynixos.com/search?q={searchTerms}";
+    }
   ];
 
   programs.firefox.policies.Homepage.StartPage = "previous-session";
