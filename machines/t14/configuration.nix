@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -22,11 +22,24 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  systemd.tmpfiles.rules = [
+    # Silence erros:
+    # jun 29 22:19:21 t14 polkitd[106479]: Loading rules from directory /run/polkit-1/rules.d
+    # jun 29 22:19:21 t14 polkitd[106479]: Error opening rules directory: Error opening directory “/run/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)
+    # jun 29 22:19:21 t14 polkitd[106479]: Loading rules from directory /usr/local/share/polkit-1/rules.d
+    # jun 29 22:19:21 t14 polkitd[106479]: Error opening rules directory: Error opening directory “/usr/local/share/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)
+
+    "d /run/polkit-1/rules.d 1777 polkituser polkituser 10d"
+    "d /usr/local/share/polkit-1/rules.d 1777 polkituser polkituser 10d"
+  ];
+
   # Configure console keymap
   console.keyMap = "es";
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # Disable CUPS to print documents.
+  # Should be fixed upstream:
+  # /etc/systemd/system/cups.socket:5: ListenStream= references a path below legacy directory /var/run/, updating /var/run/cups/cups.sock → /run/cups/cups.sock; please update the unit file accordingly.
+  services.printing.enable = lib.mkForce false;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -52,6 +65,7 @@
   environment.systemPackages = with pkgs; [
     # CLI.
     nvtopPackages.full
+    fwupd
     # P2P.
     nicotine-plus
   ];
@@ -65,6 +79,16 @@
   networking.hostName = "t14";
   # Enable networking
   networking.networkmanager.enable = true;
+  # Enable only the needed plugins.
+  # Avoids # jun 29 23:04:28 t14 dbus-daemon[999]: Unknown username "nm-openconnect" in message bus configuration file
+  networking.networkmanager.enableDefaultPlugins = false;
+  networking.networkmanager.plugins = with pkgs; [
+    networkmanager-openvpn
+  ];
+  # Disable mobile modem manager.
+  # jun 29 22:57:07 t14 ModemManager[142228]: <msg> [base-manager] couldn't check support for device '/sys/devices/pci0000:00/0000:00:14.3': not supported by any plugin
+  # jun 29 22:57:07 t14 ModemManager[142228]: <msg> [base-manager] couldn't check support for device '/sys/devices/pci0000:00/0000:00:1f.6': not supported by any plugin
+  networking.modemmanager.enable = false;
 
   # Disable NetworkManager's internal DNS resolution.
   # https://wiki.nixos.org/wiki/NetworkManager

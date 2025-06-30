@@ -121,4 +121,10 @@
   hardware.nvidia.prime.offload.enableOffloadCmd = true;
   hardware.nvidia.prime.intelBusId = "PCI:0:2:0";   # Interface pci@0000:00:02.0
   hardware.nvidia.prime.nvidiaBusId = "PCI:45:0:0"; # Interface pci@0000:2d:00.0
+
+  # Use syslog-ng instead of the syslog.
+  services.syslog-ng.enable = true;
+
+  # Disable fwupd service, can still be ran manually because it is installed as system package.
+  services.fwupd.enable = lib.mkForce false;
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   config = {
     # Enable the X11 windowing system.
@@ -17,8 +17,11 @@
     # Disable PAM for GDM.
     security.pam.services.gdm.enable = false;
 
+    services.avahi.enable = false;
+
     # Exclude unnecessary GNOME programs.
     environment.gnome.excludePackages = with pkgs; [
+      avahi                   # Zeroconf server, not used.
       decibels                # Simple audio player, I do not need it.
       cheese                  # Simple webcam application, I do not need it.
       file-roller             # Simple archive manager, I use peazip instead.
