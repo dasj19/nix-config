@@ -17,7 +17,7 @@
     # Disable PAM for GDM.
     security.pam.services.gdm.enable = false;
 
-    services.avahi.enable = false;
+    services.avahi.enable = lib.mkForce false;
 
     # Exclude unnecessary GNOME programs.
     environment.gnome.excludePackages = with pkgs; [
