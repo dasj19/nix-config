@@ -11,6 +11,42 @@
     services.displayManager.gdm.enable = true;
     services.desktopManager.gnome.enable = true;
 
+    # Used to generate thumbnails.
+    services.gnome.sushi.enable = true;
+    # UPnP media server.
+    services.gnome.rygel.enable = false;
+    # Local search services.
+    services.gnome.localsearch.enable = true;
+    services.gnome.tinysparql.enable = true;
+    # User-level file sharing service.
+    services.gnome.gnome-user-share.enable = false;
+    # The UI that facilitates changing gnome settings.
+    services.gnome.gnome-settings-daemon.enable = true;
+    # Remote desktop support.
+    services.gnome.gnome-remote-desktop.enable = false;
+    # Online accounts service.
+    services.gnome.gnome-online-accounts.enable = false;
+    # The gnome tour.
+    services.gnome.gnome-initial-setup.enable = false;
+    # Gnome browser integrations.
+    # Used mostly to install gnome extensions from a browser.
+    services.gnome.gnome-browser-connector.enable = false;
+    # Developer friendly network integration for glib.
+    services.gnome.glib-networking.enable = lib.mkForce false;
+    # Google Container Registry SSH agent.
+    services.gnome.gcr-ssh-agent.enable = false;
+    # Gnome games collection.
+    services.gnome.games.enable = false;
+    # Provides data storage facilities for evolution.
+    services.gnome.evolution-data-server.enable = true;
+    # Core Gnome Shell applications and technologies.
+    services.gnome.core-apps.enable = true;
+    services.gnome.core-os-services.enable = true;
+    services.gnome.core-shell.enable = true;
+    # Gnome essential development tools.
+    services.gnome.core-developer-tools.enable = false;
+    # Assistive technologies.
+    services.gnome.at-spi2-core.enable = true;
     # Enable gnome-keyring.
     services.gnome.gnome-keyring.enable = true;
     security.pam.services.login.enableGnomeKeyring = true;
