@@ -99,6 +99,16 @@
     cudaPackages.cudatoolkit
   ];
 
+  # Install fingerprinting the driver.
+  # https://wiki.nixos.org/wiki/Fingerprint_scanner
+  services.fprintd.enable = true;
+
+  # Start the fprintd driver at boot
+  systemd.services.fprintd = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.Type = "simple";
+  };
+
   # SMART monitoring
   services.smartd = {
     enable = true;
