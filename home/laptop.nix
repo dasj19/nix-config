@@ -23,6 +23,14 @@
     (lib.hm.gvariant.mkTuple [ "xkb" "ro" ])
   ];
 
+  # Media shortcuts. Using Ctrl instead of Fn (controlled by ACPI).
+  # https://heywoodlh.io/nixos-gnome-settings-and-keyboard-shortcuts
+  dconf.settings."org/gnome/settings-daemon/plugins/media-keys" = {
+    next = [ "<Ctrl>right" ];
+    previous = [ "<Ctrl>left" ];
+    play = [ "<Ctrl>masculine" ];
+  };
+
   dconf.settings."org/gnome/desktop/interface" = {
     # Display the weekday in the date close to the clock.
     clock-show-weekday = true;
