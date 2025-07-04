@@ -35,7 +35,15 @@ in
       };
     };
 
- # mailserver.stateVersion = 3;
+  # mailserver.stateVersion = 3;
+
+  # @todo: setup fail2ban on internet-facing servers.
+  # services.fail2ban.enable = true;
+
+  # services.fail2ban.bantime-increment = {
+  #   enable = true;
+  #   maxtime = "200h";
+  # };
 
   # Debug authentication. @see: https://serverfault.com/a/1020853
   # Disabled to allow fail2ban to do its job.
