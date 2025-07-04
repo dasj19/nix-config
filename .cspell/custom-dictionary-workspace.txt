@@ -1,6 +1,7 @@
 # Custom Dictionary Words
 aarch
 acpi
+acpid
 adapta
 ADBG
 agenix
@@ -18,6 +19,7 @@ autopair
 autoplay
 auxf
 awscli
+bantime
 bashsh
 bchunk
 bibata
@@ -100,6 +102,8 @@ flup
 fmask
 fmsx
 fontforge
+fprint
+fprintd
 freerdp
 fritweb
 fullscreen
@@ -180,6 +184,7 @@ luks
 mailserver
 mame
 matroska
+maxtime
 mblode
 mbstring
 mediainfo
@@ -279,6 +284,7 @@ sgptrc
 shmcb
 shntool
 shotcut
+smartd
 smartmontools
 SMTPS
 snes
