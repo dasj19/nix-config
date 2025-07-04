@@ -103,6 +103,29 @@
   # https://wiki.nixos.org/wiki/Fingerprint_scanner
   services.fprintd.enable = true;
 
+  # Sudo login with fingerprint or password.
+  # Consider trying: https://github.com/ChocolateLoverRaj/pam-any
+  # security.pam.services.sudo.fprintAuth = true;
+  # security.pam.services.sudo.unixAuth = true;
+
+  # security.pam.services.sudo = lib.mkIf (config.services.fprintd.enable) {
+  #   text = ''
+  #     auth       sufficient   ${pkgs.fprintd}/lib/security/pam_fprintd.so
+  #     auth       include      login
+  #     account    include      login
+  #     session    include      login
+  #   '';
+  # };
+
+  # Enable TPM2 as an extra security layer. Read up first.
+  # security.tpm2.enable = true;
+
+  # Check that SSD support fstrim.
+  #services.fstrim.enable = true;
+
+  # Enable the ACPI power management daemon.
+  services.acpid.enable = true;
+
   # Start the fprintd driver at boot
   systemd.services.fprintd = {
     wantedBy = [ "multi-user.target" ];
