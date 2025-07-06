@@ -81,7 +81,6 @@
   networking.networkmanager.enable = true;
   # Enable only the needed plugins.
   # Avoids # jun 29 23:04:28 t14 dbus-daemon[999]: Unknown username "nm-openconnect" in message bus configuration file
-  networking.networkmanager.enableDefaultPlugins = false;
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openvpn
   ];
