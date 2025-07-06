@@ -24,6 +24,10 @@
     '';
   };
 
+  boot.extraModprobeConfig = ''
+    options thinkpad_acpi fan_control=1
+  '';
+
 
   # Graphical LUKS password dialog. Only supported by boot.initrd.systemd
   # boot.initrd.unl0kr.enable = true;
@@ -154,6 +158,11 @@
   hardware.nvidia.prime.offload.enableOffloadCmd = true;
   hardware.nvidia.prime.intelBusId = "PCI:0:2:0";   # Interface pci@0000:00:02.0
   hardware.nvidia.prime.nvidiaBusId = "PCI:45:0:0"; # Interface pci@0000:2d:00.0
+
+  # Thinkfan manages cooling fans.
+  # @see https://gist.github.com/Yatoom/1c80b8afe7fa47a938d3b667ce234559
+  services.thinkfan.enable = true;
+  services.thinkfan.smartSupport = true;
 
   # Use syslog-ng instead of the syslog.
   services.syslog-ng.enable = true;
