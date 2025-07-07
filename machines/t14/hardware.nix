@@ -79,6 +79,11 @@
     options = [ "fmask=0077" "dmask=0077" ];
   };
 
+  # Control power management,
+  powerManagement.enable = true;
+  powerManagement.powertop.enable = true;
+  powerManagement.cpuFreqGovernor = "powersave";
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
