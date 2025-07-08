@@ -118,11 +118,52 @@
     };
   };
 
+  programs.chromium.enable = true;
+  # See available extensions at https://chrome.google.com/webstore/category/extensions
+  programs.chromium.extensions = [
+    "hjdoplcnndgiblooccencgcggcoihigg" # Terms of Service; Didn’t Read
+    "mdjildafknihdffpkfmmpnpoiajfjnjd" # Consent-O-Matic
+    "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock for YouTube
+    "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
+    "kimbeggjgnmckoikpckibeoaocafcpbg" # YouTube Captions Search
+    "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere
+    "fploionmjgeclbkemipmkogoaohcdbig" # Page load time
+    "fhnegjjodccfaliddboelcleikbmapik" # Tab Counter
+    "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
+    "millncjiddlpgdmkklmhfadpacifaonc" # GNU Taler Wallet
+  ];
+  # See available options at https://chromeenterprise.google/policies/
+  programs.chromium.extraOpts = {
+    "BrowserSignin" = 0;
+    "BrowserAddPersonEnabled" = false;
+    "SyncDisabled" = true;
+    "PasswordManagerEnabled" = false;
+    "AutofillAddressEnabled" = false;
+    "AutofillCreditCardEnabled" = false;
+    "BuiltInDnsClientEnabled" = false;
+    "MetricsReportingEnabled" = false;
+    "SearchSuggestEnabled" = false;
+    "AlternateErrorPagesEnabled" = false;
+    "UrlKeyedAnonymizedDataCollectionEnabled" = false;
+    "SpellcheckEnabled" = true;
+    "SpellcheckLanguage" = [
+      "da"
+      "en-US"
+      "ro"
+    ];
+    "CloudPrintSubmitEnabled" = false;
+    "BlockThirdPartyCookies" = true;
+    "VoiceInteractionHotwordEnabled" = false;
+    "AutoplayAllowed" = false;
+  };
+
+
   environment.systemPackages = with pkgs; [
     # Internet browsers.
     brave
     firefox-devedition
     tor-browser-bundle-bin
-    ungoogled-chromium
+    chromium
+    # ungoogled-chromium
   ];
 }
