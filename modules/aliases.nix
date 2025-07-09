@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   config = {
     # Shell aliases.
@@ -88,5 +89,12 @@
       nhup    = "nh os switch .#nixosConfigurations.$(hostname)"; # calls sudo when needed.
       flup    = "nix flake update";
     };
+
+    environment.systemPackages = with pkgs; [
+      curl
+      nettools # Contains netstat.
+      nh
+      speedtest-cli
+    ];
   };
 }
