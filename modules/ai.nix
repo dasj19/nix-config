@@ -20,4 +20,7 @@
         Restart = "always";
     };
   };
+  # Enable ChatGPT-like user interface.
+  services.open-webui.enable = true;
+  services.open-webui.port = 4141;
 }
