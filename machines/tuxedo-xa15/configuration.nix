@@ -279,6 +279,9 @@ in
     "Oracle_VirtualBox_Extension_Pack"
     "virtualbox"
 
+    # AI stuff.
+    "open-webui"
+
     # Proprietary software.
     "android-sdk-platform-tools"
     "discord"
