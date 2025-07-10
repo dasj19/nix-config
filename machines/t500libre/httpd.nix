@@ -1,9 +1,10 @@
-{ pkgs, gitSecrets, ... }:
+{ config, pkgs, gitSecrets, sopsSecrets, ... }:
 
 let
 
   # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
+  name-domain = gitSecrets.nameDomain;
   webmaster-email = gitSecrets.gnuDomainWebmaster;
   gnu-ip = gitSecrets.gnuIp;
   archive-ip = gitSecrets.gnuArchiveIp;
@@ -11,6 +12,19 @@ let
 in
 
 {
+  sops.secrets.root_password = {};
+
+  # Nexcloud instance.
+  services.nextcloud = {
+    enable = true;
+    hostName = "localhost";
+    config.adminpassFile = config.sops.secrets.root_password.path;
+  };
+  services.nextcloud.settings = {
+    force_language = "ro";
+  };
+  services.nextcloud.config.dbtype = "sqlite";
+  services.nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [ { addr = "127.0.0.1"; port = 8001; } ];
 
   # Apache webserver with virtual hosts. @todo: migrate to caddy.
   services.httpd = {
@@ -90,7 +104,35 @@ in
           </LocationMatch>
         '';
       };
-      
+      # Nextcloud.
+      "familia.${name-domain}" = {
+        enableACME = true;
+        forceSSL = true;
+        hostName = "familia.${name-domain}";
+        #serverAliases = [
+        #  "www.archive.${name-domain}"
+        #]; 
+        documentRoot = "/var/www/familia.${name-domain}/";
+        logFormat = "combined";
+        extraConfig = ''
+          <LocationMatch "/">
+            # Proxy the archivebox instance from the local network.
+            #ProxyPreserveHost On
+            ProxyPass http://localhost:8001/
+            ProxyPassReverse http://localhost:8001/
+
+            # Headers passed to the proxy.
+            #RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
+            # Relax CSP for admin paths.
+
+            # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
+            Header unset Content-Security-Policy
+            Header unset Clear-Site-Data
+            # Allow framing of the archive site.
+            Header unset X-Frame-Options
+          </LocationMatch>
+        '';
+      };      
       # Debian Source List Generator for the masses.
       "dslg.${gnu-domain}" = {
         # forceSSL uses 302 Found redirects, using own 301 redirects in 'extraConfig'.
