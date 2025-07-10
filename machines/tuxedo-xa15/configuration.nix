@@ -148,7 +148,6 @@ in
 
     # Desktop apps.
     discord
-    filezilla
     #gcstar
     gimp
     gparted

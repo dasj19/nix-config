@@ -46,6 +46,7 @@
       czkawka
       drawio
       element-desktop
+      filezilla
       flacon
       flameshot
       gimp
