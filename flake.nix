@@ -117,6 +117,18 @@
         }
       ];
     };
+    nixosConfigurations.linodenix1 = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit gitSecrets;
+        inherit sopsSecrets;
+      };
+      system = "x86_64-linux";
+      modules = [
+        ./machines/linodenix1/configuration.nix
+        simple-nixos-mailserver.nixosModule
+        sops-nix.nixosModules.sops
+      ];
+    };
     nixosConfigurations.linodenix2 = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit gitSecrets;
