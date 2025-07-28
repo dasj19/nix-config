@@ -280,6 +280,7 @@ Searx
 searxng
 Searxng
 secp
+serio
 sgptrc
 shmcb
 shntool
@@ -299,12 +300,14 @@ stylix
 substituters
 swraid
 symfony
+synaptics
 sysstat
 tauon
 tealized
 tgpt
 thermald
 thiagokokada
+thinkfan
 thinkpad
 tinymce
 tmpfs
@@ -315,6 +318,7 @@ tulanp
 twentytwenty
 twentytwentyone
 twentytwentytwo
+typec
 uhci
 ungoogled
 unrar
@@ -341,6 +345,7 @@ wakeup
 waydroid
 webp
 webroot
+webui
 weekdate
 Werkzeug
 winetricks
