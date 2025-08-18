@@ -7,6 +7,11 @@ let
 in
 
 {
+    # Fetch the email server.
+    imports = [
+      ./../../modules/email-server.nix
+    ];
+
     sops.secrets.daniel_imigrant_email_password = {};
 
     mailserver = {
