@@ -3,6 +3,8 @@
 let
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
   daniel-fullname = gitSecrets.danielFullname;
+  baseipv6 = gitSecrets.linode2BaseIpv6;
+  mailipv6 = gitSecrets.linode2MailIpv6;
 in
 
 {
@@ -28,10 +30,24 @@ in
 
   # Host and network settings.
   networking.enableIPv6  = true;
+  networking.interfaces.eth0.ipv6.addresses = [
+    {
+      address = "${baseipv6}";
+      prefixLength = 128;
+    }
+    {
+      address = "${mailipv6}";
+      prefixLength = 128;
+    }
+  ];
+  networking.defaultGateway6 = {
+    address = "fe80::1";
+    interface = "eth0";
+  };
   networking.hostName = "linodenix2";
   networking.networkmanager.enable = false;
   networking.usePredictableInterfaceNames = false;
-  networking.tempAddresses = "enabled";  
+  networking.tempAddresses = "disabled";
   networking.useDHCP = true;
 
   # Open ports in the firewall.
