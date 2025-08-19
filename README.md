@@ -48,15 +48,19 @@ I also get emails when the automated build fails thus the failure does not propa
 
 # Machines
 
-|   Hostname  | Brand and model  |   CPU              |  RAM  |   GPU(s)                       | Role | OS  | State |
-| :---------: | :--------------: | :----------------: | :---: | :----------------------------: | :--: | :-: | :---: |
-| cm4-nas     | RaspberryPi CM4  | Cortex-A72         | 8  GB | Not Available                  | ☁️   | ❄️  | ✅    |
-| contabo2    | Contabo KVM VPS  | AMD EPYC 7282      | 6  GB | Not Available                  | ☁️   | ❄️  | ✅    |
-| t14         | Lenovo T14       | Intel i7-10610U    | 24 GB | NVIDIA GeForce MX330           | 💻️   | ❄️  | ✅    |
-|             |                  |                    |       | Intel UHD Graphics (CML GT2)   |      |     |       |
-| t500libre   | Lenovo T500      | Intel Core 2 T9600 | 8  GB | Disabled                       | ☁️   | ❄️  | ✅    |
-| tuxedo-xa15 | Tuxedo Book XA15 | AMD Ryzen 3000     | 64 GB | NVIDIA GeForce RTX 2070        | 💻️   | ❄️  | ✅    |
-| xps13-9380  | Dell XPS13 9380  | Intel i7-8565U     | 8  GB | Intel UHD Graphics 620         | 💻️   | ❄️  | ✅    |
+|   Hostname  | Brand and model  |   CPU                |  RAM  |   GPU(s)                       | Role | OS  | State |
+| :---------: | :--------------: | :------------------: | :---: | :----------------------------: | :--: | :-: | :---: |
+| cm4-nas     | RaspberryPi CM4  | Cortex-A72           | 8  GB | Not Available                  | ☁️   | ❄️  | ✅    |
+| contabo1    | Contabo KVM VPS  | AMD EPYC (with IBPB) | 8  GB | Not Available                  | ☁️   | ❄️  | ✅    |
+| contabo2    | Contabo KVM VPS  | AMD EPYC 7282        | 6  GB | Not Available                  | ☁️   | ❄️  | ✅    |
+| devbox      | Virtualbox       |                      | 4  GB | Not Available                  | 🐄   | ❄️  | ✅    |
+| linodenix1  | Linode Nanode    | AMD EPYC 7601        | 1  GB | Not Available                  | ☁️   | ❄️  | ✅    |
+| linodenix2  | Linode Nanode    | AMD EPYC 7601        | 1  GB | Not Available                  | ☁️   | ❄️  | ✅    |
+| t14         | Lenovo T14       | Intel i7-10610U      | 24 GB | NVIDIA GeForce MX330           | 💻️   | ❄️  | ✅    |
+|             |                  |                      |       | Intel UHD Graphics (CML GT2)   |      |     |       |
+| t500libre   | Lenovo T500      | Intel Core 2 T9600   | 8  GB | Disabled                       | ☁️   | ❄️  | ✅    |
+| tuxedo-xa15 | Tuxedo Book XA15 | AMD Ryzen 3000       | 64 GB | NVIDIA GeForce RTX 2070        | 💻️   | ❄️  | ✅    |
+| xps13-9380  | Dell XPS13 9380  | Intel i7-8565U       | 8  GB | Intel UHD Graphics 620         | 💻️   | ❄️  | ✅    |
 
 **Key**
 - 🖥️ : Desktop
