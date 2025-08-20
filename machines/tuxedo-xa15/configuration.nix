@@ -33,7 +33,6 @@ in
     ./../../profiles/laptop.nix
     # Modules.
     ./../../modules/ai.nix
-    ./../../modules/games.nix
   ];
 
   # Disable unused xserver packages.
@@ -162,8 +161,6 @@ in
     aspellDicts.ro
 
     # CLI Utilities.
-    android-tools
-    adb-sync
     hdparm
     iat
     killall
@@ -197,15 +194,16 @@ in
     bitmagnet
     openssl
 
+    (pkgs.python3.withPackages (python-pkgs: [
+      python-pkgs.videocr
+      python-pkgs.requests
+    ]))
+
     # Games.
     evtest
     oversteer
     linuxConsoleTools
     gamepad-tool
-    retroarch-joypad-autoconfig
-    qjoypad
-    retroarchFull
-    retroarch-assets
 
     # support both 32- and 64-bit applications
     # wineWowPackages.stable
@@ -251,23 +249,7 @@ in
     # Printer drivers.
     "hplip" 
 
-    # Game emulation cores.
-    "libretro-fbalpha2012"
-    "libretro-fbneo"
-    "libretro-fmsx"
-    "libretro-genesis-plus-gx"
-    "libretro-mame2000"
-    "libretro-mame2003"
-    "libretro-mame2003-plus"
-    "libretro-mame2010"
-    "libretro-mame2015"
-    "libretro-opera"
-    "libretro-picodrive"
-    "libretro-snes9x"
-    "libretro-snes9x2002"
-    "libretro-snes9x2005"
-    "libretro-snes9x2005-plus"
-    "libretro-snes9x2010"
+    # Game tools.
     "gamepad-tool"
 
     # Graphic drivers.
@@ -282,7 +264,6 @@ in
     "open-webui"
 
     # Proprietary software.
-    "android-sdk-platform-tools"
     "discord"
     "drawio"
     "soulseekqt"

@@ -3,7 +3,6 @@
   config = {
     environment.systemPackages = with pkgs; [
       # Emulation.
-      # build fails: emulationstation-de
       retroarchFull
       retroarch-assets
 
@@ -20,11 +19,6 @@
       gamepad-tool
       retroarch-joypad-autoconfig
       qjoypad
-    ];
-
-    nixpkgs.config.permittedInsecurePackages = [
-      # Emulationstation depends on this.
-      "freeimage-unstable-2021-11-01"
     ];
   };
 }
