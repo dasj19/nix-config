@@ -25,9 +25,7 @@
       ollama          # Ollama server without CUDA support.
     ]);
 
-    allowedUnfree = [
-      # Allowed non-free dependencies of the AI module.
-    ] ++ (if config.my.modules.ai.cudaSupport then [
+    allowedUnfree = (if config.my.modules.ai.cudaSupport then [
       # Allowed non-free cuda dependencies of the AI module.
       "cuda_cudart"
       "cuda_cccl"
