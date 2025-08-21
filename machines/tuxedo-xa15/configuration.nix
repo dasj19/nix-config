@@ -269,7 +269,6 @@ in
     "drawio"
     "soulseekqt"
     "unrar"
-    "codeql"
 
     # Machine learning tools - ollama-cuda dependencies.
     "cuda_cccl"
