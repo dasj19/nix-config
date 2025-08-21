@@ -33,7 +33,10 @@ in
     ./../../profiles/laptop.nix
     # Modules.
     ./../../modules/ai.nix
+    ./../../modules/non-free.nix
   ];
+
+  my.modules.ai.cudaSupport = true;
 
   # Disable unused xserver packages.
   services.xserver.excludePackages = with pkgs; [
@@ -243,9 +246,7 @@ in
   nix.settings.cores = 1;
 
   # Non-free software whitelist / shame list.
-  nixpkgs.config.allowUnfree = false;
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
+  allowedUnfree = [
     # Printer drivers.
     "hplip" 
 

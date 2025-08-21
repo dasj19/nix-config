@@ -1,6 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    # Modules.
+    ./non-free.nix
+  ];
+
   # Custom options.
   options.my.modules.ai = {
     cudaSupport = lib.mkEnableOption "Enable or disable cuda support for the ai module";
