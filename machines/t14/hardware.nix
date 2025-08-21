@@ -104,8 +104,6 @@
   environment.systemPackages = with pkgs; [
     # Drivers.
     linux-firmware # needed for the intel graphic card.
-    # Utilities.
-    cudaPackages.cudatoolkit
   ];
 
   # Install fingerprinting the driver.

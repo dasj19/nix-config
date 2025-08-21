@@ -10,7 +10,11 @@
 
     # Modules.
     ./../../modules/ai.nix
+    ./../../modules/non-free.nix
   ];
+
+  # Define custom options.
+  my.modules.ai.cudaSupport = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
@@ -57,18 +61,35 @@
     #media-session.enable = true;
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Non-free software whitelist / shame list.
+  allowedUnfree = [
+    # Drivers.
+    "nvidia-x11"
+    "nvidia-settings"
+    # Libraries.
+    # 
+    "unrar"
+    # GUI.
+    "drawio"
+    # Server software.
+    "open-webui"
+  ];
+
   nixpkgs.config.nvidia.acceptLicense = true;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
     # CLI.
-    nvtopPackages.full
     fwupd
+    # GUI.
+    gcstar
     # P2P.
     nicotine-plus
+    sabnzbd
   ];
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   programs.usbtop.enable = true;
 
