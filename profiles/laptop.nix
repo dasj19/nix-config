@@ -24,7 +24,6 @@
       # CLIs.
       asciinema
       bchunk
-      codeql
       cuetools
       dconf
       ffmpeg-full
