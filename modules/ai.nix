@@ -25,7 +25,7 @@
       ollama          # Ollama server without CUDA support.
     ]);
 
-    allowedUnfree = (if config.my.modules.ai.cudaSupport then [
+    allowedUnfree = if config.my.modules.ai.cudaSupport then [
       # Allowed non-free cuda dependencies of the AI module.
       "cuda_cudart"
       "cuda_cccl"
@@ -34,7 +34,7 @@
     ] else [
       # Allowed non-free cuda-less dependencies of the AI module.
       # Ollama dependencies.
-    ]);
+    ];
 
     # Enable local Ollama server as a systemd service.
     systemd.services.ollama-local = {
