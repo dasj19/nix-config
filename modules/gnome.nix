@@ -82,7 +82,7 @@
     environment.systemPackages = with pkgs; [
       brasero                 # Disc burning application.
       dconf-editor            # Gnome registry editor.
-      evolutionWithPlugins    # Replacement for geary and gnome-calendar.
+      evolution               # Replacement for geary and gnome-calendar.
       ghex                    # Gnome hex editor.
       gnome-tweaks            # Extra setting manager for gnome.
       gnome-network-displays  # Screen sharing app for gnome.
