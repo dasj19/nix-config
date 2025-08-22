@@ -18,6 +18,7 @@ automount
 autopair
 autoplay
 auxf
+avahi
 awscli
 bantime
 bashsh
@@ -57,6 +58,7 @@ czkawka
 danth
 dasj
 dbeaver
+dbus
 dconf
 debootstrap
 deepseek
@@ -80,6 +82,7 @@ Eiskalt
 eiskaltdcpp
 Embedder
 emulationstation
+erros
 esrodk
 evtest
 exresop
@@ -178,6 +181,7 @@ lidswitch
 linodenix
 litellm
 localip
+localsearch
 logind
 lshw
 luks
@@ -192,6 +196,7 @@ mkpasswd
 mktplc
 mkvtoolnix
 Mnnxcxis
+modemmanager
 Modesetting
 myip
 mysqld
@@ -226,6 +231,7 @@ oderwat
 ohci
 ollama
 oneline
+openconnect
 openrgb
 optimise
 osdlyrics
@@ -244,6 +250,9 @@ Pkgs
 platformsh
 pname
 poedit
+polkit
+polkitd
+polkituser
 pomodoro
 powersave
 powertop
@@ -270,6 +279,7 @@ rspamd
 rsrc
 rtkit
 rtsx
+rygel
 ryzen
 sabnzbd
 scanline
@@ -310,6 +320,8 @@ thiagokokada
 thinkfan
 thinkpad
 tinymce
+tinysparql
+tmpfiles
 tmpfs
 toplevel
 topsites
@@ -337,6 +349,7 @@ VDPAU
 vectorscan
 ventoy
 vfat
+videocr
 virt
 virtio
 virtiofsd
@@ -359,5 +372,6 @@ xorg
 xorgserver
 xorriso
 xvfb
+Zeroconf
 zheader
 zstd
