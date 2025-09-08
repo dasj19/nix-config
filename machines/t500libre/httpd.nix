@@ -32,7 +32,7 @@ in
     enable = true;
     enablePHP = true;
     phpPackage = pkgs.php84.buildEnv {
-    extensions = ({ enabled, all }: enabled ++ (with all; [
+    extensions = { enabled, all }: enabled ++ (with all; [
         # Extensions for leantime.
         bcmath
         ctype
@@ -42,21 +42,17 @@ in
         fileinfo
         filter
         gd
-        #hash
         ldap
         mbstring
-        #mysql
         opcache
         openssl
         pcntl
-        #pcre
         pdo
-        #phar
         session
         tokenizer
         zip
         simplexml
-      ]));
+      ]);
     };
     adminAddr = "${webmaster-email}";
     extraModules = [
