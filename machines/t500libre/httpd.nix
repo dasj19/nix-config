@@ -31,6 +31,33 @@ in
   services.httpd = {
     enable = true;
     enablePHP = true;
+    phpPackage = pkgs.php84.buildEnv {
+    extensions = ({ enabled, all }: enabled ++ (with all; [
+        # Extensions for leantime.
+        bcmath
+        ctype
+        curl
+        dom
+        exif
+        fileinfo
+        filter
+        gd
+        #hash
+        ldap
+        mbstring
+        #mysql
+        opcache
+        openssl
+        pcntl
+        #pcre
+        pdo
+        #phar
+        session
+        tokenizer
+        zip
+        simplexml
+      ]));
+    };
     adminAddr = "${webmaster-email}";
     extraModules = [
       "headers" "proxy" "proxy_http" "proxy_uwsgi"
@@ -148,6 +175,38 @@ in
         documentRoot = "/var/www/dslg.${gnu-domain}/";
         # serving php files as default.
         locations."/".index = "index.php";
+      };
+      # Task planning tool.
+      "do.${gnu-domain}" = {
+        # forceSSL uses 302 Found redirects, using own 301 redirects in 'extraConfig'.
+        #addSSL = true;
+        enableACME = true;
+        #inherit acmeRoot;
+        forceSSL = true;
+        hostName = "do.${gnu-domain}";
+        documentRoot = "/var/www/do.${gnu-domain}/public/";
+        # serving php files as default.
+        locations."/".index = "index.php";
+        extraConfig = ''
+          <Directory "/var/www/do.${gnu-domain}/public/">
+            # Turn on URL rewriting
+            RewriteEngine On
+            RewriteBase /
+            # Allow any files or directories that exist to be displayed directly
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+
+            # Rewrite all other URLs to index.php/
+            RewriteRule .* index.php/''$0 [PT,L]
+          </Directory>
+          <LocationMatch "/">
+            # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
+            Header unset Content-Security-Policy
+            Header unset Clear-Site-Data
+            # Allow framing of the archive site.
+            Header unset X-Frame-Options
+          </LocationMatch>
+        '';
       };
       # Overall map of the services hosted at the gnu domain.
       "${gnu-domain}" = {
