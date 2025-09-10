@@ -57,20 +57,20 @@ in
 
   # Add extra configuration for postfix.
   # https://linux-audit.com/postfix-hardening-guide-for-security-and-privacy/
-  services.postfix.extraConfig = ''
-    # Require the use of HELO command.
-    smtpd_helo_required=yes
-    # Apply helo restrictions.
-    smtpd_helo_restrictions=permit_mynetworks, permit_sasl_authenticated, reject_invalid_helo_hostname, reject_non_fqdn_helo_hostname, reject_unknown_helo_hostname
-    # Apply recipient restrictions.
-    #smtpd_recipient_restrictions=permit_mynetworks, permit_sasl_authenticated
-    # Reject non-existent sender addresses.
-    smtpd_reject_unlisted_sender=yes
-    # Enable SASL authentication.
-    smtpd_sasl_auth_enable=yes
-    # Enable dns lookups.
-    smtp_dns_support_level=enabled
-  '';
+  #services.postfix.extraConfig = ''
+  #  # Require the use of HELO command.
+  #  smtpd_helo_required=yes
+  #  # Apply helo restrictions.
+  #  smtpd_helo_restrictions=permit_mynetworks, permit_sasl_authenticated, reject_invalid_helo_hostname, reject_non_fqdn_helo_hostname, reject_unknown_helo_hostname
+  #  # Apply recipient restrictions.
+  #  #smtpd_recipient_restrictions=permit_mynetworks, permit_sasl_authenticated
+  #  # Reject non-existent sender addresses.
+  #  smtpd_reject_unlisted_sender=yes
+  #  # Enable SASL authentication.
+  #  smtpd_sasl_auth_enable=yes
+  #  # Enable dns lookups.
+  #  smtp_dns_support_level=enabled
+  #'';
 
   # Add extended spam information.
   services.rspamd.extraConfig = ''
