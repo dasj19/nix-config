@@ -1,4 +1,4 @@
-{ config, gitSecrets, pkgs, sopsSecrets, ... }:
+{ config, gitSecrets, lib, pkgs, sopsSecrets, ... }:
 
 let
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
@@ -160,6 +160,9 @@ in
   # users.users.root = {
   #   hashedPasswordFile = config.sops.secrets.root_password.path;
   # };
+
+  # Linux kernel - Using a LTS kernel.
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_5_15;
 
   # Initial state version. Consult manual before changing.
   system.stateVersion = "22.11";
