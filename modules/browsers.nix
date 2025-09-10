@@ -80,6 +80,11 @@
 
   # Apply extensions to all instances of Firefox system-wide.
   programs.firefox.policies.ExtensionSettings = {
+    # Block all extension installations.
+    "*" = {
+      installation_mode = "blocked";
+      blocked_install_message = "Install extensions via nix config!";
+    };
     "uBlock0@raymondhill.net" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
       installation_mode = "force_installed";
@@ -99,7 +104,7 @@
       updates_disabled = true;
     };
     "{1018e4d6-728f-4b20-ad56-37578a4de76b}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4545939/flagfox-6.1.89.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4567995/flagfox-6.1.90.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
