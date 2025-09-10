@@ -34,13 +34,5 @@
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
 
-  # Hostname.
-  networking.hostName = "linodenix1";
-
-  # Enables DHCP on each ethernet and wireless interface.
-  networking.useDHCP = true;
-  # Enable DHCP on eth0.
-  networking.interfaces.eth0.useDHCP = true;
-
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

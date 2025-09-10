@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, gitSecrets, lib, pkgs, ... }:
+
+let
+  baseipv6 = gitSecrets.linode1BaseIpv6;
+  mailipv6 = gitSecrets.linode1MailIpv6;
+in
 
 {
   imports = [
@@ -14,6 +19,33 @@
     # Include email-related software configuration.
     ./email.nix
   ];
+
+  # Hostname.
+  networking.hostName = "linodenix1";
+  networking.tempAddresses = "disabled";
+
+  # Enables DHCP on each ethernet and wireless interface.
+  networking.useDHCP = true;
+  networking.enableIPv6 = true;
+  # Enable DHCP on eth0.
+  networking.interfaces.eth0.useDHCP = true;
+
+  networking.interfaces.eth0.ipv6.addresses = [
+    {
+      address = "${baseipv6}";
+      prefixLength = 128;
+    }
+    {
+      address = "${mailipv6}";
+      prefixLength = 128;
+    }
+  ];
+
+  networking.defaultGateway6 = {
+    address = "fe80::1";
+    interface = "eth0";
+  };
+
 
   # Open ports in the firewall.
   networking.firewall.enable = true;
