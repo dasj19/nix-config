@@ -6,7 +6,6 @@ let
 in
 
 {
-
   # Using caddy webserver.
   services.caddy.enable = true;
 
@@ -22,33 +21,33 @@ in
 
   '';
   services.caddy.virtualHosts."www.${daniel-domain}".extraConfig = ''
-     redir https://${daniel-domain}{uri} permanent
+    redir https://${daniel-domain}{uri} permanent
   '';
   services.caddy.virtualHosts."${daniel-domain}".extraConfig = ''
-     root * /var/www/${daniel-domain}
-     file_server
-     php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
+    root * /var/www/${daniel-domain}
+    file_server
+    php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
   '';
 
   # ACME settings for the firm domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/) 
   security.acme.certs."${firm-domain}" = {
-      inherit (config.services.caddy) group;
+    inherit (config.services.caddy) group;
 
-      domain = "${firm-domain}";
-      extraDomainNames = [ "www.${firm-domain}" ];
-      dnsProvider = "cloudflare";
-      dnsResolver = "1.1.1.1:53";
-      dnsPropagationCheck = true;
+    domain = "${firm-domain}";
+    extraDomainNames = [ "www.${firm-domain}" ];
+    dnsProvider = "cloudflare";
+    dnsResolver = "1.1.1.1:53";
+    dnsPropagationCheck = true;
   };
   security.acme.certs."${daniel-domain}" = {
-      inherit (config.services.caddy) group;
+    inherit (config.services.caddy) group;
 
-      domain = "${daniel-domain}";
-      extraDomainNames = [ "www.${daniel-domain}" ];
-      dnsProvider = "cloudflare";
-      dnsResolver = "1.1.1.1:53";
-      dnsPropagationCheck = true;
+    domain = "${daniel-domain}";
+    extraDomainNames = [ "www.${daniel-domain}" ];
+    dnsProvider = "cloudflare";
+    dnsResolver = "1.1.1.1:53";
+    dnsPropagationCheck = true;
   };
 
 
