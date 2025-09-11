@@ -33,37 +33,4 @@ in
       };
     };
   };
-
-  # mailserver.stateVersion = 3;
-
-  # @todo: setup fail2ban on internet-facing servers.
-  # services.fail2ban.enable = true;
-
-  # services.fail2ban.bantime-increment = {
-  #   enable = true;
-  #   maxtime = "200h";
-  # };
-
-  # Debug authentication. @see: https://serverfault.com/a/1020853
-  # Disabled to allow fail2ban to do its job.
-  #services.dovecot2.extraConfig = ''
-  #  auth_verbose = yes
-  #'';
-
-#  # Enable required extensions.
-#  services.dovecot2.sieve.extensions = [
-#    # To file spam into spam folder.
-#    "fileinto"
-#  ];
-
-
-  # Add extended spam information.
-#  services.rspamd.extraConfig = ''
-#    milter_headers {
-#      use = ["x-spamd-bar", "x-spam-level", "x-spam-flag", "x-spam-status", "x-spamd-result", "spam-header", "authentication-results"];
-#    }
-#    actions {
-#      greylist = 6; # Apply greylisting when reaching this score
-#    }
-#  '';
 }
