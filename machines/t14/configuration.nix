@@ -40,11 +40,6 @@
   # Configure console keymap
   console.keyMap = "es";
 
-  # Disable CUPS to print documents.
-  # Should be fixed upstream:
-  # /etc/systemd/system/cups.socket:5: ListenStream= references a path below legacy directory /var/run/, updating /var/run/cups/cups.sock → /run/cups/cups.sock; please update the unit file accordingly.
-  services.printing.enable = lib.mkForce false;
-
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -64,10 +59,10 @@
   # Non-free software whitelist / shame list.
   allowedUnfree = [
     # Drivers.
+    "hplip"
     "nvidia-x11"
     "nvidia-settings"
     # Libraries.
-    # 
     "unrar"
     # GUI.
     "drawio"
