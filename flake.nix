@@ -32,7 +32,6 @@
 
   inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   inputs.nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nix-vscode-extensions.inputs.flake-utils.follows = "flake-utils";
 
   inputs.vscode-server.url = "github:nix-community/nixos-vscode-server";
   inputs.vscode-server.inputs.nixpkgs.follows = "nixpkgs";
