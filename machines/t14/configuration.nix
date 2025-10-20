@@ -5,6 +5,8 @@
     # Hardware config.
     ./hardware.nix
 
+    ./development.nix
+
     # Profile.
     ./../../profiles/laptop.nix
 
@@ -58,12 +60,10 @@
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [
-    # Drivers.
-    "nvidia-x11"
-    "nvidia-settings"
     # Libraries.
     "unrar"
     # GUI.
+    "discord"
     "drawio"
     # Server software.
     "open-webui"
@@ -75,8 +75,12 @@
   environment.systemPackages = with pkgs; [
     # CLI.
     fwupd
+    lrcget
+
     # GUI.
     gcstar
+    kdePackages.kdenlive
+    discord
     # P2P.
     nicotine-plus
     sabnzbd
