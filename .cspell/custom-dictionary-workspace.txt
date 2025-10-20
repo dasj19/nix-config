@@ -78,8 +78,6 @@ dswexec
 dswload
 duckduckgo
 ehci
-Eiskalt
-eiskaltdcpp
 Embedder
 emulationstation
 erros

@@ -96,19 +96,13 @@ in
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22   # OpenSSH
-    3000 # EiskaltDC++
-    3001 # EiskaltDC++
     3389 # RDP connections
     3333 # LBRY Daemon
     4444 # LBRY Streams
     5567 # LBRY P2P
-    6250 # EiskaltDC++ DHT
     50001 # LBRY Wallet
   ];
   networking.firewall.allowedUDPPorts = [
-    3000 # EiskaltDC++
-    3001 # EiskaltDC++
-    6250 # EiskaltDC++ DHT
     4444 # LBRY Streams
   ];
 
@@ -183,7 +177,6 @@ in
     # P2P.
     bitcoin
     radarr
-    eiskaltdcpp
     nicotine-plus
     sabnzbd
 
