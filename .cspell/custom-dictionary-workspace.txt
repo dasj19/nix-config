@@ -301,6 +301,7 @@ SMTPS
 snes
 SNIV
 soulseekqt
+soundconverter
 soundcore
 spamd
 statix
