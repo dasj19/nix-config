@@ -10,8 +10,8 @@
   news.display = "show";
 
   programs.git.enable = true;
-  programs.git.userName = lib.mkDefault gitSecrets.danielFullname;
-  programs.git.userEmail = lib.mkDefault gitSecrets.danielPersonalEmail;
+  programs.git.settings.user.name = lib.mkDefault gitSecrets.danielFullname;
+  programs.git.settings.user.email = lib.mkDefault gitSecrets.danielPersonalEmail;
   programs.git.ignores = [
     # Do not track the following files files.
     "git-crypt-key"
