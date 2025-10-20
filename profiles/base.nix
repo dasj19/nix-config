@@ -69,6 +69,7 @@
       screen
       smartmontools
       tldr
+      tmux
       tree
       usbutils
       unzip

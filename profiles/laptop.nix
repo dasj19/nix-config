@@ -13,10 +13,6 @@
 
   config = {
 
-    # Enable CUPS to print documents from laptops.
-    services.printing.enable = true;
-    services.printing.drivers = [ pkgs.hplip ];
-
     services.journald.extraConfig = "MaxRetentionSec=1week";
 
     # Laptop packages.
@@ -32,8 +28,10 @@
       inetutils
       khard
       neo-cowsay
+      shotcut
       shntool
       speedtest-cli
+      subtitlecomposer
       unrar
       usbutils
       w3m

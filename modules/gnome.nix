@@ -90,6 +90,7 @@
       meld                    # Diff manager and editor.
       peazip                  # Replacement for file-roller.
       remmina                 # Replacement for gnome-connections.
+      soundconverter          # Gnome app for audio file conversions.
       strawberry              # Replacement for gnome-music.
       tauon                   # Replacement for gnome-music with lyrics support.
       vlc                     # Replacement for totem.
