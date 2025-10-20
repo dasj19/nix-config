@@ -97,10 +97,6 @@
       }
     ];
 
-    # Enable scanning support.
-    hardware.sane.enable = true;
-    hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
-
     # Tuxedo drivers support.
     hardware.tuxedo-drivers.enable = true;
     # Control programs.

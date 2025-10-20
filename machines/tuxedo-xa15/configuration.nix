@@ -51,13 +51,9 @@ in
     "nvidia"
   ];
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplipWithPlugin ];
-
   # Enable scanning support.
   hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
+  hardware.sane.extraBackends = [ pkgs.hplip ];
   services.ipp-usb.enable = true;
 
   # AMD.
@@ -247,8 +243,6 @@ in
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [
-    # Printer drivers.
-    "hplip" 
 
     # Game tools.
     "gamepad-tool"

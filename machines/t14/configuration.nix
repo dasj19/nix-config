@@ -59,7 +59,6 @@
   # Non-free software whitelist / shame list.
   allowedUnfree = [
     # Drivers.
-    "hplip"
     "nvidia-x11"
     "nvidia-settings"
     # Libraries.

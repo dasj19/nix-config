@@ -3,6 +3,14 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    # Modules.
+    ./../../modules/non-free.nix
+  ];
+
+  allowedUnfree = [
+    # Drivers.
+    "nvidia-x11"
+    "nvidia-settings"
   ];
 
   # Bootloader.
@@ -172,4 +180,11 @@
 
   # Disable fwupd service, can still be ran manually because it is installed as system package.
   services.fwupd.enable = lib.mkForce false;
+
+  # Enable CUPS to print documents from laptops.
+  services.printing.enable = true;
+  services.printing.drivers = [
+    # Driver for printing and scanning.
+    pkgs.hplip
+  ];
 }
