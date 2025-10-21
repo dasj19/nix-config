@@ -57,9 +57,14 @@ in
 
   nixpkgs.config = {
     packageOverrides = pkgs: {
-      # Overriding the rspamd package replacing vectorscan with hyperscan as it was in the 3.10.2 version. @TODO: check upstream to see if the issue is fixed.
+      # Overriding the rspamd package replacing vectorscan with patched hyperscan. @TODO: check upstream to see if the issue is fixed.
       rspamd = pkgs.rspamd.overrideAttrs (oldAttrs: {
-        buildInputs = builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs ++ [ pkgs.hyperscan ];
+        buildInputs = builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs ++ [
+          # patched hyperscan
+          (pkgs.hyperscan.overrideAttrs (oldAttrs: {
+            cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
+          }))
+        ];
       });
     };
   };
