@@ -25,6 +25,8 @@ in
     force_language = "ro";
   };
   services.nextcloud.config.dbtype = "sqlite";
+  services.nextcloud.settings.trusted_domains = [ "familia.${name-domain}" ];
+  services.nextcloud.settings.overwriteprotocol = "https";
   services.nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [ { addr = "127.0.0.1"; port = 8001; } ];
 
   # Apache webserver with virtual hosts. @todo: migrate to caddy.
@@ -141,7 +143,7 @@ in
         extraConfig = ''
           <LocationMatch "/">
             # Proxy the archivebox instance from the local network.
-            #ProxyPreserveHost On
+            ProxyPreserveHost On
             ProxyPass http://localhost:8001/
             ProxyPassReverse http://localhost:8001/
 
