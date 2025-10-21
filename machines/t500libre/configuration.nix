@@ -180,8 +180,8 @@ in
   ];
 
   # Control the laptop lidswitch behavior.
-  services.logind.lidSwitch = "ignore";
-  services.logind.lidSwitchDocked = "ignore";
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
+  services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
 
   # ACME properties.
   security.acme.acceptTerms = true;
