@@ -2,6 +2,7 @@
 
 let
   fritweb-domain = gitSecrets.fritwebDomain;
+  baseipv6 = gitSecrets.contabo1BaseIpv6;
 in
 
 {
@@ -21,9 +22,11 @@ in
     ./webserver.nix
   ];
 
+  # Sops configuration.
   sops.defaultSopsFile = sopsSecrets;
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
+  # Sops secrets.
   sops.secrets.daniel_password = {};
   sops.secrets.root_password = {};
   sops.secrets.cloudflare_email = {};
@@ -34,8 +37,9 @@ in
   networking.enableIPv6  = true;
 
   networking.interfaces.ens18.ipv6.addresses = [
+    # Static IPv6 address for the main interface.
     {
-      address = "2a02:c207:2157:4359::1";
+      address = "${baseipv6}";
       prefixLength = 64;
     }
   ];
@@ -52,7 +56,7 @@ in
   ];
 
 
-  # Github runner to build my nix-config.
+  # Github runner to build the nix-config repo/project.
   services.github-runners."nix-config-runner" = {
     enable = true;
     name = "nix-config-runner";
@@ -64,11 +68,7 @@ in
   # Packages installed in system profile.
   environment.systemPackages = with pkgs; [
     # CLI utils.
-    fastfetch
-    git
-    git-crypt
     postgresql
-    wget
   ];
 
   # List services that you want to enable:

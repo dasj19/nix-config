@@ -47,6 +47,7 @@
       dmidecode
       dust
       eza
+      fastfetch
       fd
       gh
       git
