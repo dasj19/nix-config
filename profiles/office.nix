@@ -29,7 +29,6 @@
       kando
       libreoffice-still
       pdfarranger
-      tor-browser-bundle-bin
       ungoogled-chromium
 
       # Development.

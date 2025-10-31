@@ -167,7 +167,7 @@
     # Internet browsers.
     brave
     firefox-devedition
-    tor-browser-bundle-bin
+    tor-browser
     chromium
     # ungoogled-chromium
   ];
