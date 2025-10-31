@@ -37,6 +37,8 @@ in
   ];
 
   my.modules.ai.cudaSupport = true;
+  # This is required for cuda packages to build on the system.
+  nixpkgs.config.cudaSupport = true;
 
   # Disable unused xserver packages.
   services.xserver.excludePackages = with pkgs; [
@@ -282,6 +284,9 @@ in
     "libnvjitlink"
     "libcusparse"
     "libnpp"
+    "libcufile"
+    "libcusparse_lt"
+    "cudnn"
   ];
 
   # Initial version. Consult manual before changing.
