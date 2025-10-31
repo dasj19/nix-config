@@ -1,9 +1,7 @@
-{ config, gitSecrets, lib, pkgs, ... }:
+{ gitSecrets, ... }:
 
 let
   # Host-related variables.
-#  variables = import ./secrets/variables.nix;
-
   fritweb-domain = gitSecrets.fritwebDomain;
 in
 {
@@ -17,14 +15,14 @@ in
 
     virtualHosts."www.${fritweb-domain}" = {
       extraConfig = ''
-         # Redirect www to non-ww with https.
-         redir https://{labels.1}.{labels.0}{uri} permanent
+        # Redirect www to non-ww with https.
+        redir https://{labels.1}.{labels.0}{uri} permanent
       '';
     };
     virtualHosts."${fritweb-domain}" = {
       extraConfig = ''
-         # Generic message.
-         respond "Hejsa, vi er i gang med at bygge noget nyt her!"
+        # Generic message.
+        respond "Hejsa, vi er i gang med at bygge noget nyt her!"
       '';
     };
   };
