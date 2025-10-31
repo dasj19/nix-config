@@ -64,6 +64,7 @@
       pscpu     = "ps auxf | sort -nr -k 3 | head -10";
       most      = "du -hsx * | sort -rh | head -10";
       total     = "df -hl --total | grep  -E '(Use(d|%)|total)'";
+      dh        = "df -h";
       # Development. Get request headers with and without compression; open DDG in a browser.
       header    = "curl -I";
       hd        = "curl -I";
