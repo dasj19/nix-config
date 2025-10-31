@@ -21,6 +21,7 @@ auxf
 avahi
 awscli
 bantime
+baseipv
 bashsh
 bchunk
 bibata
