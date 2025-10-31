@@ -2,7 +2,6 @@
 
 let
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
-  daniel-fullname = gitSecrets.danielFullname;
   baseipv6 = gitSecrets.linode2BaseIpv6;
   mailipv6 = gitSecrets.linode2MailIpv6;
 in
@@ -55,7 +54,7 @@ in
   networking.firewall.allowedTCPPorts = [
     25   # SMTP
     53   # DNS
-    80   # HTTP (for signing acme certificates)
+    80   # HTTP
     143  # IMAP
     443  # HTTPS
     465  # SMTP over TLS
@@ -87,28 +86,15 @@ in
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  # Setting internationalization properties to english locale and spanish keyboard.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "es";
-  # };
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # INSTALLED PACKAGES:
   environment.systemPackages = with pkgs; [
     # CLI tools.
     gdb
-    git
     libwebp
     w3m
-    wget
     wp-cli
-
-    # Secret management.
-    sops
-    git-crypt
 
     # Miscellaneous.
     inetutils
@@ -124,42 +110,6 @@ in
   services.openssh.ports = [ 2202 ];
   # https://stackoverflow.com/questions/8250379/sftp-on-linux-server-gives-error-received-message-too-long
   services.openssh.sftpServerExecutable = "internal-sftp";
-
-  # Enable fish as the default shell.
-  # programs.fish.enable = true;
-  # users.defaultUserShell = pkgs.fish;
-
-  # # Fish shell customizations.
-  # programs.fish.interactiveShellInit = ''
-  #   # Forcing true color in the terminals.
-  #   set -g fish_term24bit 1
-  #   # Empty fish greeting. @TODO: consider making it a nix option for fish.
-  #   set -g fish_greeting ""
-  #   # Add custom message to the fish prompt.
-  #   echo 'LINODENIX _2_'
-  # '';
-
-  # Don't build documentation on this server.
-  # documentation.enable = false;
-  # documentation.man.enable = false;
-  # documentation.info.enable = false;
-  # documentation.nixos.enable = false;
-  # documentation.doc.enable = false;
-  # documentation.dev.enable = false;
-
-  # users.mutableUsers = false;
-  # users.users.daniel = {
-  #   isNormalUser = true;
-  #   description = daniel-fullname;
-  #   hashedPasswordFile = config.sops.secrets.daniel_password.path;
-  #   extraGroups = [
-  #     "wheel"
-  #   ];
-  # };
-
-  # users.users.root = {
-  #   hashedPasswordFile = config.sops.secrets.root_password.path;
-  # };
 
   # Linux kernel - Using a LTS kernel.
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_5_15;

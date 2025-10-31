@@ -4,7 +4,7 @@
   stylix.targets.qt.enable = lib.mkForce true;
   stylix.targets.qt.platform = lib.mkForce "qtct";
   # Theme settings.
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-sea.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/darkviolet.yaml";
   stylix.image = "${nixos-artwork}/wallpapers/nixos-wallpaper-catppuccin-macchiato.png";
   stylix.polarity = "dark";
   stylix.opacity.applications = 1.0;
