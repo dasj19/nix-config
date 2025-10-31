@@ -1,6 +1,7 @@
 { config, pkgs, gitSecrets, ... }:
 
 let
+  # Host-related variables.
   daniel-domain = gitSecrets.danielHackerDomain;
   daniel-email = gitSecrets.danielHackerEmail;
   daniel-fqdn = gitSecrets.danielMailserverFqdn;
@@ -57,21 +58,11 @@ in
 
   networking.hostName = "contabo2";
 
-  # Set your time zone.
+  # Set server time zone.
   time.timeZone = "Europe/Copenhagen";
-
-  # Unprivileged user account.
-  users.users.daniel = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-  };
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
-    # CLI.
-    git
-    git-crypt
-    wget
     # Development and Operations.
     php82Packages.composer
   ];
@@ -82,11 +73,8 @@ in
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
 
+  # @TODO: investigate if this is needed.
   services.logrotate.checkConfig = false;
-
-  # Enable fish as the default shell.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
 
   # Fish shell customizations.
   programs.fish.interactiveShellInit = ''
