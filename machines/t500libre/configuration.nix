@@ -57,14 +57,11 @@ in
 
   nixpkgs.config = {
     packageOverrides = pkgs: {
-      # Overriding the rspamd package replacing vectorscan with patched hyperscan. @TODO: check upstream to see if the issue is fixed.
+      # Overriding the rspamd package replacing vectorscan with patched hyperscan.
       rspamd = pkgs.rspamd.overrideAttrs (oldAttrs: {
-        buildInputs = builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs ++ [
-          # patched hyperscan
-          (pkgs.hyperscan.overrideAttrs (oldAttrs: {
-            cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
-          }))
-        ];
+        # Replacing vectorscan with hyperscan. Vectorscan is not compatible with the old CPU of t500libre.
+        buildInputs = builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs
+        ++ [ pkgs.hyperscan ];
       });
     };
   };
