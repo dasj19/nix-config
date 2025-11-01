@@ -60,7 +60,7 @@
       avahi                   # Zeroconf server, not used.
       decibels                # Simple audio player, I do not need it.
       cheese                  # Simple webcam application, I do not need it.
-      file-roller             # Simple archive manager, I use peazip instead.
+      file-roller             # Simple archive manager, I use xarchiver instead.
       geary                   # Email client, I use Evolution instead.
       gnome-backgrounds       # Wallpaper manager, I declare wallpapers via stylix.
       gnome-calendar          # Calendar application, I use Evolution.
@@ -88,7 +88,7 @@
       gnome-network-displays  # Screen sharing app for gnome.
       gparted                 # Gnome partition editor.
       meld                    # Diff manager and editor.
-      peazip                  # Replacement for file-roller.
+      xarchiver                  # Replacement for file-roller.
       remmina                 # Replacement for gnome-connections.
       soundconverter          # Gnome app for audio file conversions.
       strawberry              # Replacement for gnome-music.
@@ -105,23 +105,23 @@
       "audio/flac"                      = "org.strawberrymusicplayer.strawberry.desktop";
       "audio/wav"                       = "vlc.desktop";
       "audio/webm"                      = "vlc.desktop";
-      "application/gzip"                = "peazip.desktop";
+      "application/gzip"                = "xarchiver.desktop";
       "application/json"                = "org.gnome.TextEditor.desktop";
       "application/ld+json"             = "org.gnome.TextEditor.desktop";
       "application/msword"              = "writer.desktop";
       "application/octet-stream"        = "org.qbittorrent.qBittorrent.desktop";
       "application/pdf"                 = "org.gnome.Evince.desktop";
       "application/rtf"                 = "writer.desktop";
-      "application/x-bzip"              = "peazip.desktop";
-      "application/x-bzip2"             = "peazip.desktop";
-      "application/zip"                 = "peazip.desktop";
+      "application/x-bzip"              = "xarchiver.desktop";
+      "application/x-bzip2"             = "xarchiver.desktop";
+      "application/zip"                 = "xarchiver.desktop";
       "application/vnd.ms-powerpoint"   = "impress.desktop";
-      "application/vnd.rar"             = "peazip.desktop";
+      "application/vnd.rar"             = "xarchiver.desktop";
       "application/vnd.ms-excel"        = "calc.desktop";
       "application/x-sh"                = "org.gnome.Console.desktop";
-      "application/x-tar"               = "peazip.desktop";
+      "application/x-tar"               = "xarchiver.desktop";
       "application/xml"                 = "org.gnome.TextEditor.desktop";
-      "application/x-7z-compressed"     = "peazip.desktop";
+      "application/x-7z-compressed"     = "xarchiver.desktop";
       "image/bmp"                       = "org.gnome.Loupe.desktop";
       "image/gif"                       = "org.gnome.Loupe.desktop";
       "image/vnd.microsoft.icon"        = "org.gnome.Loupe.desktop";

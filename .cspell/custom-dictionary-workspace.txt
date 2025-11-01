@@ -186,6 +186,7 @@ logind
 lrcget
 lshw
 luks
+mailipv
 mailserver
 mame
 matroska
@@ -244,7 +245,6 @@ osup
 pagenavi
 pciutils
 pdfarranger
-peazip
 pgsql
 phpcs
 phpfpm
@@ -373,6 +373,7 @@ wlan
 worpress
 WPLANG
 wwwrun
+xarchiver
 xhci
 xonotic
 xorg
