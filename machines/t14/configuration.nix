@@ -107,9 +107,6 @@
 
   programs.usbtop.enable = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Setup hostname.s
   networking.hostName = "t14";
   # Enable networking

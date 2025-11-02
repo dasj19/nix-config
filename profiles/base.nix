@@ -1,3 +1,8 @@
+/*
+ * base: a profile inherited by all the other profiles.
+ * contains: common stuff that are needed on all the machines configured in this repo.
+ */
+
 { lib, pkgs, ...}:
 {
   imports = [
@@ -18,10 +23,6 @@
 
     # Enable fwupd - Firmware updater.
     services.fwupd.enable = lib.mkDefault true;
-
-    # Enable the OpenSSH daemon.
-    services.openssh.enable = true;
-    services.openssh.settings.PubkeyAuthentication = true;
 
     # Limit the space occupied by logs.
     services.journald.extraConfig = ''

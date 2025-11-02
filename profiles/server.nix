@@ -5,6 +5,11 @@
   ];
 
   config = {
+
+    # Enable the OpenSSH daemon.
+    services.openssh.enable = true;
+    services.openssh.settings.PubkeyAuthentication = true;
+
     # Don't build documentation on servers.
     documentation.enable = false;
     documentation.man.enable = false;

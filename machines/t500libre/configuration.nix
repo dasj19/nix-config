@@ -121,25 +121,6 @@ in
   services.mysql.enable = true;
   services.mysql.package = pkgs.mariadb;
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  services.openssh.hostKeys = [
-    {
-      bits = 4096;
-      openSSHFormat = true;
-      path = "/etc/ssh/ssh_host_rsa_key";
-      rounds = 100;
-      type = "rsa";
-    }
-    {
-      comment = "t500libre";
-      path = "/etc/ssh/ssh_host_ed25519_key";
-      rounds = 100;
-      type = "ed25519";
-    }
-  ];
-
   # A searxng instance.
   services.searx = {
     enable = true;

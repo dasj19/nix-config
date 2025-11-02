@@ -82,8 +82,7 @@ in
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # OpenSSH settings.
   services.openssh.settings.PermitRootLogin = "without-password";
 
   # Open ports in the firewall.

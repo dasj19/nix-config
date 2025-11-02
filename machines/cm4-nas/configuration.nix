@@ -41,9 +41,6 @@ in
     iperf
   ];
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   fileSystems."/export/md0" = {
     device = "/mnt/md0";
     options = [ "bind" ];

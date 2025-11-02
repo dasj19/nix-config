@@ -104,8 +104,7 @@ in
 
   # ENABLED SERVICES:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # OpenSSH settings.
   services.openssh.settings.PermitRootLogin = "yes";
   services.openssh.ports = [ 2202 ];
   # https://stackoverflow.com/questions/8250379/sftp-on-linux-server-gives-error-received-message-too-long

@@ -69,8 +69,7 @@ in
 
   # List services.
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # OpenSSH settings.
   services.openssh.settings.PermitRootLogin = "yes";
 
   # @TODO: investigate if this is needed.

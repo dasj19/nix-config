@@ -229,10 +229,6 @@ in
     "vboxusers"
   ];
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.settings.PubkeyAuthentication = true;
-
   services.mysql.enable = true;
   services.mysql.package = pkgs.mariadb;
 

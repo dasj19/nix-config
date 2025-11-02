@@ -78,8 +78,7 @@ in
 
   # ENABLED SERVICES:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable                    = true;
+  # OpenSSH settings.
   services.openssh.settings.PermitRootLogin  = "yes";
   #services.openssh.settings.LogLevel         = "DEBUG";
   services.openssh.ports                     = [ 2201 ];
