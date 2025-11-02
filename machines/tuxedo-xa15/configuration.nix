@@ -142,8 +142,6 @@ in
 
     # Desktop apps.
     discord
-    #gcstar
-    gimp
     gparted
     inkscape
     lbry
@@ -179,13 +177,9 @@ in
     # P2P.
     bitcoin
     radarr
-    nicotine-plus
-    sabnzbd
 
     # Temporary.
     iperf
-    kodi
-    bitmagnet
     openssl
 
     (pkgs.python3.withPackages (python-pkgs: [
@@ -256,7 +250,6 @@ in
     # Proprietary software.
     "discord"
     "drawio"
-    "soulseekqt"
     "unrar"
 
     # Machine learning tools - ollama-cuda dependencies.
