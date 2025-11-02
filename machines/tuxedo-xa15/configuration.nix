@@ -1,3 +1,13 @@
+/*
+ * tuxedo-xa15: my old powerful but noisy laptop
+ * model: Tuxedo Book XA 15
+ *
+ * Notes:
+ *  - no longer used as a daily driver.
+ *  - used to test heavy offline-AI
+ *  - sometimes booted into Batocera from an external SDD.
+ */
+
 { config, lib, pkgs, ... }:
 
 let
@@ -226,9 +236,11 @@ in
   services.mysql.enable = true;
   services.mysql.package = pkgs.mariadb;
 
-  # https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
-  nix.settings.max-jobs = 24;
-  nix.settings.cores = 1;
+  # tuxedo-xa15 has a total of 32 cores.
+  # use at most 4 corse per jobs, and max 8 parallel jobs in total.
+  # @see https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
+  nix.settings.max-jobs = 8;
+  nix.settings.cores = 4;
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [
