@@ -128,7 +128,7 @@
       "image/jpeg"                      = "org.gnome.Loupe.desktop";
       "image/png"                       = "org.gnome.Loupe.desktop";
       "image/webp"                      = "org.gnome.Loupe.desktop";
-      "text/calendar"                   = "";
+      "text/calendar"                   = "org.gnome.Evolution.desktop";
       "text/css"                        = "org.gnome.TextEditor.desktop";
       "text/csv"                        = "org.gnome.TextEditor.desktop";
       "text/javascript"                 = "org.gnome.TextEditor.desktop";
