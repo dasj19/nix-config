@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -70,6 +70,11 @@
   ];
 
   nixpkgs.config.nvidia.acceptLicense = true;
+
+  # t14 has a total of 8 cores.
+  # Builds max 4 parallel jobs at once using at most 2 cores per job.
+  nix.settings.max-jobs = 4;
+  nix.settings.cores = 2;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
