@@ -125,16 +125,6 @@ in
     "CF_ZONE_API_TOKEN_FILE" = config.sops.secrets.cloudflare_zone_api_token.path;
   };
 
-  # Fish shell customizations.
-  programs.fish.interactiveShellInit = ''
-    # Forcing true color in the terminals.
-    set -g fish_term24bit 1
-    # Empty fish greeting. @TODO: consider making it a nix option for fish.
-    set -g fish_greeting ""
-    # Add custom message to the fish prompt.
-    echo 'CONTABO _1_'
-  '';
-
   # Initial version. Check manual before changing.
   system.stateVersion = "24.05";
 
