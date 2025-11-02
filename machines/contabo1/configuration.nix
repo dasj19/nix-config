@@ -18,11 +18,6 @@ in
   imports = [ 
     # Profile.
     ./../../profiles/server.nix
-    # Modules.
-    ./../../modules/fish.nix
-    ./../../modules/keyboard.nix
-    ./../../modules/locale.nix
-    ./../../modules/users.nix
     # Include the results of the hardware scan.
     ./hardware.nix
     # Email server configuration.
