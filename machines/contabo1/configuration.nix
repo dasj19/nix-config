@@ -1,3 +1,12 @@
+/*
+ * contabo1: github runner, mailserver, webserver
+ * model: Contabo SSD VPS
+ *
+ * Notes:
+ *  - can be busy at times, especially
+ *    after I push new updates to the config
+ */
+
 { config, gitSecrets, pkgs, sopsSecrets, ... }:
 
 let
