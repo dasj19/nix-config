@@ -1,3 +1,13 @@
+/*
+ * t14: my daily driver laptop
+ * model: Lenovo T14 Gen1
+ *
+ * Notes:
+ *  - any offline AI work has to be done on CPU which is very slow,
+ *    therefore online AI should be used.
+ *  - sudo-rs is set up to be used using fingerprint first with password as fallback.
+ */
+
 { pkgs, ... }:
 
 {
@@ -73,6 +83,7 @@
 
   # t14 has a total of 8 cores.
   # Builds max 4 parallel jobs at once using at most 2 cores per job.
+  # @see https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
   nix.settings.max-jobs = 4;
   nix.settings.cores = 2;
 
