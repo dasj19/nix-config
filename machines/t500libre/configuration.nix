@@ -140,7 +140,6 @@ in
   };
 
   # SSH server settings.
-  services.openssh.extraConfig = "MaxAuthTries 20";
   services.openssh.ports = [ 2201 ];
   services.openssh.settings.PermitRootLogin = "yes";
 

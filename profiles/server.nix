@@ -9,6 +9,9 @@
     # Enable the OpenSSH daemon.
     services.openssh.enable = true;
     services.openssh.settings.PubkeyAuthentication = true;
+    services.openssh.extraConfig = "MaxAuthTries 20";
+    # https://stackoverflow.com/questions/8250379/sftp-on-linux-server-gives-error-received-message-too-long
+    services.openssh.sftpServerExecutable = "internal-sftp";
 
     # Don't build documentation on servers.
     documentation.enable = false;

@@ -80,9 +80,7 @@ in
 
   # OpenSSH settings.
   services.openssh.settings.PermitRootLogin  = "yes";
-  #services.openssh.settings.LogLevel         = "DEBUG";
-  services.openssh.ports                     = [ 2201 ];
-  services.openssh.sftpServerExecutable      = "internal-sftp"; # https://stackoverflow.com/questions/8250379/sftp-on-linux-server-gives-error-received-message-too-long
+  services.openssh.ports = [ 2201 ];
 
   # Enable fail2ban with the default sshd jail, and other jails defined below.
   services.fail2ban.enable = true;
