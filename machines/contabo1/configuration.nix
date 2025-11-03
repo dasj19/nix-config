@@ -80,11 +80,6 @@ in
     postgresql
   ];
 
-  # List services that you want to enable:
-
-  # OpenSSH settings.
-  services.openssh.settings.PermitRootLogin = "without-password";
-
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22   # OpenSSH.

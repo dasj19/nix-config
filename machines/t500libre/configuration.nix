@@ -141,7 +141,6 @@ in
 
   # SSH server settings.
   services.openssh.ports = [ 2201 ];
-  services.openssh.settings.PermitRootLogin = "yes";
 
   # Local DNS cache server. @TODO: Check to what extent is this used.
   services.resolved.enable = true;

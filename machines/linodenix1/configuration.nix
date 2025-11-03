@@ -79,7 +79,6 @@ in
   # ENABLED SERVICES:
 
   # OpenSSH settings.
-  services.openssh.settings.PermitRootLogin  = "yes";
   services.openssh.ports = [ 2201 ];
 
   # Enable fail2ban with the default sshd jail, and other jails defined below.

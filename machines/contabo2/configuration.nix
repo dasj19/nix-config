@@ -69,9 +69,6 @@ in
 
   # List services.
 
-  # OpenSSH settings.
-  services.openssh.settings.PermitRootLogin = "yes";
-
   # @TODO: investigate if this is needed.
   services.logrotate.checkConfig = false;
 

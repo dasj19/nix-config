@@ -105,7 +105,6 @@ in
   # ENABLED SERVICES:
 
   # OpenSSH settings.
-  services.openssh.settings.PermitRootLogin = "yes";
   services.openssh.ports = [ 2202 ];
 
   # Linux kernel - Using a LTS kernel.
