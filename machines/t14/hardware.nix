@@ -44,9 +44,17 @@
 
   boot.kernelModules = [ "kvm-intel" ];
   boot.kernelParams = [
+    # Allow to enter a root shell at fail (by providing root password).
+    "boot.shell_on_fail"
+
+    # set log level to KERN_WARNING
+    "loglevel=4"
     # Do not display errors and commands executed during boot.
     # https://discourse.nixos.org/t/removing-persistent-boot-messages-for-a-silent-boot/14835/9
     "quiet"
+
+    # Display a graphical boot instead of text.
+    "splash"
 
     # Suppresses ACPI errors:
     # kernel: ACPI Error: Aborting method \_SB.HIDD._DSM due to previous error (AE_AML_OPERAND_TYPE) (20240827/psparse-529)
