@@ -23,6 +23,7 @@ awscli
 bantime
 baseipv
 bashsh
+Batocera
 bchunk
 bibata
 binfmt
@@ -85,6 +86,7 @@ erros
 esrodk
 evtest
 exresop
+extlinux
 fastboot
 fastcgi
 fastfetch
