@@ -1,4 +1,25 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+
+let
+
+  # @todo: update with stock nil when a release newer than 03-11-2025 occurs.
+  nil-master = pkgs.nil.overrideAttrs (prev: rec {
+    version = "2025-11-03";
+    src = pkgs.fetchFromGitHub {
+      owner = "oxalica";
+      repo = "nil";
+      rev = "master";
+      hash = "sha256-ImGN436GYd50HjoKTeRK+kWYIU/7PkDv15UmoUCPDUk=";
+    };
+
+    cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+      inherit src;
+      hash = "sha256-LS2IW4gZ1k6Xl5weMNwxvVA2z56r4rPkjqrkROZTmBw=";
+    };
+  });
+
+in
+
 {
   config = {
     # Nix build settings.
@@ -23,7 +44,7 @@
     # Packages for nix ecosystem.
     environment.systemPackages = with pkgs; [
       hydra-check
-      nil
+      nil-master # @todo: change to stock nil once a new release is available.
       nix-search-cli
       nix-prefetch
       nix-prefetch-git
