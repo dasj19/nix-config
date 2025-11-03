@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     # Profiles.
@@ -12,6 +12,11 @@
   ];
 
   config = {
+
+    # Preferred laptop Linux kernel - latest zen kernel.
+    # @see https://github.com/zen-kernel/zen-kernel/wiki/FAQ
+    # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
+    boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_zen;
 
     services.journald.extraConfig = "MaxRetentionSec=1week";
 
