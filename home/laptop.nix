@@ -32,6 +32,8 @@
   };
 
   dconf.settings."org/gnome/desktop/interface" = {
+    # Display date on the top bar.
+    clock-show-date = true;
     # Display the weekday in the date close to the clock.
     clock-show-weekday = true;
     # Disable the default hot-corners.
@@ -42,6 +44,15 @@
     text-scaling-factor = 0.90;
     toolbar-icons-size = "small";
   };
+
+  dconf.settings."org/gnome/desktop/peripherals/mouse" = {
+    natural-scroll = true;
+  };
+  dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
+    natural-scroll = true;
+    tap-to-click = true;
+  };
+
   dconf.settings."org/gnome/desktop/notifications" = {
     # Disable notifications in the lock screen.
     show-in-lock-screen = false;
