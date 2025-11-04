@@ -23,6 +23,7 @@ awscli
 bantime
 baseipv
 bashsh
+batdiff
 Batocera
 bchunk
 bibata
@@ -39,8 +40,7 @@ btusb
 cccl
 cdrom
 CHACHA
-codeium
-colordiff
+cloc
 conexant
 contabo
 contile
@@ -65,6 +65,7 @@ dconf
 debootstrap
 deepseek
 defaultenginename
+desktopeditors
 devbox
 devedition
 dhcpcd
@@ -181,6 +182,7 @@ libvirtd
 libwebp
 lidswitch
 linodenix
+litecli
 litellm
 localip
 localsearch
@@ -209,6 +211,7 @@ mynixos
 mysqld
 nadim
 ncdu
+neofetch
 nerdfont
 netcat
 nettools
@@ -239,12 +242,14 @@ oderwat
 ohci
 ollama
 oneline
+onlyoffice
 openconnect
 openrgb
 optimise
 osdlyrics
 osup
 pagenavi
+pandoc
 pciutils
 pdfarranger
 pgsql
@@ -264,12 +269,14 @@ pomodoro
 powersave
 powertop
 pressbook
+procs
 protonvpn
 pscpu
 psmem
 psmouse
 psobject
 psparse
+pstree
 Pubkey
 publickey
 PUBLICSHARE
@@ -316,6 +323,7 @@ stdenv
 strawberrymusicplayer
 stylix
 substituters
+subtitlecomposer
 swraid
 symfony
 synaptics

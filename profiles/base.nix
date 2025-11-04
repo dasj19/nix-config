@@ -40,50 +40,47 @@
     # These should be CLI-only packages.
     environment.systemPackages = with pkgs; [
       # CLI.
-      aria2
-      bat
-      colordiff
-      cloc
-      dig
-      dmidecode
-      dust
-      eza
-      fastfetch
-      fd
-      gh
-      git
-      hexyl
-      htop
-      jq
-      litecli
-      lf
-      lolcat
-      lsof
-      lshw
-      legit
-      ncdu
-      nmap
-      pandoc
-      pciutils
-      procs
-      pstree
-      ripgrep-all
-      screen
-      smartmontools
-      tldr
-      tmux
-      tree
-      usbutils
-      unzip
-      wget
+      aria2               # Multi-protocol downloader
+      bat                 # Improved version of cat.
+      bat-extras.batdiff  # Diff in bat style.
+      cloc                # Calculate lines of code.
+      dig                 # DNS lookup utility.
+      dmidecode           # DMI table decoder
+      dust                # Improved version of du.
+      eza                 # Improved version of ls-
+      fastfetch           # Improved version of neofetch.
+      fd                  # Simple alternative to find.
+      gh                  # Github CLI.
+      git                 # File versioning system CLI.
+      htop                # Interactive process viewer.
+      jq                  # CLI Json processor.
+      litecli             # SQLite CLI client.
+      lf                  # Terminal file manager.
+      lsof                # List open files.
+      lshw                # List hardware data.
+      legit               # Complementary utility for the git command.
+      ncdu                # du with ncurses.
+      nmap                # Network exploration tool.
+      pandoc              # Document conversion utility.
+      pciutils            # Inspects and manipulates configuration of PCI devices.
+      procs               # Retrieve information about active processes.
+      pstree              # Shows the running process tree.
+      ripgrep-all         # Recursive search tool.
+      smartmontools       # Control utility for SMART disks.
+      tldr                # Shows concise manual information about cli commands.
+      tmux                # Terminal multiplexer.
+      tree                # Displays hierarchical structure of folders.
+      usbutils            # Tools for working with USB devices.
+      unzip               # Unzipping cli tool.
+      wget                # Online resource fetcher.
 
       # Drivers and Firmware.
-      ntfs3g
+      ntfs3g              # Driver for NTFS.
 
       # Encryption.
-      age
-      git-crypt
-      sops
+      age                 # Age encryption libraries.
+      git-crypt           # Git supported encryption utility.
+      sops                # Sops secret manager.
     ];
   };
 }
