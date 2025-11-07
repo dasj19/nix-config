@@ -114,6 +114,7 @@
     fire-enable-effect=false
     tv-enable-effect=true
   '';
+
   dconf.settings."org/gnome/shell/extensions/burn-my-windows" = {
     active-profile = "${config.home.homeDirectory}/.config/burn-my-windows/profiles/custom.conf";
   };
@@ -125,6 +126,9 @@
   # Extensions enabled in VS Codium.
   programs.vscode.profiles.default.extensions =
     with pkgs.vscode-extensions; [
+    # Github Copilot.
+    github.copilot
+
     # PHP.
     bmewburn.vscode-intelephense-client
 
@@ -162,21 +166,37 @@
   ];
 
   programs.vscode.profiles.default.userSettings = {
+    # Startup empty.
+    "workbench.startupEditor" = "none";
     # Set default tab size.
     "[php]"."editor.tabSize" = 2;
-    # AI Assistant.
-    "codeium.enableConfig"."*" = true;
-    "codeium.enableConfig"."nix" = true;
+
     # Spell checker.
     "cSpell.language" = "en";
     "cSpell.enabledFileTypes"."nix" = true;
+
     # Nix language.
     "nix.enableLanguageServer" = true;
     "nix.serverPath" = "nil";
+
+    # Github Copilot.
+    # @see https://github.com/VSCodium/vscodium/discussions/1487
+    "github.copilot.enable" = {
+      "*"           = true;
+      "markdown"    = false;
+      "plaintext"   = false;
+      "json"        = false;
+      "yaml"        = false;
+      "nix"         = true;
+      "shellscript" = true;
+      "php"         = true;
+      "twig"        = true;
+    };
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "vscode-extension-bmewburn-vscode-intelephense-client"
+    "vscode-extension-github-copilot"
   ];
 
   # Add Kando to the list of autostart programs.
