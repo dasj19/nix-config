@@ -19,10 +19,6 @@
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-  inputs.nix-alien.url = "github:thiagokokada/nix-alien";
-  inputs.nix-alien.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nix-alien.inputs.flake-compat.follows = "flake-compat";
-
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
   inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
   inputs.simple-nixos-mailserver.inputs.flake-compat.follows = "flake-compat";
@@ -51,7 +47,6 @@
     awesome-linux-templates,
     nixos-artwork,
     nixos-hardware,
-    nix-alien,
     nix-vscode-extensions,
     sops-nix,
     simple-nixos-mailserver,
@@ -237,13 +232,6 @@
             inherit gitSecrets;
           };
         }
-        ({ self, system, ... }: {
-          environment.systemPackages = [
-            nix-alien
-          ];
-          # Optional, needed for `nix-alien-ld`
-          programs.nix-ld.enable = true;
-        })
       ];
     };
     nixosConfigurations.cm4-nas = nixpkgs.lib.nixosSystem {
