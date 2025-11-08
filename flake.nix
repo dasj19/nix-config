@@ -54,6 +54,31 @@
   let
     gitSecrets = builtins.fromJSON(builtins.readFile "${self}/secrets/git-secrets.json");
     sopsSecrets = ./secrets/variables.yaml;
+
+    # A function to create a default system configuration that can be extended.
+    mkDefaultSystem = cfg: let
+      defaults = {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit awesome-linux-templates;
+          inherit gitSecrets;
+          inherit nixos-artwork;
+          inherit sopsSecrets;
+        };
+        # Common modules for all systems.
+        modules = [
+          sops-nix.nixosModules.sops
+          stylix.nixosModules.stylix
+          home-manager.nixosModules.home-manager
+        ];
+      };
+      # Merge defaults with custom configuration.
+      config = defaults // cfg // {
+        specialArgs = defaults.specialArgs // (cfg.specialArgs or {});
+        modules = defaults.modules ++ (cfg.modules or []);
+      };
+    in
+      nixpkgs.lib.nixosSystem config;
   in
 
   {
@@ -241,22 +266,10 @@
       ];
     };
 
-    nixosConfigurations.t14 = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {
-        inherit awesome-linux-templates;
-        inherit gitSecrets;
-        inherit nixos-artwork;
-        inherit sopsSecrets;
-      };
+    nixosConfigurations.t14 = mkDefaultSystem {
       modules = [
         ./machines/t14/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
-
         nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
-
-        home-manager.nixosModules.home-manager
         {
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
