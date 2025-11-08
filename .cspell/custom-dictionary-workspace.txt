@@ -37,6 +37,7 @@ brightnessctl
 btintel
 btrtl
 btusb
+cachix
 cccl
 cdrom
 CHACHA
@@ -139,6 +140,7 @@ htpasswd
 humanstxt
 hwdep
 hyperscan
+IBPB
 icmpv
 imagick
 IMAP
@@ -187,6 +189,7 @@ litellm
 localip
 localsearch
 logind
+loglevel
 lrcget
 lshw
 luks
@@ -210,6 +213,7 @@ myip
 mynixos
 mysqld
 nadim
+Nanode
 ncdu
 neofetch
 nerdfont
@@ -314,6 +318,7 @@ smartmontools
 SMTPS
 snes
 SNIV
+sopsnix
 soulseekqt
 soundconverter
 soundcore
