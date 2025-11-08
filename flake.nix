@@ -278,7 +278,7 @@
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
 
-        nixos-hardware.nixosModules.lenovo-thinkpad-t14
+        nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
 
         home-manager.nixosModules.home-manager
         {
