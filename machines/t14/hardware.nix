@@ -173,11 +173,6 @@
   # Check https://www.nvidia.com/en-us/drivers/results/ for the latest driver available.
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-  hardware.nvidia.prime.offload.enable = true;
-  hardware.nvidia.prime.offload.enableOffloadCmd = true;
-  hardware.nvidia.prime.intelBusId = "PCI:0:2:0";   # Interface pci@0000:00:02.0
-  hardware.nvidia.prime.nvidiaBusId = "PCI:45:0:0"; # Interface pci@0000:2d:00.0
-
   # Thinkfan manages cooling fans.
   # @see https://gist.github.com/Yatoom/1c80b8afe7fa47a938d3b667ce234559
   services.thinkfan.enable = true;
