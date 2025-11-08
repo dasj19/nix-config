@@ -3,3 +3,5 @@ In this file I'll try to mention major changes to the configuration.
 
 2025-11-08
 - t14: Inheriting a new hardware configuration from nixos-hardware, codename: lenovo-thinkpad-t14-intel-gen1-nvidia
+- flake: removed nix-alien as project dependency
+- flake: removed vscode-server as project dependency

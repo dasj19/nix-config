@@ -29,10 +29,6 @@
   inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   inputs.nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.vscode-server.url = "github:nix-community/nixos-vscode-server";
-  inputs.vscode-server.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.vscode-server.inputs.flake-utils.follows = "flake-utils";
-
   inputs.systems.url = "github:nix-systems/x86_64-linux";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
@@ -52,7 +48,6 @@
     simple-nixos-mailserver,
     stylix,
     home-manager,
-    vscode-server,
     ... 
   }:
 
@@ -184,13 +179,6 @@
         sops-nix.nixosModules.sops
         stylix.nixosModules.stylix
         nixos-hardware.nixosModules.dell-xps-13-9380
-
-        # These are not yet used by the xps13-9380 machine.
-        vscode-server.nixosModules.default
-        ({ config, pkgs, ... }: {
-          services.vscode-server.enable = true;
-          services.vscode-server.enableFHS = true;
-        })
 
         home-manager.nixosModules.home-manager
         {
