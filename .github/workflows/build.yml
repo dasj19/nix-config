@@ -33,14 +33,6 @@ jobs:
           build .#nixosConfigurations.t14.config.system.build.toplevel \
           --keep-going
 
-      # Building packages for tuxedo-x15.
-      - name: Build tuxedo-xa15 packages
-        run: |
-          # Building the flake for the tuxedo-xa15 system
-          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          build .#nixosConfigurations.tuxedo-xa15.config.system.build.toplevel \
-          --keep-going
-
       # Building packages for contabo2.
       - name: Build contabo2 packages
         run: |
