@@ -6,6 +6,7 @@ In this file I'll try to mention major changes to the configuration.
 - workflows: updated github workflow dependencies
 - workflows: pulled out the tuxedo-xa15 from the build pipeline
 - flake: extracted common definitions in functions like mkDefaultSystem, mkLaptopSystem and mkServerSystem
+- profiles: removed unused profile for office
 
 2025-11-08
 - t14: Inheriting a new hardware configuration from nixos-hardware, codename: lenovo-thinkpad-t14-intel-gen1-nvidia.
