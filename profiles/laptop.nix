@@ -22,6 +22,8 @@
     services.journald.extraConfig = "MaxRetentionSec=1week";
 
     allowedUnfree = [
+      # CLI.
+      "github-copilot-cli"
       # Libraries.
       "unrar"
       # GUI.
@@ -38,6 +40,7 @@
       ffmpeg-full
       flac
       gh
+      github-copilot-cli
       inetutils
       khard
       neo-cowsay
