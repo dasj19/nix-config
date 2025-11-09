@@ -26,9 +26,6 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-  inputs.nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
-
   inputs.systems.url = "github:nix-systems/x86_64-linux";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
@@ -43,7 +40,6 @@
     awesome-linux-templates,
     nixos-artwork,
     nixos-hardware,
-    nix-vscode-extensions,
     sops-nix,
     simple-nixos-mailserver,
     stylix,
@@ -146,14 +142,6 @@
       modules = [
         ./machines/tuxedo-xa15/configuration.nix
         #nixos-hardware.nixosModules.tuxedo-xa15 # does not exist yet.
-
-        # Extend nixpkgs with VSCode extensions.
-        {
-          nixpkgs.overlays = [
-            nix-vscode-extensions.overlays.default # Also have a look at https://github.com/nix-community/nix-vscode-extensions/issues/29
-          ]; 
-        }
-        home-manager.nixosModules.home-manager
       ];
     };
     nixosConfigurations.cm4-nas = mkServerSystem {
