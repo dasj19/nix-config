@@ -46,6 +46,16 @@ Whenever I run *osup* on a machine that uses the builder.nix part of the buildin
 to the remote server that has updated builds of my configuration, thus making the build faster.
 I also get emails when the automated build fails thus the failure does not propagate to all of the machines.
 
+# Secrets
+Passwords are managed using sops-nix.
+Rest of the secrets that are not to be shared in git are protected using git-crypt.
+The sops and git-crypt decryption keys are to be found on the individual machines and need to be copied manually.
+
+Sops key in: `~/.config/sops/age/keys.txt`.
+
+Git-crypt key: `git-crypt-key`
+
+
 # Machines
 
 |   Hostname  | Brand and model  |   CPU                |  RAM  |   GPU(s)                       | Role | OS  | State | Location |
