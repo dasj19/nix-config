@@ -70,11 +70,8 @@
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [
-    # Libraries.
-    "unrar"
     # GUI.
     "discord"
-    "drawio"
     # Server software.
     "open-webui"
   ];

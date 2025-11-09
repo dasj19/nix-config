@@ -255,10 +255,8 @@ in
     # AI stuff.
     "open-webui"
 
-    # Proprietary software.
+    # GUI.
     "discord"
-    "drawio"
-    "unrar"
 
     # Machine learning tools - ollama-cuda dependencies.
     "cuda_cccl"

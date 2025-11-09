@@ -9,6 +9,7 @@
     ./../modules/builder.nix
     ./../modules/gnome.nix
     ./../modules/stylix.nix
+    ./../modules/non-free.nix
   ];
 
   config = {
@@ -19,6 +20,13 @@
     boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_zen;
 
     services.journald.extraConfig = "MaxRetentionSec=1week";
+
+    allowedUnfree = [
+      # Libraries.
+      "unrar"
+      # GUI.
+      "drawio"
+    ];
 
     # Laptop packages.
     environment.systemPackages = with pkgs; [
