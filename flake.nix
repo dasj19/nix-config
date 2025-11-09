@@ -79,133 +79,10 @@
       };
     in
       nixpkgs.lib.nixosSystem config;
-  in
 
-  {
-    nixosConfigurations.contabo1 = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit gitSecrets;
-        inherit sopsSecrets;
-      };
-      system = "x86_64-linux";
+    # A function to create laptop systems with common configuration.
+    mkLaptopSystem = cfg: mkDefaultSystem {
       modules = [
-        ./machines/contabo1/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
-        simple-nixos-mailserver.nixosModule
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/server.nix;
-
-          # Pass arguments to home.nix
-          home-manager.extraSpecialArgs = {
-            inherit gitSecrets;
-          };
-        }
-      ];
-    };
-    nixosConfigurations.contabo2 = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit gitSecrets;
-        inherit sopsSecrets;
-      };
-      system = "x86_64-linux";
-      modules = [
-        ./machines/contabo2/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
-        simple-nixos-mailserver.nixosModule
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/server.nix;
-
-          # Optionally, use home-manager.extraSpecialArgs to pass
-          # arguments to home.nix
-          home-manager.extraSpecialArgs = {
-            inherit gitSecrets;
-          };
-        }
-      ];
-    };
-    nixosConfigurations.linodenix1 = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit gitSecrets;
-        inherit sopsSecrets;
-      };
-      system = "x86_64-linux";
-      modules = [
-        ./machines/linodenix1/configuration.nix
-        simple-nixos-mailserver.nixosModule
-        sops-nix.nixosModules.sops
-      ];
-    };
-    nixosConfigurations.linodenix2 = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit gitSecrets;
-        inherit sopsSecrets;
-      };
-      system = "x86_64-linux";
-      modules = [
-        ./machines/linodenix2/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
-        simple-nixos-mailserver.nixosModule
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/server.nix;
-
-          # Optionally, use home-manager.extraSpecialArgs to pass
-          # arguments to home.nix
-          home-manager.extraSpecialArgs = {
-            inherit gitSecrets;
-          };
-        }
-      ];
-    };
-    nixosConfigurations.t500libre = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit gitSecrets;
-        inherit sopsSecrets;
-      };
-      system = "x86_64-linux";
-      modules = [
-        ./machines/t500libre/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
-        nixos-hardware.nixosModules.lenovo-thinkpad
-        simple-nixos-mailserver.nixosModule
-        home-manager.nixosModules.home-manager
-        {
-          #home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/server.nix;
-
-          # Optionally, use home-manager.extraSpecialArgs to pass
-          # arguments to home.nix
-          home-manager.extraSpecialArgs = {
-            inherit gitSecrets;
-          };
-        }
-      ];
-    };
-    nixosConfigurations.xps13-9380 = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit awesome-linux-templates;
-        inherit gitSecrets;
-        inherit nixos-artwork;
-        inherit sopsSecrets;
-      };
-      system = "x86_64-linux";
-      modules = [
-        ./machines/xps13-9380/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
-        nixos-hardware.nixosModules.dell-xps-13-9380
-
-        home-manager.nixosModules.home-manager
         {
           home-manager.useUserPackages = true;
           home-manager.users.daniel = import ./home/laptop.nix;
@@ -214,20 +91,60 @@
             inherit gitSecrets;
           };
         }
+      ] ++ (cfg.modules or []);
+    };
+
+    # A function to create server systems with common configuration.
+    mkServerSystem = cfg: mkDefaultSystem {
+      modules = [
+        simple-nixos-mailserver.nixosModule
+        {
+          home-manager.useUserPackages = true;
+          home-manager.users.daniel = import ./home/server.nix;
+          home-manager.extraSpecialArgs = {
+            inherit gitSecrets;
+          };
+        }
+      ] ++ (cfg.modules or []);
+    };
+  in
+
+  {
+    nixosConfigurations.contabo1 = mkServerSystem {
+      modules = [
+        ./machines/contabo1/configuration.nix
       ];
     };
-    nixosConfigurations.tuxedo-xa15 = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit awesome-linux-templates;
-        inherit gitSecrets;
-        inherit nixos-artwork;
-        inherit sopsSecrets;
-      };
-      system = "x86_64-linux";
+    nixosConfigurations.contabo2 = mkServerSystem {
+      modules = [
+        ./machines/contabo2/configuration.nix
+      ];
+    };
+    nixosConfigurations.linodenix1 = mkServerSystem {
+      modules = [
+        ./machines/linodenix1/configuration.nix
+      ];
+    };
+    nixosConfigurations.linodenix2 = mkServerSystem {
+      modules = [
+        ./machines/linodenix2/configuration.nix
+      ];
+    };
+    nixosConfigurations.t500libre = mkServerSystem {
+      modules = [
+        ./machines/t500libre/configuration.nix
+        nixos-hardware.nixosModules.lenovo-thinkpad
+      ];
+    };
+    nixosConfigurations.xps13-9380 = mkLaptopSystem {
+      modules = [
+        ./machines/xps13-9380/configuration.nix
+        nixos-hardware.nixosModules.dell-xps-13-9380
+      ];
+    };
+    nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
       modules = [
         ./machines/tuxedo-xa15/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
         #nixos-hardware.nixosModules.tuxedo-xa15 # does not exist yet.
 
         # Extend nixpkgs with VSCode extensions.
@@ -237,28 +154,15 @@
           ]; 
         }
         home-manager.nixosModules.home-manager
-        {
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/laptop.nix;
-          home-manager.extraSpecialArgs = {
-            inherit awesome-linux-templates;
-            inherit gitSecrets;
-          };
-        }
       ];
     };
-    nixosConfigurations.cm4-nas = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit gitSecrets;
-        inherit sopsSecrets;
-      };
+    nixosConfigurations.cm4-nas = mkServerSystem {
       system = "aarch64-linux";
       modules = [
         ./machines/cm4-nas/configuration.nix
-        sops-nix.nixosModules.sops
-        stylix.nixosModules.stylix
       ];
     };
+
     nixosConfigurations.devbox = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -266,18 +170,10 @@
       ];
     };
 
-    nixosConfigurations.t14 = mkDefaultSystem {
+    nixosConfigurations.t14 = mkLaptopSystem {
       modules = [
         ./machines/t14/configuration.nix
         nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
-        {
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/laptop.nix;
-          home-manager.extraSpecialArgs = {
-            inherit awesome-linux-templates;
-            inherit gitSecrets;
-          };
-        }
       ];
     };
 
