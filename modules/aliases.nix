@@ -89,6 +89,8 @@
       osup    = "sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs";
       nhup    = "nh os switch .#nixosConfigurations.$(hostname)"; # calls sudo when needed.
       flup    = "nix flake update";
+      # Nix store cleanup.
+      nhcl    = "nh clean all --keep-since 5d --keep 3";
     };
 
     environment.systemPackages = with pkgs; [
