@@ -1,6 +1,24 @@
 { pkgs, ... }:
 {
   config = {
+
+    # Enable fish as the default shell.
+    users.defaultUserShell = pkgs.fish;
+    programs.fish.enable = true;
+
+    # Fish customizations.
+    programs.fish.interactiveShellInit = ''
+      # Forcing true colors.
+      set -g fish_term24bit 1
+      # Empty fish greeting. @TODO: make it a fish option upstream.
+      set -g fish_greeting ""
+      # Increase sponge delay. To keep in history the last x commands no matter the exit status.
+      set -g sponge_delay 5
+      # System information and current date.
+      fastfetch
+      echo (date "+%T - %F")
+    '';
+
     # Required packages.
     environment.systemPackages = with pkgs; [
       # Binary and dependencies.
@@ -26,22 +44,5 @@
       # Brings colors to man pages, this works better than colored-man-pages.
       (pkgs.callPackage ../pkgs/fish-colored-man.nix {inherit (pkgs.fishPlugins) buildFishPlugin; } )
     ];
-
-    # Enable fish as the default shell.
-    programs.fish.enable = true;
-    users.defaultUserShell = pkgs.fish;
-
-    # Fish customizations.
-    programs.fish.interactiveShellInit = ''
-      # Forcing true colors.
-      set -g fish_term24bit 1
-      # Empty fish greeting. @TODO: make it a fish option upstream.
-      set -g fish_greeting ""
-      # Increase sponge delay. To keep in history the last x commands no matter the exit status.
-      set -g sponge_delay 5
-      # System information and current date.
-      fastfetch
-      echo (date "+%T - %F")
-    '';
   };  
 }

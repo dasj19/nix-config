@@ -94,10 +94,10 @@
     };
 
     environment.systemPackages = with pkgs; [
-      curl
-      nettools # Contains netstat.
-      nh
-      speedtest-cli
+      curl          # Command line tool for transferring data from an URL.
+      nettools      # Contains netstat.
+      nh            # Nix helper - manage nixos and home-manager configurations.   
+      speedtest-cli # Test internet bandwidth speed from the command line.
     ];
   };
 }

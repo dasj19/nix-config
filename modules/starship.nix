@@ -10,7 +10,7 @@
       line_break = {
         disabled = true;
       };
-      # Automatically runs some commands that require sudo,
+      # Disable auto running commands that require sudo,
       # spamming the logs with failed auth requests.
       sudo = {
         disabled = true;
