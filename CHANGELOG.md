@@ -1,6 +1,11 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration. 
 
+2025-11-11
+- workflows: introduced build matrix, to parallel build all machines' configuration.
+- workflows: added automatic check for dependency updates using dependabot.
+- workflows: added monitoring of nix flake inputs using Renovate.
+
 2025-11-10
 - machines: added rpi4-tv as a new 64-bit arm server
 
