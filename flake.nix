@@ -7,7 +7,7 @@
   #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/linux/nixpkgs";
 
   # Assures compatibility with older version of nix before the version 2.4.
-  inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.1.0.tar.gz";
+  inputs.flake-compat.url = "github:NixOS/flake-compat/v1.1.0";
 
   # Archived repo that provides background pictures for the nix project.
   inputs.nixos-artwork.url = "github:NixOS/nixos-artwork";
