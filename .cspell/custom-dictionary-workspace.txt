@@ -222,6 +222,7 @@ nettools
 networkd
 networkmanager
 newtabpage
+nhcl
 nhlt
 nhup
 nixos

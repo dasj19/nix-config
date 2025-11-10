@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
 
@@ -30,9 +30,12 @@ in
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
 
-    nix.settings.download-buffer-size = 1073741824; # 1GB
+    # Increase download buffer size to 1GB to speed up downloads of large derivations.
+    nix.settings.download-buffer-size = 1073741824;
 
+    # Enable distributed builds for all nix builds.
     nix.distributedBuilds = true;
+    # User allowed to use distributed builds.
     nix.settings.trusted-users = [ "root" "daniel" ];
 
     # Nix and Nixpkgs configurations.
@@ -43,17 +46,16 @@ in
 
     # Packages for nix ecosystem.
     environment.systemPackages = with pkgs; [
-      hydra-check
-      nil-master # @todo: change to stock nil once a new release is available.
-      nix-search-cli
-      nix-prefetch
-      nix-prefetch-git
-      nix-serve
-      nix-tree
-      nixos-option # This: https://github.com/NixOS/nixpkgs/pull/313497 will work with flakes.
-      nixpkgs-fmt
-      nixpkgs-review
-      statix # code linter for nix.
+      hydra-check       # Hydra build status checker.
+      nil-master        # @todo: change to stock nil once a new release is available.
+      nix-search-cli    # CLI for searching nixpkgs.
+      nix-prefetch      # Nix fetcher for various sources.
+      nix-prefetch-git  # Nix fetcher for git repos.
+      nix-serve         # Simple Nix binary cache server.
+      nix-tree          # Visualize dependency graph of nix derivations.
+      nixpkgs-fmt       # Nix code formatter.
+      nixpkgs-review    # Tool to review nixpkgs pull requests.
+      statix            # Static analysis tool for nix code.
     ];
 
     # Nix store optimizations.
