@@ -1,6 +1,9 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration. 
 
+2025-11-10
+- machines: added rpi4-tv as a new 64-bit arm server
+
 2025-11-09
 - flake: introduced mkDefaultSystem function to avoid repeating common flake configurations across machine definitions.
 - workflows: updated github workflow dependencies

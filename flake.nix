@@ -151,6 +151,15 @@
       ];
     };
 
+    nixosConfigurations.rpi4-tv = mkServerSystem {
+      system = "aarch64-linux";
+      modules = [
+        ./machines/rpi4-tv/configuration.nix
+        nixos-hardware.nixosModules.raspberry-pi-4
+      ];
+    };
+
+
     nixosConfigurations.devbox = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -164,6 +173,5 @@
         nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
       ];
     };
-
   };
 }
