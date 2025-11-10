@@ -78,6 +78,9 @@
   programs.firefox.policies.Preferences."browser.translations.automaticallyPopup".Value = true; # revisit this setting.
   programs.firefox.policies.Preferences."browser.translations.neverTranslateLanguages".Value = "da,en,es,pt,ro";
 
+  # Disable geolocation prompts.
+  programs.firefox.policies.Preferences."geo.enabled".Value = false;
+
   # Apply extensions to all instances of Firefox system-wide.
   programs.firefox.policies.ExtensionSettings = {
     # Block all extension installations.
