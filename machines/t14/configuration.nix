@@ -15,6 +15,7 @@
     # Hardware config.
     ./hardware.nix
 
+    # Development environment.
     ./development.nix
 
     # Profile.
@@ -99,9 +100,10 @@
     sabnzbd
   ];
 
+  # Enable virtualization.
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-
+  # Measures USB traffic bandwidth.
   programs.usbtop.enable = true;
 
   # Setup hostname.s
@@ -131,12 +133,6 @@
     "1.1.1.1"
     "1.0.0.1"
   ];
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    22 # OpenSSH
-  ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
 
   # State version. Consult manual before changing.
   system.stateVersion = "25.11";
