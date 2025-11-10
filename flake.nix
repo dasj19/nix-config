@@ -2,37 +2,47 @@
 
   description = "The dasj-lab flake";
 
+  # Tracking 'nixpks-unstable' branch which is usually a couple days behind master.
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/linux/nixpkgs";
 
+  # Assures compatibility with older version of nix before the version 2.4.
   inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.1.0.tar.gz";
 
+  # Archived repo that provides background pictures for the nix project.
   inputs.nixos-artwork.url = "github:NixOS/nixos-artwork";
   inputs.nixos-artwork.flake = false;
 
+  # Security tool to encrypt-decrypt secrets.
   inputs.sops-nix.url = "github:Mic92/sops-nix";
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+  # Project that seeks to apply uniform styles for NixOS systems.
   inputs.stylix.url = "github:danth/stylix";
   inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.stylix.inputs.systems.follows = "systems";
 
+  # Hardware configurations for NixOS.
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
+  # A mail server stack.
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
   inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
   inputs.simple-nixos-mailserver.inputs.flake-compat.follows = "flake-compat";
 
+  # Manage user environment with nix.
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.systems.url = "github:nix-systems/x86_64-linux";
-
+  # Collection of pure Nix functions that don't depend on nixpkgs.
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.flake-utils.inputs.systems.follows = "systems";
 
+  # Collection of new file templates for the user environment.
   inputs.awesome-linux-templates.url = "github:dasj19/awesome-linux-templates";
   inputs.awesome-linux-templates.flake = false;
+
+  inputs.systems.url = "github:nix-systems/x86_64-linux";
 
   outputs = {
     self,
