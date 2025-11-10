@@ -66,6 +66,7 @@ Git-crypt key: `git-crypt-key`
 | devbox      | Virtualbox       |                      | 4  GB | Not Available                  | 🐄   | ❄️  | ✅    | 🏠 |
 | linodenix1  | Linode Nanode    | AMD EPYC 7601        | 1  GB | Not Available                  | ☁️   | ❄️  | ✅    | 🇩🇪 |
 | linodenix2  | Linode Nanode    | AMD EPYC 7601        | 1  GB | Not Available                  | ☁️   | ❄️  | ✅    | 🇩🇪 |
+| rpi4-tv     | RaspberryPi 4    |                      | 8  GB | Not Available                  | ☁️   | ❄️  | ✅    | 🏠 |
 | t14         | Lenovo T14       | Intel i7-10610U      | 24 GB | NVIDIA GeForce MX330           | 💻️   | ❄️  | ✅    | 🏠 |
 |             |                  |                      |       | Intel UHD Graphics (CML GT2)   |      |     |       |     |
 | t500libre   | Lenovo T500      | Intel Core 2 T9600   | 8  GB | Disabled                       | ☁️   | ❄️  | ✅    | 🇩🇰 |
