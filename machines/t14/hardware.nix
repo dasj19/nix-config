@@ -181,9 +181,6 @@
   # Use syslog-ng instead of the syslog.
   services.syslog-ng.enable = true;
 
-  # Disable fwupd service, can still be ran manually because it is installed as system package.
-  services.fwupd.enable = lib.mkForce false;
-
   # Enable CUPS to print documents from laptops.
   services.printing.enable = true;
   services.printing.drivers = [

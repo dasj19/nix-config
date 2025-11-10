@@ -21,6 +21,9 @@
 
     services.journald.extraConfig = "MaxRetentionSec=1week";
 
+    # Enable fwupd to manage firmware updates.
+    services.fwupd.enable = true;
+
     allowedUnfree = [
       # CLI.
       "github-copilot-cli"
