@@ -55,6 +55,12 @@
       zip
       zstd
 
+      # Libraries.
+      hunspell
+      hunspellDicts.da_DK
+      hunspellDicts.en_US
+      hunspellDicts.ro_RO
+
       # GUIs.
       czkawka
       drawio

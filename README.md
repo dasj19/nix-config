@@ -31,12 +31,10 @@ This repo holds configuration for NixOS machines I manage.
 The basic actions I need to do to deploy on a local machine follows:
 
 ```
-cd path/to/repo/files/nix-config
 sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs
 ```
 Or the short version (using the actual path and an alias defined in the aliases.nix module):
 ```
-cd ~/workspace/projects/nix-config
 osup
 ```
 Behind the scenes there are some workflows actions that help building the packages on a NixOS server I control.
