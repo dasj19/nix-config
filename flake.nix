@@ -65,6 +65,7 @@
     mkDefaultSystem = cfg: let
       defaults = {
         system = "x86_64-linux";
+        # Common special arguments for all systems.
         specialArgs = {
           inherit awesome-linux-templates;
           inherit gitSecrets;
@@ -151,13 +152,13 @@
     nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
       modules = [
         ./machines/tuxedo-xa15/configuration.nix
-        #nixos-hardware.nixosModules.tuxedo-xa15 # does not exist yet.
       ];
     };
     nixosConfigurations.cm4-nas = mkServerSystem {
       system = "aarch64-linux";
       modules = [
         ./machines/cm4-nas/configuration.nix
+        # @todo Include hardware support for the compute module 4.
       ];
     };
 
@@ -169,9 +170,7 @@
       ];
     };
 
-
     nixosConfigurations.devbox = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         ./machines/devbox/configuration.nix
       ];
