@@ -46,6 +46,10 @@ jobs:
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
 
+      # Ensure we have ssh. linodenix2 needs it to clone a private git repo.
+      - name: Open a shell with ssh
+        run: nix-shell -p openssh
+
       # Building packages for the system
       - name: Build ${{ matrix.system }} packages
         run: |
