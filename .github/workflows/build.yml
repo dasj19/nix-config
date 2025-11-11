@@ -54,9 +54,10 @@ jobs:
 
       # Building packages for the system
       - name: Build ${{ matrix.system }} packages
+        env:
+          MY_KEY: ${{ secrets.SSH_KEY }}
         run: |
           # Adding our private key to the local ssh instance.
-          export MY_KEY=`${{ secrets.SSH_KEY }}`
           ssh-add - <<< "$MY_KEY"
           # Building the flake for the ${{ matrix.system }} system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
