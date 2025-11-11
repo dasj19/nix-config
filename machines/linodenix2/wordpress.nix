@@ -32,10 +32,10 @@ let
 blogstream = pkgs.stdenv.mkDerivation rec {
   name = "blogstream";
   version = "1.1";
-  src = builtins.fetchGit {
-    url = "ssh://git@github.com/dasj19/blogstream.git";
-    ref = "main";
+  src = pkgs.fetchgit {
+    url = "git@github.com:dasj19/blogstream.git";
     rev = "ba32aa4f83dcdba8c75e680482080bd43701dba7";
+    sha256 = "sha256-46HGy7k70AT+SuNraAV67CsfIc2URRns2e7Fc/Ahhbo=";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
