@@ -48,6 +48,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: 'github.com'
 
+      - name: Prepare SSH
+        run: ssh -i /run/github-runner/nix-config-runner/.ssh/id_rsa
+
       # Unlocking secrets using the server's git-crypt key
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
