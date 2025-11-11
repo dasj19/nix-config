@@ -3,9 +3,11 @@
 {
   imports = [
     # Hardware config.
-      ./hardware.nix
+    ./hardware.nix
     # Local webserver configuration.
-      ./webserver.nix
+    ./webserver.nix
+    # Profiles.
+    ../../profiles/server.nix
   ];
 
   # Bootloader.
@@ -35,15 +37,6 @@
     LC_TELEPHONE = "da_DK.UTF-8";
     LC_TIME = "da_DK.UTF-8";
   };
-
-  # Keymap in X11.
-  services.xserver.xkb = {
-    layout = "es";
-    variant = "";
-  };
-
-  # Console keymap.
-  console.keyMap = "es";
 
   # Users.
   users.users.daniel = {

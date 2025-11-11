@@ -50,9 +50,6 @@
     "d /usr/local/share/polkit-1/rules.d 1777 polkituser polkituser 10d"
   ];
 
-  # Configure console keymap
-  console.keyMap = "es";
-
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
