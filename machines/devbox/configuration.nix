@@ -40,8 +40,6 @@
 
   # Users.
   users.users.daniel = {
-    isNormalUser = true;
-    description = "Daniel";
     extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
   };
   users.users.caddy = {
