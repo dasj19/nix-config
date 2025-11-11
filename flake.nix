@@ -170,7 +170,7 @@
       ];
     };
 
-    nixosConfigurations.devbox = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.devbox = mkServerSystem {
       modules = [
         ./machines/devbox/configuration.nix
       ];
