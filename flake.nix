@@ -2,8 +2,8 @@
 
   description = "The dasj-lab flake";
 
-  # Tracking 'nixpks-unstable' branch which is usually a couple days behind master.
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  # Tracking 'nixpkgs-unstable' branch which is usually a couple days behind master.
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/linux/nixpkgs";
 
   # Assures compatibility with older version of nix before the version 2.4.
