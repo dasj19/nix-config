@@ -16,9 +16,9 @@ in
       # Created with: openssl req  -nodes -new -x509  -keyout server.key -out server.cert
       tls "/srv/certs/server.cert" "/srv/certs/server.key"
 
-      # Use php81 with production-like settings for development tools.
+      # Use php82 with production-like settings for development tools.
       handle /webgrind/* {
-        php_fastcgi unix/${config.services.phpfpm.pools.php81.socket}
+        php_fastcgi unix/${config.services.phpfpm.pools.php82.socket}
       }
 
       # Deliver files and interpret php.
@@ -30,10 +30,10 @@ in
 
   # PHP-FPM pools.
   # https://discourse.nixos.org/t/502-bad-gateway-with-caddy-and-php-fastcgi/25429
-  services.phpfpm.pools."php81" = {
+  services.phpfpm.pools."php82" = {
     user = "caddy";
     group = "caddy";
-    phpPackage = pkgs.php81;
+    phpPackage = pkgs.php82;
     settings = {
       "listen.owner" = config.services.caddy.user;
       "pm" = "dynamic";
@@ -50,7 +50,7 @@ in
       display_errors=Off
       display_startup_errors=Off
       # Enable error logging to file.
-      error_log=/var/log/php81_errors.log
+      error_log=/var/log/php82_errors.log
       # Unlimited error length.
       log_errors_max_len=0
       # Increase memory limit.
@@ -62,7 +62,7 @@ in
       sendmail_path=/run/current-system/sw/bin/catchmail
       sendmail_from=mailcatcher@devbox.dev
     '';
-    phpEnv."PATH" = lib.makeBinPath [ pkgs.php81 ];
+    phpEnv."PATH" = lib.makeBinPath [ pkgs.php82 ];
   };
 
   services.phpfpm.pools."php84" = {
@@ -112,7 +112,7 @@ in
     phpEnv."PATH" = lib.makeBinPath [ pkgs.php84 ];
   };
   # Allow php to access the system's /tmp folder instead of systemd isolated tmp.
-  systemd.services.phpfpm-php81.serviceConfig.PrivateTmp = lib.mkForce false;
+  systemd.services.phpfpm-php82.serviceConfig.PrivateTmp = lib.mkForce false;
   systemd.services.phpfpm-php84.serviceConfig.PrivateTmp = lib.mkForce false;
 
   # Mailcatcher.
