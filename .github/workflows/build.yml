@@ -49,7 +49,7 @@ jobs:
           known_hosts: 'github.com'
 
       - name: Prepare SSH
-        run: ssh -i /run/github-runner/nix-config-runner/.ssh/id_rsa
+        run: export  GIT_SSH_COMMAND="ssh -i /run/github-runner/nix-config-runner/.ssh/id_rsa"
 
       # Unlocking secrets using the server's git-crypt key
       - name: Unlocking git secrets
