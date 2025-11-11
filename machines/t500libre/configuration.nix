@@ -102,7 +102,6 @@ in
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
     # CLI utils.
-    w3m
     netcat-gnu
     lynx
     powertop

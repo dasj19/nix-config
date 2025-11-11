@@ -72,6 +72,7 @@
       tree                # Displays hierarchical structure of folders.
       usbutils            # Tools for working with USB devices.
       unzip               # Unzipping cli tool.
+      w3m                 # Text-based web browser.
       wget                # Online resource fetcher.
 
       # Drivers and Firmware.

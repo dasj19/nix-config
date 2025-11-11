@@ -53,7 +53,6 @@
       subtitlecomposer
       unrar
       usbutils
-      w3m
       yt-dlp
       zip
       zstd
