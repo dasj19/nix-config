@@ -48,10 +48,24 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           known_hosts: 'github.com'
 
-      - name: Prepare SSH
+      - name: Configure SSH for Nix
         run: |
-          eval "$(ssh-agent -s)"
-          ssh-add /run/github-runner/nix-config-runner/.ssh/id_rsa
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          
+          # Create SSH config to use the key
+          cat > ~/.ssh/config << EOF
+          Host github.com
+            HostName github.com
+            User git
+            IdentityFile ~/.ssh/id_rsa
+            StrictHostKeyChecking no
+          EOF
+          chmod 600 ~/.ssh/config
+          
+          # Configure git to use SSH for GitHub
+          git config --global url."git@github.com:".insteadOf "https://github.com/"
 
       # Unlocking secrets using the server's git-crypt key
       - name: Unlocking git secrets
@@ -62,10 +76,6 @@ jobs:
         env:
           NIX_CONFIG: "access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}"
         run: |
-          # Configure SSH for Nix builder
-          mkdir -p ~/.ssh
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          
           # Building the flake for the ${{ matrix.system }} system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel \
