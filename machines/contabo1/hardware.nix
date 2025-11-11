@@ -14,6 +14,9 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  # Build arm 64-bit via QEMU.
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/9dc603d4-df35-48dc-9cce-8ca7cb05e7ff";
       fsType = "ext4";
