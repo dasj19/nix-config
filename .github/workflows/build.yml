@@ -22,17 +22,17 @@ jobs:
     strategy:
       matrix:
         system:
-          - cm4-nas
-          - contabo1
-          - contabo2
-          - devbox
-          - linodenix1
+          # - cm4-nas
+          # - contabo1
+          # - contabo2
+          # - devbox
+          # - linodenix1
           - linodenix2
-          - rpi4-tv
-          - t14
-          - t500libre
-          - tuxedo-xa15
-          - xps13-9380
+          # - rpi4-tv
+          # - t14
+          # - t500libre
+          # - tuxedo-xa15
+          # - xps13-9380
       fail-fast: false
 
     name: Build ${{ matrix.system }}
@@ -46,9 +46,8 @@ jobs:
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
 
-      # Ensure we have ssh. linodenix2 needs it to clone a private git repo.
-      - name: Open a shell with ssh
-        run: nix-shell -p openssh
+      - name: debug
+        run: which ssh && whoami
 
       # Building packages for the system
       - name: Build ${{ matrix.system }} packages
@@ -56,4 +55,4 @@ jobs:
           # Building the flake for the ${{ matrix.system }} system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel \
-          --keep-going
+          --keep-going --show-trace
