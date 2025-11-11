@@ -33,7 +33,7 @@ blogstream = pkgs.stdenv.mkDerivation rec {
   name = "blogstream";
   version = "1.1";
   src = builtins.fetchGit {
-    url = "ssh://git@github.com/dasj19/blogstream.git";
+    url = "git://git@github.com/dasj19/blogstream.git";
     ref = "main";
     rev = "ba32aa4f83dcdba8c75e680482080bd43701dba7";
   };
