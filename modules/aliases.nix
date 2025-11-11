@@ -86,11 +86,10 @@
       # @see https://stackoverflow.com/a/55620350
       indir   = "function indir; mkdir $argv; cd $argv; end; indir";
       cl      = "function cl; cd $argv; ls; end; cl";
-      # Nix specific. OS update. Flake update.
+      # Nix specific. OS update. Flake update. Clean nix store.
       osup    = "sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs";
       nhup    = "nh os switch .#nixosConfigurations.$(hostname)"; # calls sudo when needed.
       flup    = "nix flake update";
-      # Nix store cleanup.
       nhcl    = "nh clean all --keep-since 5d --keep 3";
     };
 
