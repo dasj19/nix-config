@@ -36,7 +36,7 @@ in
     # Enable distributed builds for all nix builds.
     nix.distributedBuilds = true;
     # User allowed to use distributed builds.
-    nix.settings.trusted-users = [ "root" "daniel" ];
+    nix.settings.trusted-users = [ "root" "daniel" "github-runner" ];
 
     # Nix and Nixpkgs configurations.
     nix.settings.experimental-features = [
