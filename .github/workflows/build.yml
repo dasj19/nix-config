@@ -42,6 +42,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v5
 
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+
       # Unlocking secrets using the server's git-crypt key
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
