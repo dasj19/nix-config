@@ -48,6 +48,7 @@
       b         = "cd -";
       c         = "clear";
       r         = "sudo -i";
+      x         = "exit";
       # Utils. background jobs, history shortcuts, simplified list of mounted partitions.
       j         = "jobs -l";
       o         = "history";
