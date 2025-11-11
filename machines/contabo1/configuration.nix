@@ -71,7 +71,7 @@ in
     name = "nix-config-runner";
     tokenFile = "/etc/nixos/nix-config-runner.token";
     url = "https://github.com/dasj19/nix-config";
-    extraPackages = [ pkgs.git-crypt ];
+    extraPackages = [ pkgs.git-crypt pkgs.openssh ];
   };
 
   # Packages installed in system profile.

@@ -46,9 +46,6 @@ jobs:
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
 
-      - name: debug
-        run: which ssh && whoami
-
       # Building packages for the system
       - name: Build ${{ matrix.system }} packages
         run: |
