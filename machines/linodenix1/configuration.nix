@@ -60,8 +60,7 @@ in
   networking.firewall.allowedUDPPorts = [
     # NO UDP PORTS ALLOWED YET.
   ];
-  networking.firewall.allowPing = true;
-  networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
+
   # Temp setting to not log refused connections.
   #networking.firewall.logRefusedConnections = false;
 

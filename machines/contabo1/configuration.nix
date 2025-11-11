@@ -103,8 +103,6 @@ in
     ip6tables -A INPUT -p icmpv6 -j ACCEPT
     ip6tables -A FORWARD -p icmpv6 -j ACCEPT
   '';
-  networking.firewall.allowPing = true;
-  networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
 
   services.logrotate.checkConfig = false;
 
