@@ -192,11 +192,6 @@ in
     iperf
     openssl
 
-    (pkgs.python3.withPackages (python-pkgs: [
-      python-pkgs.videocr
-      python-pkgs.requests
-    ]))
-
     # Games.
     evtest
     oversteer
