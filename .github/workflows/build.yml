@@ -62,7 +62,11 @@ jobs:
         env:
           NIX_CONFIG: "access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}"
         run: |
+          # Configure SSH for Nix builder
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          
           # Building the flake for the ${{ matrix.system }} system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel \
-          --keep-going --show-trace
+          --keep-going --show-trace --option sandbox false
