@@ -79,4 +79,4 @@ jobs:
           # Building the flake for the ${{ matrix.system }} system
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel \
-          --keep-going --show-trace --option sandbox false
+          --keep-going
