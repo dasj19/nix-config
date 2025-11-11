@@ -22,17 +22,17 @@ jobs:
     strategy:
       matrix:
         system:
-          # - cm4-nas
-          # - contabo1
-          # - contabo2
-          # - devbox
-          # - linodenix1
+          - cm4-nas
+          - contabo1
+          - contabo2
+          - devbox
+          - linodenix1
           - linodenix2
-          # - rpi4-tv
-          # - t14
-          # - t500libre
-          # - tuxedo-xa15
-          # - xps13-9380
+          - rpi4-tv
+          - t14
+          - t500libre
+          - tuxedo-xa15
+          - xps13-9380
       fail-fast: false
 
     name: Build ${{ matrix.system }}
