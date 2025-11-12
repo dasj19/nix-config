@@ -1,5 +1,5 @@
 # nix-config
-Own (ever changing) nixos configurations
+A collection of (ever changing) nixos configurations used locally and in production.
 
 # Status
 CI: ![](https://github.com/dasj19/nix-config/actions/workflows/build.yml/badge.svg)
@@ -19,30 +19,39 @@ This was made public for the sole purpose of sharing configurations and inspire 
 # Structure
 The configuration uses flakes and is modular in order
 to reuse configuration across machines and have the code as DRY as possible.
-The "machines" folder contains host configurations with one folder per machine machine. Usually only configuration.nix and hardware.nix is present here.
+The "machines" folder contains host configurations with one folder per machine.
+Usually only configuration.nix and hardware.nix is present here.
 The "modules" folder contains reusable pieces of code, modules meant to be used across machines.
 The "secrets" folder contains secrets that can be used globally across individual machine configurations.
-The "profiles" folder contains a bare-bones profile where to start off when adding a new host to machines.
+The "profiles" folder contains configuration profiles used to kickstart a new host machine.
 The "home" folder contains home-manager configurations.
 
 # Usage
 
 This repo holds configuration for NixOS machines I manage.
-The basic actions I need to do to deploy on a local machine follows:
+The command I need to run to deploy on a local machine follows:
 
 ```
 sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs
 ```
-Or the short version (using the actual path and an alias defined in the aliases.nix module):
+Or the short version (using the shell alias defined in the aliases.nix module):
 ```
 osup
 ```
+Lately I moved on to using *nh* command to deploy:
+```
+nh os switch .#nixosConfigurations.$(hostname)
+```
+or
+```
+nhup
+```
 Behind the scenes there are some workflows actions that help building the packages on a NixOS server I control.
-One action is responsible for building the packages for most of my machines.
+One action is responsible for building the packages of my machines.
 Another is updating the flake definitions each morning and triggers the build package action.
-Whenever I run *osup* on a machine that uses the builder.nix part of the building job is delegated
+Whenever I run *osup* or *nhup* on a machine that uses the builder.nix part of the building job is delegated
 to the remote server that has updated builds of my configuration, thus making the build faster.
-I also get emails when the automated build fails thus the failure does not propagate to all of the machines.
+I also get emails when the automated build fails thus I avoid the failure propagating to all of the machines.
 
 # Secrets
 Passwords are managed using sops-nix.
