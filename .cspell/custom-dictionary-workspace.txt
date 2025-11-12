@@ -4,6 +4,7 @@ acpi
 acpid
 adapta
 ADBG
+adminpass
 agenix
 ahci
 Airdc
@@ -26,6 +27,7 @@ bashsh
 batdiff
 Batocera
 bchunk
+bcmath
 bibata
 binfmt
 bitmagnet
@@ -61,6 +63,7 @@ czkawka
 danth
 dasj
 dbeaver
+dbtype
 dbus
 dconf
 debootstrap
@@ -87,6 +90,7 @@ emulationstation
 erros
 esrodk
 evtest
+exif
 exresop
 extlinux
 fastboot
@@ -169,6 +173,7 @@ kodi
 lazyload
 LBRY
 ldso
+leantime
 libcublas
 libcufft
 libcurand
@@ -222,6 +227,7 @@ nettools
 networkd
 networkmanager
 newtabpage
+nextcloud
 nhcl
 nhlt
 nhup
@@ -248,14 +254,17 @@ ohci
 ollama
 oneline
 onlyoffice
+opcache
 openconnect
 openrgb
 optimise
 osdlyrics
 osup
+overwriteprotocol
 pagenavi
 pandoc
 pciutils
+pcntl
 pdfarranger
 pgsql
 phpcs
@@ -314,6 +323,7 @@ sgptrc
 shmcb
 shntool
 shotcut
+simplexml
 smartd
 smartmontools
 SMTPS
