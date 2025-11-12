@@ -1,17 +1,15 @@
-{ config, pkgs, gitSecrets, sopsSecrets, ... }:
-
-let
-
+{
+  config,
+  pkgs,
+  gitSecrets,
+  ...
+}: let
   # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
   name-domain = gitSecrets.nameDomain;
   webmaster-email = gitSecrets.gnuDomainWebmaster;
-  gnu-ip = gitSecrets.gnuIp;
   archive-ip = gitSecrets.gnuArchiveIp;
-
-in
-
-{
+in {
   sops.secrets.root_password = {};
 
   # Nexcloud instance.
@@ -25,42 +23,60 @@ in
     force_language = "ro";
   };
   services.nextcloud.config.dbtype = "sqlite";
-  services.nextcloud.settings.trusted_domains = [ "familia.${name-domain}" ];
+  services.nextcloud.settings.trusted_domains = [
+    "familia.${name-domain}"
+  ];
   services.nextcloud.settings.overwriteprotocol = "https";
-  services.nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [ { addr = "127.0.0.1"; port = 8001; } ];
+  services.nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [
+    {
+      addr = "127.0.0.1";
+      port = 8001;
+    }
+  ];
 
   # Apache webserver with virtual hosts. @todo: migrate to caddy.
   services.httpd = {
     enable = true;
     enablePHP = true;
     phpPackage = pkgs.php84.buildEnv {
-    extensions = { enabled, all }: enabled ++ (with all; [
-        # Extensions for leantime.
-        bcmath
-        ctype
-        curl
-        dom
-        exif
-        fileinfo
-        filter
-        gd
-        ldap
-        mbstring
-        opcache
-        openssl
-        pcntl
-        pdo
-        session
-        tokenizer
-        zip
-        simplexml
-      ]);
+      extensions = {
+        enabled,
+        all,
+      }:
+        enabled
+        ++ (with all; [
+          # Extensions for leantime.
+          bcmath
+          ctype
+          curl
+          dom
+          exif
+          fileinfo
+          filter
+          gd
+          ldap
+          mbstring
+          opcache
+          openssl
+          pcntl
+          pdo
+          session
+          tokenizer
+          zip
+          simplexml
+        ]);
     };
     adminAddr = "${webmaster-email}";
     extraModules = [
-      "headers" "proxy" "proxy_http" "proxy_uwsgi"
+      "headers"
+      "proxy"
+      "proxy_http"
+      "proxy_uwsgi"
       # 3rd party apache2 modules.
-      { name = "cspnonce"; path = "${pkgs.apacheHttpdPackages.mod_cspnonce}/modules/mod_cspnonce.so"; }
+      {
+        name = "cspnonce";
+        path = "${pkgs.apacheHttpdPackages.mod_cspnonce}/modules/mod_cspnonce.so";
+      }
     ];
     maxClients = 1000;
 
@@ -86,7 +102,7 @@ in
         hostName = "searx.${gnu-domain}";
         serverAliases = [
           "www.searx.${gnu-domain}"
-        ]; 
+        ];
         documentRoot = "/var/www/searx.${gnu-domain}/";
         logFormat = "combined";
         extraConfig = ''
@@ -108,7 +124,7 @@ in
         hostName = "archive.${gnu-domain}";
         serverAliases = [
           "www.archive.${gnu-domain}"
-        ]; 
+        ];
         documentRoot = "/var/www/archive.${gnu-domain}/";
         logFormat = "combined";
         extraConfig = ''
@@ -137,7 +153,7 @@ in
         hostName = "familia.${name-domain}";
         #serverAliases = [
         #  "www.archive.${name-domain}"
-        #]; 
+        #];
         documentRoot = "/var/www/familia.${name-domain}/";
         logFormat = "combined";
         extraConfig = ''
@@ -158,7 +174,7 @@ in
             Header unset X-Frame-Options
           </LocationMatch>
         '';
-      };      
+      };
       # Debian Source List Generator for the masses.
       "dslg.${gnu-domain}" = {
         # forceSSL uses 302 Found redirects, using own 301 redirects in 'extraConfig'.
@@ -219,7 +235,6 @@ in
         ];
         documentRoot = "/var/www/${gnu-domain}/";
       };
-
     };
     extraConfig = ''
       <Directory /var/www>
@@ -305,7 +320,7 @@ in
       Header set Cache-Control "no-cache"
 
       # Allowing all Cross Origins.
-      Header set Cross-Origin-Embedder-Policy "unsafe-none" 
+      Header set Cross-Origin-Embedder-Policy "unsafe-none"
       Header set Cross-Origin-Opener-Policy "unsafe-none"
       Header set Cross-Origin-Resource-Policy "cross-origin"
 
@@ -329,5 +344,4 @@ in
       SSLStaplingCache shmcb:/tmp/stapling_cache(128000)
     '';
   };
-
 }
