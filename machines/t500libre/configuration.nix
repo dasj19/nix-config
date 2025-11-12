@@ -1,18 +1,16 @@
-{ config, gitSecrets, pkgs, ... }:
-
-
-let
-
+{
+  config,
+  gitSecrets,
+  pkgs,
+  ...
+}: let
   # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
   searxng-secret = gitSecrets.gnuSearxngSecret;
   mailserver-fqdn = gitSecrets.gnuMailserverFqdn;
   mailserver-daniel-email = gitSecrets.gnuMailserverDanielEmail;
-
-in
-
-{
+in {
   imports = [
     # Hardware config.
     ./hardware.nix
@@ -39,7 +37,9 @@ in
   # Defining variables for the email-server module.
   mailserver = {
     fqdn = mailserver-fqdn;
-    domains = [ gnu-domain ];
+    domains = [
+      gnu-domain
+    ];
     loginAccounts = {
       # Account name in the form of "username@domain.tld".
       "${mailserver-daniel-email}" = {
@@ -60,40 +60,12 @@ in
       # Overriding the rspamd package replacing vectorscan with patched hyperscan.
       rspamd = pkgs.rspamd.overrideAttrs (oldAttrs: {
         # Replacing vectorscan with hyperscan. Vectorscan is not compatible with the old CPU of t500libre.
-        buildInputs = builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs
-        ++ [ pkgs.hyperscan ];
+        buildInputs =
+          builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs
+          ++ [pkgs.hyperscan];
       });
     };
   };
-
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-
-  # Disable at boot. @TODO: Recheck and update this list some day.
-  boot.blacklistedKernelModules = [
-    # Misc protocols.
-    "firewire" "firewire_core" "firewire_ohci" "thinkpad_acpi"
-    # Bluetooth and Wi-Fi.
-    "bluetooth" "btusb" "btrtl" "btintel"
-    "iwlwifi" "ath9k" "ath9k_common" "ath9k"
-    # Sound modules.
-    "snd" "snd_hda_codec" "snd_hda_codec_conexant"
-    "snd_hda_codec_generic" "snd_hda_codec_hdmi"
-    "snd_hda_core" "snd_hda_intel" "snd_hwdep"
-    "snd_intel_nhlt" "snd_pcm" "snd_timer"
-    "soundcore"
-    # PCMCIA modules.
-    "pcmcia" "pcmcia_core" "pcmcia_rsrc"
-    # Webcam and graphics.
-    "uvcvideo" "i915" "video" "backlight"
-    # Logging.
-    "watchdog"
-    # Networking
-    "tun" "tap"
-    # Peripherals.
-    "cdrom" 
-  ];
 
   # Hostname + DHCP on all the networking interfaces.
   networking.useDHCP = true;
@@ -127,7 +99,10 @@ in
       use_default_settings = {
         engines = {
           # for some reason remove directive does not work on "qwant".
-          keep_only = [ "google" /* "duckduckgo" */ ];
+          keep_only = [
+            "google"
+            "duckduckgo"
+          ];
         };
       };
       server = {
@@ -139,7 +114,9 @@ in
   };
 
   # SSH server settings.
-  services.openssh.ports = [ 2201 ];
+  services.openssh.ports = [
+    2201
+  ];
 
   # Local DNS cache server. @TODO: Check to what extent is this used.
   services.resolved.enable = true;
@@ -175,25 +152,31 @@ in
     };
   };
 
-
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    # PORT - PROTOCOL - SERVER   - APP
+    # PROTOCOL - SERVER   - APP
     # WAN-open:
-      80   # HTTP     - Apache2
-      443  # HTTPS    - Apache2
-      465  # SMTPS    - Postfix
-      993  # IMAPS    - Dovecot
-      2201 # SSH      - OpenSSH
+    # HTTP     - Apache2
+    80
+    # HTTPS    - Apache2
+    443
+    # SMTPS    - Postfix
+    465
+    # IMAPS    - Dovecot
+    993
+    # SSH      - OpenSSH
+    2201
     # LAN-open:
-      8001 # HTTP     - Nginx    - Kanboard
+    # HTTP     - Nginx    - Kanboard
+    8001
     # Host-restricted:
     # 8100 # HTTP     - Werkzeug - SearxNG
   ];
   networking.firewall.allowedUDPPorts = [
-    # PORT - PROTOCOL - SERVER   - APP
+    # PROTOCOL - SERVER   - APP
     # WAN-open:
-      53   # DNS      - Resolved 
+    # DNS      - Resolved
+    53
   ];
 
   # Allow immutable users.
@@ -209,7 +192,10 @@ in
   users.users.daniel = {
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets.daniel_password.path;
-    extraGroups = [ "wheel" "wwwrun" ];
+    extraGroups = [
+      "wheel"
+      "wwwrun"
+    ];
   };
 
   # Consult manual before changing.
