@@ -142,6 +142,9 @@
     # Editor enhancements.
     oderwat.indent-rainbow
 
+    # Nixpkgs formatter.
+    kamadorueda.alejandra
+
   ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
 
     # Twig language support.

@@ -46,6 +46,7 @@ in
 
     # Packages for nix ecosystem.
     environment.systemPackages = with pkgs; [
+      alejandra         # Nixpkgs formatter.
       hydra-check       # Hydra build status checker.
       nil-master        # @todo: change to stock nil once a new release is available.
       nix-search-cli    # CLI for searching nixpkgs.
