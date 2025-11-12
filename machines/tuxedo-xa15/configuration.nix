@@ -1,40 +1,44 @@
 /*
- * tuxedo-xa15: my old powerful but noisy laptop
- * model: Tuxedo Book XA 15
- *
- * Notes:
- *  - no longer used as a daily driver.
- *  - used to test heavy offline-AI
- *  - sometimes booted into Batocera from an external SDD.
- */
-
-{ config, lib, pkgs, ... }:
-
-let
+* tuxedo-xa15: my old powerful but noisy laptop
+* model: Tuxedo Book XA 15
+*
+* Notes:
+*  - no longer used as a daily driver.
+*  - used to test heavy offline-AI
+*  - sometimes booted into Batocera from an external SDD.
+*/
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   php = pkgs.php84.buildEnv {
-    extensions = { enabled, all }: enabled ++ (with all; [
-      amqp
-      ctype
-      iconv
-      intl
-      mbstring
-      openssl
-      pdo_pgsql
-      redis
-      sodium
-      tokenizer
-      xsl
-      xdebug 
-    ]);
+    extensions = {
+      enabled,
+      all,
+    }:
+      enabled
+      ++ (with all; [
+        amqp
+        ctype
+        iconv
+        intl
+        mbstring
+        openssl
+        pdo_pgsql
+        redis
+        sodium
+        tokenizer
+        xsl
+        xdebug
+      ]);
     extraConfig = ''
       # Enable opening of files in vscodium.
       xdebug.file_link_format=vscodium://file/%f:%l
     '';
   };
-in
-
-{
-  
+in {
   imports = [
     # Hardware config.
     ./hardware.nix
@@ -57,15 +61,16 @@ in
 
   # HARDWARE.
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # Enable NVIDIA drivers for X.
   services.xserver.videoDrivers = [
     "nvidia"
   ];
 
   # Enable scanning support.
   hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.hplip ];
+  hardware.sane.extraBackends = with pkgs; [
+    hplip
+  ];
   services.ipp-usb.enable = true;
 
   # AMD.
@@ -79,7 +84,6 @@ in
   #   mesa
   #   mesa.drivers
   # ];
-
 
   # Use the NVidia open source kernel module (not to be confused with the
   # independent third-party "nouveau" open source driver).
@@ -107,7 +111,7 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22   # OpenSSH
+    22 # OpenSSH
     3389 # RDP connections
     3333 # LBRY Daemon
     4444 # LBRY Streams
@@ -119,13 +123,13 @@ in
   ];
 
   networking.hosts = {
-    "127.0.0.1" = [ "localhost" "devbox.dev" ];
+    "127.0.0.1" = ["localhost" "devbox.dev"];
   };
 
   # SOFTWARE.
 
   # Use suspend and hibernate instead of suspend. Use: 'systemctl suspend' to test.
-  systemd.services."systemd-suspend-then-hibernate".aliases = [ "systemd-suspend.service" ];
+  systemd.services."systemd-suspend-then-hibernate".aliases = ["systemd-suspend.service"];
 
   services.fwupd.enable = true;
 
@@ -210,7 +214,7 @@ in
   programs.nix-ld.enable = true;
 
   programs.dconf.enable = true;
-  
+
   # Enable virtualisation daemons.
   #virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
@@ -235,7 +239,6 @@ in
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [
-
     # Game tools.
     "gamepad-tool"
 

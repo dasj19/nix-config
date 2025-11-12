@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   config = {
     # Enable the X11 windowing system.
     services.xserver.enable = true;
@@ -57,91 +60,91 @@
 
     # Exclude unnecessary GNOME programs.
     environment.gnome.excludePackages = with pkgs; [
-      avahi                   # Zeroconf server, not used.
-      decibels                # Simple audio player, I do not need it.
-      cheese                  # Simple webcam application, I do not need it.
-      file-roller             # Simple archive manager, I use xarchiver instead.
-      geary                   # Email client, I use Evolution instead.
-      gnome-backgrounds       # Wallpaper manager, I declare wallpapers via stylix.
-      gnome-calendar          # Calendar application, I use Evolution.
-      gnome-clocks            # World clocks, I have no use for this.
-      gnome-connections       # Remote desktop client, I use Remmina.
-      gnome-contacts          # Contacts app, I would use Evolution if a need arises.
-      gnome-logs              # Log visualizer, I don't need it.
-      gnome-maps              # Map application, I use a website instead.
-      gnome-music             # Music player, I use strawberry and tauon.
-      gnome-online-accounts   # Online account manager, I have no use for it.
-      gnome-photos            # Advanced photo organizer, does much more than I need.
-      gnome-tour              # Gnome tour for beginners, I can use the help menu instead.
-      gnome-weather           # Weather service, I never use this.
-      snapshot                # Simple webcam application, I do not need it.
-      totem                   # Video player, I use vlc.
+      avahi # Zeroconf server, not used.
+      decibels # Simple audio player, I do not need it.
+      cheese # Simple webcam application, I do not need it.
+      file-roller # Simple archive manager, I use xarchiver instead.
+      geary # Email client, I use Evolution instead.
+      gnome-backgrounds # Wallpaper manager, I declare wallpapers via stylix.
+      gnome-calendar # Calendar application, I use Evolution.
+      gnome-clocks # World clocks, I have no use for this.
+      gnome-connections # Remote desktop client, I use Remmina.
+      gnome-contacts # Contacts app, I would use Evolution if a need arises.
+      gnome-logs # Log visualizer, I don't need it.
+      gnome-maps # Map application, I use a website instead.
+      gnome-music # Music player, I use strawberry and tauon.
+      gnome-online-accounts # Online account manager, I have no use for it.
+      gnome-photos # Advanced photo organizer, does much more than I need.
+      gnome-tour # Gnome tour for beginners, I can use the help menu instead.
+      gnome-weather # Weather service, I never use this.
+      snapshot # Simple webcam application, I do not need it.
+      totem # Video player, I use vlc.
     ];
 
-    # Include gnome-packages as part of system-packages.  
+    # Include gnome-packages as part of system-packages.
     environment.systemPackages = with pkgs; [
-      brasero                 # Disc burning application.
-      dconf-editor            # Gnome registry editor.
-      evolution               # Replacement for geary and gnome-calendar.
-      ghex                    # Gnome hex editor.
-      gnome-tweaks            # Extra setting manager for gnome.
-      gnome-network-displays  # Screen sharing app for gnome.
-      gparted                 # Gnome partition editor.
-      meld                    # Diff manager and editor.
-      xarchiver                  # Replacement for file-roller.
-      remmina                 # Replacement for gnome-connections.
-      soundconverter          # Gnome app for audio file conversions.
-      strawberry              # Replacement for gnome-music.
-      tauon                   # Replacement for gnome-music with lyrics support.
-      vlc                     # Replacement for totem.
+      brasero # Disc burning application.
+      dconf-editor # Gnome registry editor.
+      evolution # Replacement for geary and gnome-calendar.
+      ghex # Gnome hex editor.
+      gnome-tweaks # Extra setting manager for gnome.
+      gnome-network-displays # Screen sharing app for gnome.
+      gparted # Gnome partition editor.
+      meld # Diff manager and editor.
+      xarchiver # Replacement for file-roller.
+      remmina # Replacement for gnome-connections.
+      soundconverter # Gnome app for audio file conversions.
+      strawberry # Replacement for gnome-music.
+      tauon # Replacement for gnome-music with lyrics support.
+      vlc # Replacement for totem.
     ];
 
     xdg.mime.enable = true;
     # Find the desktop file in nix store with: find /nix/store/ -name "*application_name*desktop"
     xdg.mime.defaultApplications = {
-      "audio/aac"                       = "vlc.desktop";
-      "audio/mpeg"                      = "vlc.desktop";
-      "audio/ogg"                       = "vlc.desktop";
-      "audio/flac"                      = "org.strawberrymusicplayer.strawberry.desktop";
-      "audio/wav"                       = "vlc.desktop";
-      "audio/webm"                      = "vlc.desktop";
-      "application/gzip"                = "xarchiver.desktop";
-      "application/json"                = "org.gnome.TextEditor.desktop";
-      "application/ld+json"             = "org.gnome.TextEditor.desktop";
-      "application/msword"              = "writer.desktop";
-      "application/octet-stream"        = "org.qbittorrent.qBittorrent.desktop";
-      "application/pdf"                 = "org.gnome.Evince.desktop";
-      "application/rtf"                 = "writer.desktop";
-      "application/x-bzip"              = "xarchiver.desktop";
-      "application/x-bzip2"             = "xarchiver.desktop";
-      "application/zip"                 = "xarchiver.desktop";
-      "application/vnd.ms-powerpoint"   = "impress.desktop";
-      "application/vnd.rar"             = "xarchiver.desktop";
-      "application/vnd.ms-excel"        = "calc.desktop";
-      "application/x-sh"                = "org.gnome.Console.desktop";
-      "application/x-tar"               = "xarchiver.desktop";
-      "application/xml"                 = "org.gnome.TextEditor.desktop";
-      "application/x-7z-compressed"     = "xarchiver.desktop";
-      "image/bmp"                       = "org.gnome.Loupe.desktop";
-      "image/gif"                       = "org.gnome.Loupe.desktop";
-      "image/vnd.microsoft.icon"        = "org.gnome.Loupe.desktop";
-      "image/jpeg"                      = "org.gnome.Loupe.desktop";
-      "image/png"                       = "org.gnome.Loupe.desktop";
-      "image/webp"                      = "org.gnome.Loupe.desktop";
-      "text/calendar"                   = "org.gnome.Evolution.desktop";
-      "text/css"                        = "org.gnome.TextEditor.desktop";
-      "text/csv"                        = "org.gnome.TextEditor.desktop";
-      "text/javascript"                 = "org.gnome.TextEditor.desktop";
-      "text/html"                       = "firefox-devedition.desktop";
-      "text/markdown"                   = "org.gnome.TextEditor.desktop";
-      "video/mp4"                       = "vlc.desktop";
-      "video/mpeg"                      = "vlc.desktop";
-      "video/mp2t"                      = "vlc.desktop";
-      "video/ogg"                       = "vlc.desktop";
-      "video/vnd.avi"                   = "vlc.desktop";
-      "video/webm"                      = "vlc.desktop";
-      "video/x-msvideo"                 = "vlc.desktop";
-      "video/x-matroska"                = "vlc.desktop";
+      "audio/aac" = "vlc.desktop";
+      "audio/mpeg" = "vlc.desktop";
+      "audio/ogg" = "vlc.desktop";
+      "audio/flac" = "org.strawberrymusicplayer.strawberry.desktop";
+      "audio/wav" = "vlc.desktop";
+      "audio/webm" = "vlc.desktop";
+      "application/gzip" = "xarchiver.desktop";
+      "application/json" = "org.gnome.TextEditor.desktop";
+      "application/ld+json" = "org.gnome.TextEditor.desktop";
+      "application/msword" = "writer.desktop";
+      "application/octet-stream" = "org.qbittorrent.qBittorrent.desktop";
+      "application/pdf" = "org.gnome.Evince.desktop";
+      "application/rtf" = "writer.desktop";
+      "application/x-bzip" = "xarchiver.desktop";
+      "application/x-bzip2" = "xarchiver.desktop";
+      "application/zip" = "xarchiver.desktop";
+      "application/vnd.ms-powerpoint" = "impress.desktop";
+      "application/vnd.rar" = "xarchiver.desktop";
+      "application/vnd.ms-excel" = "calc.desktop";
+      "application/x-sh" = "org.gnome.Console.desktop";
+      "application/x-tar" = "xarchiver.desktop";
+      "application/xml" = "org.gnome.TextEditor.desktop";
+      "application/x-7z-compressed" = "xarchiver.desktop";
+      "image/bmp" = "org.gnome.Loupe.desktop";
+      "image/gif" = "org.gnome.Loupe.desktop";
+      "image/vnd.microsoft.icon" = "org.gnome.Loupe.desktop";
+      "image/jpeg" = "org.gnome.Loupe.desktop";
+      "image/png" = "org.gnome.Loupe.desktop";
+      "image/webp" = "org.gnome.Loupe.desktop";
+      "text/calendar" = "org.gnome.Evolution.desktop";
+      "text/css" = "org.gnome.TextEditor.desktop";
+      "text/csv" = "org.gnome.TextEditor.desktop";
+      "text/javascript" = "org.gnome.TextEditor.desktop";
+      "text/html" = "firefox-devedition.desktop";
+      "text/markdown" = "org.gnome.TextEditor.desktop";
+      "video/mp4" = "vlc.desktop";
+      "video/mpeg" = "vlc.desktop";
+      "video/mp2t" = "vlc.desktop";
+      "video/ogg" = "vlc.desktop";
+      "video/vnd.avi" = "vlc.desktop";
+      "video/webm" = "vlc.desktop";
+      "video/x-msvideo" = "vlc.desktop";
+      "video/x-matroska" = "vlc.desktop";
     };
   };
 }

@@ -1,16 +1,13 @@
 /*
- * t14: my daily driver laptop
- * model: Lenovo T14 Gen1
- *
- * Notes:
- *  - any offline AI work has to be done on CPU which is very slow,
- *    therefore online AI should be used.
- *  - sudo-rs is set up to be used using fingerprint first with password as fallback.
- */
-
-{ pkgs, ... }:
-
-{
+* t14: my daily driver laptop
+* model: Lenovo T14 Gen1
+*
+* Notes:
+*  - any offline AI work has to be done on CPU which is very slow,
+*    therefore online AI should be used instead.
+*  - sudo-rs is set up to be used using fingerprint first but has password prompt as fallback.
+*/
+{pkgs, ...}: {
   imports = [
     # Hardware config.
     ./hardware.nix
@@ -32,13 +29,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
   systemd.tmpfiles.rules = [
     # Silence erros:
     # jun 29 22:19:21 t14 polkitd[106479]: Loading rules from directory /run/polkit-1/rules.d
@@ -58,12 +48,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Non-free software whitelist / shame list.
@@ -73,8 +57,6 @@
     # Server software.
     "open-webui"
   ];
-
-  nixpkgs.config.nvidia.acceptLicense = true;
 
   # t14 has a total of 8 cores.
   # Builds max 4 parallel jobs at once using at most 2 cores per job.
@@ -133,5 +115,4 @@
 
   # State version. Consult manual before changing.
   system.stateVersion = "25.11";
-
 }
