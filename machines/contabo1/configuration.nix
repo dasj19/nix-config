@@ -56,9 +56,9 @@ in
   time.timeZone = "Europe/Copenhagen";
 
   # contabo1 has 4 cores
-  # Build one job at a time using maximum of 4 cores per jobs. (no parallel builds)
-  nix.settings.max-jobs = 1;
-  nix.settings.cores = 4;
+  # Build two jobs at a time using maximum of 2 cores per jobs.
+  nix.settings.max-jobs = 2;
+  nix.settings.cores = 2;
 
   nix.settings.trusted-users = [
     "daniel"

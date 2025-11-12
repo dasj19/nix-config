@@ -9,8 +9,7 @@
         "aarch64-linux"
       ];
       protocol = "ssh";
-      maxJobs = 1;
-      speedFactor = 2;
+      maxJobs = 2;
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
     }
