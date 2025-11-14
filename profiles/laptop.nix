@@ -1,5 +1,24 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: let
+  # @todo: update with stock nil when a release newer than 03-11-2025 occurs.
+  nil-master = pkgs.nil.overrideAttrs (prev: rec {
+    version = "2025-11-03";
+    src = pkgs.fetchFromGitHub {
+      owner = "oxalica";
+      repo = "nil";
+      rev = "master";
+      hash = "sha256-ImGN436GYd50HjoKTeRK+kWYIU/7PkDv15UmoUCPDUk=";
+    };
+
+    cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+      inherit src;
+      hash = "sha256-LS2IW4gZ1k6Xl5weMNwxvVA2z56r4rPkjqrkROZTmBw=";
+    };
+  });
+in {
   imports = [
     # Profiles.
     ./base.nix
@@ -13,7 +32,6 @@
   ];
 
   config = {
-
     # Preferred laptop Linux kernel - latest zen kernel.
     # @see https://github.com/zen-kernel/zen-kernel/wiki/FAQ
     # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
@@ -68,6 +86,7 @@
       hunspellDicts.da_DK
       hunspellDicts.en_US
       hunspellDicts.ro_RO
+      nil-master # @todo: change to stock nil once a new release is available.
 
       # GUIs.
       czkawka
@@ -95,6 +114,6 @@
 
       # Drivers.
       ntfs3g
-    ]; 
+    ];
   };
 }

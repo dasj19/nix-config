@@ -1,26 +1,4 @@
-{ pkgs, ... }:
-
-let
-
-  # @todo: update with stock nil when a release newer than 03-11-2025 occurs.
-  nil-master = pkgs.nil.overrideAttrs (prev: rec {
-    version = "2025-11-03";
-    src = pkgs.fetchFromGitHub {
-      owner = "oxalica";
-      repo = "nil";
-      rev = "master";
-      hash = "sha256-ImGN436GYd50HjoKTeRK+kWYIU/7PkDv15UmoUCPDUk=";
-    };
-
-    cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-      inherit src;
-      hash = "sha256-LS2IW4gZ1k6Xl5weMNwxvVA2z56r4rPkjqrkROZTmBw=";
-    };
-  });
-
-in
-
-{
+{pkgs, ...}: {
   config = {
     # Nix build settings.
     nix.settings.substituters = [
@@ -36,7 +14,7 @@ in
     # Enable distributed builds for all nix builds.
     nix.distributedBuilds = true;
     # User allowed to use distributed builds.
-    nix.settings.trusted-users = [ "root" "daniel" ];
+    nix.settings.trusted-users = ["root" "daniel"];
 
     # Nix and Nixpkgs configurations.
     nix.settings.experimental-features = [
@@ -46,17 +24,16 @@ in
 
     # Packages for nix ecosystem.
     environment.systemPackages = with pkgs; [
-      alejandra         # Nixpkgs formatter.
-      hydra-check       # Hydra build status checker.
-      nil-master        # @todo: change to stock nil once a new release is available.
-      nix-search-cli    # CLI for searching nixpkgs.
-      nix-prefetch      # Nix fetcher for various sources.
-      nix-prefetch-git  # Nix fetcher for git repos.
-      nix-serve         # Simple Nix binary cache server.
-      nix-tree          # Visualize dependency graph of nix derivations.
-      nixpkgs-fmt       # Nix code formatter.
-      nixpkgs-review    # Tool to review nixpkgs pull requests.
-      statix            # Static analysis tool for nix code.
+      alejandra # Nixpkgs formatter.
+      hydra-check # Hydra build status checker.
+      nix-search-cli # CLI for searching nixpkgs.
+      nix-prefetch # Nix fetcher for various sources.
+      nix-prefetch-git # Nix fetcher for git repos.
+      nix-serve # Simple Nix binary cache server.
+      nix-tree # Visualize dependency graph of nix derivations.
+      nixpkgs-fmt # Nix code formatter.
+      nixpkgs-review # Tool to review nixpkgs pull requests.
+      statix # Static analysis tool for nix code.
     ];
 
     # Nix store optimizations.
@@ -65,7 +42,7 @@ in
     nix.extraOptions = ''
       # Useful when the builder has a faster internet connection than yours
       builders-use-substitutes = true
-      
+
       # Do not warn when dirty git repo is used.
       warn-dirty = false
     '';
