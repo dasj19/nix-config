@@ -108,7 +108,7 @@ in {
 
       # Development.
       dbeaver-bin
-      fontforge-gtk
+      # fontforge-gtk
       insomnia
       vscodium
 
