@@ -1,5 +1,4 @@
 {
-
   description = "The dasj-lab flake";
 
   # Tracking 'nixpkgs-unstable' branch which is usually a couple days behind master.
@@ -54,11 +53,9 @@
     simple-nixos-mailserver,
     stylix,
     home-manager,
-    ... 
-  }:
-
-  let
-    gitSecrets = builtins.fromJSON(builtins.readFile "${self}/secrets/git-secrets.json");
+    ...
+  }: let
+    gitSecrets = builtins.fromJSON (builtins.readFile "${self}/secrets/git-secrets.json");
     sopsSecrets = ./secrets/variables.yaml;
 
     # A function to create a default system configuration that can be extended.
@@ -80,43 +77,50 @@
         ];
       };
       # Merge defaults with custom configuration.
-      config = defaults // cfg // {
-        specialArgs = defaults.specialArgs // (cfg.specialArgs or {});
-        modules = defaults.modules ++ (cfg.modules or []);
-      };
+      config =
+        defaults
+        // cfg
+        // {
+          specialArgs = defaults.specialArgs // (cfg.specialArgs or {});
+          modules = defaults.modules ++ (cfg.modules or []);
+        };
     in
       nixpkgs.lib.nixosSystem config;
 
     # A function to create laptop systems with common configuration.
-    mkLaptopSystem = cfg: mkDefaultSystem {
-      modules = [
-        {
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/laptop.nix;
-          home-manager.extraSpecialArgs = {
-            inherit awesome-linux-templates;
-            inherit gitSecrets;
-          };
-        }
-      ] ++ (cfg.modules or []);
-    };
+    mkLaptopSystem = cfg:
+      mkDefaultSystem {
+        modules =
+          [
+            {
+              home-manager.useUserPackages = true;
+              home-manager.users.daniel = import ./home/laptop.nix;
+              home-manager.extraSpecialArgs = {
+                inherit awesome-linux-templates;
+                inherit gitSecrets;
+              };
+            }
+          ]
+          ++ (cfg.modules or []);
+      };
 
     # A function to create server systems with common configuration.
-    mkServerSystem = cfg: mkDefaultSystem {
-      modules = [
-        simple-nixos-mailserver.nixosModule
-        {
-          home-manager.useUserPackages = true;
-          home-manager.users.daniel = import ./home/server.nix;
-          home-manager.extraSpecialArgs = {
-            inherit gitSecrets;
-          };
-        }
-      ] ++ (cfg.modules or []);
-    };
-  in
-
-  {
+    mkServerSystem = cfg:
+      mkDefaultSystem {
+        modules =
+          [
+            simple-nixos-mailserver.nixosModule
+            {
+              home-manager.useUserPackages = true;
+              home-manager.users.daniel = import ./home/server.nix;
+              home-manager.extraSpecialArgs = {
+                inherit gitSecrets;
+              };
+            }
+          ]
+          ++ (cfg.modules or []);
+      };
+  in {
     nixosConfigurations.contabo1 = mkServerSystem {
       modules = [
         ./machines/contabo1/configuration.nix
