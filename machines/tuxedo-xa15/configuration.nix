@@ -143,7 +143,6 @@ in {
     php.packages.composer
     #kcachegrind
     graphviz
-    fontforge-gtk
     arduino
     symfony-cli
     nodejs_22
