@@ -1,6 +1,9 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration. 
 
+2025-11-16
+- ai: temporary disabled shell-gpt and open-webui
+
 2025-11-11
 - workflows: introduced build matrix, to parallel build all machines' configuration.
 - workflows: added automatic check for dependency updates using dependabot.
