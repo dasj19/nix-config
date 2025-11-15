@@ -103,7 +103,7 @@ in {
       pdfarranger
       poedit
       qbittorrent
-      signal-desktop-bin
+      signal-desktop
       usbimager
 
       # Development.
