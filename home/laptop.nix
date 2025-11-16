@@ -1,5 +1,10 @@
-{ awesome-linux-templates, config, lib, pkgs, ... }:
-
+{
+  awesome-linux-templates,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./base.nix
@@ -8,19 +13,39 @@
   # Install gnome extensions.
   # To be enabled in dconf.settings.enable-extensions.
   home.packages = with pkgs.gnomeExtensions; [
+    # Visual window close effect.
     burn-my-windows
+    # Clipboard manager.
     clipboard-indicator
+    # Organize workspaces in a cube.
     desktop-cube
+    # Kando menu integration.
     kando-integration
   ];
 
   dconf.enable = true;
   # Define the available keyboard layouts.
   dconf.settings."org/gnome/desktop/input-sources".sources = [
-    (lib.hm.gvariant.mkTuple [ "xkb" "esrodk" ])
-    (lib.hm.gvariant.mkTuple [ "xkb" "es" ])
-    (lib.hm.gvariant.mkTuple [ "xkb" "us" ])
-    (lib.hm.gvariant.mkTuple [ "xkb" "ro" ])
+    # Custom Spanish layout with extra 3rd level characters.
+    (lib.hm.gvariant.mkTuple [
+      "xkb"
+      "esrodk"
+    ])
+    # Standard Spanish layout.
+    (lib.hm.gvariant.mkTuple [
+      "xkb"
+      "es"
+    ])
+    # US layout.
+    (lib.hm.gvariant.mkTuple [
+      "xkb"
+      "us"
+    ])
+    # Romanian layout.
+    (lib.hm.gvariant.mkTuple [
+      "xkb"
+      "ro"
+    ])
   ];
 
   # Media shortcuts. Using Ctrl instead of Fn (controlled by ACPI).
@@ -125,48 +150,45 @@
 
   # Extensions enabled in VS Codium.
   programs.vscode.profiles.default.extensions =
-    with pkgs.vscode-extensions; [
-    # Github Copilot.
-    github.copilot
+    with pkgs.vscode-extensions;
+    [
+      # Github Copilot.
+      github.copilot
 
-    # PHP.
-    bmewburn.vscode-intelephense-client
+      # PHP.
+      bmewburn.vscode-intelephense-client
 
-    #Codeium.codeium
-    # Nix language support.
-    jnoortheen.nix-ide
+      #Codeium.codeium
+      # Nix language support.
+      jnoortheen.nix-ide
 
-    # Spell checker.
-    streetsidesoftware.code-spell-checker
+      # Spell checker.
+      streetsidesoftware.code-spell-checker
 
-    # Editor enhancements.
-    oderwat.indent-rainbow
-
-    # Nixpkgs formatter.
-    kamadorueda.alejandra
-
-  ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-
-    # Twig language support.
-    {
-      name = "twig-language";
-      publisher = "mblode";
-      version = "0.9.4";
-      hash = "sha256-TZRjodIQkgFlPlMaZs3K8Rrcl9XCUaz4/vnIaxU+SSA=";
-    }
-    {
-      name = "symfony-extension-pack";
-      publisher = "nadim-vscode";
-      version = "1.2.0";
-      hash = "sha256-y3mkrWhlICOiFHZip3AGNDGNCvzo8FFRhhyHMu8E4yI=";
-    }
-    {
-      name = "php-intellisense";
-      publisher = "felixfbecker";
-      version = "2.3.14";
-      hash = "sha256-N5il3hFytYA4dzV9AFfj4SnY2CuPvgtTrijHd6AHXKY=";
-    }
-  ];
+      # Editor enhancements.
+      oderwat.indent-rainbow
+    ]
+    ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      # Twig language support.
+      {
+        name = "twig-language";
+        publisher = "mblode";
+        version = "0.9.4";
+        hash = "sha256-TZRjodIQkgFlPlMaZs3K8Rrcl9XCUaz4/vnIaxU+SSA=";
+      }
+      {
+        name = "symfony-extension-pack";
+        publisher = "nadim-vscode";
+        version = "1.2.0";
+        hash = "sha256-y3mkrWhlICOiFHZip3AGNDGNCvzo8FFRhhyHMu8E4yI=";
+      }
+      {
+        name = "php-intellisense";
+        publisher = "felixfbecker";
+        version = "2.3.14";
+        hash = "sha256-N5il3hFytYA4dzV9AFfj4SnY2CuPvgtTrijHd6AHXKY=";
+      }
+    ];
 
   programs.vscode.profiles.default.userSettings = {
     # Startup empty.
@@ -181,26 +203,34 @@
     # Nix language.
     "nix.enableLanguageServer" = true;
     "nix.serverPath" = "nil";
+    "nix.formatterPath" = "nixfmt";
+
+    # Autoformat Nix files on save.
+    "editor.formatOnSave" = true;
+    "editor.formatOnType" = false;
+    "editor.formatOnPaste" = false;
 
     # Github Copilot.
     # @see https://github.com/VSCodium/vscodium/discussions/1487
     "github.copilot.enable" = {
-      "*"           = true;
-      "markdown"    = false;
-      "plaintext"   = false;
-      "json"        = false;
-      "yaml"        = false;
-      "nix"         = true;
+      "*" = true;
+      "markdown" = false;
+      "plaintext" = false;
+      "json" = false;
+      "yaml" = false;
+      "nix" = true;
       "shellscript" = true;
-      "php"         = true;
-      "twig"        = true;
+      "php" = true;
+      "twig" = true;
     };
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "vscode-extension-bmewburn-vscode-intelephense-client"
-    "vscode-extension-github-copilot"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "vscode-extension-bmewburn-vscode-intelephense-client"
+      "vscode-extension-github-copilot"
+    ];
 
   # Add Kando to the list of autostart programs.
   xdg.configFile."autostart/kando.desktop".text = ''

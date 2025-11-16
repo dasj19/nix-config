@@ -231,6 +231,7 @@ nextcloud
 nhcl
 nhlt
 nhup
+nixfmt
 nixos
 nixpkgs
 nmap

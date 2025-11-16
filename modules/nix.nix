@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  ...
+}:
+{
   config = {
     # Nix build settings.
     nix.settings.substituters = [
@@ -14,7 +18,10 @@
     # Enable distributed builds for all nix builds.
     nix.distributedBuilds = true;
     # User allowed to use distributed builds.
-    nix.settings.trusted-users = ["root" "daniel"];
+    nix.settings.trusted-users = [
+      "root"
+      "daniel"
+    ];
 
     # Nix and Nixpkgs configurations.
     nix.settings.experimental-features = [
@@ -24,8 +31,8 @@
 
     # Packages for nix ecosystem.
     environment.systemPackages = with pkgs; [
-      alejandra # Nixpkgs formatter.
       hydra-check # Hydra build status checker.
+      nixfmt-rfc-style # Nix code formatter following the rfc style.
       nix-search-cli # CLI for searching nixpkgs.
       nix-prefetch # Nix fetcher for various sources.
       nix-prefetch-git # Nix fetcher for git repos.
