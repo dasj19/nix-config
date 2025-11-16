@@ -43,55 +43,59 @@
 
   inputs.systems.url = "github:nix-systems/x86_64-linux";
 
-  outputs = {
-    self,
-    nixpkgs,
-    awesome-linux-templates,
-    nixos-artwork,
-    nixos-hardware,
-    sops-nix,
-    simple-nixos-mailserver,
-    stylix,
-    home-manager,
-    ...
-  }: let
-    gitSecrets = builtins.fromJSON (builtins.readFile "${self}/secrets/git-secrets.json");
-    sopsSecrets = ./secrets/variables.yaml;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      awesome-linux-templates,
+      nixos-artwork,
+      nixos-hardware,
+      sops-nix,
+      simple-nixos-mailserver,
+      stylix,
+      home-manager,
+      ...
+    }:
+    let
+      gitSecrets = builtins.fromJSON (builtins.readFile "${self}/secrets/git-secrets.json");
+      sopsSecrets = ./secrets/variables.yaml;
 
-    # A function to create a default system configuration that can be extended.
-    mkDefaultSystem = cfg: let
-      defaults = {
-        system = "x86_64-linux";
-        # Common special arguments for all systems.
-        specialArgs = {
-          inherit awesome-linux-templates;
-          inherit gitSecrets;
-          inherit nixos-artwork;
-          inherit sopsSecrets;
-        };
-        # Common modules for all systems.
-        modules = [
-          sops-nix.nixosModules.sops
-          stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-        ];
-      };
-      # Merge defaults with custom configuration.
-      config =
-        defaults
-        // cfg
-        // {
-          specialArgs = defaults.specialArgs // (cfg.specialArgs or {});
-          modules = defaults.modules ++ (cfg.modules or []);
-        };
-    in
-      nixpkgs.lib.nixosSystem config;
+      # A function to create a default system configuration that can be extended.
+      mkDefaultSystem =
+        cfg:
+        let
+          defaults = {
+            system = "x86_64-linux";
+            # Common special arguments for all systems.
+            specialArgs = {
+              inherit awesome-linux-templates;
+              inherit gitSecrets;
+              inherit nixos-artwork;
+              inherit sopsSecrets;
+            };
+            # Common modules for all systems.
+            modules = [
+              sops-nix.nixosModules.sops
+              stylix.nixosModules.stylix
+              home-manager.nixosModules.home-manager
+            ];
+          };
+          # Merge defaults with custom configuration.
+          config =
+            defaults
+            // cfg
+            // {
+              specialArgs = defaults.specialArgs // (cfg.specialArgs or { });
+              modules = defaults.modules ++ (cfg.modules or [ ]);
+            };
+        in
+        nixpkgs.lib.nixosSystem config;
 
-    # A function to create laptop systems with common configuration.
-    mkLaptopSystem = cfg:
-      mkDefaultSystem {
-        modules =
-          [
+      # A function to create laptop systems with common configuration.
+      mkLaptopSystem =
+        cfg:
+        mkDefaultSystem {
+          modules = [
             {
               home-manager.useUserPackages = true;
               home-manager.users.daniel = import ./home/laptop.nix;
@@ -101,14 +105,14 @@
               };
             }
           ]
-          ++ (cfg.modules or []);
-      };
+          ++ (cfg.modules or [ ]);
+        };
 
-    # A function to create server systems with common configuration.
-    mkServerSystem = cfg:
-      mkDefaultSystem {
-        modules =
-          [
+      # A function to create server systems with common configuration.
+      mkServerSystem =
+        cfg:
+        mkDefaultSystem {
+          modules = [
             simple-nixos-mailserver.nixosModule
             {
               home-manager.useUserPackages = true;
@@ -118,73 +122,74 @@
               };
             }
           ]
-          ++ (cfg.modules or []);
+          ++ (cfg.modules or [ ]);
+        };
+    in
+    {
+      nixosConfigurations.contabo1 = mkServerSystem {
+        modules = [
+          ./machines/contabo1/configuration.nix
+        ];
       };
-  in {
-    nixosConfigurations.contabo1 = mkServerSystem {
-      modules = [
-        ./machines/contabo1/configuration.nix
-      ];
-    };
-    nixosConfigurations.contabo2 = mkServerSystem {
-      modules = [
-        ./machines/contabo2/configuration.nix
-      ];
-    };
-    nixosConfigurations.linodenix1 = mkServerSystem {
-      modules = [
-        ./machines/linodenix1/configuration.nix
-      ];
-    };
-    nixosConfigurations.linodenix2 = mkServerSystem {
-      modules = [
-        ./machines/linodenix2/configuration.nix
-      ];
-    };
-    nixosConfigurations.t500libre = mkServerSystem {
-      modules = [
-        ./machines/t500libre/configuration.nix
-        nixos-hardware.nixosModules.lenovo-thinkpad
-      ];
-    };
-    nixosConfigurations.xps13-9380 = mkLaptopSystem {
-      modules = [
-        ./machines/xps13-9380/configuration.nix
-        nixos-hardware.nixosModules.dell-xps-13-9380
-      ];
-    };
-    nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
-      modules = [
-        ./machines/tuxedo-xa15/configuration.nix
-      ];
-    };
-    nixosConfigurations.cm4-nas = mkServerSystem {
-      system = "aarch64-linux";
-      modules = [
-        ./machines/cm4-nas/configuration.nix
-        # @todo Include hardware support for the compute module 4.
-      ];
-    };
+      nixosConfigurations.contabo2 = mkServerSystem {
+        modules = [
+          ./machines/contabo2/configuration.nix
+        ];
+      };
+      nixosConfigurations.linodenix1 = mkServerSystem {
+        modules = [
+          ./machines/linodenix1/configuration.nix
+        ];
+      };
+      nixosConfigurations.linodenix2 = mkServerSystem {
+        modules = [
+          ./machines/linodenix2/configuration.nix
+        ];
+      };
+      nixosConfigurations.t500libre = mkServerSystem {
+        modules = [
+          ./machines/t500libre/configuration.nix
+          nixos-hardware.nixosModules.lenovo-thinkpad
+        ];
+      };
+      nixosConfigurations.xps13-9380 = mkLaptopSystem {
+        modules = [
+          ./machines/xps13-9380/configuration.nix
+          nixos-hardware.nixosModules.dell-xps-13-9380
+        ];
+      };
+      nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
+        modules = [
+          ./machines/tuxedo-xa15/configuration.nix
+        ];
+      };
+      nixosConfigurations.cm4-nas = mkServerSystem {
+        system = "aarch64-linux";
+        modules = [
+          ./machines/cm4-nas/configuration.nix
+          # @todo Include hardware support for the compute module 4.
+        ];
+      };
 
-    nixosConfigurations.rpi4-tv = mkServerSystem {
-      system = "aarch64-linux";
-      modules = [
-        ./machines/rpi4-tv/configuration.nix
-        nixos-hardware.nixosModules.raspberry-pi-4
-      ];
-    };
+      nixosConfigurations.rpi4-tv = mkServerSystem {
+        system = "aarch64-linux";
+        modules = [
+          ./machines/rpi4-tv/configuration.nix
+          nixos-hardware.nixosModules.raspberry-pi-4
+        ];
+      };
 
-    nixosConfigurations.devbox = mkServerSystem {
-      modules = [
-        ./machines/devbox/configuration.nix
-      ];
-    };
+      nixosConfigurations.devbox = mkServerSystem {
+        modules = [
+          ./machines/devbox/configuration.nix
+        ];
+      };
 
-    nixosConfigurations.t14 = mkLaptopSystem {
-      modules = [
-        ./machines/t14/configuration.nix
-        nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
-      ];
+      nixosConfigurations.t14 = mkLaptopSystem {
+        modules = [
+          ./machines/t14/configuration.nix
+          nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
+        ];
+      };
     };
-  };
 }
