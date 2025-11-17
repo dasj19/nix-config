@@ -1,12 +1,13 @@
 /*
-* base: a profile inherited by all the other profiles.
-* contains: common stuff that are needed on all the machines configured in this repo.
+  * base: a profile inherited by all the other profiles.
+  * contains: common stuff that are needed on all the machines configured in this repo.
 */
 {
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./../modules/aliases.nix
     ./../modules/fish.nix
@@ -62,6 +63,7 @@
       legit # Complementary utility for the git command.
       ncdu # du with ncurses.
       nmap # Network exploration tool.
+      nvme-cli # interface to retrieve nvme metadata and logs.
       pandoc # Document conversion utility.
       pciutils # Inspects and manipulates configuration of PCI devices.
       procs # Retrieve information about active processes.
