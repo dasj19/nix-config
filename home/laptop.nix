@@ -23,6 +23,155 @@
     kando-integration
   ];
 
+  # HM installs and manages itself.
+  programs.home-manager.enable = true;
+
+  programs.kitty.enable = true; # required for the default Hyprland config
+  wayland.windowManager.hyprland.enable = true; # enable Hyprland
+  wayland.windowManager.hyprland.xwayland.enable = true; # legacy support for X11 apps.
+  wayland.windowManager.hyprland.systemd.enable = true; # systemd integration.
+  wayland.windowManager.hyprland.extraConfig =
+    let
+      modifier = "SUPER"; # Windows key as modifier.
+      terminal = "${pkgs.kitty}/bin/kitty";
+      browser = "${pkgs.firefox-devedition}/bin/firefox-devedition";
+    in
+
+    ''
+      # Monitor config.
+      monitor=eDP-1, highres, 0x0, 1
+      monitor= , preferred, auto, auto
+      # prepare the network indicator
+      exec-once=nm-applet --indicator
+      # delay the launch of the bar
+      exec-once=sleep 1 & waybar
+      # Input settings.
+      input {
+        kb_layout=esrodk
+      }
+      # Launching Apps ------------------------------
+      bind = ${modifier},RETURN,exec,${terminal} # Open terminal with Windows (Modifier) + Return.
+      bind = ${modifier},W,exec,${browser} # Open browser (Firefox) with Windows + W
+      bind = ${modifier},L,exec,hyprlock # Lock screen with Windows + L
+      bind = ${modifier},SPACE,exec,kando --menu "Menu" # App launcher with Windows + Space
+      bind = ALT, TAB, workspace, e+1
+      bind = ALT SHIFT, TAB, workspace, e-1
+
+      bind = CTRL_L ALT_L, LEFT, workspace, e-1
+      bind = CTRL_L ALT_L, RIGHT, workspace, e+1
+
+      bind = ${modifier},LEFT,workspace, -1 # Change to previous workspace
+      bind = ${modifier},RIGHT,workspace, +1 # Change to next workspace
+      bind = ${modifier} SHIFT,LEFT,movetoworkspace, -1 # Move window in focus to previous workspace
+      bind = ${modifier} SHIFT,RIGHT,movetoworkspace, +1 # Move window in focus to next workspace
+    '';
+  stylix.targets.hyprland.enable = true;
+
+  # Optional, hint Electron apps to use Wayland:
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  services.mako.enable = true;
+  services.mako.settings.default-timeout = 5000;
+
+  programs.waybar.enable = true;
+  programs.waybar.settings = {
+    mainBar = {
+      layer = "top";
+      position = "top";
+      spacing = 4;
+      margin-top = 5;
+      margin-bottom = 5;
+      height = 35;
+      output = [
+        "eDP-1"
+        "HDMI-A-1"
+      ];
+      modules-left = [
+        "tray"
+        "hyprland/workspaces"
+        "wlr/taskbar"
+      ];
+      modules-center = [
+        "idle_inhibitor"
+        "pulseaudio"
+        "cpu"
+        "memory"
+        "temperature"
+        "backlight"
+        "keyboard-state"
+        "battery"
+        "battery#bat2"
+        "network"
+        "clock"
+      ];
+      modules-right = [
+        "temperature"
+        "network"
+      ];
+
+      "battery" = {
+        "format" = "{capacity}% {icon}";
+        "format-icons" = [
+          ""
+          ""
+          ""
+          ""
+          ""
+        ];
+      };
+      "clock" = {
+        "format" = "{:%H:%M - %d-%m-%Y}";
+        "rotate" = 0;
+        "format-alt" = "{  %d·%m·%y}";
+        "tooltip-format" = "<span>{calendar}</span>";
+        "calendar" = {
+          "mode" = "month";
+          "format" = {
+            "months" = "<span color='#ff6699'><b>{}</b></span>";
+            "days" = "<span color='#cdd6f4'><b>{}</b></span>";
+            "weekdays" = "<span color='#7CD37C'><b>{}</b></span>";
+            "today" = "<span color='#ffcc66'><b>{}</b></span>";
+          };
+        };
+      };
+
+      "hyprland/workspaces" = {
+        "format" = "{name} : {icon}";
+        "format-icons" = {
+          "1" = "";
+          "2" = "";
+          "3" = "";
+          "4" = "";
+          "5" = "";
+          "active" = "";
+          "default" = "";
+        };
+        "persistent-workspaces" = {
+          "Virtual-1" = [
+            1
+            2
+            3
+            4
+            5
+          ];
+        };
+      };
+
+      # "sway/workspaces" = {
+      #   disable-scroll = true;
+      #   all-outputs = true;
+      # };
+      # "custom/hello-from-waybar" = {
+      #   format = "hello {}";
+      #   max-length = 40;
+      #   interval = "once";
+      #   exec = pkgs.writeShellScript "hello-from-waybar" ''
+      #     echo "from within waybar"
+      #   '';
+      # };
+    };
+  };
+
   dconf.enable = true;
   # Define the available keyboard layouts.
   dconf.settings."org/gnome/desktop/input-sources".sources = [

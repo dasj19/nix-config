@@ -1,10 +1,12 @@
 /*
- * base: a profile inherited by all the other profiles.
- * contains: common stuff that are needed on all the machines configured in this repo.
- */
-
-{ lib, pkgs, ...}:
+* base: a profile inherited by all the other profiles.
+* contains: common stuff that are needed on all the machines configured in this repo.
+*/
 {
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./../modules/aliases.nix
     ./../modules/fish.nix
@@ -35,53 +37,52 @@
       compress = true;
     };
 
-
     # Base packages are a must for every machine.
     # These should be CLI-only packages.
     environment.systemPackages = with pkgs; [
       # CLI.
-      aria2               # Multi-protocol downloader
-      bat                 # Improved version of cat.
-      bat-extras.batdiff  # Diff in bat style.
-      cloc                # Calculate lines of code.
-      dig                 # DNS lookup utility.
-      dmidecode           # DMI table decoder
-      dust                # Improved version of du.
-      eza                 # Improved version of ls-
-      fastfetch           # Improved version of neofetch.
-      fd                  # Simple alternative to find.
-      gh                  # Github CLI.
-      git                 # File versioning system CLI.
-      htop                # Interactive process viewer.
-      jq                  # CLI Json processor.
-      litecli             # SQLite CLI client.
-      lf                  # Terminal file manager.
-      lsof                # List open files.
-      lshw                # List hardware data.
-      legit               # Complementary utility for the git command.
-      ncdu                # du with ncurses.
-      nmap                # Network exploration tool.
-      pandoc              # Document conversion utility.
-      pciutils            # Inspects and manipulates configuration of PCI devices.
-      procs               # Retrieve information about active processes.
-      pstree              # Shows the running process tree.
-      ripgrep-all         # Recursive search tool.
-      smartmontools       # Control utility for SMART disks.
-      tldr                # Shows concise manual information about cli commands.
-      tmux                # Terminal multiplexer.
-      tree                # Displays hierarchical structure of folders.
-      usbutils            # Tools for working with USB devices.
-      unzip               # Unzipping cli tool.
-      w3m                 # Text-based web browser.
-      wget                # Online resource fetcher.
+      aria2 # Multi-protocol downloader
+      bat # Improved version of cat.
+      bat-extras.batdiff # Diff in bat style.
+      cloc # Calculate lines of code.
+      dig # DNS lookup utility.
+      dmidecode # DMI table decoder
+      dust # Improved version of du.
+      eza # Improved version of ls-
+      fastfetch # Improved version of neofetch.
+      fd # Simple alternative to find.
+      gh # Github CLI.
+      git # File versioning system CLI.
+      htop # Interactive process viewer.
+      jq # CLI Json processor.
+      litecli # SQLite CLI client.
+      lf # Terminal file manager.
+      lsof # List open files.
+      lshw # List hardware data.
+      legit # Complementary utility for the git command.
+      ncdu # du with ncurses.
+      nmap # Network exploration tool.
+      pandoc # Document conversion utility.
+      pciutils # Inspects and manipulates configuration of PCI devices.
+      procs # Retrieve information about active processes.
+      pstree # Shows the running process tree.
+      ripgrep-all # Recursive search tool.
+      smartmontools # Control utility for SMART disks.
+      tldr # Shows concise manual information about cli commands.
+      tmux # Terminal multiplexer.
+      tree # Displays hierarchical structure of folders.
+      usbutils # Tools for working with USB devices.
+      unzip # Unzipping cli tool.
+      w3m # Text-based web browser.
+      wget # Online resource fetcher.
 
       # Drivers and Firmware.
-      ntfs3g              # Driver for NTFS.
+      ntfs3g # Driver for NTFS.
 
       # Encryption.
-      age                 # Age encryption libraries.
-      git-crypt           # Git supported encryption utility.
-      sops                # Sops secret manager.
+      age # Age encryption libraries.
+      git-crypt # Git supported encryption utility.
+      sops # Sops secret manager.
     ];
   };
 }

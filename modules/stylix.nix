@@ -1,4 +1,9 @@
-{ nixos-artwork, lib, pkgs, ...}:
+{
+  nixos-artwork,
+  lib,
+  pkgs,
+  ...
+}:
 {
   stylix.enable = true;
   stylix.targets.qt.enable = lib.mkForce true;
@@ -14,7 +19,7 @@
   stylix.cursor.package = pkgs.bibata-cursors;
   stylix.cursor.name = "Bibata-Modern-Classic";
   stylix.cursor.size = 24;
-  
+
   # Font settings.
   stylix.fonts.serif.package = pkgs.ubuntu-classic;
   stylix.fonts.serif.name = "Ubuntu Classic";

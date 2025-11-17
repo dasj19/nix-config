@@ -1,6 +1,9 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration. 
 
+2025-11-17
+- module: added hyprland wayland compositor to replace Gnome DE.
+
 2025-11-16
 - ai: temporary disabled shell-gpt and open-webui
 - nix: moved from alejandra to the official nixfmt and added it at autosave in VSCodium

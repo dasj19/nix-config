@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   # @todo: update with stock nil when a release newer than 03-11-2025 occurs.
   nil-master = pkgs.nil.overrideAttrs (prev: rec {
     version = "2025-11-03";
@@ -18,15 +19,18 @@
       hash = "sha256-LS2IW4gZ1k6Xl5weMNwxvVA2z56r4rPkjqrkROZTmBw=";
     };
   });
-in {
+in
+{
   imports = [
     # Profiles.
     ./base.nix
     # Modules.
     ./../modules/audio.nix
+    ./../modules/bluetooth.nix
     ./../modules/browsers.nix
     ./../modules/builder.nix
     ./../modules/gnome.nix
+    ./../modules/hyprland.nix
     ./../modules/stylix.nix
     ./../modules/non-free.nix
   ];
