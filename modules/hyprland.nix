@@ -28,20 +28,6 @@
     user = "daniel";
   };
 
-  #@todo: move to hardware.
-  boot.kernelParams = [
-    # Enable modesetting for proprietary nvidia driver.
-    "nvidia-drm.modeset=1"
-    # Disables modesetting for open-source nouveau driver.
-    "nouveau.modeset=0"
-  ];
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.nvidiaSettings = true;
-  hardware.nvidia.open = false;
-  # Set the LD_LIBRARY_PATH for OpenGL applications.
-  # hardware.opengl.setLdLibraryPath = true;
-  # Video drivers for the X server.
-  services.xserver.videoDrivers = [ "nvidia" ];
   # Improve audio performance.
   security.rtkit.enable = true;
   # Enable D-Bus for inter-process communication.

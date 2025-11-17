@@ -5,7 +5,8 @@
   modulesPath,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     # Modules.
@@ -24,7 +25,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 20;
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "rtsx_pci_sdmmc"
+  ];
   boot.initrd.luks.devices."luks-a2c62a27-7059-4ac5-ac4d-1408d3f86970" = {
     device = "/dev/disk/by-uuid/a2c62a27-7059-4ac5-ac4d-1408d3f86970";
     preOpenCommands = ''
@@ -50,6 +58,10 @@
     "kvm-intel"
   ];
   boot.kernelParams = [
+    # Enable modesetting for proprietary nvidia driver.
+    "nvidia-drm.modeset=1"
+    # Disables modesetting for open-source nouveau driver.
+    "nouveau.modeset=0"
     # Allow to enter a root shell at fail (by providing root password).
     "boot.shell_on_fail"
 
@@ -96,7 +108,10 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/BA2D-E52D";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   # Control power management,
@@ -116,7 +131,7 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [intel-media-driver];
+  hardware.graphics.extraPackages = with pkgs; [ intel-media-driver ];
 
   hardware.nvidia-container-toolkit.enable = true;
 
@@ -168,15 +183,19 @@
   # Enable the temperature management daemon.
   services.thermald.enable = true;
 
+  # Accept NVIDIA license.
+  nixpkgs.config.nvidia.acceptLicense = true;
+
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.nvidiaSettings = true;
+  hardware.nvidia.open = false;
+  # Set the LD_LIBRARY_PATH for OpenGL applications.
+  # hardware.opengl.setLdLibraryPath = true;
+  # Video drivers for the X server.
   services.xserver.videoDrivers = [
     "nvidia"
   ];
 
-  # Accept NVIDIA license.
-  nixpkgs.config.nvidia.acceptLicense = true;
-
-  hardware.nvidia.open = false;
-  hardware.nvidia.nvidiaSettings = true;
   # Check https://www.nvidia.com/en-us/drivers/results/ for the latest driver available.
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
