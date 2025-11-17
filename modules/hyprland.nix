@@ -48,6 +48,11 @@
   services.dbus.enable = true;
 
   environment.systemPackages = with pkgs; [
+    # CLI.
+    playerctl
+    wireplumber
+
+    # GUI.
     kitty
     waybar
     foot

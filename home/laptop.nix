@@ -53,7 +53,16 @@
       bind = ${modifier},RETURN,exec,${terminal} # Open terminal with Windows (Modifier) + Return.
       bind = ${modifier},W,exec,${browser} # Open browser (Firefox) with Windows + W
       bind = ${modifier},L,exec,hyprlock # Lock screen with Windows + L
-      bind = ${modifier},SPACE,exec,kando --menu "Menu" # App launcher with Windows + Space
+      bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Windows + Space
+      bind = CTRL, SPACE, exec, walker # Main App Launcher
+
+      # Multimedia.
+      bind = CTRL, MASCULINE, exec, playerctl play-pause # Play-Pause with CTL + key above Tab.
+      bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+      bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+      bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+      # Workspace navigation.
       bind = ALT, TAB, workspace, e+1
       bind = ALT SHIFT, TAB, workspace, e-1
 
@@ -100,7 +109,6 @@
         "backlight"
         "keyboard-state"
         "battery"
-        "battery#bat2"
         "network"
         "clock"
       ];
@@ -109,26 +117,28 @@
         "network"
       ];
 
-      "battery" = {
+      battery = {
         "format" = "{capacity}% {icon}";
         "format-icons" = [
-          ""
-          ""
-          ""
-          ""
-          ""
+          " "
+          " "
+          " "
+          " "
+          " "
         ];
       };
-      "clock" = {
+      clock = {
         "format" = "{:%H:%M - %d-%m-%Y}";
         "rotate" = 0;
         "format-alt" = "{  %d·%m·%y}";
         "tooltip-format" = "<span>{calendar}</span>";
         "calendar" = {
           "mode" = "month";
+          "weeks-pos" = "left";
           "format" = {
             "months" = "<span color='#ff6699'><b>{}</b></span>";
             "days" = "<span color='#cdd6f4'><b>{}</b></span>";
+            "weeks" = "<span color='#99ffdd'><b>W{}</b></span>";
             "weekdays" = "<span color='#7CD37C'><b>{}</b></span>";
             "today" = "<span color='#ffcc66'><b>{}</b></span>";
           };
@@ -155,6 +165,38 @@
             5
           ];
         };
+      };
+
+      cpu = {
+        "format" = "{icon0} {icon1} {icon2} {icon3} {icon4} {icon5} {icon6} {icon7}";
+        "format-icons" = [
+          "▁"
+          "▂"
+          "▃"
+          "▄"
+          "▅"
+          "▆"
+          "▇"
+          "█"
+        ];
+      };
+
+      "network" = {
+        "tooltip" = true;
+        "rotate" = 0;
+        "format-ethernet" = " ";
+        "tooltip-format" = ''
+          Network: <b>{essid}</b>
+          Signal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>
+          Frequency: <b>{frequency}MHz</b>
+          Interface: <b>{ifname}</b>
+        '';
+        "format-linked" = " {ifname} (No IP)";
+        "format-disconnected" = "󰖪 ";
+        "tooltip-format-disconnected" = "Disconnected";
+        "format-alt" =
+          "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>";
+        "interval" = 2;
       };
 
       # "sway/workspaces" = {
