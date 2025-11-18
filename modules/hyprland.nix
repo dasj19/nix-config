@@ -37,6 +37,7 @@
     # CLI.
     playerctl
     wireplumber
+    brightnessctl
 
     # GUI.
     kitty

@@ -1,6 +1,7 @@
 {
   awesome-linux-templates,
   config,
+  gitSecrets,
   lib,
   pkgs,
   ...
@@ -131,7 +132,7 @@
       # Recovery message.
       {
         monitor = "";
-        text = "If found return to the owner!";
+        text = "If found return to the owner! ${gitSecrets.danielFullname} ${gitSecrets.danielPersonalEmail} ${gitSecrets.danielPhoneNumber}";
         font_size = 28;
         halign = "center";
         valign = "bottom";
