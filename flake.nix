@@ -197,7 +197,7 @@
           # Provides the newer ulauncher version 6.
           {
             environment.systemPackages = [
-              (ulauncher.packages.x86_64-linux.ulauncher6)
+              ulauncher.packages.x86_64-linux.ulauncher6
             ];
           }
         ];
