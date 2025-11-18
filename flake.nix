@@ -195,11 +195,11 @@
           ./machines/t14/configuration.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
           # Provides the newer ulauncher version 6.
-          ({
+          {
             environment.systemPackages = [
               (ulauncher.packages.x86_64-linux.ulauncher6)
             ];
-          })
+          }
         ];
       };
     };
