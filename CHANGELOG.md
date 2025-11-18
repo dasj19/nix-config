@@ -2,7 +2,9 @@
 In this file I'll try to mention major changes to the configuration. 
 
 2025-11-18
-- flake: added latest ulauncher for t14 (for now)
+- flake: added latest ulauncher for t14 (for now).
+- home: added initial config for hyprlock for the laptop profile.
+- home: updated keybindings for hyprland.
 
 2025-11-17
 - module: added hyprland wayland compositor to replace Gnome DE.

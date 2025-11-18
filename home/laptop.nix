@@ -45,22 +45,28 @@
       exec-once=nm-applet --indicator
       # delay the launch of the bar
       exec-once=sleep 1 & waybar
+
       # Input settings.
       input {
         kb_layout=esrodk
       }
       # Launching Apps ------------------------------
       bind = ${modifier},RETURN,exec,${terminal} # Open terminal with Windows (Modifier) + Return.
-      bind = ${modifier},W,exec,${browser} # Open browser (Firefox) with Windows + W
+      bind = ${modifier},F,exec,${browser} # Open browser (Firefox) with Windows + F
       bind = ${modifier},L,exec,hyprlock # Lock screen with Windows + L
-      bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Windows + Space
-      bind = CTRL, SPACE, exec, walker # Main App Launcher
+      bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Windows + Space # uses electron, @todo condisder removing
+      bind = ${modifier},S, exec, walker # Too slow and buggy, consider removing.
+      bind = CTRL_L, SPACE, exec, gapplication launch io.ulauncher.Ulauncher # Main App Launcher
 
       # Multimedia.
-      bind = CTRL, MASCULINE, exec, playerctl play-pause # Play-Pause with CTL + key above Tab.
+      bind = CTRL_L, MASCULINE, exec, playerctl play-pause # Play-Pause with CTL + key above Tab.
       bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
       bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
       bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+      # Brightness.
+      bind = ,XF86MonBrightnessDown, exec, brightnessctl -d intel_backlight set 10%-
+      bind = ,XF86MonBrightnessUp, exec, brightnessctl -d intel_backlight set 10%+
 
       # Workspace navigation.
       bind = ALT, TAB, workspace, e+1
@@ -73,12 +79,70 @@
       bind = ${modifier},RIGHT,workspace, +1 # Change to next workspace
       bind = ${modifier} SHIFT,LEFT,movetoworkspace, -1 # Move window in focus to previous workspace
       bind = ${modifier} SHIFT,RIGHT,movetoworkspace, +1 # Move window in focus to next workspace
+
+      # 
     '';
   stylix.targets.hyprland.enable = true;
+
+  # Enable and setup hyprlock.
+  programs.hyprlock.enable = true;
+  programs.hyprlock.settings = {
+    auth = {
+      "fingerprint:enabled" = true;
+      "fingerprint:ready_message" = "Ready to scan fingerprints";
+      "fingerprint:present_message" = "Scanning fingerprint";
+    };
+    background = {
+      monitor = "";
+      ptah = "screenshot";
+      blur_passes = 3;
+    };
+    input-field = {
+      monitor = "";
+      size = "10%, 30%";
+      outline_thickness = 3;
+      dots_center = true;
+
+      fade_on_empty = false;
+      rounding = 15;
+
+      font_family = "$font";
+      placeholder_text = "Input password...";
+      fail_text = "$PAMFAIL";
+
+      dots_text_format = "*";
+      dots_size = 0.4;
+      dots_spacing = 0.3;
+
+      position = "0, -20";
+      halign = "center";
+      valign = "center";
+    };
+    # Current date.
+    label = [
+      {
+        monitor = "";
+        text = ''cmd[update:18000000] echo "<b> "$(date +'%A, %-d %B %Y')" </b>"'';
+        color = "rgba(00ff99ee)";
+        font_size = 34;
+        halign = "center";
+        valign = "top";
+      }
+      # Recovery message.
+      {
+        monitor = "";
+        text = "If found return to the owner!";
+        font_size = 28;
+        halign = "center";
+        valign = "bottom";
+      }
+    ];
+  };
 
   # Optional, hint Electron apps to use Wayland:
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  # Notification daemon for wayland.
   services.mako.enable = true;
   services.mako.settings.default-timeout = 5000;
 
