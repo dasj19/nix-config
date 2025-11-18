@@ -41,6 +41,10 @@
   inputs.awesome-linux-templates.url = "github:dasj19/awesome-linux-templates";
   inputs.awesome-linux-templates.flake = false;
 
+  # Latest ulauncher.
+  inputs.ulauncher.url = "github:Ulauncher/Ulauncher/main";
+  inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
+
   inputs.systems.url = "github:nix-systems/x86_64-linux";
 
   outputs =
@@ -54,6 +58,7 @@
       simple-nixos-mailserver,
       stylix,
       home-manager,
+      ulauncher,
       ...
     }:
     let
@@ -189,6 +194,12 @@
         modules = [
           ./machines/t14/configuration.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
+          # Provides the newer ulauncher version 6.
+          ({
+            environment.systemPackages = [
+              (ulauncher.packages.x86_64-linux.ulauncher6)
+            ];
+          })
         ];
       };
     };

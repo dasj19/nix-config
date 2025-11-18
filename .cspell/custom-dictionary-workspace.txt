@@ -365,6 +365,7 @@ twentytwentyone
 twentytwentytwo
 typec
 uhci
+ulauncher
 ungoogled
 unrar
 unsized
