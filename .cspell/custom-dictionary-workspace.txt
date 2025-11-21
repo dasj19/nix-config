@@ -29,6 +29,7 @@ Batocera
 bchunk
 bcmath
 bibata
+binde
 binfmt
 bitmagnet
 blogstream
@@ -131,9 +132,11 @@ goaccess
 gparted
 gpuinfo
 graphviz
+greetd
 greylist
 greylisting
 gvariant
+halign
 halloy
 HIDD
 highres
@@ -145,6 +148,8 @@ htpasswd
 humanstxt
 hwdep
 hyperscan
+hypridle
+hyprlock
 IBPB
 icmpv
 imagick
@@ -169,6 +174,7 @@ kdenlive
 keyleds
 keymap
 khard
+killactive
 killall
 kodi
 lazyload
@@ -213,6 +219,9 @@ mkvtoolnix
 Mnnxcxis
 modemmanager
 Modesetting
+movefocus
+movetoworkspace
+movewindow
 msvideo
 msword
 myip
@@ -221,12 +230,14 @@ mysqld
 nadim
 Nanode
 ncdu
+nemo
 neofetch
 nerdfont
 netcat
 nettools
 networkd
 networkmanager
+networkmanagerapplet
 newtabpage
 nextcloud
 nhcl
@@ -276,6 +287,7 @@ piix
 pipewire
 Pkgs
 platformsh
+playerctl
 pname
 poedit
 polkit
@@ -305,6 +317,7 @@ redir
 Redistributable
 remmina
 retroarch
+rgba
 rspamd
 rsrc
 rtkit
@@ -336,6 +349,7 @@ soulseekqt
 soundconverter
 soundcore
 spamd
+splitratio
 statix
 stdenv
 strawberrymusicplayer
@@ -357,9 +371,11 @@ tinymce
 tinysparql
 tmpfiles
 tmpfs
+togglefloating
 toplevel
 topsites
 touchpad
+tuigreet
 tulanp
 twentytwenty
 twentytwentyone
@@ -378,6 +394,7 @@ userborn
 usrbinenv
 uvcvideo
 uwsgi
+uwsm
 vaapi
 vboxusers
 VDPAU
@@ -391,6 +408,7 @@ virtiofsd
 virtualisation
 wakeup
 Wayback
+waybar
 waydroid
 webp
 webroot
@@ -398,8 +416,10 @@ webui
 weekdate
 Werkzeug
 winetricks
+wireplumber
 wlan
 worpress
+wpctl
 WPLANG
 wwwrun
 xarchiver
@@ -409,6 +429,7 @@ xorg
 xorgserver
 xorriso
 xvfb
+xwayland
 Zeroconf
 zheader
 zstd
