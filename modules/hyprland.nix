@@ -17,6 +17,7 @@
   # Force electron apps to use wayland instead of X11.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+  # Gnome's Seahorse is still needed for key management.
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
@@ -38,6 +39,8 @@
     playerctl
     wireplumber
     brightnessctl
+    networkmanagerapplet
+    networkmanager_dmenu
 
     # GUI.
     kitty
@@ -46,6 +49,7 @@
     wofi
     walker
     nautilus
+    nemo
     pyprland
     #    hyprpickffer
     hyprcursor
