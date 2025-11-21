@@ -55,12 +55,6 @@ in
       "drawio"
     ];
 
-    # Temporarily allow jitsi-meet package which is marked as insecure.
-    # @todo Remove when fix lands in nixos-unstable channel.
-    nixpkgs.config.permittedInsecurePackages = [
-      "jitsi-meet-1.0.8792"
-    ];
-
     # Laptop packages.
     environment.systemPackages = with pkgs; [
       # CLIs.
