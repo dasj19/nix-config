@@ -53,7 +53,7 @@
       }
       # Launching Apps ------------------------------
       bind = ${modifier},RETURN,exec,${terminal} # Open terminal with Windows (Modifier) + Return.
-      bind = ${modifier},F,exec,${browser} # Open browser (Firefox) with Windows + F
+      bind = ${modifier},B,exec,${browser} # Open browser (Firefox) with Windows + B
       bind = ${modifier},L,exec,hyprlock # Lock screen with Windows + L
       bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Windows + Space # uses electron, @todo condisder removing
       bind = ${modifier},S, exec, walker # Too slow and buggy, consider removing.
@@ -61,6 +61,8 @@
 
       # Multimedia.
       bind = CTRL_L, MASCULINE, exec, playerctl play-pause # Play-Pause with CTL + key above Tab.
+      bind = CTRL_L SHIFT, LEFT, exec, playerctl previous # Previous track
+      bind = CTRL_L SHIFT, RIGHT, exec, playerctl next # Next track
       bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
       bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
       bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
@@ -68,6 +70,23 @@
       # Brightness.
       bind = ,XF86MonBrightnessDown, exec, brightnessctl -d intel_backlight set 10%-
       bind = ,XF86MonBrightnessUp, exec, brightnessctl -d intel_backlight set 10%+
+
+      # Window management.
+      bind = ALT, F4, killactive, # Gracefully Close Active Window
+      bind = CTRL_L, Q, killactive, # Gracefully Close Active Window
+      bind = CTRL_L SUPER, Left, movewindow, l # Move Window Left
+      bind = CTRL_L SUPER, Right, movewindow, r # Move Window Right
+      bind = CTRL_L SUPER, Up, movewindow, u # Move Window Up
+      bind = CTRL_L SUPER, Down, movewindow, d # Move Window Down
+      bind = SUPER, LEFT, movefocus, l # Move focus to the Left
+      bind = SUPER, RIGHT, movefocus, r # Move focus to the Right
+      bind = SUPER, UP, movefocus, u # Move focus Up
+      bind = SUPER, DOWN, movefocus, d # Move focus Down
+      # Window tile management.
+      binde = SUPER, COMMA, splitratio, -0.1 # Adjust Slit Ratio Decreasing current window 
+      binde = SUPER, PERIOD, splitratio, +0.1  # Adjust Slit Ratio Increasing current window
+      bind = SUPER, F, togglefloating, # Float/Tile
+      bind = CTRL_L SUPER, F, fullscreen, 1 # Maximize
 
       # Workspace navigation.
       bind = ALT, TAB, workspace, e+1
