@@ -62,6 +62,34 @@ Sops key in: `~/.config/sops/age/keys.txt`.
 
 Git-crypt key: `git-crypt-key`
 
+# Legend
+**Status**
+- ✅: Good for now
+- 🚧: WIP
+- 🚫: Blocked
+- ❓: Undecided
+
+**Hardware**
+- 🖥️ : Desktop
+- 💻️ : Laptop
+- 🎮️ : Games Machine
+- 🐄 : Virtual Machine
+- ☁️ : Server
+- 🧟 : Not in service
+
+**Programming Language**
+- 🔥: Mojo
+- 🐍: Python
+- ❄️: Nix
+- 🦀: Rust
+- 🐹: Go
+- 💣: C/C++
+- 🐒: ECMAScript
+- 🫘: Java/Kotlin
+- 🌙: Lua
+- λ: Haskell
+
+
 
 # Machines
 
@@ -80,10 +108,24 @@ Git-crypt key: `git-crypt-key`
 | tuxedo-xa15 | Tuxedo Book XA15 | AMD Ryzen 3000       | 64 GB | NVIDIA GeForce RTX 2070        | 💻️   | ❄️  | ✅    | 🏠 |
 | xps13-9380  | Dell XPS13 9380  | Intel i7-8565U       | 8  GB | Intel UHD Graphics 620         | 💻️   | ❄️  | ✅    | 🏠 |
 
-**Key**
-- 🖥️ : Desktop
-- 💻️ : Laptop
-- 🎮️ : Games Machine
-- 🐄 : Virtual Machine
-- ☁️ : Server
-- 🧟 : Not in service
+# Server Software
+
+# Laptop Software
+| Status | Component | Current | R&D | Legacy |
+| :----: | :-------: | :-----: | :-: | :----: |
+| ✅ | Operating System | NixOS ❄️ | | Debian/Ubuntu |
+| 🚧 | Desktop Environment | Hyprland | | GNOME |
+| 🚧 | Application Launcher | Ulauncher 🐍 | | Gnome Shell 💣🐒 |
+| 🚧 | Terminal client | kitty 🐍 | | Gnome Terminal 💣 |
+| 🚧 | File manager | Nemo 💣 | | Nautilus 💣 |
+| ✅ | Music Player (Playlists) | Strawberry 💣 | | Clementine 💣 |
+| ✅ | Music Player (Albums) | Tauon 🐍 | | |
+| ✅ | Code Editor (IDE) | VS Codium 🐒 | | Atom 🐒 |
+| 🚧 | Text editor | Gnome Text Editor 💣 | | gedit 💣 |
+| 🚧 | PDF Viewer | Evince 💣 | | |
+| ✅ | Web Browser (Primary) | Firefox Developer Edition 💣🐒 | | |
+| ✅ | Web Browser (Secondary) | Chromium 💣 | | |
+| 🚧 | Office Suite | Only Office 💣 | | LibreOffice 💣 |
+| ✅ | Diagram Drawing Tool | drawio 🐒 | | |
+| 🚧 | Graphic Manipulation Tool | GIMP 💣 | | |
+| 🚧 | Vector Graphic Tool | ??? | | |
