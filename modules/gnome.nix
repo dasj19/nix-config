@@ -78,6 +78,7 @@
       gnome-photos # Advanced photo organizer, does much more than I need.
       gnome-tour # Gnome tour for beginners, I can use the help menu instead.
       gnome-weather # Weather service, I never use this.
+      orca # screen reader.
       snapshot # Simple webcam application, I do not need it.
       totem # Video player, I use vlc.
     ];
