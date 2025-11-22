@@ -39,6 +39,7 @@
     in
 
     ''
+      env = GDK_BACKEND,wayland,x11,*
       # Monitor config.
       monitor=eDP-1, highres, 0x0, 1
       monitor= , preferred, auto, auto
@@ -51,13 +52,17 @@
       input {
         kb_layout=esrodk
       }
-      # Launching Apps ------------------------------
+
+      # Launching Apps
       bind = ${modifier},RETURN,exec,${terminal} # Open terminal with Windows (Modifier) + Return.
       bind = ${modifier},B,exec,${browser} # Open browser (Firefox) with Windows + B
       bind = ${modifier},L,exec,hyprlock # Lock screen with Windows + L
-      bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Windows + Space # uses electron, @todo condisder removing
+      bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Windows + Space # uses electron, @todo consider removing
       bind = ${modifier},S, exec, walker # Too slow and buggy, consider removing.
       bind = CTRL_L, SPACE, exec, gapplication launch io.ulauncher.Ulauncher # Main App Launcher
+
+      # Desktop shortcuts.
+      bind = CTRL_L SHIFT_L, ESCAPE, exec, GDK_BACKEND=x11 missioncenter
 
       # Multimedia.
       bind = CTRL_L, MASCULINE, exec, playerctl play-pause # Play-Pause with CTL + key above Tab.
