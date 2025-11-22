@@ -471,6 +471,8 @@
     ];
 
   programs.vscode.profiles.default.userSettings = {
+    # Disable editor minimap.
+    "editor.minimap.enabled" = false;
     # Startup empty.
     "workbench.startupEditor" = "none";
     # Set default tab size.
