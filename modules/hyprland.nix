@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
 
   programs.uwsm.enable = true;
@@ -43,13 +43,18 @@
     networkmanager_dmenu
 
     # GUI.
-    kitty
-    waybar
     foot
-    wofi
-    walker
+    image-roll
+    kitty
     nautilus
     nemo
+    textadept
+    walker
+    waybar
+    wofi
+    xarchiver
+    xreader
+
     pyprland
     #    hyprpickffer
     hyprcursor
@@ -71,8 +76,8 @@
 
   xdg.mime.enable = true;
   # Find the desktop file in nix store with: find /nix/store/ -name "*application_name*desktop"
-  xdg.mime.defaultApplications = {
-    "inode/directory" = "nautilus.desktop";
+  xdg.mime.defaultApplications = lib.mkForce {
+    "inode/directory" = "nemo.desktop";
     "audio/aac" = "vlc.desktop";
     "audio/mpeg" = "vlc.desktop";
     "audio/ogg" = "vlc.desktop";
@@ -80,34 +85,34 @@
     "audio/wav" = "vlc.desktop";
     "audio/webm" = "vlc.desktop";
     "application/gzip" = "xarchiver.desktop";
-    "application/json" = "org.gnome.TextEditor.desktop";
-    "application/ld+json" = "org.gnome.TextEditor.desktop";
-    "application/msword" = "writer.desktop";
+    "application/json" = "textadept.desktop";
+    "application/ld+json" = "textadept.desktop";
+    "application/msword" = "onlyoffice-desktopeditors.desktop";
     "application/octet-stream" = "org.qbittorrent.qBittorrent.desktop";
-    "application/pdf" = "org.gnome.Evince.desktop";
-    "application/rtf" = "writer.desktop";
+    "application/pdf" = "xreader.desktop";
+    "application/rtf" = "onlyoffice-desktopeditors.desktop";
     "application/x-bzip" = "xarchiver.desktop";
     "application/x-bzip2" = "xarchiver.desktop";
     "application/zip" = "xarchiver.desktop";
-    "application/vnd.ms-powerpoint" = "impress.desktop";
+    "application/vnd.ms-powerpoint" = "onlyoffice-desktopeditors.desktop";
     "application/vnd.rar" = "xarchiver.desktop";
-    "application/vnd.ms-excel" = "calc.desktop";
-    "application/x-sh" = "org.gnome.Console.desktop";
+    "application/vnd.ms-excel" = "onlyoffice-desktopeditors.desktop";
+    "application/x-sh" = "kitty.desktop";
     "application/x-tar" = "xarchiver.desktop";
-    "application/xml" = "org.gnome.TextEditor.desktop";
+    "application/xml" = "textadept.desktop";
     "application/x-7z-compressed" = "xarchiver.desktop";
-    "image/bmp" = "org.gnome.Loupe.desktop";
-    "image/gif" = "org.gnome.Loupe.desktop";
-    "image/vnd.microsoft.icon" = "org.gnome.Loupe.desktop";
-    "image/jpeg" = "org.gnome.Loupe.desktop";
-    "image/png" = "org.gnome.Loupe.desktop";
-    "image/webp" = "org.gnome.Loupe.desktop";
+    "image/bmp" = "com.github.weclaw1.ImageRoll.desktop";
+    "image/gif" = "com.github.weclaw1.ImageRoll.desktop";
+    "image/vnd.microsoft.icon" = "com.github.weclaw1.ImageRoll.desktop";
+    "image/jpeg" = "com.github.weclaw1.ImageRoll.desktop";
+    "image/png" = "com.github.weclaw1.ImageRoll.desktop";
+    "image/webp" = "com.github.weclaw1.ImageRoll.desktop";
     "text/calendar" = "org.gnome.Evolution.desktop";
-    "text/css" = "org.gnome.TextEditor.desktop";
-    "text/csv" = "org.gnome.TextEditor.desktop";
-    "text/javascript" = "org.gnome.TextEditor.desktop";
+    "text/css" = "textadept.desktop";
+    "text/csv" = "textadept.desktop";
+    "text/javascript" = "textadept.desktop";
     "text/html" = "firefox-devedition.desktop";
-    "text/markdown" = "org.gnome.TextEditor.desktop";
+    "text/markdown" = "textadept.desktop";
     "video/mp4" = "vlc.desktop";
     "video/mpeg" = "vlc.desktop";
     "video/mp2t" = "vlc.desktop";

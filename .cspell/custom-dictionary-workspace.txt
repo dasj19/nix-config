@@ -41,6 +41,7 @@ btintel
 btrtl
 btusb
 cachix
+catppuccin
 cccl
 cdrom
 CHACHA
@@ -62,6 +63,7 @@ cuxxfilt
 cwebp
 czkawka
 danth
+darkviolet
 dasj
 dbeaver
 dbtype
@@ -210,6 +212,7 @@ loglevel
 lrcget
 lshw
 luks
+macchiato
 mailipv
 mailserver
 mame
@@ -257,6 +260,7 @@ nmap
 noauto
 nodev
 nosniff
+Noto
 ntfs
 numtide
 nvcc
@@ -318,6 +322,7 @@ PUBLICSHARE
 pulseaudio
 qbittorrent
 qjoypad
+qtct
 qwant
 radarr
 redir
@@ -369,6 +374,7 @@ synaptics
 sysstat
 tauon
 tealized
+textadept
 tgpt
 thermald
 thiagokokada
@@ -420,6 +426,7 @@ waydroid
 webp
 webroot
 webui
+weclaw
 weekdate
 Werkzeug
 winetricks
@@ -435,6 +442,7 @@ xonotic
 xorg
 xorgserver
 xorriso
+Xreader
 xvfb
 xwayland
 Zeroconf
