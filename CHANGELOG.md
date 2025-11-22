@@ -4,6 +4,7 @@ In this file I'll try to mention major changes to the configuration.
 - t14: removed configuration that enabled the Nvidia GPU, relying only on intel from now on
 - stylix: changed the monospaced font from UbuntuMono to NotoMono
 - hyprland: changed default programs for text editing, image viewer and pdf viewer
+- browsers: added search engines: Wikipedia, Github, DuckDuckGo, NixOS Discourse, NixOS Wiki
 
 2025-11-18
 - flake: added latest ulauncher for t14 (for now).

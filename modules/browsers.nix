@@ -1,6 +1,6 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 {
-    # Install firefox.
+  # Install firefox.
   programs.firefox.enable = true;
   # Lock preferences in place.
   programs.firefox.preferencesStatus = "locked";
@@ -56,27 +56,76 @@
       Name = "MyNixOS";
       URLTemplate = "https://mynixos.com/search?q={searchTerms}";
     }
+    # Search NixOS Discourse with: "@nd query".
+    {
+      Alias = "@nd";
+      Description = "Search NixOS Discourse";
+      IconURL = "https://discourse.nixos.org/favicon.ico";
+      Method = "GET";
+      Name = "NixOS Discourse";
+      URLTemplate = "https://discourse.nixos.org/search?q={searchTerms}";
+    }
+    # Search the official NixOS Wiki with: "@nw query".
+    {
+      Alias = "@nw";
+      Description = "Search NixOS Wiki";
+      IconURL = "https://wiki.nixos.org/favicon.ico";
+      Method = "GET";
+      Name = "NixOS Wiki";
+      URLTemplate = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
+    }
+    # Search GitHub with: "@gh query".
+    {
+      Alias = "@gh";
+      Description = "Search on GitHub";
+      IconURL = "https://github.githubassets.com/favicons/favicon.png";
+      Method = "GET";
+      Name = "GitHub";
+      URLTemplate = "https://github.com/search?q={searchTerms}&type=repositories";
+    }
+    # Search DuckDuckGo with: "@ddg query".
+    {
+      Alias = "@ddg";
+      Description = "Search on DuckDuckGo";
+      IconURL = "https://duckduckgo.com/favicon.ico";
+      Method = "GET";
+      Name = "DuckDuckGo";
+      URLTemplate = "https://duckduckgo.com/?q={searchTerms}";
+    }
+    # Search Wikipedia with: "@wp query".
+    {
+      Alias = "@wp";
+      Description = "Search on Wikipedia";
+      IconURL = "https://en.wikipedia.org/static/favicon/wikipedia.ico";
+      Method = "GET";
+      Name = "Wikipedia";
+      URLTemplate = "https://en.wikipedia.org/w/index.php?search={searchTerms}";
+    }
   ];
-
   programs.firefox.policies.Homepage.StartPage = "previous-session";
 
   # Privacy preferences.
   programs.firefox.policies.Preferences."extensions.pocket.enabled".Value = false;
   programs.firefox.policies.Preferences."browser.newtabpage.pinned".Value = "";
   programs.firefox.policies.Preferences."browser.topsites.contile.enabled".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsored".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.system.showSponsored".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsoredTopSites".Value = false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsored".Value =
+    false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.system.showSponsored".Value =
+    false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsoredTopSites".Value =
+    false;
 
   # Setup default search engine.
   programs.firefox.policies.Preferences."browser.search.defaultenginename".Value = "DuckDuckGo";
   programs.firefox.policies.Preferences."browser.search.order.1".Value = "DuckDuckGo";
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines".Value = "DuckDuckGo";
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.improvesearch.topSiteSearchShortcuts.searchEngines".Value =
+    "DuckDuckGo";
 
   # Translations.
   programs.firefox.policies.Preferences."browser.translations.enable".Value = true;
   programs.firefox.policies.Preferences."browser.translations.automaticallyPopup".Value = true; # revisit this setting.
-  programs.firefox.policies.Preferences."browser.translations.neverTranslateLanguages".Value = "da,en,es,pt,ro";
+  programs.firefox.policies.Preferences."browser.translations.neverTranslateLanguages".Value =
+    "da,en,es,pt,ro";
 
   # Disable geolocation prompts.
   programs.firefox.policies.Preferences."geo.enabled".Value = false;
@@ -164,7 +213,6 @@
     "VoiceInteractionHotwordEnabled" = false;
     "AutoplayAllowed" = false;
   };
-
 
   environment.systemPackages = with pkgs; [
     # Internet browsers.
