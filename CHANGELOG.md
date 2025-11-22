@@ -1,5 +1,10 @@
 # Changelog
-In this file I'll try to mention major changes to the configuration. 
+In this file I'll try to mention major changes to the configuration.
+
+2025-11-23
+- home laptop: add bluetooth manager to the waybar.
+- home laptop: enhanced configuration of waybar widgets.
+
 2025-11-22
 - t14: removed configuration that enabled the Nvidia GPU, relying only on intel from now on
 - stylix: changed the monospaced font from UbuntuMono to NotoMono
