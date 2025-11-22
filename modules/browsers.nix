@@ -191,27 +191,55 @@
   ];
   # See available options at https://chromeenterprise.google/policies/
   programs.chromium.extraOpts = {
+    # Disable browser sign-in functionality.
     "BrowserSignin" = 0;
+    # Disable the profile creation prompt on startup.
     "BrowserAddPersonEnabled" = false;
+    # Disable synchronization features.
     "SyncDisabled" = true;
+    # Disable password manager.
     "PasswordManagerEnabled" = false;
+    # Disable autofill features.
     "AutofillAddressEnabled" = false;
+    # Disable credit card autofill.
     "AutofillCreditCardEnabled" = false;
+    # Disable built-in DNS client.
     "BuiltInDnsClientEnabled" = false;
+    # Disable usage statistics and crash reports.
     "MetricsReportingEnabled" = false;
+    # Disable Google Safe Browsing.
+    "SafeBrowsingEnabled" = false;
+    "SafeBrowsingExtendedReportingEnabled" = false;
+    # Disable search suggestions.
     "SearchSuggestEnabled" = false;
+    # Disable alternate error pages. They often contact Google servers.
     "AlternateErrorPagesEnabled" = false;
+    # Disable URL-keyed anonymized data collection.
     "UrlKeyedAnonymizedDataCollectionEnabled" = false;
+    # Enable spellchecking.
     "SpellcheckEnabled" = true;
+    # Set preferred spellcheck languages.
     "SpellcheckLanguage" = [
       "da"
       "en-US"
       "ro"
     ];
+    # Disable printing via Google Cloud Print.
     "CloudPrintSubmitEnabled" = false;
+    # Block third-party cookies.
     "BlockThirdPartyCookies" = true;
+    # Disable voice interaction features.
     "VoiceInteractionHotwordEnabled" = false;
+    # Disable autoplay of media.
     "AutoplayAllowed" = false;
+    # Disable asking for making the system's default browser.
+    "DefaultBrowserSettingEnabled" = false;
+    # Disable extension installations from outside the web store.
+    "ExtensionInstallSources" = [
+      "https://chrome.google.com/webstore/detail/*"
+    ];
+    # Block all extension installations by default.
+    "ExtensionInstallBlocklist" = [ "*" ];
   };
 
   environment.systemPackages = with pkgs; [
