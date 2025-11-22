@@ -193,7 +193,7 @@
       nixosConfigurations.t14 = mkLaptopSystem {
         modules = [
           ./machines/t14/configuration.nix
-          nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
+          nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1
           # Provides the newer ulauncher version 6.
           {
             environment.systemPackages = [

@@ -9,14 +9,6 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    # Modules.
-    ./../../modules/non-free.nix
-  ];
-
-  allowedUnfree = [
-    # Drivers.
-    "nvidia-x11"
-    "nvidia-settings"
   ];
 
   # Bootloader.
@@ -58,8 +50,6 @@
     "kvm-intel"
   ];
   boot.kernelParams = [
-    # Enable modesetting for proprietary nvidia driver.
-    "nvidia-drm.modeset=1"
     # Disables modesetting for open-source nouveau driver.
     "nouveau.modeset=0"
     # Allow to enter a root shell at fail (by providing root password).
@@ -86,15 +76,13 @@
     # Attempt at fixing:
     # i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=1102746 end=1102747)
     # time 840 us, min 1073, max 1079, scanline start 1029, end 1086
-    "i915.enable_psr=0"
-    "i915.enable_dc=0"
-    "i915.atomic_support=0"
-    # Disable frame buffer compression for the intel driver.
-    "i915.enable_fbc=0"
-    # Last resort.
-    "i915.fastboot=0"
-  ];
-  boot.extraModulePackages = [
+    # "i915.enable_psr=0"
+    # "i915.enable_dc=0"
+    # "i915.atomic_support=0"
+    # # Disable frame buffer compression for the intel driver.
+    # "i915.enable_fbc=0"
+    # # Last resort.
+    # "i915.fastboot=0"
   ];
 
   boot.tmp.useTmpfs = true;
@@ -130,15 +118,17 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [ intel-media-driver ];
-
-  hardware.nvidia-container-toolkit.enable = true;
-
   # System-wide drivers and utilities.
   environment.systemPackages = with pkgs; [
     # Drivers.
     linux-firmware # needed for the intel graphic card.
+    mesa # open-source graphics drivers.
+    vulkan-loader # Vulkan loader and utilities.
+    vulkan-tools # Vulkan command-line tools.
+    intel-media-driver # Intel VAAPI driver for hardware-accelerated video decoding/encoding.
+    vpl-gpu-rt # Intel oneAPI Video Processing Library - GPU Runtime
+    libglvnd # The GL Vendor Neutral Dispatch library
+    libgbm # Generic Buffer Management API
   ];
 
   # Install fingerprinting the driver.
@@ -182,22 +172,6 @@
 
   # Enable the temperature management daemon.
   services.thermald.enable = true;
-
-  # Accept NVIDIA license.
-  nixpkgs.config.nvidia.acceptLicense = true;
-
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.nvidiaSettings = true;
-  hardware.nvidia.open = false;
-  # Set the LD_LIBRARY_PATH for OpenGL applications.
-  # hardware.opengl.setLdLibraryPath = true;
-  # Video drivers for the X server.
-  services.xserver.videoDrivers = [
-    "nvidia"
-  ];
-
-  # Check https://www.nvidia.com/en-us/drivers/results/ for the latest driver available.
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   # Thinkfan manages cooling fans.
   # @see https://gist.github.com/Yatoom/1c80b8afe7fa47a938d3b667ce234559

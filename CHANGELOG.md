@@ -1,5 +1,7 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration. 
+2025-11-22
+- t14: removed configuration that enabled the Nvidia GPU, relying only on intel from now on
 
 2025-11-18
 - flake: added latest ulauncher for t14 (for now).
