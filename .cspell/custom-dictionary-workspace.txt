@@ -90,6 +90,7 @@ Embedder
 emulationstation
 erros
 esrodk
+essid
 evtest
 exif
 exresop
@@ -120,6 +121,7 @@ fritweb
 fullscreen
 fwupd
 gamepad
+gapplication
 gcstar
 geary
 geolocation
@@ -152,6 +154,7 @@ hypridle
 hyprlock
 IBPB
 icmpv
+ifname
 imagick
 IMAP
 IMAPS
@@ -186,6 +189,8 @@ libcufft
 libcurand
 libcusolver
 libcusparse
+libgbm
+libglvnd
 libinput
 libmodsecurity
 libnpp
@@ -213,11 +218,13 @@ maxtime
 mblode
 mbstring
 mediainfo
+missioncenter
 mkpasswd
 mktplc
 mkvtoolnix
 Mnnxcxis
 modemmanager
+modeset
 Modesetting
 movefocus
 movetoworkspace
