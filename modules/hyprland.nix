@@ -59,6 +59,9 @@
     hyprsunset
     hyprpolkitagent
 
+    mission-center # Task manager and system monitor.
+    resources # Task manager and resource monitor.
+
     strawberry # Replacement for gnome-music.
     evolution # Email client with calendar support.
     gnome-keyring # Keyring for managing passwords and encryption keys.
