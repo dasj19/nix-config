@@ -67,7 +67,8 @@ in
       gh
       github-copilot-cli
       inetutils
-      khard
+      khard # CLI for managing contacts.
+
       neo-cowsay
       shotcut
       shntool
@@ -91,10 +92,8 @@ in
       drawio
       element-desktop
       filezilla
-      flacon
       flameshot
       gimp
-      halloy
       kando
       libreoffice-still
       onlyoffice-desktopeditors
