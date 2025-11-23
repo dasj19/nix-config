@@ -45,7 +45,7 @@
     foot
     image-roll # Image viewer for Wayland.
     kitty # Terminal emulator.
-    nemo # File manager forked from nautilus with extra features.
+    nemo-with-extensions # File manager forked from nautilus with extra features.
     pwvucontrol # Pipewire volume control.
     textadept # Lightweight text editor.
     walker
