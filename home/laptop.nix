@@ -189,14 +189,13 @@
         "wlr/taskbar"
       ];
       modules-center = [
-        "idle_inhibitor"
-        "cpu"
-        "memory"
-        "backlight"
         "clock"
       ];
       modules-right = [
         "tray"
+        "cpu"
+        "memory"
+        "backlight"
         "bluetooth"
         "network"
         "wireplumber#sink"
@@ -227,6 +226,8 @@
         format = "{:%H:%M - %d-%m-%Y}";
         rotate = 0;
         format-alt = "{  %d·%m·%y}";
+        # Open calendar in a floating window on click.
+        on-click = ''hyprctl dispatch exec "[float; size:800 250; move: 1000 50] orage --toggle"'';
         tooltip-format = "<span>{calendar}</span>";
         calendar = {
           mode = "month";
