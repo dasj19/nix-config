@@ -32,7 +32,9 @@ bibata
 binde
 binfmt
 bitmagnet
+Blocklist
 blogstream
+blueman
 bmewburn
 Bootloader
 brasero
@@ -140,6 +142,7 @@ greetd
 greylist
 greylisting
 gvariant
+gwaddr
 halign
 halloy
 HIDD
