@@ -155,6 +155,7 @@ htpasswd
 humanstxt
 hwdep
 hyperscan
+hyprctl
 hypridle
 hyprlock
 IBPB
@@ -285,6 +286,7 @@ opcache
 openconnect
 openrgb
 optimise
+orage
 osdlyrics
 osup
 overwriteprotocol
