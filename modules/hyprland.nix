@@ -44,6 +44,7 @@
 
     # GUI.
     foot
+    pwvucontrol
     image-roll
     kitty
     nautilus

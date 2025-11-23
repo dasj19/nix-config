@@ -323,6 +323,7 @@ Pubkey
 publickey
 PUBLICSHARE
 pulseaudio
+pwvucontrol
 qbittorrent
 qjoypad
 qtct

@@ -190,7 +190,6 @@
       ];
       modules-center = [
         "idle_inhibitor"
-        "pulseaudio"
         "cpu"
         "memory"
         "backlight"
@@ -200,6 +199,8 @@
         "tray"
         "bluetooth"
         "network"
+        "wireplumber#sink"
+        "wireplumber#source"
         "battery"
       ];
 
@@ -317,6 +318,27 @@
           {device_alias}  {device_address}  {device_battery_percentage}%
         '';
         on-click = "blueman-manager";
+      };
+
+      "wireplumber#sink" = {
+        format = "{icon} {volume}%";
+        format-muted = "";
+        format-icons = [
+          ""
+          ""
+          ""
+        ];
+        on-click = "pwvucontrol";
+        on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        scroll-step = 5;
+      };
+      "wireplumber#source" = {
+        node-type = "Audio/Source";
+        format = " {volume}%";
+        format-muted = "";
+        on-click = "pwvucontrol";
+        on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+        scroll-step = 5;
       };
 
       "wlr/taskbar" = {
