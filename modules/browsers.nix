@@ -101,6 +101,46 @@
       Name = "Wikipedia";
       URLTemplate = "https://en.wikipedia.org/w/index.php?search={searchTerms}";
     }
+    {
+      Alias = "@yt";
+      Description = "Search on YouTube";
+      IconURL = "https://www.youtube.com/s/desktop/6b6f7c7c/img/favicon_32x32.png";
+      Method = "GET";
+      Name = "YouTube";
+      URLTemplate = "https://www.youtube.com/results?search_query={searchTerms}";
+    }
+    {
+      Alias = "@dgs";
+      Description = "Search on Discogs";
+      IconURL = "https://www.discogs.com/favicon-32x32.png";
+      Method = "GET";
+      Name = "Discogs";
+      URLTemplate = "https://www.discogs.com/search/?q={searchTerms}&type=all";
+    }
+    {
+      Alias = "@imdb";
+      Description = "Search on IMDb";
+      IconURL = "https://www.imdb.com/favicon-32x32.png";
+      Method = "GET";
+      Name = "IMDb";
+      URLTemplate = "https://www.imdb.com/find?q={searchTerms}";
+    }
+    {
+      Alias = "@eb";
+      Description = "Search on eBay";
+      IconURL = "https://www.ebay.com/favicon.ico";
+      Method = "GET";
+      Name = "eBay";
+      URLTemplate = "https://www.ebay.com/sch/i.html?_nkw={searchTerms}";
+    }
+    {
+      Alias = "@pr";
+      Description = "Search on PriceRunner";
+      IconURL = "https://www.pricerunner.dk/favicon.ico";
+      Method = "GET";
+      Name = "PriceRunner";
+      URLTemplate = "https://www.pricerunner.dk/search?query={searchTerms}";
+    }
   ];
   programs.firefox.policies.Homepage.StartPage = "previous-session";
 
