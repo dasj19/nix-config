@@ -50,7 +50,6 @@
       dmidecode # DMI table decoder
       dust # Improved version of du.
       eza # Improved version of ls-
-      fastfetch # Improved version of neofetch.
       fd # Simple alternative to find.
       gh # Github CLI.
       git # File versioning system CLI.
