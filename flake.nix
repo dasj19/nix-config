@@ -103,7 +103,7 @@
           modules = [
             {
               home-manager.useUserPackages = true;
-              home-manager.users.daniel = import ./home/laptop.nix;
+              home-manager.users.daniel = import ./home/profiles/laptop.nix;
               home-manager.extraSpecialArgs = {
                 inherit awesome-linux-templates;
                 inherit gitSecrets;
@@ -121,7 +121,7 @@
             simple-nixos-mailserver.nixosModule
             {
               home-manager.useUserPackages = true;
-              home-manager.users.daniel = import ./home/server.nix;
+              home-manager.users.daniel = import ./home/profiles/server.nix;
               home-manager.extraSpecialArgs = {
                 inherit gitSecrets;
               };

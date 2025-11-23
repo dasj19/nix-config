@@ -10,6 +10,8 @@ In this file I'll try to mention major changes to the configuration.
 - home laptop: customized wlr/taskbar plugin for the waybar.
 - home laptop: customized the audio plugin for the waybar.
 - fish: removed display of date after the shell launches.
+- home: introduced modules for home manager.
+- home: configuration split into hm modules.
 
 2025-11-22
 - t14: removed configuration that enabled the Nvidia GPU, relying only on intel from now on
