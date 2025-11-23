@@ -86,4 +86,14 @@
     '';
   stylix.targets.hyprland.enable = true;
 
+  # Enable system-wide terminal integration.
+  xdg.terminal-exec.enable = true;
+  # Set kitty as the default terminal emulator.
+  xdg.terminal-exec.settings.default = [ "kitty.desktop" ];
+
+  # Enable terminal opening in nemo file manager.
+  dconf.settings."org/cinnamon/desktop/applications/terminal" = {
+    exec = "xdg-terminal-exec";
+  };
+
 }
