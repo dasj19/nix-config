@@ -79,6 +79,7 @@ devbox
 devedition
 dhcpcd
 dialout
+Discogs
 distro
 dlna
 dmask
@@ -164,6 +165,7 @@ ifname
 imagick
 IMAP
 IMAPS
+imdb
 improvesearch
 indir
 inetutils
@@ -353,6 +355,7 @@ Searxng
 secp
 serio
 sgptrc
+shellgpt
 shmcb
 shntool
 shotcut
