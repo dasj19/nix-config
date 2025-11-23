@@ -36,7 +36,7 @@
       IconURL = "https://nixos.org/favicon.png";
       Method = "GET";
       Name = "NixOS Packages";
-      URLTemplate = "https://search.nixos.org/packages?from=0&size=200&sort=relevance&type=packages&query={searchTerms}";
+      URLTemplate = "https://search.nixos.org/packages?from=0&size=200&channel=unstable&sort=relevance&type=packages&query={searchTerms}";
     }
     # Search NixOS options with: "@no option-name".
     {
