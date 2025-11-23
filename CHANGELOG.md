@@ -4,6 +4,12 @@ In this file I'll try to mention major changes to the configuration.
 2025-11-23
 - home laptop: add bluetooth manager to the waybar.
 - home laptop: enhanced configuration of waybar widgets.
+- home laptop: removed unused packages halloy and flacon.
+- browsers: added customizations to chrome-based browsers.
+- fish: use fastfetchMinimal instead of plain fastfetch.
+- home laptop: customized wlr/taskbar plugin for the waybar.
+- home laptop: customized the audio plugin for the waybar.
+- fish: removed display of date after the shell launches.
 
 2025-11-22
 - t14: removed configuration that enabled the Nvidia GPU, relying only on intel from now on

@@ -14,9 +14,8 @@
       set -g fish_greeting ""
       # Increase sponge delay. To keep in history the last x commands no matter the exit status.
       set -g sponge_delay 5
-      # System information and current date.
+      # System information.
       fastfetch
-      echo (date "+%T - %F")
     '';
 
     # Required packages.
