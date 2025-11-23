@@ -37,27 +37,25 @@
   environment.systemPackages = with pkgs; [
     # CLI.
     playerctl
-    wireplumber
+    wireplumber # PipeWire session manager.
     brightnessctl
     networkmanagerapplet
-    networkmanager_dmenu
 
     # GUI.
     foot
-    pwvucontrol
-    image-roll
-    kitty
-    nautilus
-    nemo
-    textadept
+    image-roll # Image viewer for Wayland.
+    kitty # Terminal emulator.
+    nemo # File manager forked from nautilus with extra features.
+    pwvucontrol # Pipewire volume control.
+    textadept # Lightweight text editor.
     walker
-    waybar
-    wofi
-    xarchiver
-    xreader
+    waybar # Status bar for Wayland.
+    wofi # Application launcher.
+    xarchiver # Archive manager.
+    xfce.orage # Calendar application.
+    xreader # PDF Document viewer.
 
     pyprland
-    #    hyprpickffer
     hyprcursor
     hyprlock
     hypridle
@@ -72,7 +70,7 @@
     evolution # Email client with calendar support.
     gnome-keyring # Keyring for managing passwords and encryption keys.
     vlc # Media player.
-    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-hyprland # XDG desktop portal implementation for Hyprland.
   ];
 
   xdg.mime.enable = true;
