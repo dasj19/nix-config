@@ -240,6 +240,46 @@
     ];
     # Block all extension installations by default.
     "ExtensionInstallBlocklist" = [ "*" ];
+    # Disable translation features.
+    "TranslateEnabled" = false;
+    # Set homepage to blank.
+    "HomepageLocation" = "about:blank";
+    "HomepageIsNewTabPage" = false;
+    # Set default search engine to DuckDuckGo.
+    "DefaultSearchProviderEnabled" = true;
+    "DefaultSearchProviderName" = "DuckDuckGo";
+    "DefaultSearchProviderSearchURL" = "https://duckduckgo.com/?q={searchTerms}";
+    # Disable prefetching of pages.
+    "NetworkPredictionOptions" = 0;
+    # Disable autofill of forms.
+    "AutofillEnabled" = false;
+    # Disable the built-in PDF viewer.
+    "DisablePDFViewer" = true;
+    # Disable the reading list feature.
+    "ReadingListEnabled" = false;
+    # Disable the Chrome Cleanup Tool.
+    "ChromeCleanupEnabled" = false;
+    # Disable the Chrome Cleanup Tool's reporting feature.
+    "ChromeCleanupReportingEnabled" = false;
+    # Disable the new tab page.
+    "NewTabPageLocation" = "about:blank";
+    "NewTabPageEnabled" = false;
+    # Disable the suggestions on the new tab page.
+    "NewTabPageSuggestionsEnabled" = false;
+    # Disable the bookmarks bar.
+    "ShowBookmarkBar" = false;
+    # Disable the "What's New" page on updates.
+    "ShowWhatsNewPage" = false;
+    # Disable the "Welcome" page on first run.
+    "ShowWelcomePage" = false;
+    # Disable the "Chrome Tips" page.
+    "ShowTipsPage" = false;
+    # Disable the "Get Started" page.
+    "ShowGetStartedPage" = false;
+    # Disable the "Help Center" page.
+    "ShowHelpCenterPage" = false;
+    # Disable the "Feedback" page.
+    "ShowFeedbackPage" = false;
   };
 
   environment.systemPackages = with pkgs; [
