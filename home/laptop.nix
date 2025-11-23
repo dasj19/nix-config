@@ -194,7 +194,6 @@
         "cpu"
         "memory"
         "backlight"
-        "network"
         "clock"
       ];
       modules-right = [
@@ -318,6 +317,12 @@
           {device_alias}  {device_address}  {device_battery_percentage}%
         '';
         on-click = "blueman-manager";
+      };
+
+      "wlr/taskbar" = {
+        tooltip-format = "{title}";
+        on-click = "activate";
+        on-click-middle = "close";
       };
 
       # "custom/hello-from-waybar" = {
