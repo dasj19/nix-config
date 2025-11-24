@@ -141,6 +141,42 @@
       Name = "PriceRunner";
       URLTemplate = "https://www.pricerunner.dk/search?query={searchTerms}";
     }
+    # Search CVR.dk with: "@cvr company-name".
+    {
+      Alias = "@cvr";
+      Description = "Search on CVR.dk";
+      IconURL = "https://datacvr.virk.dk/favicon.ico";
+      Method = "GET";
+      Name = "CVR.dk";
+      URLTemplate = "https://datacvr.virk.dk/soegeresultater?fritekst={searchTerms}";
+    }
+    # Search Reddit with: "@rd query".
+    {
+      Alias = "@rd";
+      Description = "Search on Reddit";
+      IconURL = "https://www.reddit.com/favicon.ico";
+      Method = "GET";
+      Name = "Reddit";
+      URLTemplate = "https://www.reddit.com/search/?q={searchTerms}";
+    }
+    # Search GitLab with: "@gl query". (Requires login to search)
+    {
+      Alias = "@gl";
+      Description = "Search on GitLab";
+      IconURL = "https://gitlab.com/favicon.ico";
+      Method = "GET";
+      Name = "GitLab";
+      URLTemplate = "https://gitlab.com/search?search={searchTerms}";
+    }
+    # Search Stack Overflow with: "@so question".
+    {
+      Alias = "@so";
+      Description = "Search on Stack Overflow";
+      IconURL = "https://stackoverflow.com/favicon.ico";
+      Method = "GET";
+      Name = "Stack Overflow";
+      URLTemplate = "https://stackoverflow.com/search?q={searchTerms}";
+    }
     # Search Wordnik with: "@wn word".
     {
       Alias = "@wn";
