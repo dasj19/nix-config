@@ -141,6 +141,15 @@
       Name = "PriceRunner";
       URLTemplate = "https://www.pricerunner.dk/search?query={searchTerms}";
     }
+    # Search Wordnik with: "@wn word".
+    {
+      Alias = "@wn";
+      Description = "Search on Wordnik";
+      IconURL = "https://www.wordnik.com/favicon.ico";
+      Method = "GET";
+      Name = "Wordnik";
+      URLTemplate = "https://www.wordnik.com/words/{searchTerms}";
+    }
   ];
   programs.firefox.policies.Homepage.StartPage = "previous-session";
 
