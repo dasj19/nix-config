@@ -4,14 +4,13 @@
   # Optional, hint Electron apps to use Wayland:
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  programs.kitty.enable = true; # required for the default Hyprland config
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
   wayland.windowManager.hyprland.xwayland.enable = true; # legacy support for X11 apps.
   wayland.windowManager.hyprland.systemd.enable = true; # systemd integration.
   wayland.windowManager.hyprland.extraConfig =
     let
       modifier = "SUPER"; # Windows key as modifier.
-      terminal = "${pkgs.kitty}/bin/kitty";
+      terminal = "${pkgs.alacritty}/bin/alacritty";
       browser = "${pkgs.firefox-devedition}/bin/firefox-devedition";
     in
 
@@ -88,8 +87,8 @@
 
   # Enable system-wide terminal integration.
   xdg.terminal-exec.enable = true;
-  # Set kitty as the default terminal emulator.
-  xdg.terminal-exec.settings.default = [ "kitty.desktop" ];
+  # Set Simple Terminal as the default terminal emulator.
+  xdg.terminal-exec.settings.default = [ "alacritty.desktop" ];
 
   # Enable terminal opening in nemo file manager.
   dconf.settings."org/cinnamon/desktop/applications/terminal" = {

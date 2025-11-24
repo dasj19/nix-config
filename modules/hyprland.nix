@@ -47,7 +47,7 @@
     xfce.tumbler # Thumbnail generator service. Used by nemo and nemo-preview.
     foot
     image-roll # Image viewer for Wayland.
-    kitty # Terminal emulator.
+    alacritty # Terminal emulator.
     nemo-with-extensions # File manager forked from nautilus with extra features.
     nemo-preview # File previews for nemo.
     pwvucontrol # Pipewire volume control.
@@ -100,7 +100,7 @@
     "application/vnd.ms-powerpoint" = "onlyoffice-desktopeditors.desktop";
     "application/vnd.rar" = "xarchiver.desktop";
     "application/vnd.ms-excel" = "onlyoffice-desktopeditors.desktop";
-    "application/x-sh" = "kitty.desktop";
+    "application/x-sh" = "alacritty.desktop";
     "application/x-tar" = "xarchiver.desktop";
     "application/xml" = "textadept.desktop";
     "application/x-7z-compressed" = "xarchiver.desktop";
