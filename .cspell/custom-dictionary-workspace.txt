@@ -107,6 +107,7 @@ fbalpha
 fbneo
 felixfbecker
 fetchurl
+ffmpegthumbnailer
 fileinto
 filezilla
 finegrained
@@ -389,6 +390,7 @@ thermald
 thiagokokada
 thinkfan
 thinkpad
+thumbnailers
 tinymce
 tinysparql
 tmpfiles
@@ -441,10 +443,12 @@ Werkzeug
 winetricks
 wireplumber
 wlan
+Wordnik
 worpress
 wpctl
 WPLANG
 wwwrun
+xapp
 xarchiver
 xhci
 xonotic

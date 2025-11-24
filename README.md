@@ -111,24 +111,24 @@ Git-crypt key: `git-crypt-key`
 # Server Software
 
 # Laptop Software
-| Status  | Component                   | Current                            | R&D                | Legacy                  |
-| :-----: | :-------------------------: | :--------------------------------: | :----------------: | :---------------------: |
-|   ✅   | Operating System             | NixOS ❄️                           |                    | Debian/Ubuntu           |
-|   🚧   | Desktop Environment          | Hyprland                           |                    | GNOME                   |
-|   🚧   | Application Launcher         | Ulauncher 🐍                       |                    | Gnome Shell 💣🐒        |
-|   🚧   | Terminal client              | kitty 🐍                           |                    | Gnome Terminal 💣       |
-|   🚧   | File manager                 | Nemo 💣                            |                    | Nautilus 💣             |
-|   ✅   | Music Player (Playlists)     | Strawberry 💣                      |                    | Clementine 💣           |
-|   ✅   | Music Player (Albums)        | Tauon 🐍                           |                    |                         |
-|   ✅   | Code Editor (IDE)            | VS Codium 🐒                       |                    | Atom 🐒                 |
-|   🚧   | Text editor                  | Textadept 🌙                       |                    | Gnome Text Editor 💣    |
-|   🚧   | PDF Viewer                   | Xreader 💣                         |                    | Evince 💣               |
-|   ✅   | Web Browser (Primary)        | Firefox Developer Edition 💣🐒     |                    |                         |
-|   ✅   | Web Browser (Secondary)      | Chromium 💣                        |                    |                         |
-|   🚧   | Office Suite                 | Only Office 💣                     |                    | LibreOffice 💣          |
-|   ✅   | Diagram Drawing Tool         | drawio 🐒                          |                    |                         |
-|   🚧   | Graphic Manipulation Tool    | GIMP 💣                            |                    |                         |
-|   🚧   | Vector Graphic Tool          | ???                                |                    |                         |
-|   🚧   | Resource Monitor             | resources 🦀                       | Mission Center 💣  | Gnome System Monitor 💣 |
-|   🚧   | Desktop Key Manager          | Gnome Keyring 💣                   |                    |                         |
-|   🚧   | Image Viewer                 | Image Roll 🦀                      |                    | Gnome Loupe 🦀          |
+| Status  | Component                   | Current                            | R&D                   | Legacy                  |
+| :-----: | :-------------------------: | :--------------------------------: | :-------------------: | :---------------------: |
+|   ✅   | Operating System             | NixOS ❄️                           |                       | Debian/Ubuntu           |
+|   🚧   | Desktop Environment          | Hyprland                           |                       | GNOME                   |
+|   🚧   | Application Launcher         | Ulauncher 🐍                       | Ulauncher Extensions  | Gnome Shell 💣🐒        |
+|   🚧   | Terminal Client              | Alacritty 🦀                       | Wave 🐹               | Gnome Terminal 💣       |
+|   🚧   | File Manager                 | Nemo 💣                            | Sigma File Manager 💣 | Nautilus 💣             |
+|   ✅   | Music Player (Playlists)     | Strawberry 💣                      |                       | Clementine 💣           |
+|   ✅   | Music Player (Albums)        | Tauon 🐍                           |                       |                         |
+|   ✅   | Code Editor (IDE)            | VS Codium 🐒                       |                       | Atom 🐒                 |
+|   🚧   | Text editor                  | Textadept 🌙                       |                       | Gnome Text Editor 💣    |
+|   🚧   | PDF Viewer                   | Xreader 💣                         |                       | Evince 💣               |
+|   ✅   | Web Browser (Primary)        | Firefox Developer Edition 💣🐒     |                       |                         |
+|   ✅   | Web Browser (Secondary)      | Chromium 💣                        |                       |                         |
+|   🚧   | Office Suite                 | Only Office 💣                     |                       | LibreOffice 💣          |
+|   ✅   | Diagram Drawing Tool         | drawio 🐒                          |                       |                         |
+|   🚧   | Graphic Manipulation Tool    | GIMP 💣                            |                       |                         |
+|   🚧   | Vector Graphic Tool          | ???                                |                       |                         |
+|   🚧   | Resource Monitor             | resources 🦀                       | Mission Center 💣     | Gnome System Monitor 💣 |
+|   🚧   | Desktop Key Manager          | Gnome Keyring 💣                   |                       |                         |
+|   🚧   | Image Viewer                 | Image Roll 🦀                      |                       | Gnome Loupe 🦀          |
