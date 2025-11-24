@@ -42,10 +42,14 @@
     networkmanagerapplet
 
     # GUI.
+    ffmpegthumbnailer # Video thumbnail generator. Used by nemo and nemo-preview.
+    xapp-thumbnailers # Set of thumbnailers for various file types. Used by nemo and nemo-preview.
+    xfce.tumbler # Thumbnail generator service. Used by nemo and nemo-preview.
     foot
     image-roll # Image viewer for Wayland.
     kitty # Terminal emulator.
     nemo-with-extensions # File manager forked from nautilus with extra features.
+    nemo-preview # File previews for nemo.
     pwvucontrol # Pipewire volume control.
     textadept # Lightweight text editor.
     walker

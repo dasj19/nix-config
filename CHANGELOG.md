@@ -1,6 +1,9 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-11-24
+- hyprland: added packages that help with file thumbnails
+
 2025-11-23
 - home laptop: add bluetooth manager to the waybar.
 - home laptop: enhanced configuration of waybar widgets.
