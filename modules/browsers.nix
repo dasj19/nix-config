@@ -33,7 +33,7 @@
     {
       Alias = "@np";
       Description = "Search in NixOS Packages";
-      IconURL = "https://nixos.org/favicon.png";
+      IconURL = "https://nixos.org/favicon.ico";
       Method = "GET";
       Name = "NixOS Packages";
       URLTemplate = "https://search.nixos.org/packages?from=0&size=200&channel=unstable&sort=relevance&type=packages&query={searchTerms}";
@@ -42,7 +42,7 @@
     {
       Alias = "@no";
       Description = "Search in NixOS Options";
-      IconURL = "https://nixos.org/favicon.png";
+      IconURL = "https://nixos.org/favicon.ico";
       Method = "GET";
       Name = "NixOS Options";
       URLTemplate = "https://search.nixos.org/options?from=0&size=200&sort=relevance&type=packages&query={searchTerms}";
@@ -51,7 +51,7 @@
     {
       Alias = "@mn";
       Description = "Search on MyNixOS";
-      IconURL = "https://mynixos.com/favicon-32x32.png";
+      IconURL = "https://mynixos.com/favicon.ico";
       Method = "GET";
       Name = "MyNixOS";
       URLTemplate = "https://mynixos.com/search?q={searchTerms}";
@@ -60,7 +60,7 @@
     {
       Alias = "@nd";
       Description = "Search NixOS Discourse";
-      IconURL = "https://discourse.nixos.org/favicon.ico";
+      IconURL = "https://discourse.nixos.org/uploads/default/optimized/1X/401be373869e12dfe689b9d7eb347f78b1a105f0_2_32x32.png";
       Method = "GET";
       Name = "NixOS Discourse";
       URLTemplate = "https://discourse.nixos.org/search?q={searchTerms}";
@@ -78,7 +78,7 @@
     {
       Alias = "@gh";
       Description = "Search on GitHub";
-      IconURL = "https://github.githubassets.com/favicons/favicon.png";
+      IconURL = "https://github.com/favicon.ico";
       Method = "GET";
       Name = "GitHub";
       URLTemplate = "https://github.com/search?q={searchTerms}&type=repositories";
@@ -96,7 +96,7 @@
     {
       Alias = "@wp";
       Description = "Search on Wikipedia";
-      IconURL = "https://en.wikipedia.org/static/favicon/wikipedia.ico";
+      IconURL = "https://en.wikipedia.org/favicon.ico";
       Method = "GET";
       Name = "Wikipedia";
       URLTemplate = "https://en.wikipedia.org/w/index.php?search={searchTerms}";
@@ -104,7 +104,7 @@
     {
       Alias = "@yt";
       Description = "Search on YouTube";
-      IconURL = "https://www.youtube.com/s/desktop/6b6f7c7c/img/favicon_32x32.png";
+      IconURL = "https://www.youtube.com/favicon.ico";
       Method = "GET";
       Name = "YouTube";
       URLTemplate = "https://www.youtube.com/results?search_query={searchTerms}";
@@ -112,7 +112,7 @@
     {
       Alias = "@dgs";
       Description = "Search on Discogs";
-      IconURL = "https://www.discogs.com/favicon-32x32.png";
+      IconURL = "https://www.discogs.com/favicon.ico";
       Method = "GET";
       Name = "Discogs";
       URLTemplate = "https://www.discogs.com/search/?q={searchTerms}&type=all";
@@ -120,7 +120,7 @@
     {
       Alias = "@imdb";
       Description = "Search on IMDb";
-      IconURL = "https://www.imdb.com/favicon-32x32.png";
+      IconURL = "https://www.imdb.com/favicon.ico";
       Method = "GET";
       Name = "IMDb";
       URLTemplate = "https://www.imdb.com/find?q={searchTerms}";
