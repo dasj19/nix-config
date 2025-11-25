@@ -13,7 +13,6 @@
     };
     background = {
       monitor = "";
-      ptah = "screenshot";
       blur_passes = 3;
     };
     input-field = {

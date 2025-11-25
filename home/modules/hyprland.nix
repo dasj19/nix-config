@@ -100,4 +100,15 @@
     exec = "xdg-terminal-exec";
   };
 
+  # Hyprland auto lock screen management.
+  # @see https://wiki.hypr.land/Hypr-Ecosystem/hypridle/
+  services.hypridle.enable = true;
+  services.hypridle.settings = {
+    # List of listeners. Only one supported for now.
+    listener = {
+      timeout = 150; # seconds of inactivity before locking.
+      on-timeout = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+    };
+  };
+
 }
