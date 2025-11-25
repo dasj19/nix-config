@@ -48,6 +48,11 @@
       bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
       bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
+      # Screenshot.
+      bind = , PRINT, exec, hyprshot -m output -m active
+      bind = SHIFT_L, PRINT, exec, hyprshot -m region
+      bind = ALT_L, PRINT, exec, hyprshot -m window -m active
+
       # Brightness.
       bind = ,XF86MonBrightnessDown, exec, brightnessctl -d intel_backlight set 10%-
       bind = ,XF86MonBrightnessUp, exec, brightnessctl -d intel_backlight set 10%+

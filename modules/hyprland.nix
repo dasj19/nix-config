@@ -64,6 +64,7 @@
     hyprlock
     hypridle
     hyprpaper
+    hyprshot
     hyprsunset
     hyprpolkitagent
 

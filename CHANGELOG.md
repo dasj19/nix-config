@@ -1,6 +1,9 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-11-25
+- hyprland: added screenshot functionalities and hotkeys for them
+
 2025-11-24
 - hyprland: added packages that help with file thumbnails.
 - hyprland: replaced kitty with alacritty.
