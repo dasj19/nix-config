@@ -101,6 +101,7 @@
       Name = "Wikipedia";
       URLTemplate = "https://en.wikipedia.org/w/index.php?search={searchTerms}";
     }
+    # Search YouTube with: "@yt query".
     {
       Alias = "@yt";
       Description = "Search on YouTube";
@@ -109,6 +110,7 @@
       Name = "YouTube";
       URLTemplate = "https://www.youtube.com/results?search_query={searchTerms}";
     }
+    # Search Discogs with: "@dgs query".
     {
       Alias = "@dgs";
       Description = "Search on Discogs";
@@ -117,6 +119,7 @@
       Name = "Discogs";
       URLTemplate = "https://www.discogs.com/search/?q={searchTerms}&type=all";
     }
+    # Search IMDb with: "@imdb movie-name".
     {
       Alias = "@imdb";
       Description = "Search on IMDb";
@@ -125,6 +128,7 @@
       Name = "IMDb";
       URLTemplate = "https://www.imdb.com/find?q={searchTerms}";
     }
+    # Search eBay with: "@eb item-name".
     {
       Alias = "@eb";
       Description = "Search on eBay";
@@ -133,6 +137,7 @@
       Name = "eBay";
       URLTemplate = "https://www.ebay.com/sch/i.html?_nkw={searchTerms}";
     }
+    # Search PriceRunner with: "@pr item-name".
     {
       Alias = "@pr";
       Description = "Search on PriceRunner";
