@@ -23,6 +23,7 @@ _: {
         "tray"
         "cpu"
         "memory"
+        "idle_inhibitor"
         "backlight"
         "bluetooth"
         "network"
@@ -174,6 +175,15 @@ _: {
         tooltip-format = "{title}";
         on-click = "activate";
         on-click-middle = "close";
+      };
+
+      idle_inhibitor = {
+        format = "{icon}";
+        format-icons = {
+          activated = "";
+          deactivated = "";
+        };
+        timeout = "30.5";
       };
 
       # "custom/hello-from-waybar" = {
