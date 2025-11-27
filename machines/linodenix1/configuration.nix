@@ -1,4 +1,10 @@
-{ config, gitSecrets, lib, pkgs, ... }:
+{
+  config,
+  gitSecrets,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   baseipv6 = gitSecrets.linode1BaseIpv6;
@@ -46,15 +52,14 @@ in
     interface = "eth0";
   };
 
-
   # Open ports in the firewall.
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
-    25   # SMTP
-    80   # HTTP (for signing acme certificates)
-    443  # HTTPS (for ssl certificates)
-    465  # SMTP over TLS
-    993  # IMAP secure
+    25 # SMTP
+    80 # HTTP (for signing acme certificates)
+    443 # HTTPS (for ssl certificates)
+    465 # SMTP over TLS
+    993 # IMAP secure
     2201 # SSH
   ];
   networking.firewall.allowedUDPPorts = [
@@ -67,10 +72,7 @@ in
   # INSTALLED PACKAGES:
   environment.systemPackages = with pkgs; [
     # CLI utils.
-    wget
-    /* mailutils */
-    git
-    git-crypt
+    # mailutils
     dmidecode
     screen
   ];
@@ -83,26 +85,25 @@ in
   # Enable fail2ban with the default sshd jail, and other jails defined below.
   services.fail2ban.enable = true;
 
-# @TODO: build a custom filter to deal with kernel access refused messages.
+  # @TODO: build a custom filter to deal with kernel access refused messages.
   services.fail2ban.jails = {
-    postfix =
-    ''
+    postfix = ''
       filter   = postfix
       maxretry = 5
       action   = iptables[name=postfix, port=smtp, protocol=tcp]
       enabled  = true
     '';
-#    kernel-access-refused = ''
-#      # Block IP's that appear repeatedly in connection refused entries.
-#      enable       = true
-#      filter       = kernel
-#      backend      = systemd
-#      journalmatch = CONTAINER_TAG=kernel
-#      action       = iptables-allports[actname=kernel, name=kernel, chain=INPUT]
-#      findtime     = 24h
-#      bantime      = 2h
-#      maxretry     = 5
-#    '';
+    #    kernel-access-refused = ''
+    #      # Block IP's that appear repeatedly in connection refused entries.
+    #      enable       = true
+    #      filter       = kernel
+    #      backend      = systemd
+    #      journalmatch = CONTAINER_TAG=kernel
+    #      action       = iptables-allports[actname=kernel, name=kernel, chain=INPUT]
+    #      findtime     = 24h
+    #      bantime      = 2h
+    #      maxretry     = 5
+    #    '';
   };
 
   # Linux kernel - Using a LTS kernel.
@@ -112,4 +113,3 @@ in
   system.stateVersion = "21.11";
 
 }
-

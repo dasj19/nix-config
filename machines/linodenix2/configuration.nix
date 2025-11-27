@@ -1,4 +1,11 @@
-{ config, gitSecrets, lib, pkgs, sopsSecrets, ... }:
+{
+  config,
+  gitSecrets,
+  lib,
+  pkgs,
+  sopsSecrets,
+  ...
+}:
 
 let
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
@@ -16,19 +23,19 @@ in
     ./email.nix
     # Wordpress sites config.
     ./wordpress.nix
-  ]; 
+  ];
 
   sops.defaultSopsFile = sopsSecrets;
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
-  sops.secrets.daniel_password = {};
-  sops.secrets.root_password = {};
-  sops.secrets.cloudflare_email = {};
-  sops.secrets.cloudflare_dns_api_token = {};
-  sops.secrets.cloudflare_zone_api_token = {};
+  sops.secrets.daniel_password = { };
+  sops.secrets.root_password = { };
+  sops.secrets.cloudflare_email = { };
+  sops.secrets.cloudflare_dns_api_token = { };
+  sops.secrets.cloudflare_zone_api_token = { };
 
   # Host and network settings.
-  networking.enableIPv6  = true;
+  networking.enableIPv6 = true;
   networking.interfaces.eth0.ipv6.addresses = [
     {
       address = "${baseipv6}";
@@ -52,18 +59,18 @@ in
   # Open ports in the firewall.
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
-    25   # SMTP
-    53   # DNS
-    80   # HTTP
-    143  # IMAP
-    443  # HTTPS
-    465  # SMTP over TLS
-    993  # IMAP over TLS
+    25 # SMTP
+    53 # DNS
+    80 # HTTP
+    143 # IMAP
+    443 # HTTPS
+    465 # SMTP over TLS
+    993 # IMAP over TLS
     2202 # SSH - OpenSSH
   ];
   networking.firewall.allowedUDPPorts = [
-    53   # DNS
-    443  # HTTP/3(S)
+    53 # DNS
+    443 # HTTP/3(S)
   ];
   # https://www.linode.com/docs/products/compute/compute-instances/guides/ipv6/
   networking.firewall.extraCommands = ''
@@ -84,7 +91,10 @@ in
   # Set your time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # INSTALLED PACKAGES:
   environment.systemPackages = with pkgs; [
@@ -94,7 +104,6 @@ in
     wp-cli
 
     # Miscellaneous.
-    inetutils
     mtr
     sysstat
   ];

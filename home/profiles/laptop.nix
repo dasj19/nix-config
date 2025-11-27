@@ -1,8 +1,5 @@
 {
   awesome-linux-templates,
-  config,
-  lib,
-  pkgs,
   ...
 }:
 {

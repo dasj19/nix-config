@@ -34,10 +34,7 @@ in
     extraGroups = [ "wheel" ];
   };
 
-
   environment.systemPackages = with pkgs; [
-    git
-    wget
     iperf
   ];
 
@@ -45,7 +42,7 @@ in
     device = "/mnt/md0";
     options = [ "bind" ];
   };
-  
+
   # Enable NFS.
   services.nfs.server.enable = true;
   services.nfs.server.exports = ''

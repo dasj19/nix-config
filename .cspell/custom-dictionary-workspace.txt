@@ -160,9 +160,11 @@ hyperscan
 hyprctl
 hypridle
 hyprlock
+hyprshot
 IBPB
 icmpv
 ifname
+iftop
 imagick
 IMAP
 IMAPS
@@ -172,6 +174,7 @@ indir
 inetutils
 inkscape
 intelephense
+iotop
 iperf
 isjerryxiao
 iwlwifi
@@ -222,6 +225,7 @@ luks
 macchiato
 mailipv
 mailserver
+mailutils
 mame
 matroska
 maxtime
@@ -236,6 +240,7 @@ Mnnxcxis
 modemmanager
 modeset
 Modesetting
+moreutils
 movefocus
 movetoworkspace
 movewindow
@@ -383,6 +388,8 @@ symfony
 synaptics
 sysstat
 tauon
+tcpdump
+tealdeer
 tealized
 textadept
 tgpt
@@ -440,6 +447,7 @@ webui
 weclaw
 weekdate
 Werkzeug
+whois
 winetricks
 wireplumber
 wlan

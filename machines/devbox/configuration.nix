@@ -40,7 +40,11 @@
 
   # Users.
   users.users.daniel = {
-    extraGroups = [ "networkmanager" "wheel" "vboxsf" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "vboxsf"
+    ];
   };
   users.users.caddy = {
     extraGroups = [ "vboxsf" ];
@@ -48,11 +52,9 @@
 
   # System specific software.
   environment.systemPackages = with pkgs; [
-    git
     graphviz
     openssl
     python3
-    wget
   ];
 
   # SERVICES:
@@ -79,7 +81,6 @@
       long_query_time = 2;
     };
   };
-
 
   # Network settings.
   networking.firewall.allowedTCPPorts = [

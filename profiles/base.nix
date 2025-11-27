@@ -54,12 +54,17 @@
       gh # Github CLI.
       git # File versioning system CLI.
       htop # Interactive process viewer.
+      iftop # Real-time network bandwidth monitor.
+      inetutils # Common network programs (ftp, telnet, rsh, etc).
+      iotop # Real-time disk I/O viewer.
       jq # CLI Json processor.
+      killall # Improved kill command.
       litecli # SQLite CLI client.
       lf # Terminal file manager.
       lsof # List open files.
       lshw # List hardware data.
       legit # Complementary utility for the git command.
+      moreutils # Collection of useful CLI utilities.
       ncdu # du with ncurses.
       nmap # Network exploration tool.
       nvme-cli # interface to retrieve nvme metadata and logs.
@@ -67,8 +72,12 @@
       pciutils # Inspects and manipulates configuration of PCI devices.
       procs # Retrieve information about active processes.
       pstree # Shows the running process tree.
+      pv # Pipe viewer - shows progress of data through a pipe.
       ripgrep-all # Recursive search tool.
       smartmontools # Control utility for SMART disks.
+      strace # Trace system calls and signals.
+      tcpdump # Network packet analyzer.
+      tealdeer # Fast implementation of tldr.
       tldr # Shows concise manual information about cli commands.
       tmux # Terminal multiplexer.
       tree # Displays hierarchical structure of folders.
@@ -76,6 +85,9 @@
       unzip # Unzipping cli tool.
       w3m # Text-based web browser.
       wget # Online resource fetcher.
+      whois # Domain information lookup utility.
+      xz # Compression utility.
+      yq # CLI YAML processor.
 
       # Drivers and Firmware.
       ntfs3g # Driver for NTFS.

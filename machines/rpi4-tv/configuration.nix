@@ -1,18 +1,24 @@
-{ config, gitSecrets, lib, pkgs, sopsSecrets, ... }:
+{
+  config,
+  gitSecrets,
+  lib,
+  pkgs,
+  sopsSecrets,
+  ...
+}:
 
 let
-  wifi-ap   = gitSecrets.primaryAP;
+  wifi-ap = gitSecrets.primaryAP;
   wifi-pass = gitSecrets.primaryAPPassword;
 in
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware.nix
-      # Profile.
-      ./../../profiles/server.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware.nix
+    # Profile.
+    ./../../profiles/server.nix
+  ];
 
   # Use the extlinux boot loader. (NixOS enables GRUB by default)
   boot.loader.grub.enable = false;
@@ -30,8 +36,7 @@ in
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
-    git
-    wget
+
   ];
 
   # Enable the fish shell.
@@ -51,7 +56,7 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22   # OpenSSH
+    22 # OpenSSH
     9981 # TVHeadEnd HTTP
     9982 # TVHeadEnd HTSP
   ];
@@ -61,4 +66,3 @@ in
   system.stateVersion = "24.11";
 
 }
-

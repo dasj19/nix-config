@@ -66,7 +66,6 @@ in
       flac
       gh
       github-copilot-cli
-      inetutils
       khard # CLI for managing contacts.
 
       neo-cowsay
