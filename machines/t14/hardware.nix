@@ -9,6 +9,8 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    # Common hardware configuration.
+    ../../modules/hardware.nix
   ];
 
   # Bootloader.
@@ -163,12 +165,6 @@
   systemd.services.fprintd.wantedBy = [
     "multi-user.target"
   ];
-
-  # SMART monitoring
-  services.smartd = {
-    enable = true;
-    notifications.mail.enable = true;
-  };
 
   # Enable the temperature management daemon.
   services.thermald.enable = true;
