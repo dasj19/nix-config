@@ -5,6 +5,7 @@ In this file I'll try to mention major changes to the configuration.
 - hardware: new module to be used on bare-metal installations.
 - hardware: added a working smartd config that sends notification emails.
 - base profile: promoting and adding new cli packages to the base profile.
+- readme: updated the server and desktop software overview.
 
 2025-11-25
 - hyprland: added screenshot functionalities and hotkeys for them.

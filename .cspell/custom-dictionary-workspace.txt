@@ -79,6 +79,7 @@ devbox
 devedition
 dhcpcd
 dialout
+difftastic
 Discogs
 distro
 dlna
@@ -225,6 +226,7 @@ luks
 macchiato
 mailipv
 mailserver
+Mailspring
 mailutils
 mame
 matroska
@@ -303,6 +305,7 @@ pandoc
 pciutils
 pcntl
 pdfarranger
+Peazip
 pgsql
 phpcs
 phpfpm
