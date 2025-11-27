@@ -1,6 +1,10 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-11-28:
+- aliases: change gs into gst alias to avoid potential conflict with gs - ghost script.
+- aliases: added documentation.
+
 2025-11-27:
 - hardware: new module to be used on bare-metal installations.
 - hardware: added a working smartd config that sends notification emails.
