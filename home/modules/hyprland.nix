@@ -9,7 +9,7 @@
   wayland.windowManager.hyprland.systemd.enable = true; # systemd integration.
   wayland.windowManager.hyprland.extraConfig =
     let
-      modifier = "SUPER"; # Windows key as modifier.
+      modifier = "SUPER";
       terminal = "${pkgs.alacritty}/bin/alacritty";
       browser = "${pkgs.firefox-devedition}/bin/firefox-devedition";
     in
@@ -30,10 +30,11 @@
       }
 
       # Launching Apps
-      bind = ${modifier},RETURN,exec,${terminal} # Open terminal with Windows (Modifier) + Return.
-      bind = ${modifier},B,exec,${browser} # Open browser (Firefox) with Windows + B
-      bind = ${modifier},L,exec,hyprlock # Lock screen with Windows + L
-      bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Windows + Space # uses electron, @todo consider removing
+      bind = ${modifier},RETURN,exec,${terminal} # Open terminal with Super (Modifier) + Return.
+      bind = CTRL_L ALT_L,T,exec,${terminal} # Open terminal with Ctrl + Alt + T.
+      bind = ${modifier},B,exec,${browser} # Open browser (Firefox) with Super + B
+      bind = ${modifier},L,exec,hyprlock # Lock screen with Super + L
+      bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Super + Space # uses electron, @todo consider removing
       bind = ${modifier},S, exec, walker # Too slow and buggy, consider removing.
       bind = CTRL_L, SPACE, exec, gapplication launch io.ulauncher.Ulauncher # Main App Launcher
 
