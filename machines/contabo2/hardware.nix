@@ -1,9 +1,9 @@
 { lib, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+  ];
 
   boot.initrd.availableKernelModules = [
     "ata_piix"
@@ -13,15 +13,15 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [
-    "dm-snapshot" 
+    "dm-snapshot"
   ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/4b1629c5-f63c-459e-ac41-dce732343931";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/4b1629c5-f63c-459e-ac41-dce732343931";
+    fsType = "ext4";
+  };
 
   swapDevices = [ ];
 

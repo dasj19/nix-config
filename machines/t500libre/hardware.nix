@@ -1,8 +1,19 @@
 {
-  boot.initrd.availableKernelModules = ["uhci_hcd" "ehci_pci" "ahci" "usb_storage"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
+
+  imports = [
+    # Common hardware configuration.
+    ../../modules/hardware.nix
+  ];
+
+  boot.initrd.availableKernelModules = [
+    "uhci_hcd"
+    "ehci_pci"
+    "ahci"
+    "usb_storage"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -61,6 +72,6 @@
   };
 
   swapDevices = [
-    {device = "/dev/disk/by-uuid/6b9990be-ae4b-4358-adf0-1ce84e3c3458";}
+    { device = "/dev/disk/by-uuid/6b9990be-ae4b-4358-adf0-1ce84e3c3458"; }
   ];
 }

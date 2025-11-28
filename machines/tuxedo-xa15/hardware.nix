@@ -1,8 +1,16 @@
-{ config, lib, modulesPath, pkgs, ... }:
+{
+  config,
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    # Common hardware configuration.
+    ../../modules/hardware.nix
   ];
 
   config = {
@@ -16,7 +24,10 @@
     ];
 
     # Emulate arm32 and arm64.
-    boot.binfmt.emulatedSystems = [ "armv7l-linux" "aarch64-linux" ];
+    boot.binfmt.emulatedSystems = [
+      "armv7l-linux"
+      "aarch64-linux"
+    ];
 
     # Use the systemd-boot EFI boot loader.
     boot.loader.systemd-boot.enable = true;
@@ -36,9 +47,10 @@
       # Do not display errors and commands executed during boot.
       # https://discourse.nixos.org/t/removing-persistent-boot-messages-for-a-silent-boot/14835/9
       "quiet"
-      "rd.systemd.show_status=false" "rd.udev.log_level=3"
-      "udev.log_priority=3" "boot.shell_on_fail"
-
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+      "boot.shell_on_fail"
 
       # Needed to avoid bad wakeup after suspend.
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
@@ -52,7 +64,8 @@
       # Attempt to suppress ACPI kernel errors.
 
       # Increase ACPI logging level.
-      "acpi.debug_level=0x2" "acpi.debug_layer=0xFFFFFFFF"
+      "acpi.debug_level=0x2"
+      "acpi.debug_layer=0xFFFFFFFF"
 
       # Tuxedo keyboard.
       "tuxedo_keyboard.mode=0"
@@ -69,13 +82,13 @@
       "psmouse"
     ];
 
-
     fileSystems."/" = {
       device = "/dev/disk/by-uuid/3db99c03-4e30-45fd-87f0-39ee08acc9c2";
       fsType = "ext4";
     };
 
-    fileSystems."/boot" = { device = "/dev/disk/by-uuid/1442-9954";
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-uuid/1442-9954";
       fsType = "vfat";
     };
 
@@ -85,9 +98,9 @@
       fsType = "nfs";
       # fstab options.
       options = [
-        "x-systemd.automount"         # Attempt mounting automatically with systemd.
-        "x-systemd.idle-timeout=600"  # Disconnect after 10 minutes of inactivity.
-        "noauto"                      # Can only be mounted explicitly.
+        "x-systemd.automount" # Attempt mounting automatically with systemd.
+        "x-systemd.idle-timeout=600" # Disconnect after 10 minutes of inactivity.
+        "noauto" # Can only be mounted explicitly.
       ];
     };
 

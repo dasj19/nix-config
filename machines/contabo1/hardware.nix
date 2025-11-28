@@ -3,13 +3,20 @@
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
+
   ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "ata_piix"
+    "uhci_hcd"
+    "virtio_pci"
+    "virtio_scsi"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -17,10 +24,10 @@
   # Build arm 64-bit via QEMU.
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/9dc603d4-df35-48dc-9cce-8ca7cb05e7ff";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/9dc603d4-df35-48dc-9cce-8ca7cb05e7ff";
+    fsType = "ext4";
+  };
 
   swapDevices = [ ];
 
