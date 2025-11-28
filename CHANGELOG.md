@@ -11,6 +11,8 @@ In this file I'll try to mention major changes to the configuration.
 - hardware: added hardware module to all bare-metal machines.
 - profile: move tealdeer from server to laptop profile as there should be no docs on servers.
 - profile: removed tldr in favour of tealdeer
+- hyprland: updated mime type associations.
+- browsers: tweaks for firefox: disabled search suggestions, and preserve all state upon shutdown.
 
 2025-11-27:
 - hardware: new module to be used on bare-metal installations.

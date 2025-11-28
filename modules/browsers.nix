@@ -27,6 +27,8 @@
   programs.firefox.policies.SearchEngines.Default = "DuckDuckGo";
   programs.firefox.policies.SearchEngines.PreventInstalls = true;
   programs.firefox.policies.SkipTermsOfUse = true;
+  # Disable search suggestions.
+  programs.firefox.policies.Preferences."browser.search.suggest.enabled".Value = false;
   # Adding extra search engines.
   programs.firefox.policies.SearchEngines.Add = [
     # Search NixOS packages with: "@np package-name".
@@ -192,7 +194,10 @@
       URLTemplate = "https://www.wordnik.com/words/{searchTerms}";
     }
   ];
+  # Start page settings (pick up where I left off).
   programs.firefox.policies.Homepage.StartPage = "previous-session";
+  # Don't delete data on shutdown (cookies, sessions, windows, ...)
+  programs.firefox.policies.Preferences."privacy.sanitize.sanitizeOnShutdown".Value = false;
 
   # Privacy preferences.
   programs.firefox.policies.Preferences."extensions.pocket.enabled".Value = false;
@@ -216,6 +221,9 @@
   programs.firefox.policies.Preferences."browser.translations.automaticallyPopup".Value = true; # revisit this setting.
   programs.firefox.policies.Preferences."browser.translations.neverTranslateLanguages".Value =
     "da,en,es,pt,ro";
+
+  # Native file picker instead of a GTK one.
+  programs.firefox.policies.Preferences."widget.use-xdg-desktop-portal.file-picker".Value = true;
 
   # Disable geolocation prompts.
   programs.firefox.policies.Preferences."geo.enabled".Value = false;
