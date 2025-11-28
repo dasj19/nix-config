@@ -99,10 +99,12 @@
     "application/zip" = "xarchiver.desktop";
     "application/vnd.ms-powerpoint" = "onlyoffice-desktopeditors.desktop";
     "application/vnd.rar" = "xarchiver.desktop";
+    "application/vnd.mozilla.xul+xml" = "firefox-devedition.desktop";
     "application/vnd.ms-excel" = "onlyoffice-desktopeditors.desktop";
     "application/x-sh" = "alacritty.desktop";
     "application/x-tar" = "xarchiver.desktop";
     "application/xml" = "textadept.desktop";
+    "application/xhtml+xml" = "firefox-devedition.desktop";
     "application/x-7z-compressed" = "xarchiver.desktop";
     "image/bmp" = "com.github.weclaw1.ImageRoll.desktop";
     "image/gif" = "com.github.weclaw1.ImageRoll.desktop";
@@ -116,6 +118,7 @@
     "text/javascript" = "textadept.desktop";
     "text/html" = "firefox-devedition.desktop";
     "text/markdown" = "textadept.desktop";
+    "text/xml" = "textadept.desktop";
     "video/mp4" = "vlc.desktop";
     "video/mpeg" = "vlc.desktop";
     "video/mp2t" = "vlc.desktop";
@@ -124,5 +127,7 @@
     "video/webm" = "vlc.desktop";
     "video/x-msvideo" = "vlc.desktop";
     "video/x-matroska" = "vlc.desktop";
+    "x-scheme-handler/http" = "firefox-devedition.desktop";
+    "x-scheme-handler/https" = "firefox-devedition.desktop";
   };
 }
