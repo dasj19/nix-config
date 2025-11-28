@@ -37,7 +37,6 @@
       #fishPlugins.colored-man-pages   # Brings color to man pages.                Docs: https://github.com/PatrickF1/colored_man_pages.fish
       fishPlugins.puffer # Nice expander autocomplete improvement.   Docs: https://github.com/nickeb96/puffer-fish
       fishPlugins.grc # Command colorizer.
-      fishPlugins.fish-you-should-use # Reminder to use present aliases.          Docs: https://github.com/paysonwallach/fish-you-should-use
       fishPlugins.bass # Run bash commands in fish.                Docs: https://github.com/edc/bass
       #fishPlugins.async-prompt        # Make the prompt asynchronous thus faster. Docs: https://github.com/acomagu/fish-async-prompt
 

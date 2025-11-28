@@ -15,7 +15,7 @@
     # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
     # https://github.com/vikaskyadav/awesome-bash-alias
     # https://opensource.com/article/19/7/bash-aliases
-    environment.shellAliases = {
+    programs.fish.shellAbbrs = {
       # Eza for well-known ls aliases, we still keep vanilla ls.
       ll = "eza -lh --icons --grid --group-directories-first";
       lg = "eza -lh --icons --grid --group-directories-first --git";
