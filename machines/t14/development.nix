@@ -6,8 +6,8 @@
     devenv
     docker-compose
     nodejs_24
-    php82
-    php82Packages.composer
+    php83
+    php83Packages.composer
     symfony-cli
   ];
 
