@@ -13,6 +13,8 @@ In this file I'll try to mention major changes to the configuration.
 - profile: removed tldr in favour of tealdeer
 - hyprland: updated mime type associations.
 - browsers: tweaks for firefox: disabled search suggestions, and preserve all state upon shutdown.
+- home base: bumped state version from 24.05 to 25.11
+- browsers: updated all firefox addons to latest versions.
 
 2025-11-27:
 - hardware: new module to be used on bare-metal installations.
