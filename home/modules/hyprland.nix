@@ -17,12 +17,14 @@
     ''
       env = GDK_BACKEND,wayland,x11,*
       # Monitor config.
-      monitor=eDP-1, highres, 0x0, 1
-      monitor= , preferred, auto, auto
+      monitor = eDP-1, highres, 0x0, 1
+      monitor = , preferred, auto, auto
       # prepare the network indicator
-      exec-once=nm-applet --indicator
+      exec-once = nm-applet --indicator
       # delay the launch of the bar
-      exec-once=sleep 1 & waybar
+      exec-once = sleep 1 & waybar
+      # Start the plugin system.
+      exec-once = pypr
 
       # Input settings.
       input {
@@ -109,6 +111,13 @@
     listener = {
       timeout = 150; # seconds of inactivity before locking.
       on-timeout = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+    };
+  };
+  # Pyprland plugin management tool.
+  home.file.".config/hypr/pyprland.toml".source = (pkgs.formats.toml { }).generate "pyprland-config" {
+
+    pyprland = {
+      plugins = [ "magnify" ];
     };
   };
 
