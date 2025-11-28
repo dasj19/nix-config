@@ -8,7 +8,9 @@ In this file I'll try to mention major changes to the configuration.
 - aliases: converted aliases to fish abbr
 - fish: removed plugin that reminds user to use aliases as it became irrelevant when using abbrs.
 - hyprland: added ctrl-alt-t keybinding for opening a terminal.
-- hardware: added hardware module to all bare-metal machines. 
+- hardware: added hardware module to all bare-metal machines.
+- profile: move tealdeer from server to laptop profile as there should be no docs on servers.
+- profile: removed tldr in favour of tealdeer
 
 2025-11-27:
 - hardware: new module to be used on bare-metal installations.

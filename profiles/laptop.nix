@@ -67,6 +67,7 @@ in
       gh
       github-copilot-cli
       khard # CLI for managing contacts.
+      tealdeer # Fast implementation of tldr.
 
       neo-cowsay
       shotcut

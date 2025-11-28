@@ -77,8 +77,6 @@
       smartmontools # Control utility for SMART disks.
       strace # Trace system calls and signals.
       tcpdump # Network packet analyzer.
-      tealdeer # Fast implementation of tldr.
-      tldr # Shows concise manual information about cli commands.
       tmux # Terminal multiplexer.
       tree # Displays hierarchical structure of folders.
       usbutils # Tools for working with USB devices.
