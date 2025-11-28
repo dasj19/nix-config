@@ -23,6 +23,7 @@ _: {
         "tray"
         "cpu"
         "memory"
+        "custom/monitor-settings"
         "idle_inhibitor"
         "backlight"
         "bluetooth"
@@ -111,6 +112,15 @@ _: {
       memory = {
         interval = 30;
         format = "{used:0.1f}G / {total:0.1f}G ";
+      };
+
+      "custom/monitor-settings" = {
+        interval = "once";
+        format = "🖥️";
+        tooltip-format = "Monitor settings";
+        on-click = ''
+          hyprctl dispatch exec "wlrlui"
+        '';
       };
 
       network = {

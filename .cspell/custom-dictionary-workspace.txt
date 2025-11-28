@@ -455,6 +455,7 @@ whois
 winetricks
 wireplumber
 wlan
+wlrlui
 Wordnik
 worpress
 wpctl

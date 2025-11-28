@@ -66,6 +66,7 @@
     hyprshot
     hyprsunset
     hyprpolkitagent
+    wlr-layout-ui # GUI for managing monitor layouts in Wayland.
 
     mission-center # Task manager and system monitor.
     resources # Task manager and resource monitor.
