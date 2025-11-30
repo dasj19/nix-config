@@ -1,7 +1,12 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
-2025-11-28:
+2025-11-30
+- vscodium: added git blame module
+- vscodium: added icon and color theme
+- browsers: add new firefox policies rules
+
+2025-11-28
 - aliases: change gs into gst alias to avoid potential conflict with gs - ghost script.
 - aliases: added documentation.
 - t14: update development package php to version 8.3
@@ -17,7 +22,7 @@ In this file I'll try to mention major changes to the configuration.
 - browsers: updated all firefox addons to latest versions.
 - hyprland: added monitor management tool wlr-layout-gui
 
-2025-11-27:
+2025-11-27
 - hardware: new module to be used on bare-metal installations.
 - hardware: added a working smartd config that sends notification emails.
 - base profile: promoting and adding new cli packages to the base profile.

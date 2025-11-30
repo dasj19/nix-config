@@ -18,6 +18,10 @@
   programs.firefox.policies.DisableTelemetry = true;
   programs.firefox.policies.DisplayBookmarksToolbar = "never";
   programs.firefox.policies.DontCheckDefaultBrowser = true;
+  programs.firefox.policies.DNSOverHTTPSMode.Enabled = true;
+  programs.firefox.policies.EnableDoNotTrack = true;
+  # Enable HTTPS-Only Mode for all connections. (Can be overridden per site by user.)
+  programs.firefox.policies.HttpsOnlyMode = "enabled";
   programs.firefox.policies.NoDefaultBookmarks = true;
   programs.firefox.policies.OfferToSaveLogins = false;
   programs.firefox.policies.OfferToSaveLoginsDefault = false;
@@ -227,6 +231,15 @@
 
   # Disable geolocation prompts.
   programs.firefox.policies.Preferences."geo.enabled".Value = false;
+  # Disable tab close warning. (Tabs from the last closed windows are saved anyway.)
+  programs.firefox.policies.Preferences."browser.tabs.warnOnClose".Value = false;
+
+  # Set default handlers for mime types.
+  programs.firefox.policies.Handlers.mimeTypes."application/pdf" = {
+    action = "useSystemDefault";
+    ask = false;
+    description = "Portable Document Format";
+  };
 
   # Apply extensions to all instances of Firefox system-wide.
   programs.firefox.policies.ExtensionSettings = {
