@@ -23,6 +23,11 @@
 
       # Editor enhancements.
       oderwat.indent-rainbow
+
+      # Editor icons.
+      vscode-icons-team.vscode-icons
+      # Git blame annotations.
+      waderyan.gitblame
     ]
     ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # Twig language support.
@@ -81,6 +86,9 @@
       "php" = true;
       "twig" = true;
     };
+    # Set icon and color themes.
+    "workbench.iconTheme" = "vscode-icons";
+    "workbench.colorTheme" = "Stylix";
   };
 
   nixpkgs.config.allowUnfreePredicate =
