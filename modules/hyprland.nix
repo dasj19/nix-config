@@ -62,9 +62,7 @@
     hyprcursor
     hyprlock
     hypridle
-    hyprpaper
     hyprshot
-    hyprsunset
     hyprpolkitagent
     wlr-layout-ui # GUI for managing monitor layouts in Wayland.
 
