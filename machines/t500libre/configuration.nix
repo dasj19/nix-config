@@ -16,8 +16,6 @@ in {
     ./hardware.nix
     # Webserver configuration.
     ./httpd.nix
-    # Kanboard configuration.
-    ./kanboard.nix
     # Modules.
     ./../../modules/builder.nix
     ./../../modules/fish.nix
@@ -167,7 +165,7 @@ in {
     # SSH      - OpenSSH
     2201
     # LAN-open:
-    # HTTP     - Nginx    - Kanboard
+    # HTTP     - Nginx    - Nextcloud
     8001
     # Host-restricted:
     # 8100 # HTTP     - Werkzeug - SearxNG
