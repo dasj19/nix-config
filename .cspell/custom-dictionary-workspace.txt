@@ -159,6 +159,7 @@ htpasswd
 humanstxt
 hwdep
 hyperscan
+hypr
 hyprctl
 hypridle
 hyprlock
@@ -338,6 +339,8 @@ publickey
 PUBLICSHARE
 pulseaudio
 pwvucontrol
+pypr
+pyprland
 qbittorrent
 qjoypad
 qtct
