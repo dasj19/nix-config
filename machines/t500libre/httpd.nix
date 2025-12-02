@@ -95,28 +95,6 @@ in {
         enableACME = true;
         forceSSL = true;
       };
-      # Search engine instance.
-      "searx.${gnu-domain}" = {
-        enableACME = true;
-        forceSSL = true;
-        hostName = "searx.${gnu-domain}";
-        serverAliases = [
-          "www.searx.${gnu-domain}"
-        ];
-        documentRoot = "/var/www/searx.${gnu-domain}/";
-        logFormat = "combined";
-        extraConfig = ''
-          <LocationMatch "/">
-            # Proxy the searx instance.
-            #ProxyPreserveHost On
-            ProxyPass http://127.0.0.1:8100/
-            ProxyPassReverse http://127.0.0.1:8100/
-
-            # Headers passed to the proxy.
-            RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
-          </LocationMatch>
-        '';
-      };
       # The Archive box instance.
       "archive.${gnu-domain}" = {
         enableACME = true;
@@ -299,9 +277,7 @@ in {
 
       # https://infosec.mozilla.org/guidelines/web_security#content-security-policy
       # https://content-security-policy.com/
-      # TODO: add an endpoint for: report-uri https://searx.${gnu-domain}/about https://${gnu-domain};
       # TODO: add require-trusted-types-for 'script'; and change the scripts to abide by the rules.
-      # TODO: use something like: "script-src 'nonce-%{CSP_NONCE}e' 'strict-dynamic' https:;" and find a way to nonce-secure the searx instance
       Header set Content-Security-Policy: "default-src 'none'; frame-ancestors 'none'; script-src https:; connect-src 'self'; img-src * data: ; style-src 'self' 'report-sample'; base-uri 'self'; form-action 'self'; font-src 'self'; upgrade-insecure-requests;"
 
       # https://www.permissionspolicy.com/

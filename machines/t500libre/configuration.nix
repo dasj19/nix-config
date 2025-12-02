@@ -7,7 +7,6 @@
   # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
-  searxng-secret = gitSecrets.gnuSearxngSecret;
   mailserver-fqdn = gitSecrets.gnuMailserverFqdn;
   mailserver-daniel-email = gitSecrets.gnuMailserverDanielEmail;
 in {
@@ -80,33 +79,11 @@ in {
     apacheHttpdPackages.mod_cspnonce
     libmodsecurity
     php82
-    searxng
   ];
 
   # MySQL server.
   services.mysql.enable = true;
   services.mysql.package = pkgs.mariadb;
-
-  # A searxng instance.
-  services.searx = {
-    enable = true;
-    settings = {
-      use_default_settings = {
-        engines = {
-          # for some reason remove directive does not work on "qwant".
-          keep_only = [
-            "google"
-            "duckduckgo"
-          ];
-        };
-      };
-      server = {
-        port = 8100;
-        bind_address = "127.0.0.1";
-        secret_key = searxng-secret;
-      };
-    };
-  };
 
   # SSH server settings.
   services.openssh.ports = [
@@ -132,9 +109,6 @@ in {
     "archive.${gnu-domain}" = {
       webroot = "/var/lib/acme/acme-challenge/";
     };
-    "searx.${gnu-domain}" = {
-      webroot = "/var/lib/acme/acme-challenge/";
-    };
     "mail.${gnu-domain}" = {
       webroot = "/var/lib/acme/acme-challenge/";
     };
@@ -157,8 +131,6 @@ in {
     # LAN-open:
     # HTTP     - Nginx    - Nextcloud
     8001
-    # Host-restricted:
-    # 8100 # HTTP     - Werkzeug - SearxNG
   ];
   networking.firewall.allowedUDPPorts = [
     # PROTOCOL - SERVER   - APP
