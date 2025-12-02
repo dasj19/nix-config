@@ -16,15 +16,11 @@ in {
     ./hardware.nix
     # Webserver configuration.
     ./httpd.nix
-    # Modules.
-    ./../../modules/builder.nix
-    ./../../modules/fish.nix
-    ./../../modules/keyboard.nix
-    ./../../modules/locale.nix
-    ./../../modules/users.nix
-    ./../../modules/email-server.nix
     # Profile.
     ./../../profiles/server.nix
+    # Modules.
+    ./../../modules/builder.nix
+    ./../../modules/email-server.nix
   ];
 
   # sops secrets.
@@ -55,9 +51,10 @@ in {
 
   nixpkgs.config = {
     packageOverrides = pkgs: {
-      # Overriding the rspamd package replacing vectorscan with patched hyperscan.
+      # Overriding the rspamd package replacing vectorscan with hyperscan.
       rspamd = pkgs.rspamd.overrideAttrs (oldAttrs: {
-        # Replacing vectorscan with hyperscan. Vectorscan is not compatible with the old CPU of t500libre.
+        # Replacing vectorscan with hyperscan.
+        # Vectorscan is not compatible with the old CPU of t500libre.
         buildInputs =
           builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs
           ++ [pkgs.hyperscan];
