@@ -178,21 +178,6 @@ in {
   # Consider adopting userborn: https://github.com/NixOS/nixpkgs/pull/332719
   # users.mutableUsers = false;
 
-  # The root user.
-  users.users.root = {
-    hashedPasswordFile = config.sops.secrets.root_password.path;
-  };
-
-  # Local unprivileged user account.
-  users.users.daniel = {
-    isNormalUser = true;
-    hashedPasswordFile = config.sops.secrets.daniel_password.path;
-    extraGroups = [
-      "wheel"
-      "wwwrun"
-    ];
-  };
-
   # Consult manual before changing.
   system.stateVersion = "24.11";
 }
