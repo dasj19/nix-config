@@ -1,6 +1,11 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-12-02
+- t500libre: removed kanboard and its config
+- t500libre: removed dns resolve configuration
+- t500libre: removed searx and its configuration
+
 2025-11-30
 - vscodium: added git blame module
 - vscodium: added icon and color theme
