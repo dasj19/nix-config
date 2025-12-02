@@ -113,13 +113,6 @@ in {
     2201
   ];
 
-  # Local DNS cache server. @TODO: Check to what extent is this used.
-  services.resolved.enable = true;
-  services.resolved.dnssec = "allow-downgrade";
-  services.resolved.extraConfig = ''
-    DNSOverTLS=opportunistic
-  '';
-
   # Using Cloudflare DNS.
   networking.nameservers = [
     "1.1.1.1"
