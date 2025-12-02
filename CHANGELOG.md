@@ -1,15 +1,19 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-12-03
+- flake: handle nil at the flake level instead of package override.
+- flake: organized follows definitions and removed main branches from the declarations.
+
 2025-12-02
-- t500libre: removed kanboard and its config
-- t500libre: removed dns resolve configuration
-- t500libre: removed searx and its configuration
+- t500libre: removed kanboard and its config.
+- t500libre: removed dns resolve configuration.
+- t500libre: removed searx and its configuration.
 
 2025-11-30
-- vscodium: added git blame module
-- vscodium: added icon and color theme
-- browsers: add new firefox policies rules
+- vscodium: added git blame module.
+- vscodium: added icon and color theme.
+- browsers: add new firefox policies rules.
 
 2025-11-28
 - aliases: change gs into gst alias to avoid potential conflict with gs - ghost script.

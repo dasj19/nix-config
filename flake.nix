@@ -8,6 +8,9 @@
   # Assures compatibility with older version of nix before the version 2.4.
   inputs.flake-compat.url = "github:NixOS/flake-compat/v1.1.0";
 
+  # Nix module system for flakes.
+  inputs.flake-parts.url = "github:hercules-ci/flake-parts";
+
   # Archived repo that provides background pictures for the nix project.
   inputs.nixos-artwork.url = "github:NixOS/nixos-artwork";
   inputs.nixos-artwork.flake = false;
@@ -20,12 +23,13 @@
   inputs.stylix.url = "github:danth/stylix";
   inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.stylix.inputs.systems.follows = "systems";
+  inputs.stylix.inputs.flake-parts.follows = "flake-parts";
 
   # Hardware configurations for NixOS.
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
   # A mail server stack.
-  inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+  inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
   inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
   inputs.simple-nixos-mailserver.inputs.flake-compat.follows = "flake-compat";
 
@@ -42,8 +46,18 @@
   inputs.awesome-linux-templates.flake = false;
 
   # Latest ulauncher.
-  inputs.ulauncher.url = "github:Ulauncher/Ulauncher/main";
+  inputs.ulauncher.url = "github:Ulauncher/Ulauncher";
   inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.ulauncher.inputs.flake-compat.follows = "flake-parts";
+
+  # Hyprland Python plugin system.
+  # inputs.pyprland.url = "github:hyprland-community/pyprland/main";
+  # inputs.pyprland.inputs.nixpkgs.follows = "nixpkgs";
+
+  # Latest version of nil (unstable).
+  # Used because there is long time between releases, and I want/need the new features.
+  inputs.nil.url = "github:oxalica/nil";
+  inputs.nil.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.systems.url = "github:nix-systems/x86_64-linux";
 
@@ -52,6 +66,7 @@
       self,
       nixpkgs,
       awesome-linux-templates,
+      nil,
       nixos-artwork,
       nixos-hardware,
       sops-nix,
@@ -59,6 +74,7 @@
       stylix,
       home-manager,
       ulauncher,
+      # pyprland,
       ...
     }:
     let
@@ -108,6 +124,15 @@
                 inherit awesome-linux-templates;
                 inherit gitSecrets;
               };
+            }
+
+            {
+              environment.systemPackages = [
+                # Provides the newer ulauncher version 6.
+                ulauncher.packages.x86_64-linux.ulauncher6
+                # pyprland.packages.x86_64-linux.pyprland
+                nil.packages.x86_64-linux.nil
+              ];
             }
           ]
           ++ (cfg.modules or [ ]);
@@ -175,7 +200,6 @@
           # @todo Include hardware support for the compute module 4.
         ];
       };
-
       nixosConfigurations.rpi4-tv = mkServerSystem {
         system = "aarch64-linux";
         modules = [
@@ -189,17 +213,10 @@
           ./machines/devbox/configuration.nix
         ];
       };
-
       nixosConfigurations.t14 = mkLaptopSystem {
         modules = [
           ./machines/t14/configuration.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1
-          # Provides the newer ulauncher version 6.
-          {
-            environment.systemPackages = [
-              ulauncher.packages.x86_64-linux.ulauncher6
-            ];
-          }
         ];
       };
     };
