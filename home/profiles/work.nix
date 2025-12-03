@@ -12,13 +12,8 @@ in
   programs.git.userName = gitSecrets.danielFullname;
   programs.git.userEmail = gitSecrets.danielWorkEmail;
 
-  programs.fish.enable = true;
-  programs.fish.interactiveShellInit = ''
-    set PATH $PATH $HOME/.config/composer/vendor/bin
-  '';
-
   programs.vscode.profiles.default.extensions =
-  let
+    let
       # Old drupal syntax highlight extension that still does its job.
       vs-code-drupal-vsix = pkgs.vscode-utils.buildVscodeMarketplaceExtension rec {
         mktplcRef = {
@@ -30,38 +25,40 @@ in
           url = "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/marcostazi/vsextensions/VS-code-drupal/0.0.12/vspackage";
           sha256 = "18vghvx9m7lik2rndmwm4xfw3sz7gmgpkzj2irbl6hylyqagpcmh";
         };
-        
+
         unpackPhase = ''
           runHook preUnpack
           unzip ${vsix}
           runHook postUnpack
         '';
       };
-  in
-  
-  with pkgs.vscode-marketplace; with pkgs.vscode-extensions; [
-    # AI assistant.
-    github.copilot
+    in
 
-    # Cross-language debugging.
-    formulahendry.code-runner
+    with pkgs.vscode-marketplace;
+    with pkgs.vscode-extensions;
+    [
+      # AI assistant.
+      github.copilot
 
-    # Drupal syntax highlighter.
-    vs-code-drupal-vsix
+      # Cross-language debugging.
+      formulahendry.code-runner
 
-    # Git enhancements.
-    waderyan.gitblame
+      # Drupal syntax highlighter.
+      vs-code-drupal-vsix
 
-    # Language support.
-    redhat.vscode-yaml
+      # Git enhancements.
+      waderyan.gitblame
 
-    # PHP helpers.
-    bmewburn.vscode-intelephense-client
-    devsense.composer-php-vscode
+      # Language support.
+      redhat.vscode-yaml
 
-    # Templating.
-    mblode.twig-language
-  ];
+      # PHP helpers.
+      bmewburn.vscode-intelephense-client
+      devsense.composer-php-vscode
+
+      # Templating.
+      mblode.twig-language
+    ];
 
   programs.vscode.profiles.default.userSettings = {
     # If it complains about read-only settings.js check: https://github.com/nix-community/home-manager/issues/1800

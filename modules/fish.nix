@@ -5,6 +5,9 @@
     # Enable fish as the default shell.
     users.defaultUserShell = pkgs.fish;
     programs.fish.enable = true;
+    # Translates bash to fish.
+    programs.fish.useBabelfish = true;
+
     # Disable automatic man page cache generation.
     documentation.man.generateCaches = false;
 

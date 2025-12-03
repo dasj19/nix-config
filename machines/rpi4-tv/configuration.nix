@@ -39,10 +39,6 @@ in
 
   ];
 
-  # Enable the fish shell.
-  programs.fish.enable = true;
-  users.defaultUserShell = pkgs.fish;
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes"; # @TODO: remove.
