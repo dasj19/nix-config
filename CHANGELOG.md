@@ -6,6 +6,7 @@ In this file I'll try to mention major changes to the configuration.
 - flake: organized follows definitions and removed main branches from the declarations.
 - hyprland: provide keybinding for desktop zoom (using pyprland plugin magnify).
 - fish: added babelfish to convert bash to fish.
+- bluetooth: cleanup config.
 
 2025-12-02
 - t500libre: removed kanboard and its config.

@@ -139,8 +139,5 @@
     # System Management Unit kernel driver.
     hardware.cpu.amd.ryzen-smu.enable = true;
     hardware.cpu.amd.updateMicrocode = lib.mkForce true;
-
-    # Bluetooth.
-    hardware.bluetooth.powerOnBoot = false;
   };
 }
