@@ -42,6 +42,8 @@
 
       # Desktop shortcuts.
       bind = CTRL_L SHIFT_L, ESCAPE, exec, GDK_BACKEND=x11 missioncenter
+      bind = CTRL_L SHIFT_L, PLUS, exec, pypr zoom +0.25
+      bind = CTRL_L SHIFT_L, MINUS, exec, pypr zoom -0.25
 
       # Multimedia.
       bind = CTRL_L, MASCULINE, exec, playerctl play-pause # Play-Pause with CTL + key above Tab.
@@ -112,6 +114,7 @@
       timeout = 150; # seconds of inactivity before locking.
       on-timeout = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
     };
+    # @todo: Dim the screen after 300 of inactivity.
   };
   # Pyprland plugin management tool.
   home.file.".config/hypr/pyprland.toml".source = (pkgs.formats.toml { }).generate "pyprland-config" {

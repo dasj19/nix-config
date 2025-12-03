@@ -4,6 +4,7 @@ In this file I'll try to mention major changes to the configuration.
 2025-12-03
 - flake: handle nil at the flake level instead of package override.
 - flake: organized follows definitions and removed main branches from the declarations.
+- hyprland: provide keybinding for desktop zoom (using pyprland plugin magnify)
 
 2025-12-02
 - t500libre: removed kanboard and its config.
