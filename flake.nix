@@ -50,10 +50,6 @@
   inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
   inputs.ulauncher.inputs.flake-parts.follows = "flake-parts";
 
-  # Hyprland Python plugin system.
-  # inputs.pyprland.url = "github:hyprland-community/pyprland/main";
-  # inputs.pyprland.inputs.nixpkgs.follows = "nixpkgs";
-
   # Latest version of nil (unstable).
   # Used because there is long time between releases, and I want/need the new features.
   inputs.nil.url = "github:oxalica/nil";
@@ -74,7 +70,6 @@
       stylix,
       home-manager,
       ulauncher,
-      # pyprland,
       ...
     }:
     let
@@ -128,9 +123,7 @@
 
             {
               environment.systemPackages = [
-                # Provides the newer ulauncher version 6.
                 ulauncher.packages.x86_64-linux.ulauncher6
-                # pyprland.packages.x86_64-linux.pyprland
                 nil.packages.x86_64-linux.nil
               ];
             }
