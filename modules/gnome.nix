@@ -80,6 +80,7 @@
       gnome-weather # Weather service, I never use this.
       orca # screen reader.
       papers # document reader. I do not need it.
+      showtime # newer video player. I use vlc.
       snapshot # Simple webcam application, I do not need it.
       totem # Video player, I use vlc.
     ];
