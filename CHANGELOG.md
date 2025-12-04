@@ -1,5 +1,7 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
+2025-12-04
+- tuxedo-xa15: keep the gnome desktop
 
 2025-12-03
 - flake: handle nil at the flake level instead of package override.

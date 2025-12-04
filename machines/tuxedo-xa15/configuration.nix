@@ -1,23 +1,25 @@
 /*
-* tuxedo-xa15: my old powerful but noisy laptop
-* model: Tuxedo Book XA 15
-*
-* Notes:
-*  - no longer used as a daily driver.
-*  - used to test heavy offline-AI
-*  - sometimes booted into Batocera from an external SDD.
+  * tuxedo-xa15: my old powerful but noisy laptop
+  * model: Tuxedo Book XA 15
+  *
+  * Notes:
+  *  - no longer used as a daily driver.
+  *  - used to test heavy offline-AI
+  *  - sometimes booted into Batocera from an external SDD.
 */
 {
   config,
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   php = pkgs.php84.buildEnv {
-    extensions = {
-      enabled,
-      all,
-    }:
+    extensions =
+      {
+        enabled,
+        all,
+      }:
       enabled
       ++ (with all; [
         amqp
@@ -38,7 +40,8 @@
       xdebug.file_link_format=vscodium://file/%f:%l
     '';
   };
-in {
+in
+{
   imports = [
     # Hardware config.
     ./hardware.nix
@@ -49,6 +52,10 @@ in {
     ./../../modules/ai.nix
     ./../../modules/non-free.nix
   ];
+
+  services.displayManager.gdm.enable = lib.mkForce true;
+  services.desktopManager.gnome.enable = lib.mkForce true;
+  programs.uwsm.enable = lib.mkForce false;
 
   # my.modules.ai.cudaSupport = true;
   # # This is required for cuda packages to build on the system.
@@ -105,6 +112,13 @@ in {
   # NETWORKING.
   networking.hostName = "tuxedo-xa15";
 
+  networking.networkmanager.enable = true;
+  # Enable only the needed plugins.
+  # Avoids # jun 29 23:04:28 t14 dbus-daemon[999]: Unknown username "nm-openconnect" in message bus configuration file
+  networking.networkmanager.plugins = with pkgs; [
+    networkmanager-openvpn
+  ];
+
   networking.useDHCP = false;
   networking.interfaces.enp3s0f1.useDHCP = true;
   networking.interfaces.wlp4s0.useDHCP = true;
@@ -123,13 +137,16 @@ in {
   ];
 
   networking.hosts = {
-    "127.0.0.1" = ["localhost" "devbox.dev"];
+    "127.0.0.1" = [
+      "localhost"
+      "devbox.dev"
+    ];
   };
 
   # SOFTWARE.
 
   # Use suspend and hibernate instead of suspend. Use: 'systemctl suspend' to test.
-  systemd.services."systemd-suspend-then-hibernate".aliases = ["systemd-suspend.service"];
+  systemd.services."systemd-suspend-then-hibernate".aliases = [ "systemd-suspend.service" ];
 
   services.fwupd.enable = true;
 
