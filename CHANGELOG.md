@@ -1,5 +1,9 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
+
+2025-12-05
+- base: added wtfis to the system packages.
+
 2025-12-04
 - tuxedo-xa15: keep the gnome desktop
 

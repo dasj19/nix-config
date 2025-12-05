@@ -84,6 +84,7 @@
       w3m # Text-based web browser.
       wget # Online resource fetcher.
       whois # Domain information lookup utility.
+      wtfis
       xz # Compression utility.
       yq # CLI YAML processor.
 
