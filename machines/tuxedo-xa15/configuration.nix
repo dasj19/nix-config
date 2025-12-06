@@ -56,6 +56,11 @@ in
   services.displayManager.gdm.enable = lib.mkForce true;
   services.desktopManager.gnome.enable = lib.mkForce true;
   programs.uwsm.enable = lib.mkForce false;
+  programs.hyprland.enable = lib.mkForce false;
+  programs.hyprland.withUWSM = lib.mkForce false;
+  programs.hyprland.xwayland.enable = lib.mkForce false;
+  programs.hyprlock.enable = lib.mkForce false;
+  services.greetd.enable = lib.mkForce false;
 
   # my.modules.ai.cudaSupport = true;
   # # This is required for cuda packages to build on the system.
