@@ -1,6 +1,5 @@
 {
   buildGoModule,
-  chromium,
   fetchFromGitHub,
   lib,
 }:
@@ -11,7 +10,7 @@ buildGoModule (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "benoitpetit";
-    repo = "duckduckgo-chat-cli";
+    repo = finalAttrs.pname;
     tag = "v${finalAttrs.version}";
     hash = "sha256-Wx1Aki/Y569Mv3NPNOh09lXwHkPgy5WLjF/XPkjtsag=";
   };
@@ -22,8 +21,6 @@ buildGoModule (finalAttrs: {
     # Provides the application version at compile time.
     "-X main.Version=v${finalAttrs.version}"
   ];
-
-  buildInputs = [ chromium ];
 
   meta = {
     description = "A powerful CLI tool to interact with DuckDuckGo's AI";
