@@ -31,6 +31,7 @@
 
     allowedUnfree = [
       # CLI.
+      "claude-code"
       "github-copilot-cli"
       # Libraries.
       "unrar"
@@ -43,6 +44,7 @@
       # CLIs.
       asciinema
       bchunk
+      claude-code
       cuetools
       dconf
       ffmpeg-full
