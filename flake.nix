@@ -175,6 +175,11 @@
           nixos-hardware.nixosModules.lenovo-thinkpad
         ];
       };
+      nixosConfigurations.hostup1 = mkServerSystem {
+        modules = [
+          ./machines/hostup1/configuration.nix
+        ];
+      };
       nixosConfigurations.xps13-9380 = mkLaptopSystem {
         modules = [
           ./machines/xps13-9380/configuration.nix
