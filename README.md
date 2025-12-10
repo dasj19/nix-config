@@ -112,50 +112,51 @@ Git-crypt key: `git-crypt-key`
 
 # Server Software
 
-| Status | Component                    | Current                            | R&D                   | Legacy                  |
-| :----: | :--------------------------: | :--------------------------------: | :-------------------: | :---------------------: |
-|   ✅   | Operating System             | NixOS ❄️                           |                       | Debian/Ubuntu           |
-|   ✅   | Text Editor                  | nano 💣                            |                       |                         |
-|   ✅   | Web Browser                  | w3m 💣                             | w3m plugins           |                         |
-|   ✅   | Resource Downloader          | wget 💣 curl 💣                    |                       |                         |
-|   ✅   | Version Control Software     | git 💣                             |                       |                         |
-|   🚧   | File Manager                 | lf 🐹                              | nnn 💣                | mc 💣                   |
-|   🚧   | Diff Manager                 | batdiff 🐚                         | difftastic 🦀         |                         |
-|   ✅   | Compression Utilities        | tar 💣 xz 💣 unzip 💣              |                       |                         |
-|   ✅   | Secret Management            | git-crypt 💣 sops 🐹               |                       | age 🐹                  |
-|   🚧   | Terminal Multiplexer         | tmux 💣                            | screen 💣             |                         |
-|   ✅   | Webserver                    | caddy 🐹                           |                       | apache2 💣 nginx 💣     |
-|   ✅   | Mailserver (Groupware)       | Simple NixOS Mailserver ❄️         |                       |                         |
-|   ✅   | Database server (Relational) | mariadb 💣 postgresql 💣 sqlite 💣 |                       |                         |
+| Status | Component                    | Current                            | R&D                   | Legacy                    |
+| :----: | :--------------------------: | :--------------------------------: | :-------------------: | :-----------------------: |
+|   ✅   | Operating System             | NixOS ❄️                           |                       | Debian/Ubuntu             |
+|   ✅   | Text Editor                  | nano 💣                            |                       |                           |
+|   ✅   | Web Browser                  | w3m 💣                             | w3m plugins           |                           |
+|   ✅   | Resource Downloader          | wget 💣 curl 💣                    |                       |                           |
+|   🚧   | Version Control Software     | git 💣                             | jujutsu 🦀            |                           |
+|   🚧   | File Manager                 | lf 🐹                              | nnn 💣                | mc 💣                     |
+|   🚧   | Diff Manager                 | batdiff 🐚                         | difftastic 🦀         |                           |
+|   ✅   | Compression Utilities        | tar 💣 xz 💣 unzip 💣              |                       |                           |
+|   ✅   | Secret Management            | git-crypt 💣 sops 🐹               |                       | age 🐹                    |
+|   🚧   | Terminal Multiplexer         | tmux 💣                            | screen 💣             |                           |
+|   ✅   | Webserver                    | caddy 🐹                           |                       | apache2 💣 nginx 💣       |
+|   ✅   | Mailserver (Groupware)       | Simple NixOS Mailserver ❄️         |                       |                           |
+|   ✅   | Database server              | mariadb 💣 postgresql 💣 sqlite 💣 |                       |                           |
 
 # Laptop Software
-| Status | Component                    | Current                            | R&D                   | Legacy                  |
-| :----: | :--------------------------: | :--------------------------------: | :-------------------: | :---------------------: |
-|   ✅   | Operating System             | NixOS ❄️                           |                       | Debian/Ubuntu           |
-|   🚧   | Desktop Environment          | Hyprland                           |                       | GNOME                   |
-|   🚧   | Application Launcher         | Ulauncher 🐍                       | Ulauncher Extensions  | Gnome Shell 💣🐒        |
-|   🚧   | Terminal Client              | Alacritty 🦀                       | Wave 🐹               | Gnome Terminal 💣       |
-|   🚧   | File Manager                 | Nemo 💣                            | Sigma File Manager 💣 | Nautilus 💣             |
-|   ✅   | Music Player (Playlists)     | Strawberry 💣                      |                       | Clementine 💣           |
-|   ✅   | Music Player (Albums)        | Tauon 🐍                           |                       |                         |
-|   ✅   | Video Player                 | vlc 💣                             |                       | Totem 💣                |
-|   ✅   | Code Editor (IDE)            | VS Codium 🐒                       |                       | Atom 🐒                 |
-|   🚧   | Text editor                  | Textadept 🌙                       |                       | Gnome Text Editor 💣    |
-|   🚧   | PDF Viewer                   | Xreader 💣                         |                       | Evince 💣               |
-|   ✅   | Web Browser (Primary)        | Firefox Developer Edition 💣🐒     |                       |                         |
-|   ✅   | Web Browser (Secondary)      | Chromium 💣                        |                       |                         |
-|   🚧   | Office Suite                 | Only Office 💣                     |                       | LibreOffice 💣          |
-|   ✅   | Diagram Drawing Tool         | drawio 🐒                          |                       |                         |
-|   🚧   | Graphic Manipulation Tool    | GIMP 💣                            |                       |                         |
-|   🚧   | Vector Graphic Tool          | ???                                |                       |                         |
-|   🚧   | Resource Monitor             | Mission Center 💣 resources 🦀     |                       | Gnome System Monitor 💣 |
-|   🚧   | Secret Management Tool       | Gnome Keyring 💣                   |                       |                         |
-|   🚧   | Image Viewer                 | Image Roll 🦀                      |                       | Gnome Loupe 🦀          |
-|   🚧   | Email client                 | Evolution 💣                       | Mailspring 🐒         |                         |
-|   🚧   | Compression Tool             | Xarchiver 💣 File-roller 💣        |                       | Peazip 🦎               |
-|   ✅   | Personal messenger           | Signal Desktop 🐒                  |                       |                         |
-|   ✅   | Community messenger          | Element 🐒                         |                       |                         |
-|   ✅   | Virtualization               | virt-manager 🐍                    |                       | VirtualBox 💣           |
-|   ✅   | File Transfer Tool           | Filezilla 💣                       |                       |                         |
-|   ✅   | Database Management Tool     | dbeaver 🫘                         |                       |                         |
-|   ✅   | Diff Manager                 | meld 🐍                            |                       |                         |
+| Status | Component                    | Current                            | R&D                   | Legacy                    |
+| :----: | :--------------------------: | :--------------------------------: | :-------------------: | :-----------------------: |
+|   ✅   | Operating System             | NixOS ❄️                           |                       | Debian/Ubuntu             |
+|   🚧   | Desktop Environment          | Hyprland 💣                        |                       | GNOME                     |
+|   🚧   | Application Launcher         | Ulauncher 🐍                       | Ulauncher Extensions  | Gnome Shell 💣🐒 kando 🐒 |
+|   🚧   | Terminal Client              | Alacritty 🦀                       | Wave 🐹               | Gnome Terminal 💣         |
+|   🚧   | File Manager                 | Nemo 💣                            | Sigma File Manager 💣 | Nautilus 💣               |
+|   ✅   | Music Player (Playlists)     | Strawberry 💣                      |                       | Clementine 💣             |
+|   ✅   | Music Player (Albums)        | Tauon 🐍                           |                       |                           |
+|   ✅   | Video Player                 | vlc 💣 mpv 💣                      |                       | Totem 💣                  |
+|   ✅   | Code Editor (IDE)            | VS Codium 🐒                       |                       | Atom 🐒                   |
+|   🚧   | Text editor                  | Textadept 🌙                       |                       | Gnome Text Editor 💣      |
+|   🚧   | PDF Viewer                   | Xreader 💣                         |                       | Evince 💣                 |
+|   ✅   | Web Browser (Primary)        | Firefox Developer Edition 💣🐒     |                       |                           |
+|   ✅   | Web Browser (Secondary)      | Chromium 💣                        |                       |                           |
+|   🚧   | Office Suite                 | Only Office 💣                     |                       | LibreOffice 💣            |
+|   ✅   | Diagram Drawing Tool         | drawio 🐒                          |                       |                           |
+|   🚧   | Graphic Manipulation Tool    | GIMP 💣                            |                       |                           |
+|   🚧   | Vector Graphic Tool          | ???                                |                       |                           |
+|   🚧   | Resource Monitor             | Mission Center 💣 resources 🦀     |                       | Gnome System Monitor 💣   |
+|   🚧   | Secret Management Tool       | Gnome Keyring 💣                   |                       |                           |
+|   🚧   | Image Viewer                 | Image Roll 🦀                      |                       | Gnome Loupe 🦀            |
+|   🚧   | Email client                 | Evolution 💣                       | Mailspring 🐒         |                           |
+|   🚧   | Compression Tool             | Xarchiver 💣 File-roller 💣        |                       | Peazip 🦎                 |
+|   ✅   | Personal messenger           | Signal Desktop 🐒                  |                       |                           |
+|   ✅   | Community messenger          | Element 🐒                         |                       |                           |
+|   ✅   | Virtualization               | virt-manager 🐍                    |                       | VirtualBox 💣             |
+|   ✅   | File Transfer Tool           | Filezilla 💣                       |                       |                           |
+|   ✅   | Database Management Tool     | dbeaver 🫘                         |                       |                           |
+|   ✅   | Diff Manager                 | meld 🐍                            |                       |                           |
+|   🚧   | CLI AI Agent                 | copilot-cli 🐒 duckchat 🐹         | claude-code 🐚        |                           |
