@@ -8,6 +8,7 @@ In this file I'll try to mention major changes to the configuration.
 - stylix: changed monospace font to hack mono nerd font
 - hostup1: initialized a new host
 - hostup1: prepare for remote building
+- builder: changed builder from contabo1 to hostup1
 
 2025-12-05
 - base: added wtfis to the system packages.
