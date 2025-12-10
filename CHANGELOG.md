@@ -5,6 +5,7 @@ In this file I'll try to mention major changes to the configuration.
 - pkgs: added duckduckgo-chat-cli
 - repo: removed kando
 - laptop: added jujutsu
+- stylix: changed monospace font to hack mono nerd font
 
 2025-12-05
 - base: added wtfis to the system packages.

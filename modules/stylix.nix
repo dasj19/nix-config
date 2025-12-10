@@ -25,6 +25,6 @@
   stylix.fonts.serif.name = "Ubuntu Classic";
   stylix.fonts.sansSerif.package = pkgs.nerd-fonts.ubuntu-sans;
   stylix.fonts.sansSerif.name = "UbuntuSans Nerd Font";
-  stylix.fonts.monospace.package = pkgs.nerd-fonts.noto;
-  stylix.fonts.monospace.name = "NotoMono Nerd Font";
+  stylix.fonts.monospace.package = pkgs.nerd-fonts.hack;
+  stylix.fonts.monospace.name = "Hack Mono Nerd Font";
 }

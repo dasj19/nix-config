@@ -89,6 +89,8 @@
     # Set icon and color themes.
     "workbench.iconTheme" = "vscode-icons";
     "workbench.colorTheme" = "Stylix";
+    # Font settings.
+    "editor.allowVariableFonts" = false;
   };
 
   nixpkgs.config.allowUnfreePredicate =
