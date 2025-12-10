@@ -52,6 +52,7 @@
       flac
       gh
       github-copilot-cli
+      jujutsu
       khard # CLI for managing contacts.
       tealdeer # Fast implementation of tldr.
 
@@ -79,7 +80,6 @@
       filezilla
       flameshot
       gimp
-      kando
       libreoffice-still
       onlyoffice-desktopeditors
       pdfarranger

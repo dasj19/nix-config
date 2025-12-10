@@ -1,6 +1,11 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-12-10
+- pkgs: added duckduckgo-chat-cli
+- repo: removed kando
+- laptop: added jujutsu
+
 2025-12-05
 - base: added wtfis to the system packages.
 

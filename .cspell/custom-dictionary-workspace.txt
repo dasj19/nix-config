@@ -92,6 +92,7 @@ dont
 dslg
 dswexec
 dswload
+duckchat
 duckduckgo
 ehci
 Embedder
@@ -185,8 +186,6 @@ iwlwifi
 jetpack
 jnoortheen
 joypad
-kanboard
-Kanboard
 kando
 kcachegrind
 kdenlive

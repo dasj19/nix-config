@@ -36,7 +36,6 @@
       bind = CTRL_L ALT_L,T,exec,${terminal} # Open terminal with Ctrl + Alt + T.
       bind = ${modifier},B,exec,${browser} # Open browser (Firefox) with Super + B
       bind = ${modifier},L,exec,hyprlock # Lock screen with Super + L
-      bind = ${modifier},SPACE,exec,kando --menu "Menu" # Secondary App launcher with Super + Space # uses electron, @todo consider removing
       bind = ${modifier},S, exec, walker # Too slow and buggy, consider removing.
       bind = CTRL_L, SPACE, exec, gapplication launch io.ulauncher.Ulauncher # Main App Launcher
 

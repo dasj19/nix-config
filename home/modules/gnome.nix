@@ -14,17 +14,7 @@
     clipboard-indicator
     # Organize workspaces in a cube.
     desktop-cube
-    # Kando menu integration.
-    kando-integration
   ];
-
-  # Add Kando to the list of autostart programs.
-  xdg.configFile."autostart/kando.desktop".text = ''
-    [Desktop Entry]
-    Type=Application
-    Exec=kando
-    Name=Kando Autostart
-  '';
 
   dconf.enable = true;
   # Define the available keyboard layouts.
@@ -104,7 +94,6 @@
       "burn-my-windows@schneegans.github.com"
       "clipboard-indicator@tudmotu.com"
       "desktop-cube@schneegans.github.com"
-      "kando-integration@kando-menu.github.io"
     ];
   };
 
