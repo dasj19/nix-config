@@ -1,4 +1,7 @@
-{ config, lib, pkgs, ... }:
+{
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -8,10 +11,6 @@
     ./hardware.nix
   ];
 
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-
   networking.hostName = "hostup1";
 
   # Configure network connections interactively with nmcli or nmtui.
@@ -19,8 +18,6 @@
 
   # Machine's time zone.
   time.timeZone = lib.mkForce "Europe/Stockholm";
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -35,4 +32,3 @@
   system.stateVersion = "25.11";
 
 }
-
