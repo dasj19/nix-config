@@ -6,6 +6,8 @@ In this file I'll try to mention major changes to the configuration.
 - repo: removed kando
 - laptop: added jujutsu
 - stylix: changed monospace font to hack mono nerd font
+- hostup1: initialized a new host
+- hostup1: prepare for remote building
 
 2025-12-05
 - base: added wtfis to the system packages.

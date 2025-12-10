@@ -153,6 +153,7 @@ halign
 halloy
 HIDD
 highres
+hostup
 Hotword
 HPKP
 hplip

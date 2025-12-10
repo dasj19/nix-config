@@ -19,6 +19,15 @@
   # Machine's time zone.
   time.timeZone = lib.mkForce "Europe/Stockholm";
 
+  # hostup1 has 4 cores.
+  # Build four jobs at a time using maximum of 1 cores per job.
+  nix.settings.max-jobs = 4;
+  nix.settings.cores = 1;
+
+  nix.settings.trusted-users = [
+    "daniel"
+  ];
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
