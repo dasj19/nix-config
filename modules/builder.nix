@@ -3,14 +3,19 @@
     # Requires manual setup of ssh keys.
     # The root user on host needs to be able to connect to the builder, preferably by ssh keys.
     {
-      hostName = "contabo1";
+      hostName = "hostup1";
       systems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
       protocol = "ssh";
       maxJobs = 2;
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
       mandatoryFeatures = [ ];
     }
   ];
