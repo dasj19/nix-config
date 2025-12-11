@@ -60,13 +60,13 @@ in
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
     25 # SMTP
+    22 # SSH - OpenSSH
     53 # DNS
     80 # HTTP
     143 # IMAP
     443 # HTTPS
     465 # SMTP over TLS
     993 # IMAP over TLS
-    2202 # SSH - OpenSSH
   ];
   networking.firewall.allowedUDPPorts = [
     53 # DNS
@@ -112,7 +112,7 @@ in
 
   # OpenSSH settings.
   services.openssh.ports = [
-    2202
+    22
   ];
 
   # Linux kernel - Using a LTS kernel.
