@@ -102,7 +102,7 @@ Git-crypt key: `git-crypt-key`
 | contabo2    | Contabo KVM VPS  | AMD EPYC 7282        | 6  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🇩🇪    |
 | devbox      | Virtualbox       |                      | 4  GB | Not Available                  | 🐄   | ❄️  | ✅    |     🏠    |
 | linodenix1  | Linode Nanode    | AMD EPYC 7601        | 1  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🇩🇪    |
-| linodenix2  | Linode Nanode    | AMD EPYC 7601        | 1  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🇩🇪    |
+| linodenix2  | Linode Nanode    | AMD EPYC 7713        | 1  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🇩🇪    |
 | hostup1     | HostUp VPS       | AMD EPYC-Milan       | 16 GB | Not Available                  | ☁️   | ❄️  | ✅    |     🇸🇪    |
 | rpi4-tv     | RaspberryPi 4    |                      | 8  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🏠    |
 | t14         | Lenovo T14       | Intel i7-10610U      | 24 GB | NVIDIA GeForce MX330           | 💻️   | ❄️  | ✅    |     🏠    |
