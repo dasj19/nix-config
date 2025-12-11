@@ -1,5 +1,6 @@
 {
   awesome-linux-templates,
+  pkgs,
   ...
 }:
 {
@@ -25,6 +26,13 @@
   home.file."awesome-linux-templates" = {
     target = "./system/templates";
     source = "${awesome-linux-templates}/templates";
+    recursive = true;
+  };
+
+  # Install libreoffice impress templates at the default template path.
+  home.file."libreoffice-impress-templates" = {
+    target = "./.config/libreoffice/4/user/template";
+    source = "${pkgs.callPackage ../pkgs/libreoffice-impress-templates.nix { }}";
     recursive = true;
   };
 }

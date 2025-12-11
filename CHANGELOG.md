@@ -1,6 +1,10 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-12-11
+- linodenix2: setup fail2ban with rules for ssh and firewall
+- home laptop: added libreoffice-impress-templates package.
+
 2025-12-10
 - pkgs: added duckduckgo-chat-cli
 - repo: removed kando
