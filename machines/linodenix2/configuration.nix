@@ -11,6 +11,7 @@ let
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
   baseipv6 = gitSecrets.linode2BaseIpv6;
   mailipv6 = gitSecrets.linode2MailIpv6;
+  home-ip = gitSecrets.homeIp;
 in
 
 {
@@ -95,6 +96,13 @@ in
     "nix-command"
     "flakes"
   ];
+
+  services.fail2ban.enable = true;
+  services.fail2ban.bantime = "24h";
+  services.fail2ban.ignoreIP = [ home-ip ];
+  # Apply bans on all ports, based on firewall output.
+  services.fail2ban.extraPackages = [ pkgs.ipset ];
+  services.fail2ban.banaction = "iptables-ipset-proto6-allports";
 
   # INSTALLED PACKAGES:
   environment.systemPackages = with pkgs; [
