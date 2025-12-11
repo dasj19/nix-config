@@ -95,13 +95,13 @@ oceanly-news = pkgs.stdenv.mkDerivation rec {
 };
 
 # Wordpress plugin 'classic-editor'.
-# https://downloads.wordpress.org/plugin/classic-editor.1.6.4.zip
+# https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip
 classic-editor = pkgs.stdenv.mkDerivation {
   name = "classic-editor";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/classic-editor.1.6.4.zip";
-    sha256 = "1yapp0s1ji0qk6hhdyxv9lwrlmy6r6yq60id1pqsv9j23lc53zwn";
+    url = "https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip";
+    sha256 = "0rffbss1h92sp66mpcrm6km3s0lils92c8ihhzzjgxk1kjqlaasb";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -110,6 +110,7 @@ classic-editor = pkgs.stdenv.mkDerivation {
 };
 
 # https://downloads.wordpress.org/plugin/easy-wp-meta-description.1.2.6.zip
+# Note: upstream no longer available.
 easy-wp-meta-description = pkgs.stdenv.mkDerivation {
   name = "easy-wp-meta-description";
   # Download the plugin from the wordpress site
@@ -123,13 +124,13 @@ easy-wp-meta-description = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.3.zip
+# https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.5.zip
 wp-robots-txt = pkgs.stdenv.mkDerivation {
   name = "wp-robots-txt";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.3.zip";
-    sha256 = "17884j8rx8f10b307y0jr9d72yhy62zxd2nwyp5pqara6x55sazb";
+    url = "https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.5.zip";
+    sha256 = "1ra4zmicx4gib0n6j30fch8b0h27sw37r6q3jdbssm7cchnpjzp5";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -138,6 +139,7 @@ wp-robots-txt = pkgs.stdenv.mkDerivation {
 };
 
 # https://downloads.wordpress.org/plugin/wordpress-gzip-compression.1.0.zip
+# Note: upstream no longer available.
 worpress-gzip-compression = pkgs.stdenv.mkDerivation {
   name = "worpress-gzip-compression";
   # Download the plugin from the wordpress site
@@ -195,14 +197,14 @@ stop-xml-rpc = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/advanced-custom-fields.6.2.7.zip
 # https://downloads.wordpress.org/plugin/advanced-custom-fields.6.3.5.zip
+# https://downloads.wordpress.org/plugin/advanced-custom-fields.6.7.0.zip
 advanced-custom-fields = pkgs.stdenv.mkDerivation {
   name = "advanced-custom-fields";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.3.5.zip";
-    sha256 = "1xqxawa6i1ykwg2ligyrizmh67mqsy08nx6fnawy5gr9w71brr8n";
+    url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.7.0.zip";
+    sha256 = "00l76r6wdrdb3ii4mgv1x2fks2ry1331hhxcs9jlrnjmhr4vpjry";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -228,8 +230,8 @@ wp-pagenavi = pkgs.stdenv.mkDerivation {
   name = "wp-pagenavi";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/wp-pagenavi.2.94.1.zip";
-    hash = "sha256-7w5UKrrtadFUHgBM3eqaJc+PHi0nZqmQFPoYj3bAvos=";
+    url = "https://downloads.wordpress.org/plugin/wp-pagenavi.2.94.5.zip";
+    sha256 = "1hl8sznmdc2vmg7idpzy5sg6h3zcyf0p54w2hms6097k98zpvac2";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -237,13 +239,13 @@ wp-pagenavi = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.2.zip
+# https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.4.zip
 add-featured-image-to-rss-feed = pkgs.stdenv.mkDerivation {
   name = "add-featured-image-to-rss-feed";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.2.zip";
-    hash = "sha256-vBOt52qhluS0MVQDPd1AqbB9JAFlGhuZcnZ1B7KjYv4=";
+    url = "https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.4.zip";
+    sha256 = "02i6xhf7mq4z6sn8868rdzjy069hcxs89wyqn5f9h7vw6law7d0h";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -251,13 +253,13 @@ add-featured-image-to-rss-feed = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/edit-author-slug.1.9.0.zip
+# https://downloads.wordpress.org/plugin/edit-author-slug.1.9.2.zip
 edit-author-slug = pkgs.stdenv.mkDerivation {
   name = "edit-author-slug";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/edit-author-slug.1.9.0.zip";
-    sha256 = "1dgmk7q98yd03n6vkqa72dcc3by84f55l2plylsdfxj07cpi6rrk";
+    url = "https://downloads.wordpress.org/plugin/edit-author-slug.1.9.2.zip";
+    sha256 = "1gh7milv2q2s8wzvm3z8jlx7j3d90s37ihrfhvjjm60jzddsdpyh";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -265,14 +267,14 @@ edit-author-slug = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/redirection.5.4.2.zip
 # https://downloads.wordpress.org/plugin/redirection.5.5.0.zip
+# https://downloads.wordpress.org/plugin/redirection.5.5.2.zip
 redirection = pkgs.stdenv.mkDerivation {
   name = "redirection";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/redirection.5.5.0.zip";
-    sha256 = "1c2pq4wylbc6p1g2gc2l7shvkr0xyln14982q1ri9bbfi9ymfvw1";
+    url = "https://downloads.wordpress.org/plugin/redirection.5.5.2.zip";
+    sha256 = "0j56c7rkajs3jnmbmd2balkc26qcbx11kzfxl31qx0lpcwjjlmic";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -280,13 +282,13 @@ redirection = pkgs.stdenv.mkDerivation {
   installPhase = "mkdir -p $out; cp -R * $out/";
 };
 
-# https://downloads.wordpress.org/plugin/images-to-webp.4.7.zip
+# https://downloads.wordpress.org/plugin/images-to-webp.4.8.zip
 images-to-webp = pkgs.stdenv.mkDerivation {
   name = "images-to-webp";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/images-to-webp.4.7.zip";
-    sha256 = "0dcrb99f0by9bnfpmqbv1i2ngbfh9apkqw8mlv0mz938bzaj5qbk";
+    url = "https://downloads.wordpress.org/plugin/images-to-webp.4.8.zip";
+    sha256 = "1371fw8ig9d6hb1my1hyndalfa2m8rfiz8jgpiba66673qj2cm6c";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -314,13 +316,13 @@ hyper-cache = pkgs.stdenv.mkDerivation {
 };
 
 # https://downloads.wordpress.org/plugin/very-simple-contact-form.15.6.zip
-# https://downloads.wordpress.org/plugin/very-simple-contact-form.16.3.zip
+# https://downloads.wordpress.org/plugin/very-simple-contact-form.17.9.zip
 very-simple-contact-form = pkgs.stdenv.mkDerivation {
   name = "very-simple-contact-form";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.16.3.zip";
-    sha256 = "1sj6gh27n9nk2sw9fc8allq128bhw59ys142k99f9bhcg8260j6q";
+    url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.17.9.zip";
+    sha256 = "0pm85a8a995d9ad3g338z8sbgfkp6fa0h38nnqmdf84j08d944cr";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -384,15 +386,15 @@ mx-time-zone-clocks = pkgs.stdenv.mkDerivation rec {
   '';
 };
 
-# https://downloads.wordpress.org/plugin/speculation-rules.1.0.1.zip
 # https://downloads.wordpress.org/plugin/speculation-rules.1.3.1.zip
+# https://downloads.wordpress.org/plugin/speculation-rules.1.6.0.zip
 speculation-rules = pkgs.stdenv.mkDerivation rec {
   name = "speculation-rules";
-  version = "1.0.0";
+  version = "1.6.0";
   # Download the plugin from the wordpress site
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/speculation-rules.1.3.1.zip";
-    sha256 = "01ig06zjl9bcn19sv431kq4wqjvl6d10pp9nw277vgkgz6ijq1h9";
+    url = "https://downloads.wordpress.org/plugin/speculation-rules.1.6.0.zip";
+    sha256 = "07c6v1b3p4xcdrh6acjpnqxk2r7ax57w6yxw7gza7hnla20c5rxh";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -403,6 +405,7 @@ speculation-rules = pkgs.stdenv.mkDerivation rec {
 };
 
 # https://downloads.wordpress.org/plugin/cool-tag-cloud.zip
+# Note: upstream temporary closed.
 cool-tag-cloud = pkgs.stdenv.mkDerivation rec {
   name = "cool-tag-cloud";
   version = "2.29";
