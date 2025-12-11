@@ -117,6 +117,7 @@
     "text/javascript" = "textadept.desktop";
     "text/html" = "firefox-devedition.desktop";
     "text/markdown" = "textadept.desktop";
+    "text/plain" = "textadept.desktop";
     "text/xml" = "textadept.desktop";
     "video/mp4" = "vlc.desktop";
     "video/mpeg" = "vlc.desktop";
