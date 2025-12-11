@@ -48,10 +48,10 @@ blogstream = pkgs.stdenv.mkDerivation rec {
 # Pressbook theme.
 pressbook = pkgs.stdenv.mkDerivation rec {
   name = "pressbook";
-  version = "1.9.4";
+  version = "2.1.6";
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/theme/pressbook.1.9.4.zip";
-    sha256 = "0ngy15q2c9hg3i4npp3nz1a01gvv73f0kn96akrrhh46m6ja51ml";
+    url = "https://downloads.wordpress.org/theme/pressbook.2.1.6.zip";
+    sha256 = "0gd9g18g8nnqr4hm5r047x6s4m7djb634l924i4s2rhjqrx1ln44";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -64,10 +64,10 @@ pressbook = pkgs.stdenv.mkDerivation rec {
 # Oceanly theme.
 oceanly = pkgs.stdenv.mkDerivation rec {
   name = "oceanly";
-  version = "1.7.3";
+  version = "1.8.3";
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/theme/oceanly.1.7.3.zip";
-    sha256 = "0dj3ljw0551mzlbrxjfyv6hgq0ga4fr5zfpybiil38sf3g8fsdx0";
+    url = "https://downloads.wordpress.org/theme/oceanly.1.8.3.zip";
+    sha256 = "1avcii8ykjjh5vk165fqn2panymcpmy64gc8i99kmi9jd09wy4w2";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
@@ -81,10 +81,10 @@ oceanly = pkgs.stdenv.mkDerivation rec {
 # Oceanly News theme.
 oceanly-news = pkgs.stdenv.mkDerivation rec {
   name = "oceanly-news";
-  version = "1.2.6";
+  version = "1.3.1";
   src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/theme/oceanly-news.1.2.6.zip";
-    sha256 = "0p9z4r2i4h7j8b3vjjc06nyjgzj39bw97d8yiipr2f68883kmy58";
+    url = "https://downloads.wordpress.org/theme/oceanly-news.1.3.1.zip";
+    sha256 = "0jphcqrfxqzzx67gq6hkxasq7r8jz3538v1vl6k0avvmmw5xivx8";
   };
   # We need unzip to build this package
   buildInputs = [ pkgs.unzip ];
