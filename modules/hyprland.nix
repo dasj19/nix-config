@@ -51,14 +51,14 @@
     nemo-preview # File previews for nemo.
     pwvucontrol # Pipewire volume control.
     textadept # Lightweight text editor.
-    walker
     waybar # Status bar for Wayland.
     wofi # Application launcher.
     xarchiver # Archive manager.
     xfce.orage # Calendar application.
     xreader # PDF Document viewer.
+    mpv # alternative vide player.
 
-    pyprland
+    pyprland # Plugin manager for hyprland.
     hyprcursor
     hyprlock
     hypridle
@@ -69,10 +69,10 @@
     mission-center # Task manager and system monitor.
     resources # Task manager and resource monitor.
 
-    strawberry # Replacement for gnome-music.
+    strawberry # Collection-based music player.
     evolution # Email client with calendar support.
     gnome-keyring # Keyring for managing passwords and encryption keys.
-    vlc # Media player.
+    vlc # Universal media player.
     xdg-desktop-portal-hyprland # XDG desktop portal implementation for Hyprland.
   ];
 
