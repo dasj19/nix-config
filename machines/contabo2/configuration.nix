@@ -77,19 +77,6 @@ in
 
   # List services.
 
-  # @TODO: investigate if this is needed.
-  services.logrotate.checkConfig = false;
-
-  # Fish shell customizations.
-  programs.fish.interactiveShellInit = ''
-    # Forcing true color in the terminals.
-    set -g fish_term24bit 1
-    # Empty fish greeting. @TODO: consider making it a nix option for fish.
-    set -g fish_greeting ""
-    # Add custom message to the fish prompt.
-    echo 'CONTABO _2_'
-  '';
-
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22 # SSH    - OpenSSH

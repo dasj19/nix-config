@@ -6,6 +6,7 @@ In this file I'll try to mention major changes to the configuration.
 - machines: updated timezones to reflect machine's location.
 - machines: adjusted nix build settings.
 - machines: centralized users and groups.
+- machines: centralized logrotate settings.
 
 2025-12-11
 - linodenix2: setup fail2ban with rules for ssh and firewall

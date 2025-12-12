@@ -109,8 +109,6 @@ in
     ip6tables -A FORWARD -p icmpv6 -j ACCEPT
   '';
 
-  services.logrotate.checkConfig = false;
-
   # ACME settings.
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "webmaster@${fritweb-domain}";

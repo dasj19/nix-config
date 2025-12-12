@@ -34,9 +34,8 @@
 
     # Log rotation.
     services.logrotate.enable = true;
-    services.logrotate.settings.header = {
-      compress = true;
-    };
+    services.logrotate.checkConfig = false;
+    services.logrotate.settings.header.compress = true;
 
     # Machine's default time zone.
     time.timeZone = lib.mkDefault "Europe/Copenhagen";
