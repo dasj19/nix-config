@@ -28,12 +28,6 @@ in
   # Networking.
   networking.hostName = "rpi4-tv";
 
-  # Unpriviledged user account.
-  users.users.daniel = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-  };
-
   # System-wide packages.
   environment.systemPackages = with pkgs; [
 

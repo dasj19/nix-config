@@ -25,12 +25,6 @@ in
   networking.hostName = "cm4-nas";
   networking.networkmanager.enable = true;
 
-  # Underpriviledged user.
-  users.users.daniel = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-  };
-
   environment.systemPackages = with pkgs; [
     iperf
   ];
