@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   ...
 }:
 
@@ -23,6 +24,18 @@
   # Build four jobs at a time using maximum of 1 cores per job.
   nix.settings.max-jobs = lib.mkForce 4;
   nix.settings.cores = lib.mkForce 1;
+
+  # Github runner to build the nix-config repo/project.
+  services.github-runners."nix-config-runner" = {
+    enable = true;
+    name = "nix-config-runner";
+    tokenFile = "/etc/nixos/nix-config-runner.token";
+    url = "https://github.com/dasj19/nix-config";
+    extraPackages = with pkgs; [
+      git-crypt
+      openssh
+    ];
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

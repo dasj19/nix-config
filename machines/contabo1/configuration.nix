@@ -67,18 +67,6 @@ in
   nix.settings.max-jobs = lib.mkForce 2;
   nix.settings.cores = lib.mkForce 2;
 
-  # Github runner to build the nix-config repo/project.
-  services.github-runners."nix-config-runner" = {
-    enable = true;
-    name = "nix-config-runner";
-    tokenFile = "/etc/nixos/nix-config-runner.token";
-    url = "https://github.com/dasj19/nix-config";
-    extraPackages = with pkgs; [
-      git-crypt
-      openssh
-    ];
-  };
-
   # Packages installed in system profile.
   environment.systemPackages = with pkgs; [
     # CLI utils.
