@@ -20,9 +20,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Local time zone.
-  time.timeZone = "Europe/Copenhagen";
-
   # internationalization.
   i18n.defaultLocale = "en_DK.UTF-8";
 

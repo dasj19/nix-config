@@ -38,6 +38,9 @@
       compress = true;
     };
 
+    # Machine's default time zone.
+    time.timeZone = lib.mkDefault "Europe/Copenhagen";
+
     # Base packages are a must for every machine.
     # These should be CLI-only packages.
     environment.systemPackages = with pkgs; [

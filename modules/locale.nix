@@ -1,10 +1,6 @@
-_:
-{
+_: {
 
   config = {
-    # Local time.
-    time.timeZone = "Europe/Copenhagen";
-
     # Internationalization properties.
     i18n.defaultLocale = "en_DK.UTF-8";
     i18n.extraLocaleSettings = {

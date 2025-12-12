@@ -25,9 +25,6 @@ in
   networking.hostName = "cm4-nas";
   networking.networkmanager.enable = true;
 
-  # Server's time zone.
-  time.timeZone = "Europe/Copenhagen";
-
   # Underpriviledged user.
   users.users.daniel = {
     isNormalUser = true;

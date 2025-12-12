@@ -1,4 +1,10 @@
-{ config, pkgs, gitSecrets, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  gitSecrets,
+  ...
+}:
 
 let
   # Host-related variables.
@@ -24,12 +30,12 @@ in
   ];
 
   # sops secrets.
-  sops.secrets.root_password = {};
-  sops.secrets.daniel_password = {};
-  sops.secrets.daniel_daniel_email_password = {};
-  sops.secrets.cloudflare_email = {};
-  sops.secrets.cloudflare_dns_api_token = {};
-  sops.secrets.cloudflare_zone_api_token = {};
+  sops.secrets.root_password = { };
+  sops.secrets.daniel_password = { };
+  sops.secrets.daniel_daniel_email_password = { };
+  sops.secrets.cloudflare_email = { };
+  sops.secrets.cloudflare_dns_api_token = { };
+  sops.secrets.cloudflare_zone_api_token = { };
 
   # Email server.
   mailserver = {
@@ -44,13 +50,15 @@ in
         # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
         hashedPasswordFile = config.sops.secrets.daniel_daniel_email_password.path;
         # List of email aliases: "username@domain.tld" .
-        aliases = [ "postmaster@${daniel-domain}" "webmaster@${daniel-domain}" ];
+        aliases = [
+          "postmaster@${daniel-domain}"
+          "webmaster@${daniel-domain}"
+        ];
         # Catch all emails from the primary domain.
         catchAll = [ daniel-domain ];
       };
     };
   };
-
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -59,7 +67,7 @@ in
   networking.hostName = "contabo2";
 
   # Set server time zone.
-  time.timeZone = "Europe/Copenhagen";
+  time.timeZone = lib.mkForce "Europe/Berlin";
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
@@ -82,11 +90,10 @@ in
     echo 'CONTABO _2_'
   '';
 
-
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22  # SSH    - OpenSSH
-    80  # HTTP   - Caddy Webserver.
+    22 # SSH    - OpenSSH
+    80 # HTTP   - Caddy Webserver.
     443 # HTTPS  - Caddy Webserver.
   ];
   networking.firewall.allowedUDPPorts = [

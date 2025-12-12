@@ -90,7 +90,7 @@ in
   };
 
   # Set your time zone.
-  time.timeZone = "Europe/Copenhagen";
+  time.timeZone = lib.mkForce "Europe/Berlin";
 
   nix.settings.experimental-features = [
     "nix-command"

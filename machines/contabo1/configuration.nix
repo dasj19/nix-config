@@ -1,13 +1,20 @@
 /*
- * contabo1: github runner, mailserver, webserver
- * model: Contabo SSD VPS
- *
- * Notes:
- *  - can be busy at times, especially
- *    after I push new updates to the config
- */
+  contabo1: github runner, mailserver, webserver
+  model: Contabo SSD VPS
 
-{ config, gitSecrets, pkgs, sopsSecrets, ... }:
+  Notes:
+    - can be busy at times, especially
+      after I push new updates to the config
+*/
+
+{
+  config,
+  gitSecrets,
+  lib,
+  pkgs,
+  sopsSecrets,
+  ...
+}:
 
 let
   fritweb-domain = gitSecrets.fritwebDomain;
@@ -15,7 +22,7 @@ let
 in
 
 {
-  imports = [ 
+  imports = [
     # Profile.
     ./../../profiles/server.nix
     # Include the results of the hardware scan.
@@ -31,14 +38,14 @@ in
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
   # Sops secrets.
-  sops.secrets.daniel_password = {};
-  sops.secrets.root_password = {};
-  sops.secrets.cloudflare_email = {};
-  sops.secrets.cloudflare_dns_api_token = {};
-  sops.secrets.cloudflare_zone_api_token = {};
+  sops.secrets.daniel_password = { };
+  sops.secrets.root_password = { };
+  sops.secrets.cloudflare_email = { };
+  sops.secrets.cloudflare_dns_api_token = { };
+  sops.secrets.cloudflare_zone_api_token = { };
 
   networking.hostName = "contabo1";
-  networking.enableIPv6  = true;
+  networking.enableIPv6 = true;
 
   networking.interfaces.ens18.ipv6.addresses = [
     # Static IPv6 address for the main interface.
@@ -52,8 +59,8 @@ in
     interface = "ens18";
   };
 
-  # Set your time zone.
-  time.timeZone = "Europe/Copenhagen";
+  # Machine's time zone.
+  time.timeZone = lib.mkForce "Europe/Berlin";
 
   # contabo1 has 4 cores
   # Build two jobs at a time using maximum of 2 cores per jobs.
@@ -64,14 +71,16 @@ in
     "daniel"
   ];
 
-
   # Github runner to build the nix-config repo/project.
   services.github-runners."nix-config-runner" = {
     enable = true;
     name = "nix-config-runner";
     tokenFile = "/etc/nixos/nix-config-runner.token";
     url = "https://github.com/dasj19/nix-config";
-    extraPackages = with pkgs; [ git-crypt openssh ];
+    extraPackages = with pkgs; [
+      git-crypt
+      openssh
+    ];
   };
 
   # Packages installed in system profile.
@@ -82,13 +91,13 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22   # OpenSSH.
-    25   # SMTP.
-    80   # HTTP.
-    143  # IMAP.
-    443  # HTTPS.
-    465  # SMTP over TLS.
-    993  # IMAP over TLS.
+    22 # OpenSSH.
+    25 # SMTP.
+    80 # HTTP.
+    143 # IMAP.
+    443 # HTTPS.
+    465 # SMTP over TLS.
+    993 # IMAP over TLS.
     5600 # Airdc++ insecure
     5601 # Airdc++ secure
     39425 # Airdc transfer
@@ -121,4 +130,3 @@ in
   system.stateVersion = "24.05";
 
 }
-
