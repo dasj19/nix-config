@@ -1,6 +1,9 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-12-13
+- hardware: fixed the email address for smartd reports.
+
 2025-12-12
 - laptop profile: added font package containing a cjk font.
 - machines: updated timezones to reflect machine's location.

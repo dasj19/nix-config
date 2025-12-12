@@ -219,6 +219,7 @@ lidswitch
 linodenix
 litecli
 litellm
+localdomain
 localip
 localsearch
 logind
