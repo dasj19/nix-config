@@ -64,12 +64,8 @@ in
 
   # contabo1 has 4 cores
   # Build two jobs at a time using maximum of 2 cores per jobs.
-  nix.settings.max-jobs = 2;
-  nix.settings.cores = 2;
-
-  nix.settings.trusted-users = [
-    "daniel"
-  ];
+  nix.settings.max-jobs = lib.mkForce 2;
+  nix.settings.cores = lib.mkForce 2;
 
   # Github runner to build the nix-config repo/project.
   services.github-runners."nix-config-runner" = {

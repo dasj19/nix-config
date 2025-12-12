@@ -4,6 +4,7 @@ In this file I'll try to mention major changes to the configuration.
 2025-12-12
 - laptop profile: added font package containing a cjk font.
 - machines: updated timezones to reflect machine's location.
+- machines: adjusted nix build settings.
 
 2025-12-11
 - linodenix2: setup fail2ban with rules for ssh and firewall

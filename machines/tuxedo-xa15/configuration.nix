@@ -255,8 +255,8 @@ in
   # tuxedo-xa15 has a total of 32 cores.
   # use at most 4 corse per jobs, and max 8 parallel jobs in total.
   # @see https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
-  nix.settings.max-jobs = 8;
-  nix.settings.cores = 4;
+  nix.settings.max-jobs = lib.mkForce 8;
+  nix.settings.cores = lib.mkForce 4;
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [

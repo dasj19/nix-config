@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   ...
 }:
@@ -18,10 +19,14 @@
     # Enable distributed builds for all nix builds.
     nix.distributedBuilds = true;
     # User allowed to use distributed builds.
-    nix.settings.trusted-users = [
+    nix.settings.trusted-users = lib.mkDefault [
       "root"
       "daniel"
     ];
+
+    # Build the max amount of jobs (amount of cpu cores) using 1 core per job.
+    nix.settings.max-jobs = lib.mkDefault "auto";
+    nix.settings.cores = lib.mkDefault 1;
 
     # Nix and Nixpkgs configurations.
     nix.settings.experimental-features = [
