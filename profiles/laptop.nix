@@ -72,6 +72,7 @@
       hunspellDicts.da_DK
       hunspellDicts.en_US
       hunspellDicts.ro_RO
+      noto-fonts-cjk-serif-static # font to support chinese-japanese-korean.
 
       # GUIs.
       czkawka
