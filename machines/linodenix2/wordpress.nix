@@ -1,4 +1,8 @@
-{ config, gitSecrets, lib, pkgs, ... }:
+{
+  gitSecrets,
+  pkgs,
+  ...
+}:
 
 let
   imigrant-database = gitSecrets.imigrantDatabase;
@@ -8,428 +12,430 @@ let
 
   patchedWordpress = pkgs.wordpress.overrideAttrs (old: {
 
-  installPhase = old.installPhase + ''
-    mkdir -p $out/share/wordpress/wp-content/languages/themes
+    installPhase = old.installPhase + ''
+      mkdir -p $out/share/wordpress/wp-content/languages/themes
 
-    # Remove the default wordpress themes (to not get bothered about updates).
-    rm -rf $out/share/wordpress/wp-content/themes/twentytwenty
-    rm -rf $out/share/wordpress/wp-content/themes/twentytwentyone
-    rm -rf $out/share/wordpress/wp-content/themes/twentytwentytwo
+      # Remove the default wordpress themes (to not get bothered about updates).
+      rm -rf $out/share/wordpress/wp-content/themes/twentytwenty
+      rm -rf $out/share/wordpress/wp-content/themes/twentytwentyone
+      rm -rf $out/share/wordpress/wp-content/themes/twentytwentytwo
 
-    # Remove default not used plugins (to not get bothered about updates).
-    rm -rf $out/share/wordpress/wp-content/plugins/akismet
-    rm -rf $out/share/wordpress/wp-content/plugins/hello.php
+      # Remove default not used plugins (to not get bothered about updates).
+      rm -rf $out/share/wordpress/wp-content/plugins/akismet
+      rm -rf $out/share/wordpress/wp-content/plugins/hello.php
 
-    # Symlink to a module config file.
-    # This is still not editable from the wordpress panel but can be changed manually.
-    ln -s /var/lib/wordpress/${imigrant-domain}/cache/advanced-cache.php $out/share/wordpress/wp-content/advanced-cache.php
-    ln -s /var/lib/wordpress/${imigrant-domain}/blogstream-currency.json $out/share/wordpress/wp-content/blogstream-currency.json
-  '';
-    
-});
+      # Symlink to a module config file.
+      # This is still not editable from the wordpress panel but can be changed manually.
+      ln -s /var/lib/wordpress/${imigrant-domain}/cache/advanced-cache.php $out/share/wordpress/wp-content/advanced-cache.php
+      ln -s /var/lib/wordpress/${imigrant-domain}/blogstream-currency.json $out/share/wordpress/wp-content/blogstream-currency.json
+    '';
 
-# For shits and giggles, let's package the responsive theme
-blogstream = pkgs.stdenv.mkDerivation rec {
-  name = "blogstream";
-  version = "1.1";
-  src = builtins.fetchGit {
-    url = "git@github.com:dasj19/blogstream.git";
-    ref = "main";
-    rev = "ba32aa4f83dcdba8c75e680482080bd43701dba7";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
+  });
 
-# Pressbook theme.
-pressbook = pkgs.stdenv.mkDerivation rec {
-  name = "pressbook";
-  version = "2.1.6";
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/theme/pressbook.2.1.6.zip";
-    sha256 = "0gd9g18g8nnqr4hm5r047x6s4m7djb634l924i4s2rhjqrx1ln44";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
-
-# Oceanly theme.
-oceanly = pkgs.stdenv.mkDerivation rec {
-  name = "oceanly";
-  version = "1.8.3";
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/theme/oceanly.1.8.3.zip";
-    sha256 = "1avcii8ykjjh5vk165fqn2panymcpmy64gc8i99kmi9jd09wy4w2";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
-
-
-# Oceanly News theme.
-oceanly-news = pkgs.stdenv.mkDerivation rec {
-  name = "oceanly-news";
-  version = "1.3.1";
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/theme/oceanly-news.1.3.1.zip";
-    sha256 = "0jphcqrfxqzzx67gq6hkxasq7r8jz3538v1vl6k0avvmmw5xivx8";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
-
-# Wordpress plugin 'classic-editor'.
-# https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip
-classic-editor = pkgs.stdenv.mkDerivation {
-  name = "classic-editor";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip";
-    sha256 = "0rffbss1h92sp66mpcrm6km3s0lils92c8ihhzzjgxk1kjqlaasb";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
-
-# https://downloads.wordpress.org/plugin/easy-wp-meta-description.1.2.6.zip
-# Note: upstream no longer available.
-easy-wp-meta-description = pkgs.stdenv.mkDerivation {
-  name = "easy-wp-meta-description";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/easy-wp-meta-description.1.2.6.zip";
-    hash = "sha256-1pnB4k0WHrH0WlT9giEKgPrIJt1DuMa1XmpbY78j15M=";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
-
-# https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.5.zip
-wp-robots-txt = pkgs.stdenv.mkDerivation {
-  name = "wp-robots-txt";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.5.zip";
-    sha256 = "1ra4zmicx4gib0n6j30fch8b0h27sw37r6q3jdbssm7cchnpjzp5";
-  };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
-
-# https://downloads.wordpress.org/plugin/wordpress-gzip-compression.1.0.zip
-# Note: upstream no longer available.
-worpress-gzip-compression = pkgs.stdenv.mkDerivation {
-  name = "worpress-gzip-compression";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/wordpress-gzip-compression.1.0.zip";
-    sha256 = "156w8a7fi2yrps3kix46djd89x9ic7fjiwqz5hgpm2923v7ffwgn";
+  # For shits and giggles, let's package the responsive theme
+  blogstream = pkgs.stdenv.mkDerivation rec {
+    name = "blogstream";
+    version = "1.1";
+    src = builtins.fetchGit {
+      url = "git@github.com:dasj19/blogstream.git";
+      ref = "main";
+      rev = "ba32aa4f83dcdba8c75e680482080bd43701dba7";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
   };
 
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
-
-# https://downloads.wordpress.org/plugin/disable-json-api.zip
-disable-json-api = pkgs.stdenv.mkDerivation {
-  name = "disable-json-api";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/disable-json-api.zip";
-    hash = "sha256-BqPhNI9NURpIMcdPyho1DPrt96oNhgdjYt6fiV/90KM=";
+  # Pressbook theme.
+  pressbook = pkgs.stdenv.mkDerivation rec {
+    name = "pressbook";
+    version = "2.1.6";
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/theme/pressbook.2.1.6.zip";
+      sha256 = "0gd9g18g8nnqr4hm5r047x6s4m7djb634l924i4s2rhjqrx1ln44";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
   };
 
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
-
-# https://downloads.wordpress.org/plugin/humanstxt.1.3.1.zip
-humanstxt = pkgs.stdenv.mkDerivation {
-  name = "humanstxt";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/humanstxt.1.3.1.zip";
-    sha256 = "1100qmnlxzgydglr7pai1l6ajnsz0xr7vrf3vw2yhx2mzgjjrlj8";
+  # Oceanly theme.
+  oceanly = pkgs.stdenv.mkDerivation rec {
+    name = "oceanly";
+    version = "1.8.3";
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/theme/oceanly.1.8.3.zip";
+      sha256 = "1avcii8ykjjh5vk165fqn2panymcpmy64gc8i99kmi9jd09wy4w2";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
 
-# https://github.com/dasj19/stop-xml-rpc/releases/download/v0.1/stop-xml-rpc.0.1.zip
-stop-xml-rpc = pkgs.stdenv.mkDerivation {
-  name = "stop-xml-rpc";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://github.com/dasj19/stop-xml-rpc/releases/download/v0.1/stop-xml-rpc.0.1.zip";
-    sha256 = "0iq846b257jjqc2zihs08ywqc4x9fqcv5qlmdldpnx2855vl8hv4";
+  # Oceanly News theme.
+  oceanly-news = pkgs.stdenv.mkDerivation rec {
+    name = "oceanly-news";
+    version = "1.3.1";
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/theme/oceanly-news.1.3.1.zip";
+      sha256 = "0jphcqrfxqzzx67gq6hkxasq7r8jz3538v1vl6k0avvmmw5xivx8";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
 
-# https://downloads.wordpress.org/plugin/advanced-custom-fields.6.3.5.zip
-# https://downloads.wordpress.org/plugin/advanced-custom-fields.6.7.0.zip
-advanced-custom-fields = pkgs.stdenv.mkDerivation {
-  name = "advanced-custom-fields";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.7.0.zip";
-    sha256 = "00l76r6wdrdb3ii4mgv1x2fks2ry1331hhxcs9jlrnjmhr4vpjry";
+  # Wordpress plugin 'classic-editor'.
+  # https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip
+  classic-editor = pkgs.stdenv.mkDerivation {
+    name = "classic-editor";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip";
+      sha256 = "0rffbss1h92sp66mpcrm6km3s0lils92c8ihhzzjgxk1kjqlaasb";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
 
-# https://downloads.wordpress.org/plugin/tinymce-advanced.5.9.2.zip
-tinymce-advanced = pkgs.stdenv.mkDerivation {
-  name = "tinymce-advanced";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/tinymce-advanced.5.9.2.zip";
-    sha256 = "1iv9zpxmdllqqq28cx1nr425jnv5nf1pnv95s0krq3wxvhsnck7c";
+  # https://downloads.wordpress.org/plugin/easy-wp-meta-description.1.2.6.zip
+  # Note: upstream no longer available.
+  easy-wp-meta-description = pkgs.stdenv.mkDerivation {
+    name = "easy-wp-meta-description";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/easy-wp-meta-description.1.2.6.zip";
+      hash = "sha256-1pnB4k0WHrH0WlT9giEKgPrIJt1DuMa1XmpbY78j15M=";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
 
-wp-pagenavi = pkgs.stdenv.mkDerivation {
-  name = "wp-pagenavi";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/wp-pagenavi.2.94.5.zip";
-    sha256 = "1hl8sznmdc2vmg7idpzy5sg6h3zcyf0p54w2hms6097k98zpvac2";
+  # https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.5.zip
+  wp-robots-txt = pkgs.stdenv.mkDerivation {
+    name = "wp-robots-txt";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.5.zip";
+      sha256 = "1ra4zmicx4gib0n6j30fch8b0h27sw37r6q3jdbssm7cchnpjzp5";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
 
-# https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.4.zip
-add-featured-image-to-rss-feed = pkgs.stdenv.mkDerivation {
-  name = "add-featured-image-to-rss-feed";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.4.zip";
-    sha256 = "02i6xhf7mq4z6sn8868rdzjy069hcxs89wyqn5f9h7vw6law7d0h";
+  # https://downloads.wordpress.org/plugin/wordpress-gzip-compression.1.0.zip
+  # Note: upstream no longer available.
+  worpress-gzip-compression = pkgs.stdenv.mkDerivation {
+    name = "worpress-gzip-compression";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/wordpress-gzip-compression.1.0.zip";
+      sha256 = "156w8a7fi2yrps3kix46djd89x9ic7fjiwqz5hgpm2923v7ffwgn";
+    };
+
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
 
-# https://downloads.wordpress.org/plugin/edit-author-slug.1.9.2.zip
-edit-author-slug = pkgs.stdenv.mkDerivation {
-  name = "edit-author-slug";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/edit-author-slug.1.9.2.zip";
-    sha256 = "1gh7milv2q2s8wzvm3z8jlx7j3d90s37ihrfhvjjm60jzddsdpyh";
+  # https://downloads.wordpress.org/plugin/disable-json-api.zip
+  disable-json-api = pkgs.stdenv.mkDerivation {
+    name = "disable-json-api";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/disable-json-api.zip";
+      hash = "sha256-BqPhNI9NURpIMcdPyho1DPrt96oNhgdjYt6fiV/90KM=";
+    };
+
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
 
-# https://downloads.wordpress.org/plugin/redirection.5.5.0.zip
-# https://downloads.wordpress.org/plugin/redirection.5.5.2.zip
-redirection = pkgs.stdenv.mkDerivation {
-  name = "redirection";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/redirection.5.5.2.zip";
-    sha256 = "0j56c7rkajs3jnmbmd2balkc26qcbx11kzfxl31qx0lpcwjjlmic";
+  # https://downloads.wordpress.org/plugin/humanstxt.1.3.1.zip
+  humanstxt = pkgs.stdenv.mkDerivation {
+    name = "humanstxt";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/humanstxt.1.3.1.zip";
+      sha256 = "1100qmnlxzgydglr7pai1l6ajnsz0xr7vrf3vw2yhx2mzgjjrlj8";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = "mkdir -p $out; cp -R * $out/";
-};
 
-# https://downloads.wordpress.org/plugin/images-to-webp.4.8.zip
-images-to-webp = pkgs.stdenv.mkDerivation {
-  name = "images-to-webp";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/images-to-webp.4.8.zip";
-    sha256 = "1371fw8ig9d6hb1my1hyndalfa2m8rfiz8jgpiba66673qj2cm6c";
+  # https://github.com/dasj19/stop-xml-rpc/releases/download/v0.1/stop-xml-rpc.0.1.zip
+  stop-xml-rpc = pkgs.stdenv.mkDerivation {
+    name = "stop-xml-rpc";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://github.com/dasj19/stop-xml-rpc/releases/download/v0.1/stop-xml-rpc.0.1.zip";
+      sha256 = "0iq846b257jjqc2zihs08ywqc4x9fqcv5qlmdldpnx2855vl8hv4";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
 
-
-# https://downloads.wordpress.org/plugin/hyper-cache.3.4.2.zip
-hyper-cache = pkgs.stdenv.mkDerivation {
-  name = "hyper-cache";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/hyper-cache.3.4.2.zip";
-    sha256 = "1vwkfym9r7dy0w0n75pknk6axvd1gk77am0vq2sarn6yf9pd8ik1";
+  # https://downloads.wordpress.org/plugin/advanced-custom-fields.6.3.5.zip
+  # https://downloads.wordpress.org/plugin/advanced-custom-fields.6.7.0.zip
+  advanced-custom-fields = pkgs.stdenv.mkDerivation {
+    name = "advanced-custom-fields";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.7.0.zip";
+      sha256 = "00l76r6wdrdb3ii4mgv1x2fks2ry1331hhxcs9jlrnjmhr4vpjry";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
 
-# https://downloads.wordpress.org/plugin/very-simple-contact-form.15.6.zip
-# https://downloads.wordpress.org/plugin/very-simple-contact-form.17.9.zip
-very-simple-contact-form = pkgs.stdenv.mkDerivation {
-  name = "very-simple-contact-form";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.17.9.zip";
-    sha256 = "0pm85a8a995d9ad3g338z8sbgfkp6fa0h38nnqmdf84j08d944cr";
+  # https://downloads.wordpress.org/plugin/tinymce-advanced.5.9.2.zip
+  tinymce-advanced = pkgs.stdenv.mkDerivation {
+    name = "tinymce-advanced";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/tinymce-advanced.5.9.2.zip";
+      sha256 = "1iv9zpxmdllqqq28cx1nr425jnv5nf1pnv95s0krq3wxvhsnck7c";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
 
-
-# https://downloads.wordpress.org/plugin/say-it.4.0.1.zip
-#say-it = pkgs.stdenv.mkDerivation rec {
-#  name = "say-it";
-#  version = "4.0.2";
-#  src = /etc/nixos/wordpress/say-it.zip;
-#  # We need unzip to build this package
-#  buildInputs = [ pkgs.unzip ];
-#  # Installing simply means copying all files to the output directory
-#  installPhase = ''
-#    mkdir -p $out; cp -R * $out/
-#  '';
-#};
-
-# Say-it with updated composer dependencies.
-say-it = pkgs.stdenv.mkDerivation rec {
-  name = "say-it";
-  version = "4.0.2";
-  src = pkgs.fetchurl {
-    url = "https://github.com/dasj19/say-it/releases/download/init/init.zip";
-    sha256 = "18xhw3lkvgaw10bwm1j5jsaa3y8rcyriswsz9jxr4cpi8r27l4nc";
+  wp-pagenavi = pkgs.stdenv.mkDerivation {
+    name = "wp-pagenavi";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/wp-pagenavi.2.94.5.zip";
+      sha256 = "1hl8sznmdc2vmg7idpzy5sg6h3zcyf0p54w2hms6097k98zpvac2";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip  ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
 
-
-# https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.zip
-# https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.1.zip
-mx-time-zone-clocks = pkgs.stdenv.mkDerivation rec {
-  name = "mx-time-zone-clocks";
-  version = "3.9";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.1.zip";
-    sha256 = "107dmf2qm1cn4jcql1gwyz6mfv1n2sfra9ag4rmnpb512axmr2mf";
+  # https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.4.zip
+  add-featured-image-to-rss-feed = pkgs.stdenv.mkDerivation {
+    name = "add-featured-image-to-rss-feed";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.4.zip";
+      sha256 = "02i6xhf7mq4z6sn8868rdzjy069hcxs89wyqn5f9h7vw6law7d0h";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip pkgs.libwebp ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-    # Convert the png clock faces to webp.
-    cd $out/includes/admin/assets/img
-    for FILE in *.png; do
-      cwebp "''$FILE" -o "''$FILE.webp";
-    done;
-  '';
-};
 
-# https://downloads.wordpress.org/plugin/speculation-rules.1.3.1.zip
-# https://downloads.wordpress.org/plugin/speculation-rules.1.6.0.zip
-speculation-rules = pkgs.stdenv.mkDerivation rec {
-  name = "speculation-rules";
-  version = "1.6.0";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/speculation-rules.1.6.0.zip";
-    sha256 = "07c6v1b3p4xcdrh6acjpnqxk2r7ax57w6yxw7gza7hnla20c5rxh";
+  # https://downloads.wordpress.org/plugin/edit-author-slug.1.9.2.zip
+  edit-author-slug = pkgs.stdenv.mkDerivation {
+    name = "edit-author-slug";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/edit-author-slug.1.9.2.zip";
+      sha256 = "1gh7milv2q2s8wzvm3z8jlx7j3d90s37ihrfhvjjm60jzddsdpyh";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-  '';
-};
 
-# https://downloads.wordpress.org/plugin/cool-tag-cloud.zip
-# Note: upstream temporary closed.
-cool-tag-cloud = pkgs.stdenv.mkDerivation rec {
-  name = "cool-tag-cloud";
-  version = "2.29";
-  # Download the plugin from the wordpress site
-  src = pkgs.fetchurl {
-    url = "https://downloads.wordpress.org/plugin/cool-tag-cloud.zip";
-    sha256 = "029yjqrpyrjw1z9mbxgp2aw8icb0gpg0qfb5g46mpnph4clbc2h3";
+  # https://downloads.wordpress.org/plugin/redirection.5.5.0.zip
+  # https://downloads.wordpress.org/plugin/redirection.5.5.2.zip
+  redirection = pkgs.stdenv.mkDerivation {
+    name = "redirection";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/redirection.5.5.2.zip";
+      sha256 = "0j56c7rkajs3jnmbmd2balkc26qcbx11kzfxl31qx0lpcwjjlmic";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = "mkdir -p $out; cp -R * $out/";
   };
-  # We need unzip to build this package
-  buildInputs = [ pkgs.unzip pkgs.libwebp ];
-  # Installing simply means copying all files to the output directory
-  installPhase = ''
-    mkdir -p $out; cp -R * $out/
-    # convert all images to webp.
-    cd $out/inc/images
-    for FILE in *.png; do
-      cwebp "''$FILE" -o "''$FILE.webp";
-    done;
-  '';
-};
 
-# @CONSIDER: https://wordpress.org/plugins/performance-lab/
-# https://wordpress.org/plugins/performant-translations/
-# Got them from: https://profiles.wordpress.org/wordpressdotorg/
+  # https://downloads.wordpress.org/plugin/images-to-webp.4.8.zip
+  images-to-webp = pkgs.stdenv.mkDerivation {
+    name = "images-to-webp";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/images-to-webp.4.8.zip";
+      sha256 = "1371fw8ig9d6hb1my1hyndalfa2m8rfiz8jgpiba66673qj2cm6c";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
+  };
+
+  # https://downloads.wordpress.org/plugin/hyper-cache.3.4.2.zip
+  hyper-cache = pkgs.stdenv.mkDerivation {
+    name = "hyper-cache";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/hyper-cache.3.4.2.zip";
+      sha256 = "1vwkfym9r7dy0w0n75pknk6axvd1gk77am0vq2sarn6yf9pd8ik1";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
+  };
+
+  # https://downloads.wordpress.org/plugin/very-simple-contact-form.15.6.zip
+  # https://downloads.wordpress.org/plugin/very-simple-contact-form.17.9.zip
+  very-simple-contact-form = pkgs.stdenv.mkDerivation {
+    name = "very-simple-contact-form";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.17.9.zip";
+      sha256 = "0828y5wqkxjfa9mjai5jzim6zj29mpdv0j9xvglj96gyf4rfw6rn";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
+  };
+
+  # https://downloads.wordpress.org/plugin/say-it.4.0.1.zip
+  #say-it = pkgs.stdenv.mkDerivation rec {
+  #  name = "say-it";
+  #  version = "4.0.2";
+  #  src = /etc/nixos/wordpress/say-it.zip;
+  #  # We need unzip to build this package
+  #  buildInputs = [ pkgs.unzip ];
+  #  # Installing simply means copying all files to the output directory
+  #  installPhase = ''
+  #    mkdir -p $out; cp -R * $out/
+  #  '';
+  #};
+
+  # Say-it with updated composer dependencies.
+  say-it = pkgs.stdenv.mkDerivation rec {
+    name = "say-it";
+    version = "4.0.2";
+    src = pkgs.fetchurl {
+      url = "https://github.com/dasj19/say-it/releases/download/init/init.zip";
+      sha256 = "18xhw3lkvgaw10bwm1j5jsaa3y8rcyriswsz9jxr4cpi8r27l4nc";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
+  };
+
+  # https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.zip
+  # https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.1.zip
+  mx-time-zone-clocks = pkgs.stdenv.mkDerivation rec {
+    name = "mx-time-zone-clocks";
+    version = "3.9";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.1.zip";
+      sha256 = "107dmf2qm1cn4jcql1gwyz6mfv1n2sfra9ag4rmnpb512axmr2mf";
+    };
+    # We need unzip to build this package
+    buildInputs = [
+      pkgs.unzip
+      pkgs.libwebp
+    ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+      # Convert the png clock faces to webp.
+      cd $out/includes/admin/assets/img
+      for FILE in *.png; do
+        cwebp "''$FILE" -o "''$FILE.webp";
+      done;
+    '';
+  };
+
+  # https://downloads.wordpress.org/plugin/speculation-rules.1.3.1.zip
+  # https://downloads.wordpress.org/plugin/speculation-rules.1.6.0.zip
+  speculation-rules = pkgs.stdenv.mkDerivation rec {
+    name = "speculation-rules";
+    version = "1.6.0";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/speculation-rules.1.6.0.zip";
+      sha256 = "07c6v1b3p4xcdrh6acjpnqxk2r7ax57w6yxw7gza7hnla20c5rxh";
+    };
+    # We need unzip to build this package
+    buildInputs = [ pkgs.unzip ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+    '';
+  };
+
+  # https://downloads.wordpress.org/plugin/cool-tag-cloud.zip
+  # Note: upstream temporary closed.
+  cool-tag-cloud = pkgs.stdenv.mkDerivation rec {
+    name = "cool-tag-cloud";
+    version = "2.29";
+    # Download the plugin from the wordpress site
+    src = pkgs.fetchurl {
+      url = "https://downloads.wordpress.org/plugin/cool-tag-cloud.zip";
+      sha256 = "029yjqrpyrjw1z9mbxgp2aw8icb0gpg0qfb5g46mpnph4clbc2h3";
+    };
+    # We need unzip to build this package
+    buildInputs = [
+      pkgs.unzip
+      pkgs.libwebp
+    ];
+    # Installing simply means copying all files to the output directory
+    installPhase = ''
+      mkdir -p $out; cp -R * $out/
+      # convert all images to webp.
+      cd $out/inc/images
+      for FILE in *.png; do
+        cwebp "''$FILE" -o "''$FILE.webp";
+      done;
+    '';
+  };
+
+  # @CONSIDER: https://wordpress.org/plugins/performance-lab/
+  # https://wordpress.org/plugins/performant-translations/
+  # Got them from: https://profiles.wordpress.org/wordpressdotorg/
 
 in
 {
@@ -453,7 +459,7 @@ in
         # hyper-cache options.
         HYPER_CACHE_FOLDER = "/var/lib/wordpress/${imigrant-domain}/cache";
       };
-    
+
       themes = {
         inherit blogstream;
       };
@@ -514,7 +520,7 @@ in
         WPLANG = "ro_RO";
         # https://core.trac.wordpress.org/ticket/48689#comment:13
         FS_METHOD = "direct";
-      }; 
+      };
     };
   };
   services.caddy = {
