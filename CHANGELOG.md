@@ -1,6 +1,9 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-12-20
+- hardware: turn off the smartd notifications test.
+
 2025-12-13
 - hardware: fixed the email address for smartd reports.
 - repo: moved github runner from contabo1 to hostup1

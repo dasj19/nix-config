@@ -13,7 +13,7 @@
   services.smartd.enable = true;
   services.smartd.notifications.mail.enable = true;
   services.smartd.notifications.mail.recipient = "daniel@${config.networking.hostName}.localdomain";
-  services.smartd.notifications.test = true;
+  services.smartd.notifications.test = false;
 
   # Setup a mail server to send notifications.
   services.postfix.enable = true;
