@@ -30,6 +30,7 @@ in {
   # Defining variables for the email-server module.
   mailserver = {
     fqdn = mailserver-fqdn;
+    x509.useACMEHost = mailserver-fqdn;
     domains = [
       gnu-domain
     ];

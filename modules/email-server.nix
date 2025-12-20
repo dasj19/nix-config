@@ -24,7 +24,7 @@
 
       # Uses Let's Encrypt instead of self-signed certificate.
       # The apache2 webserver takes care of getting the certificate.
-    mailserver.certificateScheme = "acme";
+    #mailserver.certificateScheme = "acme";
 
     # Index the body of the mails to perform full text search.
     mailserver.fullTextSearch.enable = true;
