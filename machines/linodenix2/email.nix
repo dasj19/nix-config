@@ -20,7 +20,7 @@ in
     x509.useACMEHost = imigrant-fqdn;
     # Use Let's Encrypt instead of self-signed certificate.
     # The Caddy webserver takes care of certificates via ACME.
-    certificateScheme = "acme";
+    # certificateScheme = "acme";
     domains = [
       "${imigrant-domain}"
     ];

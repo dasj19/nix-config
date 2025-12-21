@@ -26,7 +26,7 @@ in
     fqdn = "mail.${surname-domain}";
     x509.useACMEHost = "mail.${surname-domain}";
     # Using Let's Encrypt certificate because self-signed certificates are troublesome.
-    certificateScheme = lib.mkForce "acme-nginx";
+    #certificateScheme = lib.mkForce "acme-nginx";
     domains = [
       "${surname-domain}"
     ];
