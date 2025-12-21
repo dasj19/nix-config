@@ -17,10 +17,19 @@ in
   sops.secrets.elena_surname_email_password = { };
   sops.secrets.ioan_surname_email_password = { };
   sops.secrets.test_surname_email_password = { };
+  sops.secrets.cloudflare_email = { };
+  sops.secrets.cloudflare_dns_api_token = { };
+  sops.secrets.cloudflare_zone_api_token = { };
 
   # Accept Acme EULA.
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "postmaster@${surname-domain}";
+  security.acme.defaults.dnsProvider = "cloudflare";
+  security.acme.defaults.credentialFiles = {
+    "CLOUDFLARE_EMAIL_FILE" = config.sops.secrets.cloudflare_email.path;
+    "CF_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare_dns_api_token.path;
+    "CF_ZONE_API_TOKEN_FILE" = config.sops.secrets.cloudflare_zone_api_token.path;
+  };
 
   mailserver = {
     fqdn = "mail.${surname-domain}";
