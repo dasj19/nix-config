@@ -105,15 +105,6 @@ in {
   security.acme.acceptTerms = true;
   security.acme.defaults.email = acme-webmaster;
   security.acme.defaults.webroot = "/var/lib/acme/acme-challenge/";
-  # Use variables for domain names.
-  security.acme.certs = {
-    "archive.${gnu-domain}" = {
-      webroot = "/var/lib/acme/acme-challenge/";
-    };
-    "mail.${gnu-domain}" = {
-      webroot = "/var/lib/acme/acme-challenge/";
-    };
-  };
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
