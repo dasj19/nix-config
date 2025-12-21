@@ -1,8 +1,12 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+2025-12-21
+- email-server: update linodenix1,2 and contabo2 with the newer server setting
+
 2025-12-20
 - hardware: turn off the smartd notifications test.
+- email-server: updated t500libre to the newest email server requirements.
 
 2025-12-13
 - hardware: fixed the email address for smartd reports.

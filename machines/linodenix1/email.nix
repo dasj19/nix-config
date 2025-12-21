@@ -1,59 +1,66 @@
-{ config, gitSecrets, lib, pkgs, ... }:
+{
+  config,
+  gitSecrets,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   surname-domain = gitSecrets.surnameDomain;
 in
 
 {
-    # Initialize sops secret variables.
-    sops.secrets.daniel_surname_email_password = {};
-    sops.secrets.gabriel_surname_email_password = {};
-    sops.secrets.elena_surname_email_password = {};
-    sops.secrets.ioan_surname_email_password = {};
-    sops.secrets.test_surname_email_password = {};
+  # Initialize sops secret variables.
+  sops.secrets.daniel_surname_email_password = { };
+  sops.secrets.gabriel_surname_email_password = { };
+  sops.secrets.elena_surname_email_password = { };
+  sops.secrets.ioan_surname_email_password = { };
+  sops.secrets.test_surname_email_password = { };
 
-    # Accept Acme EULA.
-    security.acme.acceptTerms = true;
-    security.acme.defaults.email = "postmaster@${surname-domain}";
+  # Accept Acme EULA.
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "postmaster@${surname-domain}";
 
-    mailserver = {
-      fqdn = "mail.${surname-domain}";
-      # Using Let's Encrypt certificate because self-signed certificates are troublesome.
-      certificateScheme = lib.mkForce "acme-nginx";
-      domains = [
-        "${surname-domain}"
-      ];
-      loginAccounts = {
-         "daniel@${surname-domain}" = {
-              # nix-shell -p apacheHttpd
-              # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
-              hashedPasswordFile = config.sops.secrets.daniel_surname_email_password.path;
+  mailserver = {
+    fqdn = "mail.${surname-domain}";
+    x509.useACMEHost = "mail.${surname-domain}";
+    # Using Let's Encrypt certificate because self-signed certificates are troublesome.
+    certificateScheme = lib.mkForce "acme-nginx";
+    domains = [
+      "${surname-domain}"
+    ];
+    loginAccounts = {
+      "daniel@${surname-domain}" = {
+        # nix-shell -p apacheHttpd
+        # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location
+        hashedPasswordFile = config.sops.secrets.daniel_surname_email_password.path;
 
-              aliases = [
-                  "customer@${surname-domain}"
-                  "postmaster@${surname-domain}"
-                  "webmaster@${surname-domain}"
-              ];
-          };
-          "gabriel@${surname-domain}" = {
-              hashedPasswordFile = config.sops.secrets.gabriel_surname_email_password.path;
-          };
-
-          "elena@${surname-domain}" = {
-              hashedPasswordFile = config.sops.secrets.elena_surname_email_password.path;
-          };
-          "ioan@${surname-domain}" = {
-              hashedPasswordFile = config.sops.secrets.ioan_surname_email_password.path;
-          };
-          "testtest@${surname-domain}" = {
-              hashedPasswordFile = config.sops.secrets.test_surname_email_password.path;
-          };
+        aliases = [
+          "customer@${surname-domain}"
+          "postmaster@${surname-domain}"
+          "webmaster@${surname-domain}"
+        ];
+      };
+      "gabriel@${surname-domain}" = {
+        hashedPasswordFile = config.sops.secrets.gabriel_surname_email_password.path;
       };
 
-      #monitoring.alertAddress = "postmaster@${surname-domain}";
-      #monitoring.enable = true;
-      #monitoring.config = (builtins.readFile /etc/nixos/monitrc);
+      "elena@${surname-domain}" = {
+        hashedPasswordFile = config.sops.secrets.elena_surname_email_password.path;
+      };
+      "ioan@${surname-domain}" = {
+        hashedPasswordFile = config.sops.secrets.ioan_surname_email_password.path;
+      };
+      "testtest@${surname-domain}" = {
+        hashedPasswordFile = config.sops.secrets.test_surname_email_password.path;
+      };
     };
+
+    #monitoring.alertAddress = "postmaster@${surname-domain}";
+    #monitoring.enable = true;
+    #monitoring.config = (builtins.readFile /etc/nixos/monitrc);
+  };
 
   # Add extra configuration for postfix.
   # https://linux-audit.com/postfix-hardening-guide-for-security-and-privacy/
@@ -81,5 +88,4 @@ in
       greylist = 6; # Apply greylisting when reaching this score
     }
   '';
-  }
-
+}
