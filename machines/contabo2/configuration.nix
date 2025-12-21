@@ -40,6 +40,7 @@ in
   # Email server.
   mailserver = {
     fqdn = daniel-fqdn;
+    x509.useACMEHost = daniel-fqdn;
     domains = [
       daniel-domain
     ];
