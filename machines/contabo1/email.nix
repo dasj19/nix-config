@@ -1,4 +1,10 @@
-{ config, gitSecrets, pkgs, lib, ... }:
+{
+  config,
+  gitSecrets,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   fritweb-domain = gitSecrets.fritwebDomain;
@@ -10,15 +16,16 @@ in
     ./../../modules/email-server.nix
   ];
 
-  sops.secrets.daniel_fritweb_email_password = {};
+  sops.secrets.daniel_fritweb_email_password = { };
 
   # Setup for the mailserver.
   mailserver = {
     fqdn = "mail.${fritweb-domain}";
+    x509.useACMEHost = "mail.${fritweb-domain}";
     # list of domains in format: [ "domain.tld" ];
     domains = [
       "${fritweb-domain}"
-    ]; #import config.age.secrets.mailserver-domains.path;
+    ]; # import config.age.secrets.mailserver-domains.path;
     loginAccounts = {
       # Account name in the form of "username@domain.tld".
       "daniel@${fritweb-domain}" = {
