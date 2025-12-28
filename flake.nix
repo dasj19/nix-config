@@ -6,7 +6,7 @@
   #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/linux/nixpkgs";
 
   # Assures compatibility with older version of nix before the version 2.4.
-  inputs.flake-compat.url = "github:NixOS/flake-compat/v1.1.0";
+  inputs.flake-compat.url = "github:NixOS/flake-compat";
 
   # Nix module system for flakes.
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
