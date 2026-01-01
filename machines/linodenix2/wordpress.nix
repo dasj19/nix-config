@@ -411,11 +411,11 @@ let
   # Note: upstream temporary closed.
   cool-tag-cloud = pkgs.stdenv.mkDerivation rec {
     name = "cool-tag-cloud";
-    version = "2.29";
+    version = "2.30";
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/cool-tag-cloud.zip";
-      sha256 = "029yjqrpyrjw1z9mbxgp2aw8icb0gpg0qfb5g46mpnph4clbc2h3";
+      sha256 = "16200v7n8fv232x5k2m8al9zf5h2vlgadp2d6flf4s252wg3irma";
     };
     # We need unzip to build this package
     buildInputs = [
