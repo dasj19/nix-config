@@ -84,7 +84,6 @@
       libreoffice-still
       onlyoffice-desktopeditors
       pdfarranger
-      poedit
       qbittorrent
       signal-desktop
       usbimager

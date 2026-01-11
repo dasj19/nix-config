@@ -320,7 +320,6 @@ Pkgs
 platformsh
 playerctl
 pname
-poedit
 polkit
 polkitd
 polkituser
