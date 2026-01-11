@@ -2,10 +2,6 @@
 {
 
   programs.uwsm.enable = true;
-  programs.uwsm.waylandCompositors.hyprland = {
-    binPath = "/run/current-system/sw/bin/Hyprland";
-    prettyName = "Hyprland";
-  };
 
   programs.hyprland.enable = true;
   programs.hyprland.withUWSM = true;
@@ -43,7 +39,7 @@
     # GUI.
     ffmpegthumbnailer # Video thumbnail generator. Used by nemo and nemo-preview.
     xapp-thumbnailers # Set of thumbnailers for various file types. Used by nemo and nemo-preview.
-    xfce.tumbler # Thumbnail generator service. Used by nemo and nemo-preview.
+    tumbler # Thumbnail generator service. Used by nemo and nemo-preview.
     foot
     image-roll # Image viewer for Wayland.
     alacritty # Terminal emulator.
@@ -54,7 +50,7 @@
     waybar # Status bar for Wayland.
     wofi # Application launcher.
     xarchiver # Archive manager.
-    xfce.orage # Calendar application.
+    orage # Calendar application.
     xreader # PDF Document viewer.
     mpv # alternative vide player.
 
@@ -62,6 +58,7 @@
     hyprcursor
     hyprlock
     hypridle
+    hyprpaper # Deals with wallpapers.
     hyprshot
     hyprpolkitagent
     wlr-layout-ui # GUI for managing monitor layouts in Wayland.
