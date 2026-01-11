@@ -301,7 +301,6 @@ openconnect
 openrgb
 optimise
 orage
-osdlyrics
 osup
 overwriteprotocol
 pagenavi

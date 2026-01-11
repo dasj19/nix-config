@@ -181,7 +181,6 @@ in
     inkscape
     lbry
     meld
-    osdlyrics
     protonvpn-gui
 
     #Localization
