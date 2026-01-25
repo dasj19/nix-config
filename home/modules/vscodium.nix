@@ -49,6 +49,12 @@
         version = "2.3.14";
         hash = "sha256-N5il3hFytYA4dzV9AFfj4SnY2CuPvgtTrijHd6AHXKY=";
       }
+      {
+        name = "pretty-php";
+        publisher = "lkrms";
+        version = "0.4.95";
+        hash = "sha256-OgyuWv60Pseq8iFKOZ+9/fOaRYY1OQKoijpPwj3SFus=";
+      }
     ];
 
   programs.vscode.profiles.default.userSettings = {
