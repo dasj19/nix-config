@@ -284,6 +284,12 @@
       private_browsing = true;
       updates_disabled = true;
     };
+    "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4593736/user_agent_string_switcher-0.6.6.xpi";
+      installation_mode = "force_installed";
+      private_browsing = true;
+      updates_disabled = true;
+    };
   };
 
   programs.chromium.enable = true;
