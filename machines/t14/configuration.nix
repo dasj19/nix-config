@@ -1,13 +1,14 @@
 /*
-* t14: my daily driver laptop
-* model: Lenovo T14 Gen1
-*
-* Notes:
-*  - any offline AI work has to be done on CPU which is very slow,
-*    therefore online AI should be used instead.
-*  - sudo-rs is set up to be used using fingerprint first but has password prompt as fallback.
+  * t14: my daily driver laptop
+  * model: Lenovo T14 Gen1
+  *
+  * Notes:
+  *  - any offline AI work has to be done on CPU which is very slow,
+  *    therefore online AI should be used instead.
+  *  - sudo-rs is set up to be used using fingerprint first but has password prompt as fallback.
 */
-{pkgs, ...}: {
+{ lib, pkgs, ... }:
+{
   imports = [
     # Hardware config.
     ./hardware.nix
@@ -25,9 +26,6 @@
 
   # Define custom options.
   my.modules.ai.cudaSupport = false;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Copenhagen";
 
   systemd.tmpfiles.rules = [
     # Silence erros:
@@ -61,8 +59,8 @@
   # t14 has a total of 8 cores.
   # Builds max 4 parallel jobs at once using at most 2 cores per job.
   # @see https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
-  nix.settings.max-jobs = 4;
-  nix.settings.cores = 2;
+  nix.settings.max-jobs = lib.mkForce 4;
+  nix.settings.cores = lib.mkForce 2;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
@@ -72,8 +70,9 @@
 
     # GUI.
     gcstar
-    kdePackages.kdenlive
     discord
+    mailspring
+
     # P2P.
     nicotine-plus
     sabnzbd
@@ -87,31 +86,6 @@
 
   # Setup hostname.s
   networking.hostName = "t14";
-  # Enable networking
-  networking.networkmanager.enable = true;
-  # Enable only the needed plugins.
-  # Avoids # jun 29 23:04:28 t14 dbus-daemon[999]: Unknown username "nm-openconnect" in message bus configuration file
-  networking.networkmanager.plugins = with pkgs; [
-    networkmanager-openvpn
-  ];
-  # Disable mobile modem manager.
-  # jun 29 22:57:07 t14 ModemManager[142228]: <msg> [base-manager] couldn't check support for device '/sys/devices/pci0000:00/0000:00:14.3': not supported by any plugin
-  # jun 29 22:57:07 t14 ModemManager[142228]: <msg> [base-manager] couldn't check support for device '/sys/devices/pci0000:00/0000:00:1f.6': not supported by any plugin
-  networking.modemmanager.enable = false;
-
-  # Disable NetworkManager's internal DNS resolution.
-  # https://wiki.nixos.org/wiki/NetworkManager
-  networking.networkmanager.dns = "none";
-
-  # Disable these and manage DNS ourselves.
-  networking.useDHCP = false;
-  networking.dhcpcd.enable = false;
-
-  # Configure DNS servers manually.
-  networking.nameservers = [
-    "1.1.1.1"
-    "1.0.0.1"
-  ];
 
   # State version. Consult manual before changing.
   system.stateVersion = "25.11";
