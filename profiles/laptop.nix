@@ -19,10 +19,9 @@
   ];
 
   config = {
-    # Preferred laptop Linux kernel - latest zen kernel.
-    # @see https://github.com/zen-kernel/zen-kernel/wiki/FAQ
+    # Preferred laptop Linux kernel - latest lts kernel.
     # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
-    boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_zen;
+    boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_12;
 
     services.journald.extraConfig = "MaxRetentionSec=1week";
 
