@@ -267,7 +267,7 @@ in
     "nvidia-settings"
 
     # Virtualization.
-    "Oracle_VirtualBox_Extension_Pack"
+    "virtualbox-extpack"
     "virtualbox"
 
     # AI stuff.
