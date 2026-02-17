@@ -455,7 +455,6 @@ weclaw
 weekdate
 Werkzeug
 whois
-winetricks
 wireplumber
 wlan
 wlrlui
