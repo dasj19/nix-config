@@ -178,7 +178,6 @@ imdb
 improvesearch
 indir
 inetutils
-inkscape
 intelephense
 iotop
 iperf

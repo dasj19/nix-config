@@ -178,10 +178,9 @@ in
     # Desktop apps.
     discord
     gparted
-    inkscape
     lbry
     meld
-    protonvpn-gui
+    proton-vpn
 
     #Localization
     aspell
