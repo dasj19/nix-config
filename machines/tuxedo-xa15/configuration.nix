@@ -234,13 +234,6 @@ in
   virtualisation.docker.enableOnBoot = false;
   virtualisation.waydroid.enable = true;
 
-  # Enable virtualbox.
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-  users.users.daniel.extraGroups = [
-    "vboxusers"
-  ];
-
   services.mysql.enable = true;
   services.mysql.package = pkgs.mariadb;
 
@@ -258,10 +251,6 @@ in
     # Graphic drivers.
     "nvidia-x11"
     "nvidia-settings"
-
-    # Virtualization.
-    "virtualbox-extpack"
-    "virtualbox"
 
     # AI stuff.
     "open-webui"
