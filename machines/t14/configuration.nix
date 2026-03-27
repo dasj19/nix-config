@@ -65,6 +65,7 @@
   # System-wide packages.
   environment.systemPackages = with pkgs; [
     # CLI.
+    apkeep
     fwupd
     lrcget
 
