@@ -9,7 +9,7 @@
     programs.fish.useBabelfish = true;
 
     # Disable automatic man page cache generation.
-    documentation.man.generateCaches = false;
+    documentation.man.cache.enable = false;
 
     # Fish customizations.
     programs.fish.interactiveShellInit = ''
@@ -32,7 +32,7 @@
       fzf # Fuzzy finder.
 
       # Fish plugins.
-      fishPlugins.done # Notify when long tasks are done.          Docs: https://github.com/franciscolourenco/done
+      #fishPlugins.done # Notify when long tasks are done.          Docs: https://github.com/franciscolourenco/done
       fishPlugins.z # Pure-fish z directory jumping.            Docs: https://github.com/jethrokuan/z
       fishPlugins.fzf-fish # Augment the CLI with key bindings.        Docs: https://github.com/PatrickF1/fzf.fish
       fishPlugins.autopair # Navigate the matching pairs.              Docs: https://github.com/jorgebucaran/autopair.fish
