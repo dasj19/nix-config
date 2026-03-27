@@ -37,7 +37,7 @@
     # Packages for nix ecosystem.
     environment.systemPackages = with pkgs; [
       hydra-check # Hydra build status checker.
-      nixfmt-rfc-style # Nix code formatter following the rfc style.
+      nixfmt # Nix code formatter following the rfc style.
       nix-search-cli # CLI for searching nixpkgs.
       nix-prefetch # Nix fetcher for various sources.
       nix-prefetch-git # Nix fetcher for git repos.
