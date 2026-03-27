@@ -3,8 +3,10 @@
 {
 
   environment.systemPackages = with pkgs; [
+    ddev
     devenv
-    docker-compose
+
+    mkcert
     nodejs_24
     php83
     php83Packages.composer
@@ -18,5 +20,11 @@
 
   # Virtualisation.
   virtualisation.docker.enable = true;
+  virtualisation.docker.extraPackages = [
+    pkgs.docker-buildx
+    pkgs.docker-compose
+  ];
+
+  virtualisation.libvirtd.allowedBridges = [ "virbr0" ];
 
 }
