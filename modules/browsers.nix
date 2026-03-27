@@ -249,25 +249,25 @@
       blocked_install_message = "Install extensions via nix config!";
     };
     "uBlock0@raymondhill.net" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4598854/ublock_origin-1.67.0.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4675310/ublock_origin-1.69.0.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "jid1-MnnxcxisBPnSXQ@jetpack" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4570378/privacy_badger17-2025.9.2.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4700632/privacy_badger17-2026.2.20.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "sponsorBlocker@ajay.app" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4608179/sponsorblock-6.1.0.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4644570/sponsorblock-6.1.2.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "{1018e4d6-728f-4b20-ad56-37578a4de76b}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4609492/flagfox-6.1.92.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4708663/flagfox-6.1.96.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
