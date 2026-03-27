@@ -56,7 +56,7 @@
       ".5" = "cd ../../../../../";
       h = "cd ~"; # home
       b = "cd -"; # back
-      c = "clear"; # clear terminal
+      c = ''function c; clear; echo "Console cleared! Next time use Ctrl+L instead."; end; c''; # clear terminal
       r = "sudo -i"; # root shell
       x = "exit"; # exit shell
       # Utils. background jobs, history shortcuts, simplified list of mounted partitions.
