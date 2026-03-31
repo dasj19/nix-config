@@ -29,7 +29,6 @@ in
     accounts = {
       # Account name in the form of "username@domain.tld".
       "daniel@${fritweb-domain}" = {
-        name = "${fritweb-domain}";
         # Password can be generated running: 'mkpasswd -sm bcrypt'.
         hashedPasswordFile = config.sops.secrets.daniel_fritweb_email_password.path;
         # List of aliases in format: [ "username@domain.tld" ].
