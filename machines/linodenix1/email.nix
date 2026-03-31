@@ -39,7 +39,7 @@ in
     domains = [
       "${surname-domain}"
     ];
-    loginAccounts = {
+    accounts = {
       "daniel@${surname-domain}" = {
         # nix-shell -p apacheHttpd
         # htpasswd -nbB "" "super secret password" | cut -d: -f2 > /hashed/password/file/location

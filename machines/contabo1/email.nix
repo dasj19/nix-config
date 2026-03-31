@@ -26,7 +26,7 @@ in
     domains = [
       "${fritweb-domain}"
     ]; # import config.age.secrets.mailserver-domains.path;
-    loginAccounts = {
+    accounts = {
       # Account name in the form of "username@domain.tld".
       "daniel@${fritweb-domain}" = {
         name = "${fritweb-domain}";

@@ -24,7 +24,7 @@ in
     domains = [
       "${imigrant-domain}"
     ];
-    loginAccounts = {
+    accounts = {
       "${daniel-imigrant-email}" = {
         # For generating new hashed passwords use the following commands.
         # nix shell -p apacheHttpd

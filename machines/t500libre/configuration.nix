@@ -3,13 +3,15 @@
   gitSecrets,
   pkgs,
   ...
-}: let
+}:
+let
   # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
   mailserver-fqdn = gitSecrets.gnuMailserverFqdn;
   mailserver-daniel-email = gitSecrets.gnuMailserverDanielEmail;
-in {
+in
+{
   imports = [
     # Hardware config.
     ./hardware.nix
@@ -23,9 +25,9 @@ in {
   ];
 
   # sops secrets.
-  sops.secrets.root_password = {};
-  sops.secrets.daniel_password = {};
-  sops.secrets.daniel_gnu_email_password = {};
+  sops.secrets.root_password = { };
+  sops.secrets.daniel_password = { };
+  sops.secrets.daniel_gnu_email_password = { };
 
   # Defining variables for the email-server module.
   mailserver = {
@@ -34,7 +36,7 @@ in {
     domains = [
       gnu-domain
     ];
-    loginAccounts = {
+    accounts = {
       # Account name in the form of "username@domain.tld".
       "${mailserver-daniel-email}" = {
         # Password can be generated running: 'mkpasswd -sm bcrypt'.
@@ -55,9 +57,9 @@ in {
       rspamd = pkgs.rspamd.overrideAttrs (oldAttrs: {
         # Replacing vectorscan with hyperscan.
         # Vectorscan is not compatible with the old CPU of t500libre.
-        buildInputs =
-          builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs
-          ++ [pkgs.hyperscan];
+        buildInputs = builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs ++ [
+          pkgs.hyperscan
+        ];
       });
     };
   };

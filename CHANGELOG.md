@@ -1,6 +1,12 @@
 # Changelog
 In this file I'll try to mention major changes to the configuration.
 
+TODO:
+- setup smartd on cm4-nas
+
+2026-03-31
+- mailserver: adjusted option name change: loginAccounts -> accounts
+
 2025-12-21
 - email-server: update linodenix1,2 and contabo2 with the newer server setting
 
