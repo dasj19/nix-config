@@ -19,6 +19,9 @@
     # Profile.
     ./../../profiles/laptop.nix
 
+    # DE.
+    ./../../modules/hyprland.nix
+
     # Modules.
     ./../../modules/ai.nix
     ./../../modules/non-free.nix
@@ -87,6 +90,7 @@
 
   # Setup hostname.s
   networking.hostName = "t14";
+  networking.networkmanager.enable = true;
 
   # State version. Consult manual before changing.
   system.stateVersion = "26.05";

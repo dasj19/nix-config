@@ -6,6 +6,7 @@ TODO:
 
 2026-04-08
 - pkgs: removed duckduckgo-chat-cli
+- laptop: extracted de module outside of the laptop profile
 
 2026-03-31
 - mailserver: adjusted option name change: loginAccounts -> accounts

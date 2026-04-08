@@ -12,8 +12,6 @@
     ./../modules/bluetooth.nix
     ./../modules/browsers.nix
     ./../modules/builder.nix
-    ./../modules/gnome.nix
-    ./../modules/hyprland.nix
     ./../modules/stylix.nix
     ./../modules/non-free.nix
   ];

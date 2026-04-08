@@ -37,6 +37,7 @@
     networkmanagerapplet
 
     # GUI.
+    brasero # Disc burning utility.
     ffmpegthumbnailer # Video thumbnail generator. Used by nemo and nemo-preview.
     xapp-thumbnailers # Set of thumbnailers for various file types. Used by nemo and nemo-preview.
     tumbler # Thumbnail generator service. Used by nemo and nemo-preview.
@@ -65,10 +66,11 @@
 
     mission-center # Task manager and system monitor.
     resources # Task manager and resource monitor.
-
+    gparted # Gnome partition editor.
     strawberry # Collection-based music player.
     evolution # Email client with calendar support.
     gnome-keyring # Keyring for managing passwords and encryption keys.
+    tauon # Album-based with lyrics support.
     vlc # Universal media player.
     xdg-desktop-portal-hyprland # XDG desktop portal implementation for Hyprland.
   ];

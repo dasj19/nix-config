@@ -48,6 +48,8 @@ in
 
     # Profile.
     ./../../profiles/laptop.nix
+    # DE.
+    ./../../modules/gnome.nix
     # Modules.
     ./../../modules/ai.nix
     ./../../modules/non-free.nix

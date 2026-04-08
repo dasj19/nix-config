@@ -6,6 +6,8 @@
     ./hardware.nix
     # Profiles.
     ./../../profiles/laptop.nix
+    # DE.
+    ./../../modules/gnome.nix
   ];
 
   config = {
