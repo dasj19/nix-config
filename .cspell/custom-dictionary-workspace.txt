@@ -92,7 +92,6 @@ dont
 dslg
 dswexec
 dswload
-duckchat
 duckduckgo
 ehci
 Embedder

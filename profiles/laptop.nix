@@ -41,7 +41,6 @@
     # Laptop packages.
     environment.systemPackages = with pkgs; [
       # CLIs.
-      (pkgs.callPackage ../pkgs/duckduckgo-chat-cli.nix { })
       asciinema
       bchunk
       claude-code

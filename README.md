@@ -160,4 +160,4 @@ Git-crypt key: `git-crypt-key`
 |   ✅   | File Transfer Tool           | Filezilla 💣                       |                       |                           |
 |   ✅   | Database Management Tool     | dbeaver 🫘                         |                       |                           |
 |   ✅   | Diff Manager                 | meld 🐍                            |                       |                           |
-|   🚧   | CLI AI Agent                 | copilot-cli 🐒 duckchat 🐹         | claude-code 🐚        |                           |
+|   🚧   | CLI AI Agent                 | copilot-cli 🐒                     | claude-code 🐚        |                           |
