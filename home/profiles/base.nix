@@ -4,7 +4,7 @@
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   # Home manager news.
   news.display = "show";
