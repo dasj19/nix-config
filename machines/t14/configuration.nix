@@ -89,5 +89,5 @@
   networking.hostName = "t14";
 
   # State version. Consult manual before changing.
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }
