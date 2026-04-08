@@ -37,7 +37,7 @@
       bind = ${modifier},B,exec,${browser} # Open browser (Firefox) with Super + B
       bind = ${modifier},L,exec,hyprlock # Lock screen with Super + L
       bind = ${modifier},S, exec, walker # Too slow and buggy, consider removing.
-      bind = CTRL_L, SPACE, exec, gapplication launch io.ulauncher.Ulauncher # Main App Launcher
+      bind = CTRL_L, SPACE, exec, ulauncher # Main App Launcher
 
       # Desktop shortcuts.
       bind = CTRL_L SHIFT_L, ESCAPE, exec, GDK_BACKEND=x11 missioncenter
