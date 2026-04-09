@@ -1,4 +1,9 @@
-{ config, gitSecrets, pkgs, ... }:
+{
+  config,
+  gitSecrets,
+  pkgs,
+  ...
+}:
 
 let
   firm-domain = gitSecrets.firmDomain;
@@ -25,12 +30,14 @@ in
   '';
   services.caddy.virtualHosts."${daniel-domain}".extraConfig = ''
     root * /var/www/${daniel-domain}
-    file_server
+    file_server {
+      browse
+    }
     php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
   '';
 
   # ACME settings for the firm domain.
-  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/) 
+  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
   security.acme.certs."${firm-domain}" = {
     inherit (config.services.caddy) group;
 
@@ -49,7 +56,6 @@ in
     dnsResolver = "1.1.1.1:53";
     dnsPropagationCheck = true;
   };
-
 
   # PHP-FPM pools.
   # https://discourse.nixos.org/t/502-bad-gateway-with-caddy-and-php-fastcgi/25429
