@@ -30,10 +30,18 @@ in
   '';
   services.caddy.virtualHosts."${daniel-domain}".extraConfig = ''
     root * /var/www/${daniel-domain}
-    file_server {
-      browse
+
+    # Allowed listing paths.
+    @listing path /collections/* /collections /papers/* /papers /slides/* /slides
+
+    handle @listing {
+      file_server browse
     }
+
+    # Serve static files if they exist, otherwise pass to PHP
+    try_files {path} {path}/index.php
     php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
+    file_server
   '';
 
   # ACME settings for the firm domain.
