@@ -8,9 +8,22 @@
 let
   firm-domain = gitSecrets.firmDomain;
   daniel-domain = gitSecrets.danielHackerDomain;
+  caddy-browse =  (pkgs.callPackage ../../pkgs/caddy-browse.nix {});
 in
 
 {
+  # Custom webserver dependencies.
+  environment.systemPackages = [
+    caddy-browse
+  ];
+
+  system.activationScripts.caddyBrowse = {
+    text = ''
+      mkdir -p /var/lib/caddy
+      ln -sf ${caddy-browse}/lib/caddy/browse.html /var/lib/caddy/browse.html
+    '';
+  };
+  
   # Using caddy webserver.
   services.caddy.enable = true;
 
