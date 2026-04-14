@@ -136,7 +136,6 @@
         cfg:
         mkDefaultSystem {
           modules = [
-            simple-nixos-mailserver.nixosModule
             {
               home-manager.useUserPackages = true;
               home-manager.users.daniel = import ./home/profiles/server.nix;
@@ -149,46 +148,17 @@
         };
     in
     {
+      # START SERVERS.
       nixosConfigurations.contabo1 = mkServerSystem {
         modules = [
           ./machines/contabo1/configuration.nix
+          simple-nixos-mailserver.nixosModule
         ];
       };
       nixosConfigurations.contabo2 = mkServerSystem {
         modules = [
           ./machines/contabo2/configuration.nix
-        ];
-      };
-      nixosConfigurations.linodenix1 = mkServerSystem {
-        modules = [
-          ./machines/linodenix1/configuration.nix
-        ];
-      };
-      nixosConfigurations.linodenix2 = mkServerSystem {
-        modules = [
-          ./machines/linodenix2/configuration.nix
-        ];
-      };
-      nixosConfigurations.t500libre = mkServerSystem {
-        modules = [
-          ./machines/t500libre/configuration.nix
-          nixos-hardware.nixosModules.lenovo-thinkpad
-        ];
-      };
-      nixosConfigurations.hostup1 = mkServerSystem {
-        modules = [
-          ./machines/hostup1/configuration.nix
-        ];
-      };
-      nixosConfigurations.xps13-9380 = mkLaptopSystem {
-        modules = [
-          ./machines/xps13-9380/configuration.nix
-          nixos-hardware.nixosModules.dell-xps-13-9380
-        ];
-      };
-      nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
-        modules = [
-          ./machines/tuxedo-xa15/configuration.nix
+          simple-nixos-mailserver.nixosModule
         ];
       };
       nixosConfigurations.cm4-nas = mkServerSystem {
@@ -198,6 +168,28 @@
           # @todo Include hardware support for the compute module 4.
         ];
       };
+      nixosConfigurations.devbox = mkServerSystem {
+        modules = [
+          ./machines/devbox/configuration.nix
+        ];
+      };
+      nixosConfigurations.hostup1 = mkServerSystem {
+        modules = [
+          ./machines/hostup1/configuration.nix
+        ];
+      };
+      nixosConfigurations.linodenix1 = mkServerSystem {
+        modules = [
+          ./machines/linodenix1/configuration.nix
+          simple-nixos-mailserver.nixosModule
+        ];
+      };
+      nixosConfigurations.linodenix2 = mkServerSystem {
+        modules = [
+          ./machines/linodenix2/configuration.nix
+          simple-nixos-mailserver.nixosModule
+        ];
+      };
       nixosConfigurations.rpi4-tv = mkServerSystem {
         system = "aarch64-linux";
         modules = [
@@ -205,16 +197,32 @@
           nixos-hardware.nixosModules.raspberry-pi-4
         ];
       };
-      nixosConfigurations.devbox = mkServerSystem {
+      nixosConfigurations.t500libre = mkServerSystem {
         modules = [
-          ./machines/devbox/configuration.nix
+          ./machines/t500libre/configuration.nix
+          nixos-hardware.nixosModules.lenovo-thinkpad
+          simple-nixos-mailserver.nixosModule
         ];
       };
+      # END SERVERS.
+      # START LAPTOPS.
       nixosConfigurations.t14 = mkLaptopSystem {
         modules = [
           ./machines/t14/configuration.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1
         ];
       };
+      nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
+        modules = [
+          ./machines/tuxedo-xa15/configuration.nix
+        ];
+      };
+      nixosConfigurations.xps13-9380 = mkLaptopSystem {
+        modules = [
+          ./machines/xps13-9380/configuration.nix
+          nixos-hardware.nixosModules.dell-xps-13-9380
+        ];
+      };
+      # END LAPTOPS.
     };
 }
