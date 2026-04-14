@@ -83,6 +83,7 @@
       qbittorrent
       signal-desktop
       usbimager
+      xournalpp
 
       # Development.
       dbeaver-bin
