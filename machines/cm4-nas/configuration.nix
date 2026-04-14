@@ -2,7 +2,7 @@
 
 let
 
-  mdmon-email = gitSecrets.danielPersonalEmail;
+  disk-reports-email = gitSecrets.danielPersonalEmail;
 
 in
 
@@ -38,8 +38,8 @@ in
   # Enable NFS.
   services.nfs.server.enable = true;
   services.nfs.server.exports = ''
-    /export		10.0.10.0/24(insecure,rw,sync,no_subtree_check,crossmnt,fsid=0)
-    /export/md0		10.0.10.0/24(insecure,rw,sync,no_subtree_check)
+    /export       172.16.0.0/24(insecure,rw,sync,no_subtree_check,crossmnt,fsid=0)
+    /export/md0		172.16.0.0/24(insecure,rw,sync,no_subtree_check)
   '';
   services.nfs.server.lockdPort = 4001;
   services.nfs.server.mountdPort = 4002;
@@ -67,7 +67,7 @@ in
   ];
 
   boot.swraid.mdadmConf = ''
-    MAILADDR=${mdmon-email}
+    MAILADDR=${disk-reports-email}
   '';
 
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
