@@ -194,6 +194,7 @@ khard
 killactive
 killall
 kodi
+layoutmsg
 lazyload
 LBRY
 ldso
@@ -388,6 +389,7 @@ strawberrymusicplayer
 stylix
 substituters
 subtitlecomposer
+swapsplit
 swraid
 symfony
 synaptics

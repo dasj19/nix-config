@@ -32,63 +32,66 @@
       }
 
       # Launching Apps
-      bind = ${modifier},RETURN,exec,${terminal} # Open terminal with Super (Modifier) + Return.
-      bind = CTRL_L ALT_L,T,exec,${terminal} # Open terminal with Ctrl + Alt + T.
-      bind = ${modifier},B,exec,${browser} # Open browser (Firefox) with Super + B
-      bind = ${modifier},L,exec,hyprlock # Lock screen with Super + L
-      bind = ${modifier},S, exec, walker # Too slow and buggy, consider removing.
-      bind = CTRL_L, SPACE, exec, ulauncher # Main App Launcher
+      bind = ${modifier},         RETURN,                 exec,             ${terminal}                                 # Open terminal with Modifier + Return.
+      bind = CTRL_L ALT_L,        T,                      exec,             ${terminal}                                 # Open terminal with Ctrl + Alt + T.
+      bind = ${modifier},         B,                      exec,             ${browser}                                  # Open browser with Modifier + B.
+      bind = ${modifier},         L,                      exec,             hyprlock                                    # Lock screen with Modifier + L.
+      bind = CTRL_L,              SPACE,                  exec,             ulauncher                                   # Main App Launcher.
 
       # Desktop shortcuts.
-      bind = CTRL_L SHIFT_L, ESCAPE, exec, GDK_BACKEND=x11 missioncenter
-      bind = CTRL_L SHIFT_L, PLUS, exec, pypr zoom +0.25
-      bind = CTRL_L SHIFT_L, MINUS, exec, pypr zoom -0.25
+      bind = CTRL_L SHIFT_L,      ESCAPE,                 exec,             GDK_BACKEND=x11 missioncenter               # Launch resource manager in xwayland mode
+      bind = CTRL_L SHIFT_L,      PLUS,                   exec,             pypr zoom +0.25                             # Zoom in on the desktop.
+      bind = CTRL_L SHIFT_L,      MINUS,                  exec,             pypr zoom -0.25                             # Zoom out on the desktop.
 
       # Multimedia.
-      bind = CTRL_L, MASCULINE, exec, playerctl play-pause # Play-Pause with CTL + key above Tab.
-      bind = CTRL_L SHIFT, LEFT, exec, playerctl previous # Previous track
-      bind = CTRL_L SHIFT, RIGHT, exec, playerctl next # Next track
-      bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-      bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-      bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+      bind = CTRL_L,              MASCULINE,              exec,             playerctl play-pause                        # Play-Pause with CTL + key above Tab.
+      bind = CTRL_L SHIFT,        RIGHT,                  exec,             playerctl next                              # Next track.
+      bind = CTRL_L SHIFT,        LEFT,                   exec,             playerctl previous                          # Previous track.
+      bind =                   ,  XF86AudioRaiseVolume,   exec,             wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+   # Raise Volume by 5%.
+      bind =                   ,  XF86AudioLowerVolume,   exec,             wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-   # Decrease volume by 5%.
+      bind =                   ,  XF86AudioMute,          exec,             wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle  # Toggle mute.
 
       # Screenshot.
-      bind = , PRINT, exec, hyprshot -m output -m active
-      bind = SHIFT_L, PRINT, exec, hyprshot -m region
-      bind = ALT_L, PRINT, exec, hyprshot -m window -m active
+      bind =                   ,  PRINT,                  exec,             hyprshot -m output -m active                # Screenshot the whole screen.
+      bind = SHIFT_L,             PRINT,                  exec,             hyprshot -m region                          # Activate region screen printing.
+      bind = ALT_L,               PRINT,                  exec,             hyprshot -m window -m active                # Screenshot the active window.
 
       # Brightness.
-      bind = ,XF86MonBrightnessDown, exec, brightnessctl -d intel_backlight set 10%-
-      bind = ,XF86MonBrightnessUp, exec, brightnessctl -d intel_backlight set 10%+
+      bind =                   ,  XF86MonBrightnessDown,  exec,             brightnessctl -d intel_backlight set 10%-   # Decrease screen brightness by 10%.
+      bind =                   ,  XF86MonBrightnessUp,    exec,             brightnessctl -d intel_backlight set 10%+   # Increase screen brightness by 10%.
 
       # Window management.
-      bind = ALT, F4, killactive, # Gracefully Close Active Window
-      bind = CTRL_L, Q, killactive, # Gracefully Close Active Window
-      bind = CTRL_L SUPER, Left, movewindow, l # Move Window Left
-      bind = CTRL_L SUPER, Right, movewindow, r # Move Window Right
-      bind = CTRL_L SUPER, Up, movewindow, u # Move Window Up
-      bind = CTRL_L SUPER, Down, movewindow, d # Move Window Down
-      bind = SUPER, LEFT, movefocus, l # Move focus to the Left
-      bind = SUPER, RIGHT, movefocus, r # Move focus to the Right
-      bind = SUPER, UP, movefocus, u # Move focus Up
-      bind = SUPER, DOWN, movefocus, d # Move focus Down
+      bind = ALT,                 F4,                     killactive,                                                   # Gracefully Close Active Window (duplicate).
+      bind = CTRL_L,              Q,                      killactive,                                                   # Gracefully Close Active Window (primary).
+      bind = ${modifier} CTRL_L,  Left,                   movewindow,       l                                           # Move Window Left.
+      bind = ${modifier} CTRL_L,  Right,                  movewindow,       r                                           # Move Window Right.
+      bind = ${modifier} CTRL_L,  Up,                     movewindow,       u                                           # Move Window Up.
+      bind = ${modifier} CTRL_L,  Down,                   movewindow,       d                                           # Move Window Down.
+      bind = ${modifier},         LEFT,                   movefocus,        l                                           # Move focus to the Left.
+      bind = ${modifier},         RIGHT,                  movefocus,        r                                           # Move focus to the Right.
+      bind = ${modifier},         UP,                     movefocus,        u                                           # Move focus Up.
+      bind = ${modifier},         DOWN,                   movefocus,        d                                           # Move focus Down.
+
       # Window tile management.
-      binde = SUPER, COMMA, splitratio, -0.1 # Adjust Slit Ratio Decreasing current window 
-      binde = SUPER, PERIOD, splitratio, +0.1  # Adjust Slit Ratio Increasing current window
-      bind = SUPER, F, togglefloating, # Float/Tile
-      bind = CTRL_L SUPER, F, fullscreen, 1 # Maximize
+      binde = ${modifier},        COMMA,                  layoutmsg,        splitratio -0.1                             # Adjust Slit Ratio Decreasing current window. 
+      binde = ${modifier},        PERIOD,                 layoutmsg,        splitratio +0.1                             # Adjust Slit Ratio Increasing current window.
+      bind  = ${modifier},        F,                      fullscreen,       1                                           # Maximize.
+      bind  = ${modifier} CTRL_L, F,                      togglefloating,                                               # Float/Tile.
+      bind  = ${modifier},        S,                      layoutmsg,        swapsplit                                   # Swap windows within their split area.ss
 
       # Workspace navigation.
-      bind = ALT, TAB, workspace, e+1
-      bind = ALT SHIFT, TAB, workspace, e-1
+      bind = ALT,                 TAB,                    workspace,        e+1                                         # Change to next workspace (primary).
+      bind = ALT SHIFT,           TAB,                    workspace,        e-1                                         # Change to previous workspace (primary).
 
-      bind = CTRL_L ALT_L, LEFT, workspace, e-1
-      bind = CTRL_L ALT_L, RIGHT, workspace, e+1
+      # Alternative navigation. (consider removing)
+      bind = CTRL_L ALT_L,        LEFT,                   workspace,        e-1                                         # Change to previous workspace (duplicate).
+      bind = CTRL_L ALT_L,        RIGHT,                  workspace,        e+1                                         # Change to next workspace (duplicate).
+      bind = ${modifier},         LEFT,                   workspace,        -1                                          # Change to previous workspace (duplicate).
+      bind = ${modifier},         RIGHT,                  workspace,        +1                                          # Change to next workspace (duplicate).
 
-      bind = ${modifier},LEFT,workspace, -1 # Change to previous workspace
-      bind = ${modifier},RIGHT,workspace, +1 # Change to next workspace
-      bind = ${modifier} SHIFT,LEFT,movetoworkspace, -1 # Move window in focus to previous workspace
-      bind = ${modifier} SHIFT,RIGHT,movetoworkspace, +1 # Move window in focus to next workspace
+      # Move focused window to next/previous workspace.
+      bind = ${modifier} SHIFT,   LEFT,                   movetoworkspace,  -1                                          # Move window in focus to previous workspace.
+      bind = ${modifier} SHIFT,   RIGHT,                  movetoworkspace,  +1                                          # Move window in focus to next workspace.
 
       # 
     '';
