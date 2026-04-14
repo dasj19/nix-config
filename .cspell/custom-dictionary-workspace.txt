@@ -65,6 +65,7 @@ cuobjdump
 cupti
 cuxxfilt
 cwebp
+cyclenext
 czkawka
 danth
 darkviolet
@@ -122,6 +123,7 @@ flashplayer
 flup
 fmask
 fmsx
+focuscurrentorlast
 fontforge
 fprint
 fprintd
