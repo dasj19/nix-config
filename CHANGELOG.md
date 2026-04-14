@@ -4,6 +4,10 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-04-14
+- home hyprland: update keybindings for hyprland environment
+- cm4-nas: fixed filesystem type
+
 2026-04-08
 - pkgs: removed duckduckgo-chat-cli
 - laptop: extracted de module outside of the laptop profile

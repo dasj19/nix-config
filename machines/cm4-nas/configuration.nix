@@ -32,6 +32,7 @@ in
   fileSystems."/export/md0" = {
     device = "/mnt/md0";
     options = [ "bind" ];
+    fsType = "none";
   };
 
   # Enable NFS.
