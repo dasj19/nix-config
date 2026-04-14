@@ -26,6 +26,9 @@
       # Start the plugin system.
       exec-once = pypr
 
+      # Conditional styling.
+      windowrule = border_color rgb(00FF00), match:fullscreen 1 # Change fullscreen windows' borders to green.
+
       # Input settings.
       input {
         kb_layout=esrodk
@@ -81,7 +84,7 @@
 
       # Window navigation.
       bind = ALT,                 TAB,                    cyclenext,                                                      # Change focus to next window.
-      bind = ALT SHIFT,           TAB,                    focuscurrentorlast,                                             # Change focus to previous window.
+      bind = ALT SHIFT,           TAB,                    cyclenext,          prev                                        # Change focus to previous window.
 
       # Workspace navigation.
       bind = ${modifier},         TAB,                    workspace,          e+1                                         # Change to next workspace (primary).
