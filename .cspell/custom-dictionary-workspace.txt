@@ -11,6 +11,7 @@ ahci
 Airdc
 akismet
 alsa
+alynx
 amqp
 archivebox
 armv
@@ -55,6 +56,7 @@ contabo
 contile
 cowsay
 cpufrequtils
+crossmnt
 cspnonce
 ctype
 cuda
@@ -129,6 +131,7 @@ fprint
 fprintd
 freerdp
 fritweb
+fsid
 fullscreen
 fwupd
 gamepad
@@ -223,12 +226,14 @@ litellm
 localdomain
 localip
 localsearch
+lockd
 logind
 loglevel
 lrcget
 lshw
 luks
 macchiato
+MAILADDR
 mailipv
 mailserver
 Mailspring
@@ -248,6 +253,7 @@ modemmanager
 modeset
 Modesetting
 moreutils
+mountd
 movefocus
 movetoworkspace
 movewindow
@@ -373,6 +379,7 @@ shellgpt
 shmcb
 shntool
 shotcut
+showmethekey
 simplexml
 smartd
 smartmontools
@@ -385,6 +392,7 @@ soundconverter
 soundcore
 spamd
 splitratio
+statd
 statix
 stdenv
 strawberrymusicplayer
@@ -392,6 +400,7 @@ stylix
 substituters
 subtitlecomposer
 swapsplit
+swayosd
 swraid
 symfony
 synaptics
@@ -457,6 +466,7 @@ weclaw
 weekdate
 Werkzeug
 whois
+windowrule
 wireplumber
 wlan
 wlrlui

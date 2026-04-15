@@ -4,6 +4,9 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-04-15
+- added showmethekey and swayosd to hyprland configuration
+
 2026-04-14
 - home hyprland: update keybindings for hyprland environment
 - cm4-nas: fixed filesystem type

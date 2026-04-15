@@ -29,6 +29,8 @@
   # Enable D-Bus for inter-process communication.
   services.dbus.enable = true;
 
+  services.gvfs.enable = true;
+
   environment.systemPackages = with pkgs; [
     # CLI.
     playerctl
@@ -68,6 +70,8 @@
     resources # Task manager and resource monitor.
     gparted # Gnome partition editor.
     strawberry # Collection-based music player.
+    showmethekey # OSD of pressed keys.
+    swayosd # Controls media keys and special keys with visuals.
     evolution # Email client with calendar support.
     gnome-keyring # Keyring for managing passwords and encryption keys.
     tauon # Album-based with lyrics support.

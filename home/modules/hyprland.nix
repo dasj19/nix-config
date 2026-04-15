@@ -26,8 +26,22 @@
       # Start the plugin system.
       exec-once = pypr
 
+      # Position the windows of "Show me the key" always on the screen, floating at the bottom left.
+      windowrule {
+        name          = position-showmethekey
+        match:class   = one.alynx.showmethekey
+        match:title   = Floating\sWindow.*
+        float         = on
+        #center        = on
+        pin           = on
+        move          = (monitor_w*0.1) (monitor_h*0.9)
+        max_size      = (monitor_w*0.4) (monitor_w*0.2)
+        border_size   = 10
+        border_color  = rgb(FF0000)
+      }
+
       # Conditional styling.
-      windowrule = border_color rgb(00FF00), match:fullscreen 1 # Change fullscreen windows' borders to green.
+      windowrule = border_color rgb(00FF00), match:fullscreen 1,  # Change fullscreen windows' borders to green.
 
       # Input settings.
       input {
@@ -47,12 +61,12 @@
       bind = CTRL_L SHIFT_L,      MINUS,                  exec,               pypr zoom -0.25                             # Zoom out on the desktop.
 
       # Multimedia.
-      bind = CTRL_L,              MASCULINE,              exec,               playerctl play-pause                        # Play-Pause with CTL + key above Tab.
-      bind = CTRL_L SHIFT,        RIGHT,                  exec,               playerctl next                              # Next track.
-      bind = CTRL_L SHIFT,        LEFT,                   exec,               playerctl previous                          # Previous track.
-      bind =                   ,  XF86AudioRaiseVolume,   exec,               wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+   # Raise Volume by 5%.
-      bind =                   ,  XF86AudioLowerVolume,   exec,               wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-   # Decrease volume by 5%.
-      bind =                   ,  XF86AudioMute,          exec,               wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle  # Toggle mute.
+      bind = CTRL_L,              MASCULINE,              exec,               swayosd-client --playerctl play-pause       # Play-Pause with CTL + key above Tab.
+      bind = CTRL_L SHIFT,        RIGHT,                  exec,               swayosd-client --playerctl next             # Next track.
+      bind = CTRL_L SHIFT,        LEFT,                   exec,               swayosd-client --playerctl previous         # Previous track.
+      bind =                   ,  XF86AudioRaiseVolume,   exec,               swayosd-client --output-volume raise        # Raise Volume with visuals.
+      bind =                   ,  XF86AudioLowerVolume,   exec,               swayosd-client --output-volume lower        # Decrease volume with visuals.
+      bind =                   ,  XF86AudioMute,          exec,               swayosd-client --output-volume mute-toggle  # Toggle mute with visuals.
 
       # Screenshot.
       bind =                   ,  PRINT,                  exec,               hyprshot -m output -m active                # Screenshot the whole screen.
@@ -60,8 +74,8 @@
       bind = ALT_L,               PRINT,                  exec,               hyprshot -m window -m active                # Screenshot the active window.
 
       # Brightness.
-      bind =                   ,  XF86MonBrightnessDown,  exec,               brightnessctl -d intel_backlight set 10%-   # Decrease screen brightness by 10%.
-      bind =                   ,  XF86MonBrightnessUp,    exec,               brightnessctl -d intel_backlight set 10%+   # Increase screen brightness by 10%.
+      bind =                   ,  XF86MonBrightnessDown,  exec,               swayosd-client --brightness lower           # Decrease screen brightness with visuals.
+      bind =                   ,  XF86MonBrightnessUp,    exec,               swayosd-client --brightness raise           # Increase screen brightness with visuals.
 
       # Window management.
       bind = ALT,                 F4,                     killactive,                                                     # Gracefully Close Active Window (duplicate).
@@ -131,6 +145,13 @@
     pyprland = {
       plugins = [ "magnify" ];
     };
+  };
+
+  # Display nice icons on screen for known special actions.
+  services.swayosd = {
+    enable = true;
+    # OSD Margin from the top edge.
+    topMargin = 0.9;
   };
 
 }
