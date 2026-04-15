@@ -12,7 +12,17 @@
       modifier = "SUPER";
       terminal = "${pkgs.alacritty}/bin/alacritty";
       browser = "${pkgs.firefox-devedition}/bin/firefox-devedition";
-      mute-mic = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle";
+      mute-mic-action = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle";
+      remove-action = "swayosd-client --custom-icon edit-delete --custom-message 'Removed'";
+      home-action = "swayosd-client --custom-icon go-home --custom-message 'Home'";
+      end-action = "swayosd-client --custom-icon go-last --custom-message 'End'";
+      cut-action = "swayosd-client --custom-icon edit-cut --custom-message 'Cut'";
+      copy-action = "swayosd-client --custom-icon edit-copy --custom-message 'Copied'";
+      paste-action = "swayosd-client --custom-icon edit-paste --custom-message 'Pasted'";
+      undo-action = "swayosd-client --custom-icon edit-undo --custom-message 'Undid'";
+      redo-action = "swayosd-client --custom-icon edit-redo --custom-message 'Redone'";
+      save-action = "swayosd-client --custom-icon document-save --custom-message 'Saving'";
+      refresh-action = "swayosd-client --custom-icon view-refresh --custom-message 'Refreshing'";
     in
 
     ''
@@ -68,10 +78,23 @@
       bind =                   ,  XF86AudioRaiseVolume,   exec,               swayosd-client --output-volume raise        # Raise Volume with visuals.
       bind =                   ,  XF86AudioLowerVolume,   exec,               swayosd-client --output-volume lower        # Decrease volume with visuals.
       bind =                   ,  XF86AudioMute,          exec,               swayosd-client --output-volume mute-toggle  # Toggle mute with visuals.
-      bind =                   ,  XF86AudioMicMute,       exec,               ${mute-mic}                                 # Toggle microphone mute with visuals.
+      bind =                   ,  XF86AudioMicMute,       exec,               ${mute-mic-action}                          # Toggle microphone mute with visuals.
 
       # Single keys.
       bindr = CAPS             ,  Caps_Lock,              exec,               swayosd-client --caps-lock                  # Show visuals on Capslock toggle.
+      bindn =                  ,  Delete,                 exec,               ${remove-action}                            # Show visuals on Delete key.
+      bindn =                  ,  Home,                   exec,               ${home-action}                              # Show visuals on Home key.
+      bindn =                  ,  End,                    exec,               ${end-action}                               # Show visuals on End key.
+
+      # Popular actions.
+      bindn = CTRL_L           ,  X,                      exec,               ${cut-action}                               # Show visuals when cutting.
+      bindn = CTRL_L           ,  C,                      exec,               ${copy-action}                              # Show visuals when copying.
+      bindn = CTRL_L           ,  V,                      exec,               ${paste-action}                             # Show visuals when pasting.
+      bindn = CTRL_L           ,  Z,                      exec,               ${undo-action}                              # Show visuals when undoing.
+      bindn = CTRL_L           ,  S,                      exec,               ${save-action}                              # Show visuals when saving.
+      bindn = CTRL_L           ,  R,                      exec,               ${refresh-action}                           # Show visuals when refreshing (primary).
+      bindn = CTRL_L           ,  Y,                      exec,               ${redo-action}                              # Show visuals when redoing (primary).
+      bindn = CTRL_L SHIFT     ,  Z,                      exec,               ${redo-action}                              # Show visuals when redoing (duplicate).
 
       # Screenshot.
       bind =                   ,  PRINT,                  exec,               hyprshot -m output -m active                # Screenshot the whole screen.

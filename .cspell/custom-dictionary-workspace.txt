@@ -33,6 +33,7 @@ bchunk
 bcmath
 bibata
 binde
+bindn
 bindr
 binfmt
 bitmagnet
