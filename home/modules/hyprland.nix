@@ -12,6 +12,7 @@
       modifier = "SUPER";
       terminal = "${pkgs.alacritty}/bin/alacritty";
       browser = "${pkgs.firefox-devedition}/bin/firefox-devedition";
+      mute-mic = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle";
     in
 
     ''
@@ -67,6 +68,10 @@
       bind =                   ,  XF86AudioRaiseVolume,   exec,               swayosd-client --output-volume raise        # Raise Volume with visuals.
       bind =                   ,  XF86AudioLowerVolume,   exec,               swayosd-client --output-volume lower        # Decrease volume with visuals.
       bind =                   ,  XF86AudioMute,          exec,               swayosd-client --output-volume mute-toggle  # Toggle mute with visuals.
+      bind =                   ,  XF86AudioMicMute,       exec,               ${mute-mic}                                 # Toggle microphone mute with visuals.
+
+      # Single keys.
+      bindr = CAPS             ,  Caps_Lock,              exec,               swayosd-client --caps-lock                  # Show visuals on Capslock toggle.
 
       # Screenshot.
       bind =                   ,  PRINT,                  exec,               hyprshot -m output -m active                # Screenshot the whole screen.

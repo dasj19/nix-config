@@ -33,6 +33,7 @@ bchunk
 bcmath
 bibata
 binde
+bindr
 binfmt
 bitmagnet
 Blocklist
@@ -46,6 +47,7 @@ btintel
 btrtl
 btusb
 cachix
+CAPSLOCK
 catppuccin
 cccl
 cdrom
