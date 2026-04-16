@@ -277,7 +277,6 @@ networkd
 networkmanager
 networkmanagerapplet
 newtabpage
-nextcloud
 nhcl
 nhlt
 nhup

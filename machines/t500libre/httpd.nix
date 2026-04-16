@@ -3,46 +3,27 @@
   pkgs,
   gitSecrets,
   ...
-}: let
+}:
+let
   # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
   name-domain = gitSecrets.nameDomain;
   webmaster-email = gitSecrets.gnuDomainWebmaster;
   archive-ip = gitSecrets.gnuArchiveIp;
-in {
-  sops.secrets.root_password = {};
-
-  # Nextcloud instance.
-  services.nextcloud = {
-    enable = true;
-    package = pkgs.nextcloud32;
-    hostName = "localhost";
-    config.adminpassFile = config.sops.secrets.root_password.path;
-  };
-  services.nextcloud.settings = {
-    force_language = "ro";
-  };
-  services.nextcloud.config.dbtype = "sqlite";
-  services.nextcloud.settings.trusted_domains = [
-    "familia.${name-domain}"
-  ];
-  services.nextcloud.settings.overwriteprotocol = "https";
-  services.nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [
-    {
-      addr = "127.0.0.1";
-      port = 8001;
-    }
-  ];
+in
+{
+  sops.secrets.root_password = { };
 
   # Apache webserver with virtual hosts. @todo: migrate to caddy.
   services.httpd = {
     enable = true;
     enablePHP = true;
     phpPackage = pkgs.php84.buildEnv {
-      extensions = {
-        enabled,
-        all,
-      }:
+      extensions =
+        {
+          enabled,
+          all,
+        }:
         enabled
         ++ (with all; [
           # Extensions for leantime.
@@ -111,35 +92,6 @@ in {
             #ProxyPreserveHost On
             ProxyPass http://${archive-ip}:8000/
             ProxyPassReverse http://${archive-ip}:8000/
-
-            # Headers passed to the proxy.
-            #RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"
-            # Relax CSP for admin paths.
-
-            # @TODO: Slowly enable more and more CSP attributes: https://content-security-policy.com/
-            Header unset Content-Security-Policy
-            Header unset Clear-Site-Data
-            # Allow framing of the archive site.
-            Header unset X-Frame-Options
-          </LocationMatch>
-        '';
-      };
-      # Nextcloud.
-      "familia.${name-domain}" = {
-        enableACME = true;
-        forceSSL = true;
-        hostName = "familia.${name-domain}";
-        #serverAliases = [
-        #  "www.archive.${name-domain}"
-        #];
-        documentRoot = "/var/www/familia.${name-domain}/";
-        logFormat = "combined";
-        extraConfig = ''
-          <LocationMatch "/">
-            # Proxy the archivebox instance from the local network.
-            ProxyPreserveHost On
-            ProxyPass http://localhost:8001/
-            ProxyPassReverse http://localhost:8001/
 
             # Headers passed to the proxy.
             #RequestHeader set X-CSP-Nonce: "%{CSP_NONCE}e"

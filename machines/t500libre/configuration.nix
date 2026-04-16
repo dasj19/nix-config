@@ -123,8 +123,6 @@ in
     # SSH      - OpenSSH
     2201
     # LAN-open:
-    # HTTP     - Nginx    - Nextcloud
-    8001
   ];
   networking.firewall.allowedUDPPorts = [
     # PROTOCOL - SERVER   - APP
