@@ -10,6 +10,17 @@ let
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
   mailserver-fqdn = gitSecrets.gnuMailserverFqdn;
   mailserver-daniel-email = gitSecrets.gnuMailserverDanielEmail;
+
+  # This is one of the last immich versions that depends on
+  # immich-machine-learning which uses numpy < 2.4
+  immich-pinned = import (builtins.fetchTarball {
+    url = "https://github.com/nixos/nixpkgs/tarball/96d2c59f3aab1797226505240a77f767023c6a22";
+    sha256 = "10x1mpi2ga3rwvm6kr4l2l060cxjlg6vmwk27v7byrxxflc7ir6j";
+  }) {
+    config = config.nixpkgs.config;
+    system = "x86_64-linux";
+  };
+
 in
 {
   imports = [
@@ -52,6 +63,7 @@ in
   };
 
   nixpkgs.config = {
+
     packageOverrides = pkgs: {
       # Overriding the rspamd package replacing vectorscan with hyperscan.
       rspamd = pkgs.rspamd.overrideAttrs (oldAttrs: {
@@ -99,6 +111,15 @@ in
     "1.0.0.1"
   ];
 
+  # Immich server.
+  services.immich.enable = true;
+  services.immich.package = immich-pinned.immich;
+  services.immich.port = 2283;
+  services.immich.host = "0.0.0.0";
+  services.immich.openFirewall = true;
+  services.immich.machine-learning.enable = true;
+
+
   # Control the laptop lidswitch behavior.
   services.logind.settings.Login.HandleLidSwitch = "ignore";
   services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
@@ -136,5 +157,5 @@ in
   # users.mutableUsers = false;
 
   # Consult manual before changing.
-  system.stateVersion = "24.11";
+  system.stateVersion = "26.05";
 }
