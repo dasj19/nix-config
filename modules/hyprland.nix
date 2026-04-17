@@ -51,6 +51,7 @@
     pwvucontrol # Pipewire volume control.
     textadept # Lightweight text editor.
     waybar # Status bar for Wayland.
+    wl-mirror # Screen mirroring utility.
     wofi # Application launcher.
     xarchiver # Archive manager.
     orage # Calendar application.
