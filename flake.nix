@@ -149,12 +149,6 @@
     in
     {
       # START SERVERS.
-      nixosConfigurations.contabo1 = mkServerSystem {
-        modules = [
-          ./machines/contabo1/configuration.nix
-          simple-nixos-mailserver.nixosModule
-        ];
-      };
       nixosConfigurations.contabo2 = mkServerSystem {
         modules = [
           ./machines/contabo2/configuration.nix
