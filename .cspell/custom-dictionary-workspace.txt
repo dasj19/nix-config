@@ -13,6 +13,7 @@ akismet
 alsa
 alynx
 amqp
+apkeep
 archivebox
 armv
 asciinema
@@ -53,6 +54,7 @@ catppuccin
 cccl
 cdrom
 CHACHA
+Charachorder
 cloc
 conexant
 contabo
@@ -154,7 +156,9 @@ graphviz
 greetd
 greylist
 greylisting
+gscan
 gvariant
+gvfs
 gwaddr
 halign
 halloy
@@ -171,8 +175,11 @@ hwdep
 hyperscan
 hypr
 hyprctl
+hyprcursor
 hypridle
 hyprlock
+hyprpaper
+hyprpolkitagent
 hyprshot
 IBPB
 icmpv
@@ -304,6 +311,7 @@ oderwat
 ohci
 ollama
 oneline
+oneshot
 onlyoffice
 opcache
 openconnect
@@ -472,6 +480,7 @@ windowrule
 wireplumber
 wlan
 wlrlui
+wofi
 Wordnik
 worpress
 wpctl
@@ -486,6 +495,7 @@ xorg
 xorgserver
 xorriso
 Xreader
+xsane
 xvfb
 xwayland
 Zeroconf

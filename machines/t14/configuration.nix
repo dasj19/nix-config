@@ -70,6 +70,7 @@
     # CLI.
     apkeep
     fwupd
+    litecli
     lrcget
 
     # GUI.

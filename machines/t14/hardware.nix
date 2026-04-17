@@ -11,6 +11,13 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     # Common hardware configuration.
     ../../modules/hardware.nix
+    # Non-free software.
+    ../../modules/non-free.nix
+  ];
+
+  # Non-free drivers.
+  allowedUnfree = [
+    "hplip"
   ];
 
   # Bootloader.
@@ -29,14 +36,31 @@
   ];
   boot.initrd.luks.devices."luks-a2c62a27-7059-4ac5-ac4d-1408d3f86970" = {
     device = "/dev/disk/by-uuid/a2c62a27-7059-4ac5-ac4d-1408d3f86970";
-    preOpenCommands = ''
-      echo "###############################################################"
-      echo -e "\033[31m If found, please contact Daniel:\033[0m"
-      echo -e "\033[31m Email: ${gitSecrets.danielPersonalEmail}\033[0m"
-      echo -e "\033[31m Phone: ${gitSecrets.danielPhoneNumber}\033[0m"
-      echo -e "\033[31m Thank you!\033[0m"
-      echo "###############################################################"
-    '';
+    # preOpenCommands = ''
+    #   echo "###############################################################"
+    #   echo -e "\033[31m If found, please contact Daniel:\033[0m"
+    #   echo -e "\033[31m Email: ${gitSecrets.danielPersonalEmail}\033[0m"
+    #   echo -e "\033[31m Phone: ${gitSecrets.danielPhoneNumber}\033[0m"
+    #   echo -e "\033[31m Thank you!\033[0m"
+    #   echo "###############################################################"
+    # '';
+  };
+
+  systemd.services.luks-a2c62a27-pre-open = {
+    description = "LUKS pre-open message for a2c62a27";
+    wantedBy = [ "cryptsetup-pre.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = "yes";
+      ExecStart = ''
+        echo "###############################################################"
+        echo -e "\033[31m If found, please contact Daniel:\033[0m"
+        echo -e "\033[31m Email: ${gitSecrets.danielPersonalEmail}\033[0m"
+        echo -e "\033[31m Phone: ${gitSecrets.danielPhoneNumber}\033[0m"
+        echo -e "\033[31m Thank you!\033[0m"
+        echo "###############################################################"
+      '';
+    };
   };
 
   boot.extraModprobeConfig = ''
@@ -78,13 +102,13 @@
     # Attempt at fixing:
     # i915 0000:00:02.0: [drm] *ERROR* Atomic update failure on pipe A (start=1102746 end=1102747)
     # time 840 us, min 1073, max 1079, scanline start 1029, end 1086
-    # "i915.enable_psr=0"
-    # "i915.enable_dc=0"
-    # "i915.atomic_support=0"
-    # # Disable frame buffer compression for the intel driver.
-    # "i915.enable_fbc=0"
-    # # Last resort.
-    # "i915.fastboot=0"
+    "i915.enable_psr=0"
+    "i915.enable_dc=0"
+    "i915.atomic_support=0"
+    # Disable frame buffer compression for the intel driver.
+    "i915.enable_fbc=0"
+    # Last resort.
+    "i915.fastboot=0"
   ];
 
   boot.tmp.useTmpfs = true;
@@ -122,12 +146,13 @@
 
   # System-wide drivers and utilities.
   environment.systemPackages = with pkgs; [
+    xsane
+    gscan2pdf
     # Drivers.
     linux-firmware # needed for the intel graphic card.
     mesa # open-source graphics drivers.
     vulkan-loader # Vulkan loader and utilities.
     vulkan-tools # Vulkan command-line tools.
-    intel-media-driver # Intel VAAPI driver for hardware-accelerated video decoding/encoding.
     vpl-gpu-rt # Intel oneAPI Video Processing Library - GPU Runtime
     libglvnd # The GL Vendor Neutral Dispatch library
     libgbm # Generic Buffer Management API
@@ -179,8 +204,14 @@
 
   # Enable CUPS to print documents from laptops.
   services.printing.enable = true;
-  services.printing.drivers = [
-    # Driver for printing and scanning.
-    pkgs.hplip
+  services.printing.drivers = with pkgs; [
+    hplip
   ];
+
+  # Enable scanning support.
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = with pkgs; [
+    hplipWithPlugin
+  ];
+  services.ipp-usb.enable = true;
 }

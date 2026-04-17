@@ -4,6 +4,9 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-04-16
+- updated welcome message before luks is decrypted
+
 2026-04-15
 - added showmethekey and swayosd to hyprland configuration
 
