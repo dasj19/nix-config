@@ -98,7 +98,6 @@ Git-crypt key: `git-crypt-key`
 |   Hostname  | Brand and model  |   CPU                |  RAM  |   GPU(s)                       | Role | OS  | State | Location  |
 | :---------: | :--------------: | :------------------: | :---: | :----------------------------: | :--: | :-: | :---: | :-------: |
 | cm4-nas     | RaspberryPi CM4  | Cortex-A72           | 8  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🏠    |
-| contabo1    | Contabo KVM VPS  | AMD EPYC (with IBPB) | 8  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🇩🇪    |
 | contabo2    | Contabo KVM VPS  | AMD EPYC 7282        | 6  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🇩🇪    |
 | devbox      | Virtualbox       |                      | 4  GB | Not Available                  | 🐄   | ❄️  | ✅    |     🏠    |
 | linodenix1  | Linode Nanode    | AMD EPYC 7601        | 1  GB | Not Available                  | ☁️   | ❄️  | ✅    |     🇩🇪    |

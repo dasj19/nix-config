@@ -23,7 +23,6 @@ jobs:
       matrix:
         system:
           - cm4-nas
-          - contabo1
           - contabo2
           - devbox
           - linodenix1
