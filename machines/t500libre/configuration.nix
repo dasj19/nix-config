@@ -17,7 +17,7 @@ let
     url = "https://github.com/nixos/nixpkgs/tarball/96d2c59f3aab1797226505240a77f767023c6a22";
     sha256 = "10x1mpi2ga3rwvm6kr4l2l060cxjlg6vmwk27v7byrxxflc7ir6j";
   }) {
-    config = config.nixpkgs.config;
+    inherit (config.nixpkgs) config;
     system = "x86_64-linux";
   };
 
