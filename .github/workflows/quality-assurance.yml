@@ -30,7 +30,7 @@ jobs:
 
       # Setup nix-shell and run statix.
       - name: Setup nix
-        uses: workflow/nix-shell-action@v3
+        uses: workflow/nix-shell-action@v4
         with:
           packages: statix
           # Run the code linter.
