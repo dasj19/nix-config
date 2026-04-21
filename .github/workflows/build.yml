@@ -25,6 +25,7 @@ jobs:
           - cm4-nas
           - contabo2
           - devbox
+          - ideapad100
           - linodenix1
           - linodenix2
           - rpi4-tv
