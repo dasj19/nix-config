@@ -35,6 +35,10 @@
   services.immich.host = "0.0.0.0";
   services.immich.openFirewall = true;
 
+  # Control the laptop lidswitch behavior.
+  services.logind.settings.Login.HandleLidSwitch = "ignore";
+  services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
