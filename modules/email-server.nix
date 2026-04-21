@@ -44,12 +44,6 @@
     mailserver.enableSubmission = false;
     mailserver.enableSubmissionSsl = true;
 
-    # Enable required extensions.
-    services.dovecot2.settings.sieve_extensions = [
-      # To file spam into spam folder.
-      "fileinto"
-    ];
-
     # Add extended spam information.
     services.rspamd.extraConfig = ''
       milter_headers {

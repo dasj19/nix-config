@@ -40,12 +40,6 @@ in
     };
   };
 
-  # Enable required extensions.
-  services.dovecot2.settings.sieve_extensions = [
-    # To file spam into spam folder.
-    "fileinto"
-  ];
-
   services.rspamd.extraConfig = ''
     # Add extended spam information.
     milter_headers {
