@@ -1,8 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 
 {
   imports = [
-      ./hardware.nix
+    ./hardware.nix
+    # Profile.
+    ./../../profiles/server.nix
+    # Modules.
+    ./../../modules/builder.nix
   ];
 
   boot.loader.grub.devices = [ "/dev/sda" ];
@@ -14,15 +21,8 @@
   # Server's time zone.
   time.timeZone = "Europe/Copenhagen";
 
-  users.users.daniel = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  };
-
-  environment.systemPackages = with pkgs; [
-    git
-    net-tools
-  ];
+  #environment.systemPackages = with pkgs; [
+  #];
 
   # SERVICES:
 
@@ -42,4 +42,3 @@
   system.stateVersion = "26.05";
 
 }
-
