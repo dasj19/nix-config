@@ -29,8 +29,6 @@
     mailserver.fullTextSearch.enable = true;
     # Index new email as they arrive.
     mailserver.fullTextSearch.autoIndex = true;
-    # Tells dovecot to fail any body search query that cannot use an index.
-    mailserver.fullTextSearch.enforced = "body";
 
     # Debug authentication. @see: https://serverfault.com/a/1020853
     # Disabled to allow fail2ban to do its job.
