@@ -41,7 +41,7 @@ in
   };
 
   # Enable required extensions.
-  services.dovecot2.sieve.extensions = [
+  services.dovecot2.settings.sieve_extensions = [
     # To file spam into spam folder.
     "fileinto"
   ];

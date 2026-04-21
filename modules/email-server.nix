@@ -3,27 +3,26 @@
 {
   config = {
 
-
-#    assertions = lib.optionals config.mailserver.enable ([
-#      {
-#        assertion = config.mailserver.fqdn == "";
-#        message = "FQDN must be set.";
-#      }
-#      {
-#        assertion = config.mailserver.domains == [];
-#        message = "At least one domain must be set.";
-#      }
-#      {
-#        assertion = config.mailserver.loginAccounts == {};
-#        message = "loginAccounts must be set.";
-#      }
-#    ]);
+    #    assertions = lib.optionals config.mailserver.enable ([
+    #      {
+    #        assertion = config.mailserver.fqdn == "";
+    #        message = "FQDN must be set.";
+    #      }
+    #      {
+    #        assertion = config.mailserver.domains == [];
+    #        message = "At least one domain must be set.";
+    #      }
+    #      {
+    #        assertion = config.mailserver.loginAccounts == {};
+    #        message = "loginAccounts must be set.";
+    #      }
+    #    ]);
 
     # Setup for the mailserver.
     mailserver.enable = true;
 
-      # Uses Let's Encrypt instead of self-signed certificate.
-      # The apache2 webserver takes care of getting the certificate.
+    # Uses Let's Encrypt instead of self-signed certificate.
+    # The apache2 webserver takes care of getting the certificate.
     #mailserver.certificateScheme = "acme";
 
     # Index the body of the mails to perform full text search.
@@ -48,7 +47,7 @@
     mailserver.enableSubmissionSsl = true;
 
     # Enable required extensions.
-    services.dovecot2.sieve.extensions = [
+    services.dovecot2.settings.sieve_extensions = [
       # To file spam into spam folder.
       "fileinto"
     ];

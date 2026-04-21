@@ -4,7 +4,11 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
-2025-04-17
+2026-04-22
+- ideapad100: init machine config
+- email-server: rename sieve extension option
+
+2026-04-17
 - retired contabo1 server and removed its configuration
 
 2026-04-16
