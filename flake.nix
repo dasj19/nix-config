@@ -172,6 +172,11 @@
           ./machines/hostup1/configuration.nix
         ];
       };
+      nixosConfigurations.ideapad100 = mkServerSystem {
+        modules = [
+          ./machines/ideapad100/configuration.nix
+        ];
+      };
       nixosConfigurations.linodenix1 = mkServerSystem {
         modules = [
           ./machines/linodenix1/configuration.nix
