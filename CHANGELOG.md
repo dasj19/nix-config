@@ -7,6 +7,7 @@ TODO:
 2026-04-22
 - ideapad100: init machine config
 - email-server: rename sieve extension option
+- t500libre: remove dslg project
 
 2026-04-17
 - retired contabo1 server and removed its configuration

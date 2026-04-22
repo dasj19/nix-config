@@ -97,7 +97,6 @@ dmask
 dnssec
 dnsutils
 dont
-dslg
 dswexec
 dswload
 duckduckgo
