@@ -216,12 +216,6 @@
           ./machines/tuxedo-xa15/configuration.nix
         ];
       };
-      nixosConfigurations.xps13-9380 = mkLaptopSystem {
-        modules = [
-          ./machines/xps13-9380/configuration.nix
-          nixos-hardware.nixosModules.dell-xps-13-9380
-        ];
-      };
       # END LAPTOPS.
     };
 }

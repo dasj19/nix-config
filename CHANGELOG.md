@@ -8,6 +8,7 @@ TODO:
 - ideapad100: init machine config
 - email-server: rename sieve extension option
 - t500libre: remove dslg project
+- xps13-9380: remove config
 
 2026-04-17
 - retired contabo1 server and removed its configuration

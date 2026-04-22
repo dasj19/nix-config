@@ -25,6 +25,7 @@ auxf
 avahi
 awscli
 Babelfish
+backintime
 bantime
 baseipv
 bashsh
@@ -182,6 +183,7 @@ hyprpolkitagent
 hyprshot
 IBPB
 icmpv
+Ideapad
 ifname
 iftop
 imagick
@@ -377,10 +379,6 @@ sabnzbd
 scanline
 scrcpy
 sdmmc
-searx
-Searx
-searxng
-Searxng
 secp
 serio
 sgptrc

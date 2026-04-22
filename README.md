@@ -109,7 +109,6 @@ Git-crypt key: `git-crypt-key`
 |             |                  |                      |       | Intel UHD Graphics (CML GT2)   |      |     |       |           |
 | t500libre   | Lenovo T500      | Intel Core 2 T9600   | 8  GB | Disabled                       | ☁️   | ❄️  | ✅    |     🇩🇰    |
 | tuxedo-xa15 | Tuxedo Book XA15 | AMD Ryzen 3000       | 64 GB | NVIDIA GeForce RTX 2070        | 💻️   | ❄️  | ✅    |     🏠    |
-| xps13-9380  | Dell XPS13 9380  | Intel i7-8565U       | 8  GB | Intel UHD Graphics 620         | 💻️   | ❄️  | ✅    |     🏠    |
 
 # Server Software
 
