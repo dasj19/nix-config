@@ -1,3 +1,8 @@
+# Configuration for virtual domains using apache2
+# @todo: move virtualhosts in a caddy environment
+# @todo: remove dslg from virtual hosts
+# @todo: update the archive project, can be moved to ideapad100 (becaues it already deals with python)
+# @todo: make an overall map of the services hosted at the gnu domain.
 {
   config,
   pkgs,
@@ -152,7 +157,7 @@ in
           </LocationMatch>
         '';
       };
-      # Overall map of the services hosted at the gnu domain.
+      # @todo: make an overall map of the services hosted at the gnu domain.
       "${gnu-domain}" = {
         # forceSSL uses 302 Found redirects, using own 301 redirects in 'extraConfig'.
         #addSSL = true;
