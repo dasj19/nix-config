@@ -289,6 +289,6 @@ in
     "cudnn"
   ];
 
-  # Initial version. Consult manual before changing.
-  system.stateVersion = "22.05";
+  # Consult manual before changing.
+  system.stateVersion = "26.05";
 }
