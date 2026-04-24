@@ -13,6 +13,7 @@
       terminal = "${pkgs.alacritty}/bin/alacritty";
       browser = "${pkgs.firefox-devedition}/bin/firefox-devedition";
       mute-mic-action = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle";
+      # Custom feedback actions. Icons list available here: https://specifications.freedesktop.org/icon-naming/latest/
       remove-action = "swayosd-client --custom-icon edit-delete --custom-message 'Removed'";
       home-action = "swayosd-client --custom-icon go-home --custom-message 'Home'";
       end-action = "swayosd-client --custom-icon go-last --custom-message 'End'";
@@ -67,7 +68,8 @@
       bind = CTRL_L,              SPACE,                  exec,               ulauncher                                   # Main App Launcher.
 
       # Desktop shortcuts.
-      bind = CTRL_L SHIFT_L,      ESCAPE,                 exec,               GDK_BACKEND=x11 missioncenter               # Launch resource manager in xwayland mode
+      bind = CTRL_L SHIFT_L,      ESCAPE,                 exec,               GDK_BACKEND=x11 missioncenter               # Launch resource manager in xwayland mode.
+      bind = CTRL_L SHIFT_L,      MASCULINE,              exec,               resources                                   # Launch another desktop resource manager.
       bind = CTRL_L SHIFT_L,      PLUS,                   exec,               pypr zoom +0.25                             # Zoom in on the desktop.
       bind = CTRL_L SHIFT_L,      MINUS,                  exec,               pypr zoom -0.25                             # Zoom out on the desktop.
 
