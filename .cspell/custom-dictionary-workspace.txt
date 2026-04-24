@@ -491,6 +491,7 @@ xonotic
 xorg
 xorgserver
 xorriso
+Xournal
 Xreader
 xsane
 xvfb

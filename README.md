@@ -142,6 +142,7 @@ Git-crypt key: `git-crypt-key`
 |   ✅   | Code Editor (IDE)            | VS Codium 🐒                       |                       | Atom 🐒                   |
 |   🚧   | Text editor                  | Textadept 🌙                       |                       | Gnome Text Editor 💣      |
 |   🚧   | PDF Viewer                   | Xreader 💣                         |                       | Evince 💣                 |
+|   ✅   | PDF Editor                   | Xournal++ 💣                       |                       |                           |
 |   ✅   | Web Browser (Primary)        | Firefox Developer Edition 💣🐒     |                       |                           |
 |   ✅   | Web Browser (Secondary)      | Chromium 💣                        |                       |                           |
 |   🚧   | Office Suite                 | Only Office 💣                     |                       | LibreOffice 💣            |
