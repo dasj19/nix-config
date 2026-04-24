@@ -27,9 +27,6 @@
     ./../../modules/non-free.nix
   ];
 
-  # Define custom options.
-  my.modules.ai.cudaSupport = false;
-
   systemd.tmpfiles.rules = [
     # Silence erros:
     # jun 29 22:19:21 t14 polkitd[106479]: Loading rules from directory /run/polkit-1/rules.d

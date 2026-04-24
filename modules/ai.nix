@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -10,64 +9,22 @@
     ./non-free.nix
   ];
 
-  # Custom options.
-  options.my.modules.ai = {
-    cudaSupport = lib.mkEnableOption "Enable or disable cuda support for the ai module";
-  };
-
   config = {
-    environment.systemPackages =
-      with pkgs;
-      [
-        # Packages for both cuda and non-cuda systems.
-        shell-gpt # ChatGPT/Ollama client.
-        tgpt # ChatGPT client with no need for API keys.
-        video2x # video upscaler with the help of cuda.
-      ]
-      ++ (
-        if config.my.modules.ai.cudaSupport then
-          [
-            # Packages for cuda-only systems.
-            ollama-cuda # Ollama server with CUDA support.
-          ]
-        else
-          [
-            # Packages for cuda-less systems.
-            ollama # Ollama server without CUDA support.
-          ]
-      );
+    environment.systemPackages = with pkgs; [
+      # Packages for both cuda and non-cuda systems.
+      shell-gpt # ChatGPT/Ollama client.
+      tgpt # ChatGPT client with no need for API keys.
+      video2x # video upscaler with the help of cuda.
+    ];
 
-    allowedUnfree =
-      if config.my.modules.ai.cudaSupport then
-        [
-          # Allowed non-free cuda dependencies of the AI module.
-          "cuda_cudart"
-          "cuda_cccl"
-          "cuda_nvcc"
-          "libcublas"
-        ]
-      else
-        [
-          # Allowed non-free cuda-less dependencies of the AI module.
-          # Ollama dependencies.
-        ];
+    services.ollama.enable = true;
+    services.ollama.user = "ollama";
 
-    # Enable local Ollama server as a systemd service.
-    systemd.services.ollama-local = {
-      enable = true;
-      after = [ "network.target" ];
-      wantedBy = [ "default.target" ];
-      description = "Ollama local server";
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${
-          if config.my.modules.ai.cudaSupport then pkgs.ollama-cuda else pkgs.ollama
-        }/bin/ollama serve";
-        Environment = "HOME=/home/daniel";
-        Restart = "always";
-      };
-    };
-    # Enable ChatGPT-like user interface.
+    # llama-cpp supports models in the gguf format.
+    services.llama-cpp.enable = true;
+    services.llama-cpp.modelsDir = "/var/lib/llama-cpp/models/";
+
+    # Enable ChatGPT-like user interface for ollama.
     # services.open-webui.enable = true;
     # services.open-webui.port = 4141;
   };

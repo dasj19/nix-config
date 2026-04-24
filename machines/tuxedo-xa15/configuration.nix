@@ -64,10 +64,6 @@ in
   programs.hyprlock.enable = lib.mkForce false;
   services.greetd.enable = lib.mkForce false;
 
-  # my.modules.ai.cudaSupport = true;
-  # # This is required for cuda packages to build on the system.
-  # nixpkgs.config.cudaSupport = true;
-
   # Disable unused xserver packages.
   services.xserver.excludePackages = with pkgs; [
     xterm
