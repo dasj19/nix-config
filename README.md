@@ -161,3 +161,4 @@ Git-crypt key: `git-crypt-key`
 |   ✅   | Database Management Tool     | dbeaver 🫘                         |                       |                           |
 |   ✅   | Diff Manager                 | meld 🐍                            |                       |                           |
 |   🚧   | CLI AI Agent                 | copilot-cli 🐒                     | claude-code 🐚        |                           |
+|   ✅   | Backup manager               | backintime 🐍                      |                       |                           |
