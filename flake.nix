@@ -11,9 +11,9 @@
   # Nix module system for flakes.
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
 
-  # Archived repo that provides background pictures for the nix project.
-  inputs.nixos-artwork.url = "github:NixOS/nixos-artwork";
-  inputs.nixos-artwork.flake = false;
+  # NixOS artwork, used for wallpapers..
+  inputs.nixos-artwork.url = "github:gytis-ivaskevicius/high-quality-nix-content";
+  inputs.nixos-artwork.inputs.nixpkgs.follows = "nixpkgs";
 
   # Security tool to encrypt-decrypt secrets.
   inputs.sops-nix.url = "github:Mic92/sops-nix";

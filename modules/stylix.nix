@@ -10,7 +10,7 @@
   stylix.targets.qt.platform = lib.mkForce "qtct";
   # Theme settings.
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/darkviolet.yaml";
-  stylix.image = "${nixos-artwork}/wallpapers/nixos-wallpaper-catppuccin-macchiato.png";
+  stylix.image = "${nixos-artwork}/wallpapers/nix-3d-showcase.png";
   stylix.polarity = "dark";
   stylix.opacity.applications = 1.0;
   stylix.opacity.desktop = 1.0;

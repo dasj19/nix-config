@@ -291,18 +291,22 @@
       }
     },
     "nixos-artwork": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1751141820,
-        "narHash": "sha256-//4BiRF1W5W2rEbw6MupiyDOjvcveqGtYjJ1mZfck9U=",
-        "owner": "NixOS",
-        "repo": "nixos-artwork",
-        "rev": "9d2cdedd73d64a068214482902adea3d02783ba8",
+        "lastModified": 1750852262,
+        "narHash": "sha256-JMEDt/5QeKrpvEZNG4MLP0P2j+SWsML0wooLAwilS1c=",
+        "owner": "gytis-ivaskevicius",
+        "repo": "high-quality-nix-content",
+        "rev": "c69ed5ca91de42e51cf9152d43bf1dbd23d14b25",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "repo": "nixos-artwork",
+        "owner": "gytis-ivaskevicius",
+        "repo": "high-quality-nix-content",
         "type": "github"
       }
     },
