@@ -2,7 +2,7 @@
   description = "The dasj-lab flake";
 
   # Tracking 'nixpkgs-unstable' branch which is usually a couple days behind master.
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/b12141ef619e0a9c1c84dc8c684040326f27cdcc";
   #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/linux/nixpkgs";
 
   # Assures compatibility with older version of nix before the version 2.4.
@@ -84,15 +84,12 @@
             system = "x86_64-linux";
             # Common special arguments for all systems.
             specialArgs = {
-              inherit awesome-linux-templates;
               inherit gitSecrets;
-              inherit nixos-artwork;
               inherit sopsSecrets;
             };
             # Common modules for all systems.
             modules = [
               sops-nix.nixosModules.sops
-              stylix.nixosModules.stylix
               home-manager.nixosModules.home-manager
             ];
           };
@@ -111,7 +108,13 @@
       mkLaptopSystem =
         cfg:
         mkDefaultSystem {
+          specialArgs = {
+            inherit nixos-artwork;
+            inherit awesome-linux-templates;
+          };
           modules = [
+            stylix.nixosModules.stylix
+
             {
               home-manager.useUserPackages = true;
               home-manager.users.daniel = import ./home/profiles/laptop.nix;

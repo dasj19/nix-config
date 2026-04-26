@@ -27,4 +27,7 @@
   stylix.fonts.sansSerif.name = "UbuntuSans Nerd Font";
   stylix.fonts.monospace.package = pkgs.nerd-fonts.hack;
   stylix.fonts.monospace.name = "Hack Mono Nerd Font";
+
+  # Plymouth.
+  stylix.targets.plymouth.enable = false;
 }
