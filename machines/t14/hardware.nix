@@ -36,14 +36,6 @@
   ];
   boot.initrd.luks.devices."luks-a2c62a27-7059-4ac5-ac4d-1408d3f86970" = {
     device = "/dev/disk/by-uuid/a2c62a27-7059-4ac5-ac4d-1408d3f86970";
-    # preOpenCommands = ''
-    #   echo "###############################################################"
-    #   echo -e "\033[31m If found, please contact Daniel:\033[0m"
-    #   echo -e "\033[31m Email: ${gitSecrets.danielPersonalEmail}\033[0m"
-    #   echo -e "\033[31m Phone: ${gitSecrets.danielPhoneNumber}\033[0m"
-    #   echo -e "\033[31m Thank you!\033[0m"
-    #   echo "###############################################################"
-    # '';
   };
 
   systemd.services.luks-a2c62a27-pre-open = {
@@ -71,6 +63,27 @@
   # boot.initrd.unl0kr.enable = true;
   # Boot graphics instead of text.
   boot.plymouth.enable = true;
+  boot.plymouth.theme = "matrix";
+  boot.plymouth.themePackages = with pkgs; [
+    plymouth-matrix-theme
+  ];
+  # @todo, write a plymouth theme, based on a existing one. I thought it would be easy to add a custom message the following way, but I was wrong.
+  # https://linuxvox.com/blog/plymouth-linux/
+  # boot.plymouth.extraConfig =
+  #   let
+  #     overlayScript = pkgs.writeText "plymouth-overlay-script" ''
+  #       #!${pkgs.plymouth}/bin/plymouth
+  #       window = Window()
+  #       msg = "Booting..."
+  #       window.show_text(msg, 0.5, 0.85, 28, 1, 1, 1)
+  #     '';
+  #   in
+  #   ''
+  #     [PLYMOUTH Theme]
+  #     Name=overlay
+  #     ModuleName=script
+  #     ScriptFile=${overlayScript}
+  #   '';
 
   boot.kernelModules = [
     "kvm-intel"
@@ -146,8 +159,6 @@
 
   # System-wide drivers and utilities.
   environment.systemPackages = with pkgs; [
-    xsane
-    gscan2pdf
     # Drivers.
     linux-firmware # needed for the intel graphic card.
     mesa # open-source graphics drivers.
