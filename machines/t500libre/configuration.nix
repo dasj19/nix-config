@@ -17,7 +17,7 @@ in
     # Hardware config.
     ./hardware.nix
     # Webserver configuration.
-    ./httpd.nix
+    ./caddy.nix
     # Profile.
     ./../../profiles/server.nix
     # Modules.
