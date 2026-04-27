@@ -42,8 +42,10 @@
       asciinema
       bchunk
       claude-code
+      cron
       cuetools
       dconf
+      fcron
       ffmpeg-full
       flac
       gh
@@ -71,15 +73,26 @@
       noto-fonts-cjk-serif-static # font to support chinese-japanese-korean.
 
       # GUIs.
+      backintime-qt
       czkawka
       drawio
       element-desktop
       filezilla
       flameshot
       gimp
+      lbry
       libreoffice-still
       onlyoffice-desktopeditors
       pdfarranger
+      (pidgin.override {
+        plugins = [
+          pidginPackages.pidgin-osd
+          (pkgs.callPackage ../pkgs/purple-discord.nix { })
+          #(pkgs.callPackage ../pkgs/purple-presage.nix { })
+          #pidginPackages.purple-plugin-pack
+        ];
+      })
+      qalculate-gtk
       qbittorrent
       signal-desktop
       usbimager
