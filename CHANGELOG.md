@@ -4,6 +4,10 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-04-26
+- flake: changed wallpaper source from the old official NixOS repo to a community maintained one
+- flake: provide stylix only for laptops
+
 2026-04-22
 - ideapad100: init machine config
 - email-server: rename sieve extension option
