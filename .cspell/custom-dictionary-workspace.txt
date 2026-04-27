@@ -63,6 +63,7 @@ contile
 cowsay
 cpufrequtils
 crossmnt
+cryptsetup
 cspnonce
 ctype
 cuda
@@ -98,6 +99,7 @@ dmask
 dnssec
 dnsutils
 dont
+dslg
 dswexec
 dswload
 duckduckgo
@@ -190,6 +192,7 @@ imagick
 IMAP
 IMAPS
 imdb
+immich
 improvesearch
 indir
 inetutils
@@ -201,6 +204,7 @@ iwlwifi
 jetpack
 jnoortheen
 joypad
+kanboard
 kando
 kcachegrind
 kdenlive
@@ -362,6 +366,7 @@ pyprland
 qalculate
 qbittorrent
 qjoypad
+qrencode
 qtct
 qwant
 radarr
@@ -380,6 +385,7 @@ sabnzbd
 scanline
 scrcpy
 sdmmc
+searx
 secp
 serio
 sgptrc

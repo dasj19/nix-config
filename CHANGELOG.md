@@ -5,7 +5,8 @@ TODO:
 - setup smartd on cm4-nas
 
 2026-04-27
-- moved apache2 virtualhosts to caddy
+- t500libre: moved apache2 virtual hosts to caddy
+- hyprland: set default output dir for hyprshot
 
 2026-04-26
 - flake: changed wallpaper source from the old official NixOS repo to a community maintained one
