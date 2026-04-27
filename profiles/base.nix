@@ -61,7 +61,6 @@
       iotop # Real-time disk I/O viewer.
       jq # CLI Json processor.
       killall # Improved kill command.
-      litecli # SQLite CLI client.
       lf # Terminal file manager.
       lsof # List open files.
       lshw # List hardware data.
