@@ -67,13 +67,13 @@
     # CLI.
     apkeep
     fwupd
-    litecli
     lrcget
 
     # GUI.
     gcstar
     discord
     mailspring
+    xsane
 
     # P2P.
     nicotine-plus
