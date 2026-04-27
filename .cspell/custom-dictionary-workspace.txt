@@ -359,6 +359,7 @@ pulseaudio
 pwvucontrol
 pypr
 pyprland
+qalculate
 qbittorrent
 qjoypad
 qtct
@@ -492,6 +493,7 @@ xorg
 xorgserver
 xorriso
 Xournal
+xournalpp
 Xreader
 xsane
 xvfb
