@@ -1,4 +1,10 @@
-{ config, gitSecrets, pkgs, sopsSecrets, ...}:
+{
+  config,
+  gitSecrets,
+  pkgs,
+  sopsSecrets,
+  ...
+}:
 
 let
 
@@ -20,9 +26,9 @@ in
     sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
     # SOPS secrets.
-    sops.secrets.daniel_password = {};
-    sops.secrets.root_password = {};
-    
+    sops.secrets.daniel_password = { };
+    sops.secrets.root_password = { };
+
     # Allow updating of password hashes.
     # Consider adopt userborn after it is merged: https://github.com/NixOS/nixpkgs/pull/332719
     users.mutableUsers = true;
@@ -34,13 +40,14 @@ in
       hashedPasswordFile = config.sops.secrets.daniel_password.path;
       extraGroups = [
         "audio"
-        "video"
-        "networkmanager"
-        "wheel"
-        "docker"
         "dialout"
-        "scanner"
+        "docker"
         "lp"
+        "networkmanager"
+        "scanner"
+        "tty" # Needed to allow serial console connections (Charachorder) in Chromium.
+        "video"
+        "wheel"
       ];
     };
     users.users.root = {
@@ -55,5 +62,5 @@ in
       Defaults timestamp_timeout=60
     '';
   };
-  
+
 }
