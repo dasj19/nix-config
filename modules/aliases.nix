@@ -10,7 +10,7 @@
 { pkgs, ... }:
 {
   config = {
-    # Shell aliases.
+    # Shell abbreviations. They do appear in shell history in their expanded form.
     # Some are inspired from:
     # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
     # https://github.com/vikaskyadav/awesome-bash-alias
@@ -56,7 +56,6 @@
       ".5" = "cd ../../../../../";
       h = "cd ~"; # home
       b = "cd -"; # back
-      c = ''function c; clear; echo "Console cleared! Next time use Ctrl+L instead."; end; c''; # clear terminal
       r = "sudo -i"; # root shell
       x = "exit"; # exit shell
       # Utils. background jobs, history shortcuts, simplified list of mounted partitions.
@@ -92,15 +91,23 @@
       t = "speedtest-cli";
       f = "sudo iptables --list-rules";
       firewall = "sudo iptables --list-rules";
-      # Create a dir and enter it. Change dir and list files.
-      # @see https://stackoverflow.com/a/55620350
-      indir = "function indir; mkdir $argv; cd $argv; end; indir";
-      cl = "function cl; cd $argv; ls; end; cl";
       # Nix specific. OS update. Flake update. Clean nix store.
       osup = "sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs";
       nhup = "nh os switch .#nixosConfigurations.$(hostname)"; # calls sudo when needed.
       flup = "nix flake update";
       nhcl = "nh clean all --keep-since 5d --keep 3";
+    };
+
+    # Use aliases only for shell functions.
+    # If aliasing a command is needed, use shell abbreviations.
+    programs.fish.shellAliases = {
+      # Clear terminal and leave a message.
+      c = ''function c; clear; echo "Console cleared! Next time use Ctrl+L instead."; end; c'';
+      # Create a dir and enter it. Change dir and list files.
+      # @see https://stackoverflow.com/a/55620350
+      indir = "function indir; mkdir $argv; cd $argv; end; indir";
+      # Change into a directory and list its contents.
+      cl = "function cl; cd $argv; ls; end; cl";
     };
 
     environment.systemPackages = with pkgs; [
