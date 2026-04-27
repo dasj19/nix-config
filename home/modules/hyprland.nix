@@ -12,6 +12,7 @@
       modifier = "SUPER";
       terminal = "${pkgs.alacritty}/bin/alacritty";
       browser = "${pkgs.firefox-devedition}/bin/firefox-devedition";
+      hyprshot-print = "hyprshot -o ~/media/photos/";
       mute-mic-action = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle";
       # Custom feedback actions. Icons list available here: https://specifications.freedesktop.org/icon-naming/latest/
       remove-action = "swayosd-client --custom-icon edit-delete --custom-message 'Removed'";
@@ -99,9 +100,9 @@
       bindn = CTRL_L SHIFT     ,  Z,                      exec,               ${redo-action}                              # Show visuals when redoing (duplicate).
 
       # Screenshot.
-      bind =                   ,  PRINT,                  exec,               hyprshot -m output -m active                # Screenshot the whole screen.
-      bind = SHIFT_L,             PRINT,                  exec,               hyprshot -m region                          # Activate region screen printing.
-      bind = ALT_L,               PRINT,                  exec,               hyprshot -m window -m active                # Screenshot the active window.
+      bind =                   ,  PRINT,                  exec,               ${hyprshot-print} -m output -m active       # Screenshot the whole screen.
+      bind = SHIFT_L,             PRINT,                  exec,               ${hyprshot-print} -m region                 # Activate region screen printing.
+      bind = ALT_L,               PRINT,                  exec,               ${hyprshot-print} -m window -m active       # Screenshot the active window.
 
       # Brightness.
       bind =                   ,  XF86MonBrightnessDown,  exec,               swayosd-client --brightness lower           # Decrease screen brightness with visuals.
