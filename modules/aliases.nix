@@ -7,7 +7,26 @@
 # - use simple words where possible.
 # - do not assign multiple one letter aliases for the same command.
 # - group related aliases and comment them accordingly.
-{ pkgs, ... }:
+{
+  gitSecrets,
+  pkgs,
+
+  ...
+}:
+let
+  t500libre-lan = gitSecrets.t500libreLanIp;
+  ideapad100-lan = gitSecrets.ideapad100LanIp;
+  cm4-nas1-lan = gitSecrets.cm4-nas1LanIp;
+  cm4-nas2-lan = gitSecrets.cm4-nas2LanIp;
+  t14-lan = gitSecrets.t14LanIp;
+  tuxedo-xa15-lan = gitSecrets.tuxedo-xa15LanIp;
+  rpi4-tv-lan = gitSecrets.rpi4-tvLanIp;
+  contabo2-pub = gitSecrets.contabo2PublicIp;
+  hostup1-pub = gitSecrets.hostup1PublicIp;
+  linodenix1-pub = gitSecrets.linodenix1PublicIp;
+  linodenix2-pub = gitSecrets.linodenix2PublicIp;
+  t500libre-pub = gitSecrets.t500librePublicIp;
+in
 {
   config = {
     # Shell abbreviations. They do appear in shell history in their expanded form.
@@ -116,5 +135,25 @@
       nh # Nix helper - manage nixos and home-manager configurations.
       speedtest-cli # Test internet bandwidth speed from the command line.
     ];
+
+    # Pair of IP - HostNames to be saved in /etc/hosts
+    networking.hosts = {
+      # Tier 1 LAN-hosts (servers).
+      "${t500libre-lan}" = [ "t500libre.lan" ];
+      "${ideapad100-lan}" = [ "ideapad100.lan" ];
+      "${cm4-nas1-lan}" = [ "cm4-nas1.lan" ];
+      "${cm4-nas2-lan}" = [ "cm4-nas2.lan" ];
+      # Tier 2 LAN hosts (clients).
+      "${t14-lan}" = [ "t14.lan" ];
+      "${tuxedo-xa15-lan}" = [ "tuxedo-xa15.lan" ];
+      "${rpi4-tv-lan}" = [ "rpi4-tv.lan" ];
+      # Public hosts.
+      "${contabo2-pub}" = [ "contabo2" ];
+      "${hostup1-pub}" = [ "hostup1" ];
+      "${linodenix1-pub}" = [ "linodenix1" ];
+      "${linodenix2-pub}" = [ "linodenix2" ];
+      "${t500libre-pub}" = [ "t500libre" ];
+    };
+
   };
 }
