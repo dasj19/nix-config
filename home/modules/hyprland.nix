@@ -63,9 +63,10 @@
 
       # Launching Apps
       bind = ${modifier},         RETURN,                 exec,               ${terminal}                                 # Open terminal with Modifier + Return.
-      bind = CTRL_L ALT_L,        T,                      exec,               ${terminal}                                 # Open terminal with Ctrl + Alt + T.
       bind = ${modifier},         B,                      exec,               ${browser}                                  # Open browser with Modifier + B.
       bind = ${modifier},         L,                      exec,               hyprlock                                    # Lock screen with Modifier + L.
+      bind = CTRL_L ALT_L,        T,                      exec,               ${terminal}                                 # Open terminal with Ctrl + Alt + T.
+      bind = CTRL_L ALT_L,        F,                      exec,               nemo                                        # Open file manager with Ctrl + Alt + F.
       bind = CTRL_L,              SPACE,                  exec,               ulauncher                                   # Main App Launcher.
 
       # Desktop shortcuts.
