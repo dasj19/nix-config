@@ -12,6 +12,7 @@ let
   name-domain = gitSecrets.nameDomain;
   webmaster-email = gitSecrets.gnuDomainWebmaster;
   archive-ip = gitSecrets.gnuArchiveIp;
+  ideapad-ip = gitSecrets.ideapad100PrivateIp;
 in
 {
   sops.secrets.root_password = { };
@@ -135,6 +136,22 @@ in
 
     domain = "${gnu-domain}";
     extraDomainNames = [ "www.${gnu-domain}" ];
+  };
+
+  # Media domain.
+  services.caddy.virtualHosts."http://media.${name-domain}".extraConfig = ''
+    redir https://media.${name-domain}{uri} permanent
+  '';
+  services.caddy.virtualHosts."https://media.${name-domain}:443".extraConfig = ''
+    reverse_proxy ${ideapad-ip}:2283
+  '';
+  # ACME settings for the media domain.
+  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
+  security.acme.certs."media-domain" = {
+    inherit (config.services.caddy) group;
+
+    domain = "media.${name-domain}";
+    extraDomainNames = [ "www.media.${name-domain}" ];
   };
 
 
