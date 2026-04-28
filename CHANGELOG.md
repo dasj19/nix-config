@@ -4,6 +4,10 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-04-28
+- aliases: add aliases for network machines
+- waybar: add button to toggle screen mirroring once a hdmi is connected
+
 2026-04-27
 - t500libre: moved apache2 virtual hosts to caddy
 - hyprland: set default output dir for hyprshot

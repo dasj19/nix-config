@@ -24,6 +24,7 @@ _: {
         "cpu"
         "memory"
         "custom/monitor-settings"
+        "custom/projector-settings"
         "idle_inhibitor"
         "backlight"
         "bluetooth"
@@ -121,6 +122,15 @@ _: {
         on-click = ''
           hyprctl dispatch exec "wlrlui"
         '';
+      };
+
+      "custom/projector-settings" = {
+        interval = "once";
+        format = "📽️";
+        tooltip-format = "Projector settings";
+        on-click = "hyprctl keyword monitor ,prefered,auto,1,mirror,eDP-1";
+        on-click-right = "hyprctl keyword monitor ,prefered,auto,1";
+        tooltip = "Screen mirroring";
       };
 
       network = {
