@@ -1,7 +1,8 @@
 {
   nix.buildMachines = [
     # Requires manual setup of ssh keys.
-    # The root user on host needs to be able to connect to the builder, preferably by ssh keys.
+    # The root user on host needs to be able
+    # to connect to the builder, preferably by ssh keys.
     {
       hostName = "hostup1";
       systems = [
@@ -9,7 +10,7 @@
         "aarch64-linux"
       ];
       protocol = "ssh";
-      maxJobs = 2;
+      maxJobs = 4;
       supportedFeatures = [
         "nixos-test"
         "benchmark"
@@ -20,7 +21,7 @@
     }
   ];
   nix.distributedBuilds = true;
-  # Useful when the builder has a faster internet connection than this host.
+  # Useful when the builder has a faster internet connection than the host.
   nix.extraOptions = ''
     builders-use-substitutes = true
   '';
