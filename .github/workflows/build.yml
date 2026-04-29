@@ -25,6 +25,7 @@ jobs:
           - cm4-nas
           - contabo2
           - devbox
+          - hostup1
           - ideapad100
           - linodenix1
           - linodenix2
@@ -36,9 +37,9 @@ jobs:
 
     name: Build ${{ matrix.system }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Steps are a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
+      # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v6
 
       - name: Install SSH key
@@ -51,7 +52,7 @@ jobs:
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
 
-      # Building packages for the system
+      # Building packages for the system.
       - name: Build ${{ matrix.system }} packages
         env:
           MY_KEY: ${{ secrets.SSH_KEY }}
@@ -64,3 +65,6 @@ jobs:
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel \
           --keep-going
+      # Print total storage to know when to garbage collect.
+      - name: Print total storage resources
+        run: df -hl --total | grep  -E '(Use(d|%)|total)'

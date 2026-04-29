@@ -4,6 +4,10 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-04-29
+- builder: increase parallel builds from 2 to 4
+- github ci: add hostup1 to host build list and print storage resources after build
+
 2026-04-28
 - aliases: add aliases for network machines
 - waybar: add button to toggle screen mirroring once a hdmi is connected
