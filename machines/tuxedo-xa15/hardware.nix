@@ -110,6 +110,17 @@
       }
     ];
 
+    # AMD.
+    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    services.thermald.enable = true;
+
+    # Enable scanning support.
+    hardware.sane.enable = true;
+    hardware.sane.extraBackends = with pkgs; [
+      hplip
+    ];
+    services.ipp-usb.enable = true;
+
     # Tuxedo drivers support.
     hardware.tuxedo-drivers.enable = true;
     # Control programs.
@@ -118,6 +129,11 @@
 
     # Enable OpenGL
     hardware.graphics.enable = true;
+
+    # Enable NVIDIA drivers for X.
+    services.xserver.videoDrivers = [
+      "nvidia"
+    ];
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).

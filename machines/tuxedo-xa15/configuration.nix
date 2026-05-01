@@ -8,7 +8,6 @@
   *  - sometimes booted into Batocera from an external SDD.
 */
 {
-  config,
   lib,
   pkgs,
   ...
@@ -68,49 +67,6 @@ in
   services.xserver.excludePackages = with pkgs; [
     xterm
   ];
-
-  # HARDWARE.
-
-  # Enable NVIDIA drivers for X.
-  services.xserver.videoDrivers = [
-    "nvidia"
-  ];
-
-  # Enable scanning support.
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = with pkgs; [
-    hplip
-  ];
-  services.ipp-usb.enable = true;
-
-  # AMD.
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  services.thermald.enable = true;
-
-  # Enable OpenGL
-  hardware.graphics.enable = true;
-  # hardware.graphics.enable32Bit = true;
-  # hardware.graphics.extraPackages = with pkgs; [
-  #   mesa
-  #   mesa.drivers
-  # ];
-
-  # Use the NVidia open source kernel module (not to be confused with the
-  # independent third-party "nouveau" open source driver).
-  # Support is limited to the Turing and later architectures. Full list of
-  # supported GPUs is at:
-  # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-  # Only available from driver 515.43.04+
-  # Currently alpha-quality/buggy, so false is currently the recommended setting.
-  hardware.nvidia.open = true;
-
-  # Enable the Nvidia settings menu,
-  # accessible via `nvidia-settings`.
-  hardware.nvidia.nvidiaSettings = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
-  # Needed for properly suspend.
-  hardware.nvidia.powerManagement.enable = true;
-  hardware.nvidia.modesetting.enable = true;
 
   # NETWORKING.
   networking.hostName = "tuxedo-xa15";
