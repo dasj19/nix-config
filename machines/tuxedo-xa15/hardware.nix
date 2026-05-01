@@ -110,10 +110,6 @@
       }
     ];
 
-    # AMD.
-    hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    services.thermald.enable = true;
-
     # Enable scanning support.
     hardware.sane.enable = true;
     hardware.sane.extraBackends = with pkgs; [
@@ -155,5 +151,9 @@
     # System Management Unit kernel driver.
     hardware.cpu.amd.ryzen-smu.enable = true;
     hardware.cpu.amd.updateMicrocode = lib.mkForce true;
+
+    # daemon that monitors and controls CPU/GPU/chassis
+    # temperature to prevent overheating and thermal throttling
+    services.thermald.enable = true;
   };
 }
