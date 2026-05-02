@@ -86,6 +86,8 @@
   #   '';
 
   boot.kernelModules = [
+    # Bluetooth module.
+    "btintel"
     "kvm-intel"
   ];
   boot.kernelParams = [
