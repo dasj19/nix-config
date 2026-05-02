@@ -20,9 +20,9 @@
   ];
 
   config = {
-    # Preferred cross-system Linux kernel - a LTS kernel. 6.12 is good until December 2026.
+    # Preferred cross-system Linux kernel - a LTS kernel. 6.18 is good until December 2028.
     # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
+    boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
 
     # Enable fwupd - Firmware updater.
     services.fwupd.enable = lib.mkDefault true;

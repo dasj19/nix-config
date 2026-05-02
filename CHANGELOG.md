@@ -4,6 +4,9 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-05-02
+- base: change kernel version from 6.12 to 6.18
+
 2026-04-29
 - builder: increase parallel builds from 2 to 4
 - github ci: add hostup1 to host build list and print storage resources after build
