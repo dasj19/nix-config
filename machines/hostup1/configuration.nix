@@ -40,6 +40,13 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Enable symlinks to paths like /bin abd /usr/bin.
+  services.envfs.enable = true;
+  services.envfs.extraFallbackPathCommands = ''
+    # hostup calls for /bin/cat to read the memory usage via the qemu guest additions.
+    ln -s ${pkgs.coreutils}/bin/cat $out/cat
+  '';
+
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     22 # OpenSSH.

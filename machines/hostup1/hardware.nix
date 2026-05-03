@@ -38,7 +38,7 @@
   boot.loader.grub.device = "/dev/sda";
 
   # Guest additions for Qemu.
-  services.spice-vdagentd.enable = true;
+  services.qemuGuest.enable = true;
 
   # Allow building ARM 64-bit via QEMU.
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
