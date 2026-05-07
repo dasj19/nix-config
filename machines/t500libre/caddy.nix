@@ -125,7 +125,17 @@ in
   services.caddy.virtualHosts."http://${gnu-domain}".extraConfig = ''
     redir https://${gnu-domain}{uri} permanent
   '';
+
+  services.caddy.virtualHosts."https://www.${gnu-domain}:443".extraConfig = ''
+    # https://hstspreload.org/
+    header / Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    redir https://${gnu-domain}{uri} permanent
+    file_server
+  '';
+
   services.caddy.virtualHosts."https://${gnu-domain}:443".extraConfig = ''
+    # https://hstspreload.org/
+    header / Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
     root * /var/www/${gnu-domain}
     file_server
   '';
