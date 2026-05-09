@@ -78,9 +78,6 @@ in
     powertop
     dnsutils
     openssl
-
-    # Server applications.
-    php82
   ];
 
   # MySQL server.
