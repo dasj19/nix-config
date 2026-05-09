@@ -76,47 +76,6 @@ in
   '';
 
   # Caddy virtual hosts.
-  # Task planning tool.
-  services.caddy.virtualHosts."http://do.${gnu-domain}".extraConfig = ''
-    redir https://do.${gnu-domain}{uri} permanent
-  '';
-  services.caddy.virtualHosts."https://do.${gnu-domain}:443".extraConfig = ''
-    root * /var/www/do.${gnu-domain}/public
-
-    # Serve static files if they exist, otherwise pass to PHP
-    file_server
-    php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
-    log {
-      output file /var/log/caddy/https-do-gnu-domain.log
-    }
-  '';
-  # ACME settings for the planning tool domain.
-  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
-  security.acme.certs."do-gnu-domain" = {
-    inherit (config.services.caddy) group;
-
-    domain = "do.${gnu-domain}";
-    extraDomainNames = [ "www.do.${gnu-domain}" ];
-  };
-
-  # Archivebox.
-  #  services.caddy.virtualHosts."archive.${gnu-domain}".extraConfig = ''
-  #    redir https://archive.${gnu-domain}{uri} permanent
-  #  '';
-  #  services.caddy.virtualHosts."https://archive.${gnu-domain}:443".extraConfig = ''
-  #    root * /var/www/archive.${gnu-domain}
-  #    file_server
-  #    php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
-  #  '';
-  #
-  #  # ACME settings for the archive domain.
-  #  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
-  #  security.acme.certs."archive.${gnu-domain}" = {
-  #    inherit (config.services.caddy) group;
-  #
-  #    domain = "archive.${gnu-domain}";
-  #    extraDomainNames = [ "www.archive.${gnu-domain}" ];
-  #  };
 
   # GNU Domain.
   services.caddy.virtualHosts."http://${gnu-domain}".extraConfig = ''
@@ -145,6 +104,30 @@ in
     extraDomainNames = [ "www.${gnu-domain}" ];
   };
 
+
+  # Task planning tool.
+  services.caddy.virtualHosts."http://do.${gnu-domain}".extraConfig = ''
+    redir https://do.${gnu-domain}{uri} permanent
+  '';
+  services.caddy.virtualHosts."https://do.${gnu-domain}:443".extraConfig = ''
+    root * /var/www/do.${gnu-domain}/public
+
+    # Serve static files if they exist, otherwise pass to PHP
+    file_server
+    php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
+    log {
+      output file /var/log/caddy/https-do-gnu-domain.log
+    }
+  '';
+  # ACME settings for the planning tool domain.
+  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
+  security.acme.certs."do-gnu-domain" = {
+    inherit (config.services.caddy) group;
+
+    domain = "do.${gnu-domain}";
+    extraDomainNames = [ "www.do.${gnu-domain}" ];
+  };
+
   # Media domain.
   services.caddy.virtualHosts."http://media.${name-domain}".extraConfig = ''
     redir https://media.${name-domain}{uri} permanent
@@ -160,6 +143,25 @@ in
     domain = "media.${name-domain}";
     extraDomainNames = [ "www.media.${name-domain}" ];
   };
+
+  # Archivebox.
+  #  services.caddy.virtualHosts."archive.${gnu-domain}".extraConfig = ''
+  #    redir https://archive.${gnu-domain}{uri} permanent
+  #  '';
+  #  services.caddy.virtualHosts."https://archive.${gnu-domain}:443".extraConfig = ''
+  #    root * /var/www/archive.${gnu-domain}
+  #    file_server
+  #    php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
+  #  '';
+  #
+  #  # ACME settings for the archive domain.
+  #  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
+  #  security.acme.certs."archive.${gnu-domain}" = {
+  #    inherit (config.services.caddy) group;
+  #
+  #    domain = "archive.${gnu-domain}";
+  #    extraDomainNames = [ "www.archive.${gnu-domain}" ];
+  #  };
 
   # Apache webserver with virtual hosts. @todo: migrate to caddy.
   # @todo: harden caddy like apache was with the conf below, or discard settings that no longer make sense.
