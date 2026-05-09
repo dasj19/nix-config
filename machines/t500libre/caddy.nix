@@ -1,4 +1,4 @@
-# @todo: update the archive project, can be moved to ideapad100 (becaues it already deals with python)
+# @todo: update the archive project, can be moved to ideapad100 (because it already deals with python)
 # @todo: make an overall map of the services hosted at the gnu domain.
 {
   config,
@@ -52,9 +52,6 @@ in
           simplexml
         ]);
     };
-    phpOptions = ''
-      display_errors = on;
-    '';
 
     settings = {
       "listen.owner" = config.services.caddy.user;
