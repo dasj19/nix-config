@@ -65,6 +65,9 @@ in
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
 
+  # Keep the old dbus instead of dbus-broker. @TODO: migrate to the newer when it's safe to reboot.
+  services.dbus.implementation = "dbus";
+
   networking.hostName = "contabo2";
 
   # Set server time zone.
