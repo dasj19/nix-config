@@ -163,6 +163,20 @@ in
   #    extraDomainNames = [ "www.archive.${gnu-domain}" ];
   #  };
 
+
+  # Apache webserver with virtual hosts. @todo: migrate to caddy.
+  # @todo: harden caddy like apache was with the conf below, or discard settings that no longer make sense.
+  #  services.httpd = {
+  #    enable = true;
+
+  # https://raymii.org/s/tutorials/Strong_SSL_Security_On_Apache2.html
+  #    sslProtocols = "-all +TLSv1.3 +TLSv1.2";
+  # https://gist.github.com/GAS85/42a5469b32659a0aecc60fa2d4990308
+  #    sslCiphers = "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256";
+
+  # Disable access and error logs and per-host logging.
+  #    logFormat = "none";
+  #
   # Apache webserver with virtual hosts. @todo: migrate to caddy.
   # @todo: harden caddy like apache was with the conf below, or discard settings that no longer make sense.
   #  services.httpd = {
