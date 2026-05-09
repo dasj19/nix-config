@@ -82,14 +82,6 @@
       meld
       onlyoffice-desktopeditors
       pdfarranger
-      (pidgin.override {
-        plugins = [
-          pidginPackages.pidgin-osd
-          (pkgs.callPackage ../pkgs/purple-discord.nix { })
-          #(pkgs.callPackage ../pkgs/purple-presage.nix { })
-          #pidginPackages.purple-plugin-pack
-        ];
-      })
       qalculate-gtk
       qbittorrent
       signal-desktop
