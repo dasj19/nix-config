@@ -227,7 +227,6 @@ libcusparse
 libgbm
 libglvnd
 libinput
-libmodsecurity
 libnpp
 libnvjitlink
 libretro

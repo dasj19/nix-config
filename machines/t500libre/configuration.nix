@@ -80,9 +80,6 @@ in
     openssl
 
     # Server applications.
-    apacheHttpd_2_4
-    apacheHttpdPackages.mod_cspnonce
-    libmodsecurity
     php82
   ];
 
