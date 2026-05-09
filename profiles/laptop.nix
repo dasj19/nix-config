@@ -79,6 +79,7 @@
       gimp
       lbry
       libreoffice-still
+      meld
       onlyoffice-desktopeditors
       pdfarranger
       (pidgin.override {
