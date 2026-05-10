@@ -144,6 +144,22 @@ in
     extraDomainNames = [ "www.media.${name-domain}" ];
   };
 
+  # The gen domain (for genealogy).
+  services.caddy.virtualHosts."http://gen.${name-domain}".extraConfig = ''
+    redir https://gen.${name-domain}{uri} permanent
+  '';
+  services.caddy.virtualHosts."https://gen.${name-domain}".extraConfig = ''
+    reverse_proxy ${ideapad-ip}:8001
+  '';
+  # ACME settings for the media domain.
+  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with->
+  security.acme.certs."gen-domain" = {
+    inherit (config.services.caddy) group;
+
+    domain = "gen.${name-domain}";
+    extraDomainNames = [ "www.gen.${name-domain}" ];
+  };
+
   # Archivebox.
   #  services.caddy.virtualHosts."archive.${gnu-domain}".extraConfig = ''
   #    redir https://archive.${gnu-domain}{uri} permanent
