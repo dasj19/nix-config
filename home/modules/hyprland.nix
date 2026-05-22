@@ -28,7 +28,7 @@
     in
 
     ''
-      env = GDK_BACKEND,wayland,x11,*
+      env = GDK_BACKEND,wayland
       # Monitor config.
       monitor = eDP-1, highres, 0x0, 1
       monitor = , preferred, auto, auto
@@ -48,13 +48,13 @@
         #center        = on
         pin           = on
         move          = (monitor_w*0.1) (monitor_h*0.9)
-        max_size      = (monitor_w*0.4) (monitor_w*0.2)
-        border_size   = 10
-        border_color  = rgb(FF0000)
+        #max_size      = (monitor_w*0.4) (monitor_w*0.2)
+        #border_size   = 10
+        #border_color  = rgb(FF0000)
       }
 
       # Conditional styling.
-      windowrule = border_color rgb(00FF00), match:fullscreen 1,  # Change fullscreen windows' borders to green.
+      #windowrule = border_color rgb(00FF00), match:fullscreen 1,  # Change fullscreen windows' borders to green.
 
       # Input settings.
       input {
