@@ -58,7 +58,7 @@ _: {
         rotate = 0;
         format-alt = "{  %d·%m·%y}";
         # Open calendar in a floating window on click.
-        on-click = ''hyprctl dispatch exec "[float; size:800 250; move: 1000 50] orage --toggle"'';
+        on-click = ''hyprctl dispatch '''hl.dsp.exec_cmd("orage --toggle")''''';
         tooltip-format = "<span>{calendar}</span>";
         calendar = {
           mode = "month";
@@ -120,7 +120,7 @@ _: {
         format = "🖥️";
         tooltip-format = "Monitor settings";
         on-click = ''
-          hyprctl dispatch exec "wlrlui"
+          hyprctl dispatch 'hl.dsp.exec_cmd("wlrlui")'
         '';
       };
 
@@ -128,8 +128,8 @@ _: {
         interval = "once";
         format = "📽️";
         tooltip-format = "Projector settings";
-        on-click = "hyprctl keyword monitor ,prefered,auto,1,mirror,eDP-1";
-        on-click-right = "hyprctl keyword monitor ,prefered,auto,1";
+        on-click = ''hyprctl eval '''hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1, mirror = "eDP-1" })''''';
+        on-click-right = ''hyprctl eval '''hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })''''';
         tooltip = "Screen mirroring";
       };
 
