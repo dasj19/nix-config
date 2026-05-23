@@ -1,11 +1,10 @@
 { lib, pkgs, ... }:
 {
-  programs.vscode.enable = true;
-  programs.vscode.package = pkgs.vscodium;
-  programs.vscode.mutableExtensionsDir = false;
+  programs.vscodium.enable = true;
+  programs.vscodium.mutableExtensionsDir = false;
 
   # Extensions enabled in VS Codium.
-  programs.vscode.profiles.default.extensions =
+  programs.vscodium.profiles.default.extensions =
     with pkgs.vscode-extensions;
     [
       # Github Copilot.
