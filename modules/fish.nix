@@ -27,7 +27,7 @@
     environment.systemPackages = with pkgs; [
       # Binary and dependencies.
       fish # The fish shell.
-      fastfetchMinimal # Improved version of neofetch. Minimal build is even faster.
+      fastfetch.minimal # Improved version of neofetch. Minimal build is even faster.
       grc # Command colorizer.
       fzf # Fuzzy finder.
 
