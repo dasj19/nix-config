@@ -7,147 +7,173 @@
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
   wayland.windowManager.hyprland.xwayland.enable = true; # legacy support for X11 apps.
   wayland.windowManager.hyprland.systemd.enable = true; # systemd integration.
-  wayland.windowManager.hyprland.extraConfig =
-    let
-      modifier = "SUPER";
-      terminal = "${pkgs.alacritty}/bin/alacritty";
-      browser = "${pkgs.firefox-devedition}/bin/firefox-devedition";
-      hyprshot-print = "hyprshot -o ~/media/photos/";
-      mute-mic-action = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle";
-      # Custom feedback actions. Icons list available here: https://specifications.freedesktop.org/icon-naming/latest/
-      remove-action = "swayosd-client --custom-icon edit-delete --custom-message 'Removed'";
-      home-action = "swayosd-client --custom-icon go-home --custom-message 'Home'";
-      end-action = "swayosd-client --custom-icon go-last --custom-message 'End'";
-      cut-action = "swayosd-client --custom-icon edit-cut --custom-message 'Cut'";
-      copy-action = "swayosd-client --custom-icon edit-copy --custom-message 'Copied'";
-      paste-action = "swayosd-client --custom-icon edit-paste --custom-message 'Pasted'";
-      undo-action = "swayosd-client --custom-icon edit-undo --custom-message 'Undid'";
-      redo-action = "swayosd-client --custom-icon edit-redo --custom-message 'Redone'";
-      save-action = "swayosd-client --custom-icon document-save --custom-message 'Saving'";
-      refresh-action = "swayosd-client --custom-icon view-refresh --custom-message 'Refreshing'";
-    in
+  wayland.windowManager.hyprland.extraConfig =    
+  ''
+    hl.env("GDK_BACKEND", "wayland")
 
-    ''
-      env = GDK_BACKEND,wayland
-      # Monitor config.
-      monitor = eDP-1, highres, 0x0, 1
-      monitor = , preferred, auto, auto
-      # prepare the network indicator
-      exec-once = nm-applet --indicator
-      # delay the launch of the bar
-      exec-once = sleep 1 & waybar
-      # Start the plugin system.
-      exec-once = pypr
+    -- Monitor config.
+    hl.monitor({
+      output = "eDP-1",
+      mode = "highres",
+      position = "0x0",
+      scale = "1",
+    })
 
-      # Position the windows of "Show me the key" always on the screen, floating at the bottom left.
-      windowrule {
-        name          = position-showmethekey
-        match:class   = one.alynx.showmethekey
-        match:title   = Floating\sWindow.*
-        float         = on
-        #center        = on
-        pin           = on
-        move          = (monitor_w*0.1) (monitor_h*0.9)
-        #max_size      = (monitor_w*0.4) (monitor_w*0.2)
-        #border_size   = 10
-        #border_color  = rgb(FF0000)
-      }
+    hl.monitor({
+      output = "",
+      mode = "preferred",
+      position = "auto",
+      scale = "auto",
+    })
 
-      # Conditional styling.
-      #windowrule = border_color rgb(00FF00), match:fullscreen 1,  # Change fullscreen windows' borders to green.
+    -- Position the windows of "Show me the key" always on the screen, floating at the bottom left.
+    hl.window_rule({
+      name = "position-showmethekey",
+      match = {
+        class = "one.alynx.showmethekey",
+        title = "Floating\\sWindow.*",
+      },
+      float = true,
+      --center        = on
+      pin = true,
+      move = "(monitor_w*0.1) (monitor_h*0.9)",
+      --max_size      = (monitor_w*0.4) (monitor_w*0.2)
+      --border_size   = 10
+      --border_color  = rgb(FF0000)
+    })
 
-      # Input settings.
-      input {
-        kb_layout=esrodk
-      }
+    -- Launching Apps.
+    hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("alacritty"))
+    hl.bind("SUPER + B", hl.dsp.exec_cmd("firefox-devedition"))
+    hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
+    hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd("alacritty"))
+    hl.bind("CTRL + ALT + F", hl.dsp.exec_cmd("nemo"))
+    hl.bind("CTRL + SPACE", hl.dsp.exec_cmd("ulauncher"))
 
-      # Launching Apps
-      bind = ${modifier},         RETURN,                 exec,               ${terminal}                                 # Open terminal with Modifier + Return.
-      bind = ${modifier},         B,                      exec,               ${browser}                                  # Open browser with Modifier + B.
-      bind = ${modifier},         L,                      exec,               hyprlock                                    # Lock screen with Modifier + L.
-      bind = CTRL_L ALT_L,        T,                      exec,               ${terminal}                                 # Open terminal with Ctrl + Alt + T.
-      bind = CTRL_L ALT_L,        F,                      exec,               nemo                                        # Open file manager with Ctrl + Alt + F.
-      bind = CTRL_L,              SPACE,                  exec,               ulauncher                                   # Main App Launcher.
+    -- Desktop shortcuts.
+    hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("GDK_BACKEND=x11 missioncenter"))
+    hl.bind("CTRL + SHIFT + MASCULINE", hl.dsp.exec_cmd("resources"))
+    hl.bind("CTRL + SHIFT + PLUS", hl.dsp.exec_cmd("pypr zoom +0.25"))
+    hl.bind("CTRL + SHIFT + MINUS", hl.dsp.exec_cmd("pypr zoom -0.25"))
 
-      # Desktop shortcuts.
-      bind = CTRL_L SHIFT_L,      ESCAPE,                 exec,               GDK_BACKEND=x11 missioncenter               # Launch resource manager in xwayland mode.
-      bind = CTRL_L SHIFT_L,      MASCULINE,              exec,               resources                                   # Launch another desktop resource manager.
-      bind = CTRL_L SHIFT_L,      PLUS,                   exec,               pypr zoom +0.25                             # Zoom in on the desktop.
-      bind = CTRL_L SHIFT_L,      MINUS,                  exec,               pypr zoom -0.25                             # Zoom out on the desktop.
+    -- Multimedia.
+    hl.bind("CTRL + MASCULINE", hl.dsp.exec_cmd("swayosd-client --playerctl play-pause"))
+    hl.bind("CTRL + SHIFT + RIGHT", hl.dsp.exec_cmd("swayosd-client --playerctl next"))
+    hl.bind("CTRL + SHIFT + LEFT", hl.dsp.exec_cmd("swayosd-client --playerctl previous"))
+    hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("swayosd-client --output-volume raise"))
+    hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("swayosd-client --output-volume lower"))
+    hl.bind("XF86AudioMute", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"))
+    hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && swayosd-client --input-volume mute-toggle"))
 
-      # Multimedia.
-      bind = CTRL_L,              MASCULINE,              exec,               swayosd-client --playerctl play-pause       # Play-Pause with CTL + key above Tab.
-      bind = CTRL_L SHIFT,        RIGHT,                  exec,               swayosd-client --playerctl next             # Next track.
-      bind = CTRL_L SHIFT,        LEFT,                   exec,               swayosd-client --playerctl previous         # Previous track.
-      bind =                   ,  XF86AudioRaiseVolume,   exec,               swayosd-client --output-volume raise        # Raise Volume with visuals.
-      bind =                   ,  XF86AudioLowerVolume,   exec,               swayosd-client --output-volume lower        # Decrease volume with visuals.
-      bind =                   ,  XF86AudioMute,          exec,               swayosd-client --output-volume mute-toggle  # Toggle mute with visuals.
-      bind =                   ,  XF86AudioMicMute,       exec,               ${mute-mic-action}                          # Toggle microphone mute with visuals.
+    -- Single keys.
+    hl.bind("CAPS + Caps_Lock", hl.dsp.exec_cmd("swayosd-client --caps-lock"), { release = true })
+    hl.bind("Delete", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-delete --custom-message 'Removed'"), { non_consuming = true })
+    hl.bind("Home", hl.dsp.exec_cmd("swayosd-client --custom-icon go-home --custom-message 'Home'"), { non_consuming = true })
+    hl.bind("End", hl.dsp.exec_cmd("swayosd-client --custom-icon go-last --custom-message 'End'"), { non_consuming = true })
 
-      # Single keys.
-      bindr = CAPS             ,  Caps_Lock,              exec,               swayosd-client --caps-lock                  # Show visuals on Capslock toggle.
-      bindn =                  ,  Delete,                 exec,               ${remove-action}                            # Show visuals on Delete key.
-      bindn =                  ,  Home,                   exec,               ${home-action}                              # Show visuals on Home key.
-      bindn =                  ,  End,                    exec,               ${end-action}                               # Show visuals on End key.
+    -- Popular actions.
+    -- Custom feedback actions. Icons list available here: https://specifications.freedesktop.org/icon-naming/latest/
+    hl.bind("CTRL + X", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-cut --custom-message 'Cut'"), { non_consuming = true })
+    hl.bind("CTRL + C", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-copy --custom-message 'Copied'"), { non_consuming = true })
+    hl.bind("CTRL + V", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-paste --custom-message 'Pasted'"), { non_consuming = true })
+    hl.bind("CTRL + Z", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-undo --custom-message 'Undid'"), { non_consuming = true })
+    hl.bind("CTRL + S", hl.dsp.exec_cmd("swayosd-client --custom-icon document-save --custom-message 'Saving'"), { non_consuming = true })
+    hl.bind("CTRL + R", hl.dsp.exec_cmd("swayosd-client --custom-icon view-refresh --custom-message 'Refreshing'"), { non_consuming = true })
+    hl.bind("CTRL + Y", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-redo --custom-message 'Redone'"), { non_consuming = true })
+    hl.bind("CTRL + SHIFT + Z", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-redo --custom-message 'Redone'"), { non_consuming = true })
 
-      # Popular actions.
-      bindn = CTRL_L           ,  X,                      exec,               ${cut-action}                               # Show visuals when cutting.
-      bindn = CTRL_L           ,  C,                      exec,               ${copy-action}                              # Show visuals when copying.
-      bindn = CTRL_L           ,  V,                      exec,               ${paste-action}                             # Show visuals when pasting.
-      bindn = CTRL_L           ,  Z,                      exec,               ${undo-action}                              # Show visuals when undoing.
-      bindn = CTRL_L           ,  S,                      exec,               ${save-action}                              # Show visuals when saving.
-      bindn = CTRL_L           ,  R,                      exec,               ${refresh-action}                           # Show visuals when refreshing (primary).
-      bindn = CTRL_L           ,  Y,                      exec,               ${redo-action}                              # Show visuals when redoing (primary).
-      bindn = CTRL_L SHIFT     ,  Z,                      exec,               ${redo-action}                              # Show visuals when redoing (duplicate).
+    -- Screenshot.
+    hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -o ~/media/photos/ -m output -m active"))
+    hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -o ~/media/photos/ -m region"))
+    hl.bind("ALT + PRINT", hl.dsp.exec_cmd("hyprshot -o ~/media/photos/ -m window -m active"))
 
-      # Screenshot.
-      bind =                   ,  PRINT,                  exec,               ${hyprshot-print} -m output -m active       # Screenshot the whole screen.
-      bind = SHIFT_L,             PRINT,                  exec,               ${hyprshot-print} -m region                 # Activate region screen printing.
-      bind = ALT_L,               PRINT,                  exec,               ${hyprshot-print} -m window -m active       # Screenshot the active window.
+    -- Brightness.
+    hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness lower"))
+    hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness raise"))
 
-      # Brightness.
-      bind =                   ,  XF86MonBrightnessDown,  exec,               swayosd-client --brightness lower           # Decrease screen brightness with visuals.
-      bind =                   ,  XF86MonBrightnessUp,    exec,               swayosd-client --brightness raise           # Increase screen brightness with visuals.
+    -- Window management.
+    hl.bind("ALT + F4", hl.dsp.window.close())
+    hl.bind("CTRL + Q", hl.dsp.window.close())
+    hl.bind("SUPER + CTRL + Left", hl.dsp.window.move({ direction = "l" }))
+    hl.bind("SUPER + CTRL + Right", hl.dsp.window.move({ direction = "r" }))
+    hl.bind("SUPER + CTRL + Up", hl.dsp.window.move({ direction = "u" }))
+    hl.bind("SUPER + CTRL + Down", hl.dsp.window.move({ direction = "d" }))
+    hl.bind("SUPER + LEFT", hl.dsp.focus({ direction = "left" }))
+    hl.bind("SUPER + RIGHT", hl.dsp.focus({ direction = "right" }))
+    hl.bind("SUPER + UP", hl.dsp.focus({ direction = "up" }))
+    hl.bind("SUPER + DOWN", hl.dsp.focus({ direction = "down" }))
 
-      # Window management.
-      bind = ALT,                 F4,                     killactive,                                                     # Gracefully Close Active Window (duplicate).
-      bind = CTRL_L,              Q,                      killactive,                                                     # Gracefully Close Active Window (primary).
-      bind = ${modifier} CTRL_L,  Left,                   movewindow,         l                                           # Move Window Left.
-      bind = ${modifier} CTRL_L,  Right,                  movewindow,         r                                           # Move Window Right.
-      bind = ${modifier} CTRL_L,  Up,                     movewindow,         u                                           # Move Window Up.
-      bind = ${modifier} CTRL_L,  Down,                   movewindow,         d                                           # Move Window Down.
-      bind = ${modifier},         LEFT,                   movefocus,          l                                           # Move focus to the Left.
-      bind = ${modifier},         RIGHT,                  movefocus,          r                                           # Move focus to the Right.
-      bind = ${modifier},         UP,                     movefocus,          u                                           # Move focus Up.
-      bind = ${modifier},         DOWN,                   movefocus,          d                                           # Move focus Down.
+    -- Window tile management.
+    hl.bind("SUPER + COMMA", hl.dsp.layout("splitratio -0.1"), { repeating = true })
+    hl.bind("SUPER + PERIOD", hl.dsp.layout("splitratio +0.1"), { repeating = true })
+    hl.bind("SUPER + F", hl.dsp.window.fullscreen(1))
+    hl.bind("SUPER + CTRL + F", hl.dsp.window.float({ action = "toggle" }))
+    hl.bind("SUPER + S", hl.dsp.layout("swapsplit"))
 
-      # Window tile management.
-      binde = ${modifier},        COMMA,                  layoutmsg,          splitratio -0.1                             # Adjust Slit Ratio Decreasing current window. 
-      binde = ${modifier},        PERIOD,                 layoutmsg,          splitratio +0.1                             # Adjust Slit Ratio Increasing current window.
-      bind  = ${modifier},        F,                      fullscreen,         1                                           # Maximize.
-      bind  = ${modifier} CTRL_L, F,                      togglefloating,                                                 # Float/Tile.
-      bind  = ${modifier},        S,                      layoutmsg,          swapsplit                                   # Swap windows within their split area.ss
+    -- Window navigation.
+    hl.bind("ALT + TAB", hl.dsp.window.cycle_next(""))
+    hl.bind("ALT + SHIFT + TAB", hl.dsp.window.cycle_next("prev"))
 
-      # Window navigation.
-      bind = ALT,                 TAB,                    cyclenext,                                                      # Change focus to next window.
-      bind = ALT SHIFT,           TAB,                    cyclenext,          prev                                        # Change focus to previous window.
+    -- Workspace navigation.
+    hl.bind("SUPER + TAB", hl.dsp.focus({ workspace = "e+1" }))
+    hl.bind("SUPER + SHIFT + TAB", hl.dsp.focus({ workspace = "e-1" }))
 
-      # Workspace navigation.
-      bind = ${modifier},         TAB,                    workspace,          e+1                                         # Change to next workspace (primary).
-      bind = ${modifier} SHIFT,   TAB,                    workspace,          e-1                                         # Change to previous workspace (primary).
+    -- Alternative navigation. (consider removing)
+    hl.bind("CTRL + ALT + LEFT", hl.dsp.focus({ workspace = "e-1" }))
+    hl.bind("CTRL + ALT + RIGHT", hl.dsp.focus({ workspace = "e+1" }))
+    hl.bind("SUPER + LEFT", hl.dsp.focus({ workspace = -1 }))
+    hl.bind("SUPER + RIGHT", hl.dsp.focus({ workspace = "+1" }))
 
-      # Alternative navigation. (consider removing)
-      bind = CTRL_L ALT_L,        LEFT,                   workspace,          e-1                                         # Change to previous workspace (duplicate).
-      bind = CTRL_L ALT_L,        RIGHT,                  workspace,          e+1                                         # Change to next workspace (duplicate).
-      bind = ${modifier},         LEFT,                   workspace,          -1                                          # Change to previous workspace (duplicate).
-      bind = ${modifier},         RIGHT,                  workspace,          +1                                          # Change to next workspace (duplicate).
+    -- Move focused window to next/previous workspace.
+    hl.bind("SUPER + SHIFT + LEFT", hl.dsp.window.move({ workspace = -1 }))
+    hl.bind("SUPER + SHIFT + RIGHT", hl.dsp.window.move({ workspace = "+1" }))
 
-      # Move focused window to next/previous workspace.
-      bind = ${modifier} SHIFT,   LEFT,                   movetoworkspace,    -1                                          # Move window in focus to previous workspace.
-      bind = ${modifier} SHIFT,   RIGHT,                  movetoworkspace,    +1                                          # Move window in focus to next workspace.
+    hl.config({
+      decoration = {
+        shadow = {
+          color = "rgba(00000099)",
+        },
+      },
+      general = {
+        col = {
+          active_border = "rgb(4136d9)",
+          inactive_border = "rgb(593380)",
+        },
+      },
+      group = {
+        groupbar = {
+          col = {
+            active = "rgb(4136d9)",
+            inactive = "rgb(593380)",
+          },
+          text_color = "rgb(b08ae6)",
+        },
+        col = {
+          border_active = "rgb(4136d9)",
+          border_inactive = "rgb(593380)",
+          border_locked_active = "rgb(40dfff)",
+        },
+      },
+      misc = {
+        background_color = "rgb(000000)",
+        disable_hyprland_logo = true,
+      },
 
-      # 
-    '';
+      -- Input settings.
+      input = {
+        kb_layout = "esrodk",
+      },
+    })
+
+    hl.on("hyprland.start", function()
+      -- prepare the network indicator
+      hl.exec_cmd("nm-applet --indicator")
+      -- delay the launch of the bar
+      hl.exec_cmd("sleep 1 & waybar")
+      -- Start the plugin system.
+      hl.exec_cmd("pypr")
+    end)
+  '';
   stylix.targets.hyprland.enable = true;
 
   # Enable system-wide terminal integration.
