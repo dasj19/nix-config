@@ -25,7 +25,7 @@
   environment.systemPackages = with pkgs; [
     php85
     php85Packages.composer
-    nodejs_25
+    nodejs
     nssTools # caddy needs to mange its own certificate.
   ];
 

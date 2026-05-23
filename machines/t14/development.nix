@@ -7,7 +7,7 @@
     devenv
 
     mkcert
-    nodejs_24
+    nodejs
     php83
     php83Packages.composer
     symfony-cli

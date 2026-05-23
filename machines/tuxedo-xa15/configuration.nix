@@ -121,7 +121,7 @@ in
     graphviz
     arduino
     symfony-cli
-    nodejs_22
+    nodejs
     pomodoro-gtk
     postgresql
 
