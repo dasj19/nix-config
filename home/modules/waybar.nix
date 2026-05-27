@@ -93,6 +93,8 @@ _: {
             5
           ];
         };
+        # "on-scroll-up" = "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e+1\" })'";
+        # "on-scroll-down" = "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e-1\" })'";
       };
 
       cpu = {
@@ -128,8 +130,8 @@ _: {
         interval = "once";
         format = "📽️";
         tooltip-format = "Projector settings";
-        on-click = ''hyprctl eval '''hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1, mirror = "eDP-1" })''''';
-        on-click-right = ''hyprctl eval '''hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })''''';
+        on-click = "hyprctl eval \"hl.monitor({ output = '', mode = 'preferred', position = 'auto', scale = 1, mirror = 'eDP-1' })\"";
+        on-click-right = "hyprctl eval \"hl.monitor({ output = '', mode = 'preferred', position = 'auto', scale = 1, mirror='' })\"";
         tooltip = "Screen mirroring";
       };
 

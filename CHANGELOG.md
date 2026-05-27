@@ -4,6 +4,16 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-05-27
+- waybar: fixed projector settings to mirror and un-mirror
+
+2026-05-23
+- t500libre: caddy handles automatic http -> https redirects
+
+2026-05-22
+- hyprland: migrated hyprland.conf to hyprland.lua
+- repo: follow latest stable node version
+
 2026-05-02
 - base: change kernel version from 6.12 to 6.18
 
