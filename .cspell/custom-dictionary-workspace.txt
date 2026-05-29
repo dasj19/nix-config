@@ -244,6 +244,7 @@ litellm
 localdomain
 localip
 localsearch
+localtunnel
 lockd
 logind
 loglevel

@@ -45,6 +45,7 @@
       asciinema                   # Terminal session recorder.
       bchunk                      # converts CD images from BIN/CUE to ISO and CDR tracks.
       claude-code                 # Premium AI CLI client.
+      localtunnel                 # CLI interface for the localtunnel service.
       #cron
       cuetools                    # Utilities for working with cue files and toc files.
       dconf                       # Desktop-environment conf editor.
