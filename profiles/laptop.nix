@@ -23,6 +23,9 @@
     # Enable fwupd to manage firmware updates.
     services.fwupd.enable = true;
 
+    # Enable symlinks to paths like /bin abd /usr/bin.
+    services.envfs.enable = true;
+
     allowedUnfree = [
       # CLI.
       "claude-code"
