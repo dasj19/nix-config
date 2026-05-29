@@ -28,7 +28,8 @@
 
   # Hardware configurations for NixOS.
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
-
+  inputs.nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
+  
   # A mail server stack.
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
   inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
