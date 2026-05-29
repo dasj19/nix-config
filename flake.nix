@@ -12,7 +12,8 @@
   # Nix module system for flakes.
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
 
-  # NixOS artwork, used for wallpapers..
+  # NixOS artwork, used for wallpapers.
+  /* cspell:disable-next-line */
   inputs.nixos-artwork.url = "github:gytis-ivaskevicius/high-quality-nix-content";
   inputs.nixos-artwork.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -29,7 +30,7 @@
   # Hardware configurations for NixOS.
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
   inputs.nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
-  
+
   # A mail server stack.
   inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
   inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +55,7 @@
 
   # Latest version of nil (unstable).
   # Used because there is long time between releases, and I want/need the new features.
+  /* cspell:disable-next-line */
   inputs.nil.url = "github:oxalica/nil";
   inputs.nil.inputs.nixpkgs.follows = "nixpkgs";
 
