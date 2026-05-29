@@ -420,7 +420,7 @@ let
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/speculation-rules.1.6.0.zip";
       /* cspell:disable-next-line */
-      sha256 = "lhswr3nhim08x6dd8r56bdpqwizc2h075igb7vk8m99bq40imam";
+      sha256 = "1lhswr3nhim08x6dd8r56bdpqwizc2h075igb7vk8m99bq40imam";
     };
     # We need unzip to build this package
     buildInputs = [ pkgs.unzip ];
