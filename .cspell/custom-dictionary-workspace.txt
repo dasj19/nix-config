@@ -78,6 +78,7 @@ cuxxfilt
 cwebp
 cyclenext
 czkawka
+daneza
 danth
 darkviolet
 dasj
@@ -196,6 +197,7 @@ imagick
 IMAP
 IMAPS
 imdb
+imigrant
 immich
 improvesearch
 indir

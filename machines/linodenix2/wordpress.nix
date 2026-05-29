@@ -5,10 +5,10 @@
 }:
 
 let
-  imigrant-database = gitSecrets.imigrantDatabase;
-  imigrant-domain = gitSecrets.imigrantDomain;
-  daneza-database = gitSecrets.danezaDatabase;
-  daneza-domain = gitSecrets.danezaDomain;
+  imigrant-database   = gitSecrets.imigrantDatabase;
+  imigrant-domain     = gitSecrets.imigrantDomain;
+  daneza-database     = gitSecrets.danezaDatabase;
+  daneza-domain       = gitSecrets.danezaDomain;
 
   patchedWordpress = pkgs.wordpress.overrideAttrs (old: {
 
@@ -39,6 +39,7 @@ let
     src = builtins.fetchGit {
       url = "git@github.com:dasj19/blogstream.git";
       ref = "main";
+      /* cspell:disable-next-line */
       rev = "ba32aa4f83dcdba8c75e680482080bd43701dba7";
     };
     # We need unzip to build this package
@@ -55,6 +56,7 @@ let
     version = "2.1.6";
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/theme/pressbook.2.1.6.zip";
+      /* cspell:disable-next-line */
       sha256 = "0gd9g18g8nnqr4hm5r047x6s4m7djb634l924i4s2rhjqrx1ln44";
     };
     # We need unzip to build this package
@@ -71,6 +73,7 @@ let
     version = "1.8.3";
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/theme/oceanly.1.8.3.zip";
+      /* cspell:disable-next-line */
       sha256 = "1avcii8ykjjh5vk165fqn2panymcpmy64gc8i99kmi9jd09wy4w2";
     };
     # We need unzip to build this package
@@ -87,6 +90,7 @@ let
     version = "1.3.1";
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/theme/oceanly-news.1.3.1.zip";
+      /* cspell:disable-next-line */
       sha256 = "0jphcqrfxqzzx67gq6hkxasq7r8jz3538v1vl6k0avvmmw5xivx8";
     };
     # We need unzip to build this package
@@ -104,6 +108,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip";
+      /* cspell:disable-next-line */
       sha256 = "0rffbss1h92sp66mpcrm6km3s0lils92c8ihhzzjgxk1kjqlaasb";
     };
     # We need unzip to build this package
@@ -119,6 +124,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/easy-wp-meta-description.1.2.6.zip";
+      /* cspell:disable-next-line */
       hash = "sha256-1pnB4k0WHrH0WlT9giEKgPrIJt1DuMa1XmpbY78j15M=";
     };
     # We need unzip to build this package
@@ -133,6 +139,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/wp-robots-txt.1.3.5.zip";
+      /* cspell:disable-next-line */
       sha256 = "1ra4zmicx4gib0n6j30fch8b0h27sw37r6q3jdbssm7cchnpjzp5";
     };
     # We need unzip to build this package
@@ -148,6 +155,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/wordpress-gzip-compression.1.0.zip";
+      /* cspell:disable-next-line */
       sha256 = "156w8a7fi2yrps3kix46djd89x9ic7fjiwqz5hgpm2923v7ffwgn";
     };
 
@@ -163,6 +171,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/disable-json-api.zip";
+      /* cspell:disable-next-line */
       hash = "sha256-BqPhNI9NURpIMcdPyho1DPrt96oNhgdjYt6fiV/90KM=";
     };
 
@@ -178,6 +187,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/humanstxt.1.3.1.zip";
+      /* cspell:disable-next-line */
       sha256 = "1100qmnlxzgydglr7pai1l6ajnsz0xr7vrf3vw2yhx2mzgjjrlj8";
     };
     # We need unzip to build this package
@@ -192,6 +202,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://github.com/dasj19/stop-xml-rpc/releases/download/v0.1/stop-xml-rpc.0.1.zip";
+      /* cspell:disable-next-line */
       sha256 = "0iq846b257jjqc2zihs08ywqc4x9fqcv5qlmdldpnx2855vl8hv4";
     };
     # We need unzip to build this package
@@ -207,6 +218,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/advanced-custom-fields.6.7.0.zip";
+      /* cspell:disable-next-line */
       sha256 = "00l76r6wdrdb3ii4mgv1x2fks2ry1331hhxcs9jlrnjmhr4vpjry";
     };
     # We need unzip to build this package
@@ -217,10 +229,11 @@ let
 
   # https://downloads.wordpress.org/plugin/tinymce-advanced.5.9.2.zip
   tinymce-advanced = pkgs.stdenv.mkDerivation {
-    name = "tinymce-advanced";
+    name = "tinymce-advanced";/* cspell:disable-next-line */
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/tinymce-advanced.5.9.2.zip";
+      /* cspell:disable-next-line */
       sha256 = "1iv9zpxmdllqqq28cx1nr425jnv5nf1pnv95s0krq3wxvhsnck7c";
     };
     # We need unzip to build this package
@@ -234,6 +247,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/wp-pagenavi.2.94.5.zip";
+      /* cspell:disable-next-line */
       sha256 = "1hl8sznmdc2vmg7idpzy5sg6h3zcyf0p54w2hms6097k98zpvac2";
     };
     # We need unzip to build this package
@@ -248,6 +262,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/add-featured-image-to-rss-feed.1.1.4.zip";
+      /* cspell:disable-next-line */
       sha256 = "02i6xhf7mq4z6sn8868rdzjy069hcxs89wyqn5f9h7vw6law7d0h";
     };
     # We need unzip to build this package
@@ -262,6 +277,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/edit-author-slug.1.9.2.zip";
+      /* cspell:disable-next-line */
       sha256 = "1gh7milv2q2s8wzvm3z8jlx7j3d90s37ihrfhvjjm60jzddsdpyh";
     };
     # We need unzip to build this package
@@ -277,6 +293,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/redirection.5.5.2.zip";
+      /* cspell:disable-next-line */
       sha256 = "0j56c7rkajs3jnmbmd2balkc26qcbx11kzfxl31qx0lpcwjjlmic";
     };
     # We need unzip to build this package
@@ -291,6 +308,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/images-to-webp.4.8.zip";
+      /* cspell:disable-next-line */
       sha256 = "1371fw8ig9d6hb1my1hyndalfa2m8rfiz8jgpiba66673qj2cm6c";
     };
     # We need unzip to build this package
@@ -307,6 +325,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/hyper-cache.3.4.2.zip";
+      /* cspell:disable-next-line */
       sha256 = "1vwkfym9r7dy0w0n75pknk6axvd1gk77am0vq2sarn6yf9pd8ik1";
     };
     # We need unzip to build this package
@@ -324,6 +343,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/very-simple-contact-form.17.9.zip";
+      /* cspell:disable-next-line */
       sha256 = "0828y5wqkxjfa9mjai5jzim6zj29mpdv0j9xvglj96gyf4rfw6rn";
     };
     # We need unzip to build this package
@@ -353,6 +373,7 @@ let
     version = "4.0.2";
     src = pkgs.fetchurl {
       url = "https://github.com/dasj19/say-it/releases/download/init/init.zip";
+      /* cspell:disable-next-line */
       sha256 = "18xhw3lkvgaw10bwm1j5jsaa3y8rcyriswsz9jxr4cpi8r27l4nc";
     };
     # We need unzip to build this package
@@ -371,6 +392,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/mx-time-zone-clocks.5.1.1.zip";
+      /* cspell:disable-next-line */
       sha256 = "107dmf2qm1cn4jcql1gwyz6mfv1n2sfra9ag4rmnpb512axmr2mf";
     };
     # We need unzip to build this package
@@ -397,6 +419,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/speculation-rules.1.6.0.zip";
+      /* cspell:disable-next-line */
       sha256 = "lhswr3nhim08x6dd8r56bdpqwizc2h075igb7vk8m99bq40imam";
     };
     # We need unzip to build this package
@@ -415,6 +438,7 @@ let
     # Download the plugin from the wordpress site
     src = pkgs.fetchurl {
       url = "https://downloads.wordpress.org/plugin/cool-tag-cloud.zip";
+      /* cspell:disable-next-line */
       sha256 = "16200v7n8fv232x5k2m8al9zf5h2vlgadp2d6flf4s252wg3irma";
     };
     # We need unzip to build this package
