@@ -17,6 +17,7 @@ apkeep
 archivebox
 armv
 asciinema
+atril
 autoconfig
 automount
 autopair

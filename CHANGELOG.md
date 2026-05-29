@@ -4,6 +4,9 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-05-29
+- hyprland: replace xreader with atril because of wayland support
+
 2026-05-27
 - waybar: fixed projector settings to mirror and un-mirror
 

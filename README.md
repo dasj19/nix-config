@@ -141,7 +141,7 @@ Git-crypt key: `git-crypt-key`
 |   ✅   | Video Player                 | vlc 💣 mpv 💣                      |                       | Totem 💣                  |
 |   ✅   | Code Editor (IDE)            | VS Codium 🐒                       |                       | Atom 🐒                   |
 |   🚧   | Text editor                  | Textadept 🌙                       |                       | Gnome Text Editor 💣      |
-|   🚧   | PDF Viewer                   | Xreader 💣                         |                       | Evince 💣                 |
+|   🚧   | PDF Viewer                   | atril 💣                           |                       | Evince 💣 Xreader 💣      |
 |   ✅   | PDF Editor                   | Xournal++ 💣                       |                       |                           |
 |   ✅   | Web Browser (Primary)        | Firefox Developer Edition 💣🐒     |                       |                           |
 |   ✅   | Web Browser (Secondary)      | Chromium 💣                        |                       |                           |

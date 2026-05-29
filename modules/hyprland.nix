@@ -55,7 +55,7 @@
     wofi # Application launcher.
     xarchiver # Archive manager.
     orage # Calendar application.
-    xreader # PDF Document viewer.
+    atril # PDF Document viewer.
     mpv # alternative vide player.
 
     pyprland # Plugin manager for hyprland.
@@ -95,7 +95,7 @@
     "application/ld+json" = "textadept.desktop";
     "application/msword" = "onlyoffice-desktopeditors.desktop";
     "application/octet-stream" = "org.qbittorrent.qBittorrent.desktop";
-    "application/pdf" = "xreader.desktop";
+    "application/pdf" = "atril.desktop";
     "application/rtf" = "onlyoffice-desktopeditors.desktop";
     "application/x-bzip" = "xarchiver.desktop";
     "application/x-bzip2" = "xarchiver.desktop";
