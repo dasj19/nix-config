@@ -151,6 +151,7 @@
         col = {
           border_active = "rgb(4136d9)",
           border_inactive = "rgb(593380)",
+          -- cspell:disable-next-line
           border_locked_active = "rgb(40dfff)",
         },
       },
