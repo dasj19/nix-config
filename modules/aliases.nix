@@ -41,7 +41,7 @@ in
       la = "eza -lah --icons --grid --group-directories-first";
       lag = "eza -lah --icons --grid --group-directories-first --git";
       # List files sorted by size ascending and descending. List by mod time.
-      lt = "du -sh * | sort -h";
+      lh = "du -sh * | sort -h";
       lr = "du -sh * | sort -rh";
       left = "ls -t -1";
       # Change file permissions.
