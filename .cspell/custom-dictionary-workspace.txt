@@ -44,6 +44,7 @@ Blocklist
 blogstream
 blueman
 bmewburn
+Bootable
 Bootloader
 brasero
 brightnessctl
@@ -107,6 +108,7 @@ duckduckgo
 ehci
 Embedder
 emulationstation
+envfs
 erros
 esrodk
 essid
@@ -119,6 +121,7 @@ fastcgi
 fastfetch
 fbalpha
 fbneo
+fcron
 felixfbecker
 fetchurl
 ffmpegthumbnailer
@@ -506,4 +509,5 @@ xvfb
 xwayland
 Zeroconf
 zheader
+Zstandard
 zstd

@@ -1,3 +1,6 @@
+# server: a profile inherited by all servers.
+# contains: common stuff that are needed on the servers.
+
 {
   imports = [
     # Profiles.
