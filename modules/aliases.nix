@@ -11,7 +11,6 @@
 {
   gitSecrets,
   pkgs,
-
   ...
 }:
 
@@ -125,7 +124,7 @@ in
     programs.fish.shellAliases = {
       # Clear terminal and leave a message.
       c         = ''function c; clear; echo "Console cleared! Next time use Ctrl+L instead."; end; c'';
-      # Create a dir and enter it. Change dir and list files.
+      # Create a dir and enter it.
       # @see https://stackoverflow.com/a/55620350
       indir     = "function indir; mkdir $argv; cd $argv; end; indir";
       # Change into a directory and list its contents.
