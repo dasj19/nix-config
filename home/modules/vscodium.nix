@@ -64,13 +64,14 @@
       # PHP code formatter.
       {
         name = "pretty-php";
-        publisher = "lkrms"; # cspell:disable-line
+        # cspell:disable-next-line
+        publisher = "lkrms";
         version = "0.4.95";
         hash = "sha256-OgyuWv60Pseq8iFKOZ+9/fOaRYY1OQKoijpPwj3SFus=";
       }
     ];
 
-  programs.vscode.profiles.default.userSettings = {
+  programs.vscodium.profiles.default.userSettings = {
     # Disable editor minimap.
     "editor.minimap.enabled" = false;
     # Startup empty.
@@ -95,6 +96,7 @@
     # Set icon and color themes.
     "workbench.iconTheme" = "vscode-icons";
     "workbench.colorTheme" = "Stylix";
+
     # Font settings.
     "editor.allowVariableFonts" = false;
   };
@@ -104,6 +106,7 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       # Unclear why this is marked as non-free. @todo: check upstream.
+      # cspell:disable-next-line
       "vscode-extension-bmewburn-vscode-intelephense-client"
     ];
 }
