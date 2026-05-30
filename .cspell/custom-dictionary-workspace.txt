@@ -43,7 +43,6 @@ bitmagnet
 Blocklist
 blogstream
 blueman
-bmewburn
 Bootable
 Bootloader
 brasero

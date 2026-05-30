@@ -19,10 +19,13 @@
       continue.continue
 
       # PHP.
-      bmewburn.vscode-intelephense-client
+      bmewburn.vscode-intelephense-client # cspell:disable-line
 
       # Nix language support.
       jnoortheen.nix-ide
+
+      # Yaml support.
+      redhat.vscode-yaml
 
       # Spell checker.
       streetsidesoftware.code-spell-checker
