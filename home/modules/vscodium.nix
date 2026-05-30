@@ -7,6 +7,9 @@
   programs.vscodium.profiles.default.extensions =
     with pkgs.vscode-extensions;
     [
+      # Open source AI remote+local coding agent.
+      continue.continue
+
       # Github Copilot.
       github.copilot
 
