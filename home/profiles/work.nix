@@ -44,9 +44,6 @@ in
       # Drupal syntax highlighter.
       vs-code-drupal-vsix
 
-      # Git enhancements.
-      waderyan.gitblame
-
       # Language support.
       redhat.vscode-yaml
 

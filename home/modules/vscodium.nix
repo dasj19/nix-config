@@ -35,9 +35,6 @@
 
       # Editor icons.
       vscode-icons-team.vscode-icons
-
-      # Git blame annotations.
-      waderyan.gitblame # cspell:disable-line
     ]
     ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       # Twig language support.
