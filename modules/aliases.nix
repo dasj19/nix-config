@@ -7,6 +7,7 @@
 # - use simple words where possible.
 # - do not assign multiple one letter aliases for the same command.
 # - group related aliases and comment them accordingly.
+
 {
   gitSecrets,
   pkgs,
@@ -75,10 +76,10 @@ in
       ".3"      = "cd ../../../";
       ".4"      = "cd ../../../../";
       ".5"      = "cd ../../../../../";
-      h         = "cd ~"; # home
-      b         = "cd -"; # back
-      r         = "sudo -i"; # root shell
-      x         = "exit"; # exit shell
+      h         = "cd ~";     # home
+      b         = "cd -";     # back
+      r         = "sudo -i";  # root shell
+      x         = "exit";     # exit shell
       # Utils. background jobs, history shortcuts, simplified list of mounted partitions.
       j         = "jobs -l";
       o         = "history";
@@ -131,14 +132,15 @@ in
       cl        = "function cl; cd $argv; ls; end; cl";
     };
 
+    # Packages required for aliases to work.
     environment.systemPackages = with pkgs; [
-      curl # Command line tool for transferring data from an URL.
-      nettools # Contains netstat.
-      nh # Nix helper - manage nixos and home-manager configurations.
+      curl          # Command line tool for transferring data from an URL.
+      nettools      # Contains netstat.
+      nh            # Nix helper - manage nixos and home-manager configurations.
       speedtest-cli # Test internet bandwidth speed from the command line.
     ];
 
-    # Pair of IP - HostNames to be saved in /etc/hosts
+    # Pair of IP - HostNames to be saved in /etc/hosts.
     networking.hosts = {
       # Tier 1 LAN-hosts (servers).
       "${t500libre-lan}" = [ "t500libre.lan" ];
