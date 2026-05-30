@@ -37,8 +37,6 @@ in
     with pkgs.vscode-marketplace;
     with pkgs.vscode-extensions;
     [
-      # AI assistant.
-      github.copilot
 
       # Cross-language debugging.
       formulahendry.code-runner
@@ -61,13 +59,6 @@ in
     ];
 
   programs.vscode.profiles.default.userSettings = {
-    # If it complains about read-only settings.js check: https://github.com/nix-community/home-manager/issues/1800
-    "github.copilot.enable" = {
-      "*" = true;
-      "plaintext" = false;
-      "markdown" = false;
-      "scminput" = false;
-    };
     "php.format.codeStyle" = "Drupal";
     "phpcs.enable" = true;
     "phpcs.standard" = phpStandards;

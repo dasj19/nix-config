@@ -10,13 +10,9 @@
       # Open source AI remote+local coding agent.
       continue.continue
 
-      # Github Copilot.
-      github.copilot
-
       # PHP.
       bmewburn.vscode-intelephense-client
 
-      #Codeium.codeium
       # Nix language support.
       jnoortheen.nix-ide
 
@@ -81,19 +77,6 @@
     "editor.formatOnType" = false;
     "editor.formatOnPaste" = false;
 
-    # Github Copilot.
-    # @see https://github.com/VSCodium/vscodium/discussions/1487
-    "github.copilot.enable" = {
-      "*" = true;
-      "markdown" = false;
-      "plaintext" = false;
-      "json" = false;
-      "yaml" = false;
-      "nix" = true;
-      "shellscript" = true;
-      "php" = true;
-      "twig" = true;
-    };
     # Set icon and color themes.
     "workbench.iconTheme" = "vscode-icons";
     "workbench.colorTheme" = "Stylix";
@@ -105,6 +88,5 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       "vscode-extension-bmewburn-vscode-intelephense-client"
-      "vscode-extension-github-copilot"
     ];
 }
