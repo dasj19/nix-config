@@ -1,13 +1,18 @@
-/*
-  * t14: my daily driver laptop
-  * model: Lenovo T14 Gen1
-  *
-  * Notes:
-  *  - any offline AI work has to be done on CPU which is very slow,
-  *    therefore online AI should be used instead.
-  *  - sudo-rs is set up to be used using fingerprint first but has password prompt as fallback.
-*/
-{ lib, pkgs, ... }:
+# t14: my daily driver laptop
+# model: Lenovo T14 Gen1
+#
+# Notes:
+#  - any offline AI work has to be done on CPU which is very slow,
+#    therefore online AI should be used instead.
+#  - sudo-rs is set up to be used using fingerprint first but has password prompt as fallback.
+#
+
+{
+  lib,
+  pkgs,
+  ...
+}:
+
 {
   imports = [
     # Hardware config.
@@ -83,10 +88,11 @@
   # Enable virtualization.
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+
   # Measures USB traffic bandwidth.
   programs.usbtop.enable = true;
 
-  # Setup hostname.s
+  # Setup hostname and networking.
   networking.hostName = "t14";
   networking.networkmanager.enable = true;
 
