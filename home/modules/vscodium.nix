@@ -88,8 +88,9 @@
     "nix.serverPath" = "nil";
     "nix.formatterPath" = "nixfmt";
 
-    # Autoformat Nix files on save.
-    "editor.formatOnSave" = true;
+    # Disable autoformatting of files.
+    # (Because vertical alignment is not preserved)
+    "editor.formatOnSave" = false;
     "editor.formatOnType" = false;
     "editor.formatOnPaste" = false;
 
