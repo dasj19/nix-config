@@ -17,7 +17,12 @@
 
   # Non-free drivers.
   allowedUnfree = [
+    # Printer and scanner packages.
     "hplip"
+    # GPU-related packages.
+    "nvidia-kernel-modules"
+    "nvidia-settings"
+    "nvidia-x11"
   ];
 
   # Bootloader.
@@ -227,4 +232,11 @@
     hplipWithPlugin
   ];
   services.ipp-usb.enable = true;
+
+  # Nvidia driver for MX330.
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+  # Allow nvidia to wisely manage graphic features.
+  hardware.nvidia.modesetting.enable = true;
+  # Hardware accelerated graphics.
+  hardware.graphics.enable = true;
 }

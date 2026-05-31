@@ -215,7 +215,7 @@
       nixosConfigurations.t14 = mkLaptopSystem {
         modules = [
           ./machines/t14/configuration.nix
-          nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1
+          nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
         ];
       };
       nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
