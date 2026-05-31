@@ -1,8 +1,12 @@
+# laptop: generic profile to be used on laptops
+# contains: module imports of relevant laptop modules
+
 {
   awesome-linux-templates,
   pkgs,
   ...
 }:
+
 {
   imports = [
     ./base.nix

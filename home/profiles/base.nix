@@ -1,4 +1,11 @@
-{ lib, gitSecrets, ... }:
+# base: generic profile to be used in home-manager.
+# contains: default username and git settings.
+
+{
+  lib,
+  gitSecrets,
+  ...
+}:
 
 {
   home.username = "daniel";
