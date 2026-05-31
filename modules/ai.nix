@@ -22,6 +22,6 @@
   services.llama-cpp.modelsDir = "/var/lib/llama-cpp/models/";
 
   # Enable ChatGPT-like user interface for ollama.
-  # services.open-webui.enable = true;
-  # services.open-webui.port = 4141;
+  services.open-webui.enable = true;
+  services.open-webui.port = 4141;
 }
