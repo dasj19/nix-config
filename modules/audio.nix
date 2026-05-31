@@ -3,6 +3,7 @@
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;
     services.pipewire.enable = true;
+    security.rtkit.enable = true;
     services.pipewire.audio.enable = true;
     services.pipewire.pulse.enable = true;
     services.pipewire.jack.enable = true;

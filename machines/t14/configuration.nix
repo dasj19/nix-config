@@ -29,6 +29,7 @@
 
     # Modules.
     ./../../modules/ai.nix
+    ./../../modules/audio.nix
     ./../../modules/non-free.nix
   ];
 
@@ -42,16 +43,6 @@
     "d /run/polkit-1/rules.d 1777 polkituser polkituser 10d"
     "d /usr/local/share/polkit-1/rules.d 1777 polkituser polkituser 10d"
   ];
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [
