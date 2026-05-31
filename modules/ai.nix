@@ -8,9 +8,10 @@
 
 {
   environment.systemPackages = with pkgs; [
-    shell-gpt # ChatGPT/Ollama client.
-    tgpt # ChatGPT client with no need for API keys.
-    video2x # video upscaler with the help of cuda.
+    llmfit      # Checks what LLMs run optimally on current hardware.
+    shell-gpt   # ChatGPT/Ollama client.
+    tgpt        # ChatGPT client with no need for API keys.
+    video2x     # video upscaler with cuda support.
   ];
 
   services.ollama.enable = true;
