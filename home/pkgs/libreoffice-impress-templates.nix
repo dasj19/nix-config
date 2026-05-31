@@ -1,3 +1,5 @@
+# libreoffice-impress-templates: local package containing open source impress templates
+
 {
   fetchurl,
   lib,
