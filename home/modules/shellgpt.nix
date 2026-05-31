@@ -1,8 +1,14 @@
-{ config, ... }:
+# shellgpt: minimal configuration of shellgpt with ollama
+
+{
+  config,
+  ...
+}:
+
 {
   home.file."./.config/shell_gpt/.sgptrc".enable = true;
   home.file."./.config/shell_gpt/.sgptrc".text = ''
-    DEFAULT_MODEL=ollama/deepseek-coder
+    DEFAULT_MODEL=ollama/deepseek-coder:1.3b
     USE_LITELLM=true
 
     CHAT_CACHE_PATH=/tmp/chat_cache
