@@ -4,6 +4,9 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-05-31:
+- profiles: remove home-manager work profile
+
 2026-05-29
 - hyprland: replace xreader with atril because of wayland support
 
