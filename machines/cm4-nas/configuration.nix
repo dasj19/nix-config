@@ -1,4 +1,11 @@
-{ pkgs, gitSecrets, ... }:
+# cm4-nas: machine configuration for a raxda taco on compute module 4 from raspberry pi.
+# contains: raid5 configuration and a NFS share.
+
+{
+  pkgs,
+  gitSecrets,
+  ...
+}:
 
 let
 
@@ -21,6 +28,9 @@ in
 
   # Automount software raid at boot time.
   boot.swraid.enable = true;
+  boot.swraid.mdadmConf = ''
+    MAILADDR="daniel@cm4-nas"
+  '';
 
   networking.hostName = "cm4-nas";
   networking.networkmanager.enable = true;
@@ -38,8 +48,8 @@ in
   # Enable NFS.
   services.nfs.server.enable = true;
   services.nfs.server.exports = ''
-    /export       172.16.0.0/24(insecure,rw,sync,no_subtree_check,crossmnt,fsid=0)
-    /export/md0		172.16.0.0/24(insecure,rw,sync,no_subtree_check)
+    /export		10.0.0.0/24(insecure,rw,sync,no_subtree_check,crossmnt,fsid=0)
+    /export/md0		10.0.0.0/24(insecure,rw,sync,no_subtree_check)
   '';
   services.nfs.server.lockdPort = 4001;
   services.nfs.server.mountdPort = 4002;
@@ -66,11 +76,7 @@ in
     5201 # iperf
   ];
 
-  boot.swraid.mdadmConf = ''
-    MAILADDR=${disk-reports-email}
-  '';
-
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11";
+  # Consult manual before changing..
+  system.stateVersion = "26.05";
 
 }

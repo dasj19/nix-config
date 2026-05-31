@@ -1,4 +1,13 @@
-{ lib, modulesPath, ... }:
+# cm4-nas: hardware configuration for a CM4 on a Raxda Taco v1.3
+# @todo: investigate how we can have the taco working on a newer kernel.
+
+
+{
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -7,14 +16,36 @@
 
   boot.initrd.availableKernelModules = [ ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  # Don't go above 6.1 because of pcie controller hardware compatibility.
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_1;
+  boot.kernelModules = [
+    # No kernel modules yet.
+  ];
+  boot.kernelParams = [
+    # Drop a shell when the kernel fails.
+    "boot.shell_on_fail"
+  ];
   boot.extraModulePackages = [ ];
 
+  # Not working yet:
+  # Hardware overlay to allow using the penta-hat with a newer kernel.
+  # hardware.deviceTree.enable = true;
+  # hardware.deviceTree.filter = "*rpi*.dtb";
+  # hardware.deviceTree.overlays = [
+  #  {
+  #    name = "pcie-32bit-dma";
+  #    dtboFile = "${pkgs.device-tree_rpi.overlays}/pcie-32bit-dma.dtbo";
+  #  }
+  #];
+
+
+  # Mount the root filesystem.
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
       fsType = "ext4";
     };
 
+  # Mount the raid disks onto /mnt/md0.
   fileSystems."/mnt/md0" =
     { device = "/dev/disk/by-uuid/5f480d33-ec91-4797-82cf-36118b7576fc";
       fsType = "ext4";
@@ -22,17 +53,9 @@
 
   swapDevices = [ ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.end0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlan0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
-  boot.swraid.enable = true;
-
 
 }
+
