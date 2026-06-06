@@ -10,6 +10,9 @@
     ./../../profiles/server.nix
     # Include the results of the hardware scan.
     ./hardware.nix
+    # Local services.
+    ./services/caddy.nix
+    ./services/outline.nix
   ];
 
   networking.hostName = "hostup1";
