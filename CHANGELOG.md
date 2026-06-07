@@ -4,7 +4,18 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-06-07:
+- servers: abstract openssh configuration into a module to be imported in the server profile
+
+2026-06-06:
+- t14: increase the nix builder capacity to 4 cores and 8 jobs
+- hostup1: adjust the nix builder to distribute the building resources evenly
+- hostup1: add dex, outline, vaultwarden and uptime-kuma services
+- browsers: add bitwarden firefox extension and update firefox extensions
+
 2026-05-31:
+- t14: re-instantiate nvidia drivers
+- ai: enable cuda-backed ollama
 - profiles: remove home-manager work profile
 
 2026-05-29
