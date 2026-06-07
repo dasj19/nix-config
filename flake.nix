@@ -4,7 +4,6 @@
   # Tracking 'nixpkgs-unstable' branch which is usually a couple days behind master.
   # 'nixpkgs-unstable' goes through less tests than 'nixos-unstable'.
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  #inputs.nixpkgs.url = "path:///home/daniel/workspace/projects/linux/nixpkgs";
 
   # Assures compatibility with older version of nix before the version 2.4.
   inputs.flake-compat.url = "github:NixOS/flake-compat";
@@ -12,8 +11,7 @@
   # Nix module system for flakes.
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
 
-  # NixOS artwork, used for wallpapers.
-  /* cspell:disable-next-line */
+  # NixOS artwork, used for wallpapers. # cspell:disable-next-line
   inputs.nixos-artwork.url = "github:gytis-ivaskevicius/high-quality-nix-content";
   inputs.nixos-artwork.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -22,7 +20,7 @@
   inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
   # Project that seeks to apply uniform styles for NixOS systems.
-  inputs.stylix.url = "github:danth/stylix";
+  inputs.stylix.url = "github:nix-community/stylix";
   inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.stylix.inputs.systems.follows = "systems";
   inputs.stylix.inputs.flake-parts.follows = "flake-parts";
@@ -55,8 +53,7 @@
 
   # Latest version of nil (unstable).
   # Used because there is long time between releases, and I want/need the new features.
-  /* cspell:disable-next-line */
-  inputs.nil.url = "github:oxalica/nil";
+  inputs.nil.url = "github:oxalica/nil"; # cspell:disable-line
   inputs.nil.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.systems.url = "github:nix-systems/x86_64-linux";
