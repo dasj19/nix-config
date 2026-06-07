@@ -48,15 +48,13 @@
   allowedUnfree = [
     # GUI.
     "discord"
-    # Server software.
-    "open-webui"
   ];
 
   # t14 has a total of 8 cores.
-  # Builds max 4 parallel jobs at once using at most 2 cores per job.
+  # Builds max 8 parallel jobs at once using at most 4 cores per job.
   # @see https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
-  nix.settings.max-jobs = lib.mkForce 4;
-  nix.settings.cores = lib.mkForce 2;
+  nix.settings.max-jobs = lib.mkForce 8;
+  nix.settings.cores = lib.mkForce 4;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
