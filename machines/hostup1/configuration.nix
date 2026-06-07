@@ -13,6 +13,8 @@
     # Local services.
     ./services/caddy.nix
     ./services/outline.nix
+    ./services/uptime-kuma.nix
+    ./services/vaultwarden.nix
   ];
 
   networking.hostName = "hostup1";
