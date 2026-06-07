@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
+
 {
   # Install firefox.
   programs.firefox.enable = true;
@@ -249,7 +253,7 @@
       blocked_install_message = "Install extensions via nix config!";
     };
     "uBlock0@raymondhill.net" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4675310/ublock_origin-1.69.0.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4814095/ublock_origin-1.71.0.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
@@ -261,13 +265,13 @@
       updates_disabled = true;
     };
     "sponsorBlocker@ajay.app" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4644570/sponsorblock-6.1.2.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4773757/sponsorblock-6.1.5.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "{1018e4d6-728f-4b20-ad56-37578a4de76b}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4708663/flagfox-6.1.96.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4829498/flagfox-6.1.99.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
@@ -285,7 +289,13 @@
       updates_disabled = true;
     };
     "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4593736/user_agent_string_switcher-0.6.6.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4773733/user_agent_string_switcher-0.6.7.xpi";
+      installation_mode = "force_installed";
+      private_browsing = true;
+      updates_disabled = true;
+    };
+    "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4827854/bitwarden_password_manager-2026.5.0.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
@@ -295,16 +305,16 @@
   programs.chromium.enable = true;
   # See available extensions at https://chrome.google.com/webstore/category/extensions
   programs.chromium.extensions = [
-    "hjdoplcnndgiblooccencgcggcoihigg" # Terms of Service; Didn’t Read
-    "mdjildafknihdffpkfmmpnpoiajfjnjd" # Consent-O-Matic
-    "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock for YouTube
-    "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
-    "kimbeggjgnmckoikpckibeoaocafcpbg" # YouTube Captions Search
-    "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere
-    "fploionmjgeclbkemipmkogoaohcdbig" # Page load time
-    "fhnegjjodccfaliddboelcleikbmapik" # Tab Counter
-    "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine
-    "millncjiddlpgdmkklmhfadpacifaonc" # GNU Taler Wallet
+    "hjdoplcnndgiblooccencgcggcoihigg" # Terms of Service; Didn’t Read  # cspell: disable-line
+    "mdjildafknihdffpkfmmpnpoiajfjnjd" # Consent-O-Matic                # cspell: disable-line
+    "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock for YouTube       # cspell: disable-line
+    "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike         # cspell: disable-line
+    "kimbeggjgnmckoikpckibeoaocafcpbg" # YouTube Captions Search        # cspell: disable-line
+    "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere               # cspell: disable-line
+    "fploionmjgeclbkemipmkogoaohcdbig" # Page load time                 # cspell: disable-line
+    "fhnegjjodccfaliddboelcleikbmapik" # Tab Counter                    # cspell: disable-line
+    "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine                # cspell: disable-line
+    "millncjiddlpgdmkklmhfadpacifaonc" # GNU Taler Wallet               # cspell: disable-line
   ];
   # See available options at https://chromeenterprise.google/policies/
   programs.chromium.extraOpts = {
