@@ -3,15 +3,8 @@
 
 {
   pkgs,
-  gitSecrets,
   ...
 }:
-
-let
-
-  disk-reports-email = gitSecrets.danielPersonalEmail;
-
-in
 
 {
   imports = [
@@ -57,7 +50,6 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22 # SSH
     111 # NFS
     2049 # NFS
     4000 # NFS

@@ -60,17 +60,16 @@ in
   # Open ports in the firewall.
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
-    25 # SMTP
-    22 # SSH - OpenSSH
-    53 # DNS
-    80 # HTTP
+    25  # SMTP
+    53  # DNS
+    80  # HTTP
     143 # IMAP
     443 # HTTPS
     465 # SMTP over TLS
     993 # IMAP over TLS
   ];
   networking.firewall.allowedUDPPorts = [
-    53 # DNS
+    53  # DNS
     443 # HTTP/3(S)
   ];
   # https://www.linode.com/docs/products/compute/compute-instances/guides/ipv6/
@@ -117,11 +116,6 @@ in
   ];
 
   # ENABLED SERVICES:
-
-  # OpenSSH settings.
-  services.openssh.ports = [
-    22
-  ];
 
   # Linux kernel - Using a LTS kernel.
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_5_15;

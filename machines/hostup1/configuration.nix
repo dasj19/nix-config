@@ -24,9 +24,9 @@
   time.timeZone = lib.mkForce "Europe/Stockholm";
 
   # hostup1 has 4 cores.
-  # Build four jobs at a time using maximum of 1 cores per job.
-  nix.settings.max-jobs = lib.mkForce 4;
-  nix.settings.cores = lib.mkForce 1;
+  # Build 2 jobs at a time using maximum of 2 cores per job.
+  nix.settings.max-jobs = lib.mkForce 2;
+  nix.settings.cores = lib.mkForce 2;
 
   # Github runner to build the nix-config repo/project.
   services.github-runners."nix-config-runner" = {
@@ -40,21 +40,12 @@
     ];
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Enable symlinks to paths like /bin abd /usr/bin.
   services.envfs.enable = true;
   services.envfs.extraFallbackPathCommands = ''
     # hostup calls for /bin/cat to read the memory usage via the qemu guest additions.
     ln -s ${pkgs.coreutils}/bin/cat $out/cat
   '';
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    22 # OpenSSH.
-  ];
-  networking.firewall.allowedUDPPorts = [ ];
 
   # Consult the manual before changing the state version.
   system.stateVersion = "26.05";

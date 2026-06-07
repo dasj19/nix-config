@@ -1,9 +1,8 @@
+# rpi4-tv: raspberry pi 4 for managing a tv-tuner.
+# scope: server
+
 {
-  config,
   gitSecrets,
-  lib,
-  pkgs,
-  sopsSecrets,
   ...
 }:
 
@@ -28,15 +27,6 @@ in
   # Networking.
   networking.hostName = "rpi4-tv";
 
-  # System-wide packages.
-  environment.systemPackages = with pkgs; [
-
-  ];
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.settings.PermitRootLogin = "yes"; # @TODO: remove.
-
   # Enable tvheadend.
   #services.tvheadend.enable = true;
 
@@ -46,13 +36,11 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22 # OpenSSH
     9981 # TVHeadEnd HTTP
     9982 # TVHeadEnd HTSP
   ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
 
-  # Check the manaul before changing this.
+  # Check the manual before changing this.
   system.stateVersion = "24.11";
 
 }

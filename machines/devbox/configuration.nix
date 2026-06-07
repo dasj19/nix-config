@@ -33,9 +33,6 @@
 
   # SERVICES:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Enable and configure the Mariadb service.
   services.mysql.enable = true;
   services.mysql.package = pkgs.mariadb;
@@ -58,7 +55,6 @@
 
   # Network settings.
   networking.firewall.allowedTCPPorts = [
-    22
     443
     1080
   ];

@@ -124,4 +124,14 @@ in
     GRANT ALL PRIVILEGES ON firm.* TO "firm"@"localhost" IDENTIFIED BY "firm" WITH GRANT OPTION;
   '';
 
+  # Open ports in the firewall.
+  networking.firewall.allowedTCPPorts = [
+    80  # HTTP   - Caddy Webserver.
+    443 # HTTPS  - Caddy Webserver.
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    443 # HTTPS  - Caddy Webserver.
+  ];
+
 }

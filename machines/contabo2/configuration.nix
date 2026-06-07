@@ -81,16 +81,6 @@ in
 
   # List services.
 
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    22 # SSH    - OpenSSH
-    80 # HTTP   - Caddy Webserver.
-    443 # HTTPS  - Caddy Webserver.
-  ];
-  networking.firewall.allowedUDPPorts = [
-
-  ];
-
   # ACME settings.
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "webmaster@${daniel-domain}";

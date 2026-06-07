@@ -84,15 +84,14 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    22 # OpenSSH
-    3389 # RDP connections
-    3333 # LBRY Daemon
-    4444 # LBRY Streams
-    5567 # LBRY P2P
+    3389  # RDP connections
+    3333  # LBRY Daemon
+    4444  # LBRY Streams
+    5567  # LBRY P2P
     50001 # LBRY Wallet
   ];
   networking.firewall.allowedUDPPorts = [
-    4444 # LBRY Streams
+    4444  # LBRY Streams
   ];
 
   networking.hosts = {
