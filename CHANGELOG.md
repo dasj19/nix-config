@@ -4,6 +4,9 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-06-20
+- servers: remove hostup1 from the fleet
+
 2026-06-07:
 - servers: abstract openssh configuration into a module to be imported in the server profile
 

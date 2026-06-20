@@ -25,7 +25,6 @@ jobs:
           - cm4-nas
           - contabo2
           - devbox
-          - hostup1
           - ideapad100
           - linodenix1
           - linodenix2

@@ -171,11 +171,6 @@
           ./machines/devbox/configuration.nix
         ];
       };
-      nixosConfigurations.hostup1 = mkServerSystem {
-        modules = [
-          ./machines/hostup1/configuration.nix
-        ];
-      };
       nixosConfigurations.ideapad100 = mkServerSystem {
         modules = [
           ./machines/ideapad100/configuration.nix
