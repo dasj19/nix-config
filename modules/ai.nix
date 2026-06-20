@@ -59,12 +59,12 @@
   # Prefer cuda packages from nixpkgs.
   # This triggers rebuilding of massive software packages
   # like GIMP and the like, we avoid it for now.
-  #nixpkgs.config.cudaSupport = true;
+  # nixpkgs.config.cudaSupport = true;
 
   # cspell:ignore gguf
   # llama-cpp supports models in the gguf format.
-  services.llama-cpp.enable = true;
-  services.llama-cpp.modelsDir = "/var/lib/llama-cpp/models/";
+  #services.llama-cpp.enable = true;
+  #services.llama-cpp.modelsDir = "/var/lib/llama-cpp/models/";
 
   # Enable ChatGPT-like user interface for ollama.
   services.open-webui.enable = true;
