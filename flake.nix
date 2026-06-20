@@ -30,9 +30,9 @@
   inputs.nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
 
   # A mail server stack.
-  inputs.simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
-  inputs.simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.simple-nixos-mailserver.inputs.flake-compat.follows = "flake-compat";
+  inputs.nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+  inputs.nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nixos-mailserver.inputs.flake-compat.follows = "flake-compat";
 
   # Manage user environment with nix.
   inputs.home-manager.url = "github:nix-community/home-manager";
@@ -67,7 +67,7 @@
       nixos-artwork,
       nixos-hardware,
       sops-nix,
-      simple-nixos-mailserver,
+      nixos-mailserver,
       stylix,
       home-manager,
       ulauncher,
@@ -156,7 +156,7 @@
       nixosConfigurations.contabo2 = mkServerSystem {
         modules = [
           ./machines/contabo2/configuration.nix
-          simple-nixos-mailserver.nixosModule
+          nixos-mailserver.nixosModules.default
         ];
       };
       nixosConfigurations.cm4-nas = mkServerSystem {
@@ -179,13 +179,13 @@
       nixosConfigurations.linodenix1 = mkServerSystem {
         modules = [
           ./machines/linodenix1/configuration.nix
-          simple-nixos-mailserver.nixosModule
+          nixos-mailserver.nixosModules.default
         ];
       };
       nixosConfigurations.linodenix2 = mkServerSystem {
         modules = [
           ./machines/linodenix2/configuration.nix
-          simple-nixos-mailserver.nixosModule
+          nixos-mailserver.nixosModules.default
         ];
       };
       nixosConfigurations.rpi4-tv = mkServerSystem {
@@ -199,7 +199,7 @@
         modules = [
           ./machines/t500libre/configuration.nix
           nixos-hardware.nixosModules.lenovo-thinkpad
-          simple-nixos-mailserver.nixosModule
+          nixos-mailserver.nixosModules.default
         ];
       };
       # END SERVERS.

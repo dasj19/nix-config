@@ -188,12 +188,12 @@
     "git-hooks": {
       "inputs": {
         "flake-compat": [
-          "simple-nixos-mailserver",
+          "nixos-mailserver",
           "flake-compat"
         ],
         "gitignore": "gitignore",
         "nixpkgs": [
-          "simple-nixos-mailserver",
+          "nixos-mailserver",
           "nixpkgs"
         ]
       },
@@ -214,7 +214,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "simple-nixos-mailserver",
+          "nixos-mailserver",
           "git-hooks",
           "nixpkgs"
         ]
@@ -330,6 +330,31 @@
         "type": "github"
       }
     },
+    "nixos-mailserver": {
+      "inputs": {
+        "blobs": "blobs",
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "git-hooks": "git-hooks",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781892035,
+        "narHash": "sha256-e46EhlHo0jupcYCLE4QJRitd3+y+RgIQYNcfcCdLbKg=",
+        "owner": "simple-nixos-mailserver",
+        "repo": "nixos-mailserver",
+        "rev": "c37fd9c40877450716692b6478e6dda330dfc46a",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "simple-nixos-mailserver",
+        "repo": "nixos-mailserver",
+        "type": "gitlab"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1781607440,
@@ -396,37 +421,12 @@
         "nil": "nil",
         "nixos-artwork": "nixos-artwork",
         "nixos-hardware": "nixos-hardware",
+        "nixos-mailserver": "nixos-mailserver",
         "nixpkgs": "nixpkgs",
-        "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "systems": "systems",
         "ulauncher": "ulauncher"
-      }
-    },
-    "simple-nixos-mailserver": {
-      "inputs": {
-        "blobs": "blobs",
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "git-hooks": "git-hooks",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1781892035,
-        "narHash": "sha256-e46EhlHo0jupcYCLE4QJRitd3+y+RgIQYNcfcCdLbKg=",
-        "owner": "simple-nixos-mailserver",
-        "repo": "nixos-mailserver",
-        "rev": "c37fd9c40877450716692b6478e6dda330dfc46a",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "simple-nixos-mailserver",
-        "repo": "nixos-mailserver",
-        "type": "gitlab"
       }
     },
     "sops-nix": {
