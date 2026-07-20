@@ -51,11 +51,6 @@
   inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
   inputs.ulauncher.inputs.flake-parts.follows = "flake-parts";
 
-  # Latest version of nil (unstable).
-  # Used because there is long time between releases, and I want/need the new features.
-  inputs.nil.url = "github:oxalica/nil"; # cspell:disable-line
-  inputs.nil.inputs.nixpkgs.follows = "nixpkgs";
-
   inputs.systems.url = "github:nix-systems/x86_64-linux";
 
   outputs =
@@ -63,7 +58,6 @@
       self,
       nixpkgs,
       awesome-linux-templates,
-      nil,
       nixos-artwork,
       nixos-hardware,
       sops-nix,
@@ -128,7 +122,6 @@
             {
               environment.systemPackages = [
                 ulauncher.packages.x86_64-linux.ulauncher6
-                nil.packages.x86_64-linux.nil
               ];
             }
           ]

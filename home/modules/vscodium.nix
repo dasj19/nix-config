@@ -82,7 +82,6 @@
 
     # Nix language.
     "nix.enableLanguageServer" = true;
-    "nix.serverPath" = "nil";
     "nix.formatterPath" = "nixfmt";
 
     # Disable autoformatting of files.
