@@ -211,12 +211,11 @@
   programs.firefox.policies.Preferences."extensions.pocket.enabled".Value = false;
   programs.firefox.policies.Preferences."browser.newtabpage.pinned".Value = "";
   programs.firefox.policies.Preferences."browser.topsites.contile.enabled".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsored".Value =
-    false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.system.showSponsored".Value =
-    false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsoredTopSites".Value =
-    false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsored".Value = false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.system.showSponsored".Value = false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsoredTopSites".Value = false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showWeather".Value = false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.feeds.topsites".Value = false;
 
   # Setup default search engine.
   programs.firefox.policies.Preferences."browser.search.defaultenginename".Value = "DuckDuckGo";
@@ -253,41 +252,43 @@
       blocked_install_message = "Install extensions via nix config!";
     };
     "uBlock0@raymondhill.net" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4814095/ublock_origin-1.71.0.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4888680/ublock_origin-1.72.2.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "jid1-MnnxcxisBPnSXQ@jetpack" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4700632/privacy_badger17-2026.2.20.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4854040/privacy_badger17-2026.6.16.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "sponsorBlocker@ajay.app" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4773757/sponsorblock-6.1.5.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4897574/sponsorblock-6.1.7.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "{1018e4d6-728f-4b20-ad56-37578a4de76b}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4829498/flagfox-6.1.99.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4929641/flagfox-6.2.2.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
-    "jid1-KKzOGWgsW3Ao4Q@jetpack" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4202634/i_dont_care_about_cookies-3.5.0.xpi";
-      installation_mode = "force_installed";
-      private_browsing = true;
-      updates_disabled = true;
-    };
-    "wayback_machine@mozilla.org" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4047136/wayback_machine_new-3.2.xpi";
-      installation_mode = "force_installed";
-      private_browsing = true;
-      updates_disabled = true;
-    };
+    # Old extension, consider: https://addons.mozilla.org/en-US/firefox/addon/istilldontcareaboutcookies/
+    #"jid1-KKzOGWgsW3Ao4Q@jetpack" = {
+    #  install_url = "https://addons.mozilla.org/firefox/downloads/file/4202634/i_dont_care_about_cookies-3.5.0.xpi";
+    #  installation_mode = "force_installed";
+    #  private_browsing = true;
+    #  updates_disabled = true;
+    #};
+    # old extension, disable for now. @todo remove.
+    # "wayback_machine@mozilla.org" = {
+    #   install_url = "https://addons.mozilla.org/firefox/downloads/file/4047136/wayback_machine_new-3.2.xpi";
+    #   installation_mode = "force_installed";
+    #   private_browsing = true;
+    #   updates_disabled = true;
+    # };
     "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/file/4773733/user_agent_string_switcher-0.6.7.xpi";
       installation_mode = "force_installed";
@@ -295,7 +296,7 @@
       updates_disabled = true;
     };
     "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4827854/bitwarden_password_manager-2026.5.0.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4915668/bitwarden_password_manager-2026.7.0.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
