@@ -47,7 +47,7 @@
   inputs.awesome-linux-templates.flake = false;
 
   # Latest ulauncher.
-  inputs.ulauncher.url = "github:Ulauncher/Ulauncher/v6.0.0-beta31";
+  inputs.ulauncher.url = "github:dasj19/Ulauncher/nix-fix";
   inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
   inputs.ulauncher.inputs.flake-parts.follows = "flake-parts";
 
