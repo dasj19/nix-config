@@ -23,6 +23,7 @@
 
   # Gnome's seahorse is still needed for key management.
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.hyprland.enableGnomeKeyring = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
   # greetd settings.
