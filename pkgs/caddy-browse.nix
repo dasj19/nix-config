@@ -19,6 +19,6 @@ stdenv.mkDerivation {
     sed -z 's|<footer\b[^>]*>.*</footer>||g' browse.html > $out/lib/caddy/browse.html
   '';
 
-  installPhase = ''true'';
+  installPhase = "true";
 
 }

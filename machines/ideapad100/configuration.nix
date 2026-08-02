@@ -29,7 +29,6 @@
     nssTools # caddy needs to mange its own certificate.
   ];
 
-
   # SERVICES:
 
   # Enable the OpenSSH daemon.

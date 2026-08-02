@@ -1,57 +1,29 @@
 # ai: system-wide configuration of AI tools.
 # contains: CLI tools based on ollama, video enhancing tools and more.
 
-{
-  pkgs,
-  ...
-}:
+{ pkgs, config, ... }:
 
 {
-
   imports = [
     # Non-free software.
     ./non-free.nix
+    ./cuda-packages.nix
   ];
 
-  # Non-free AI/Cuda libraries.
-  allowedUnfree = [
-    "cursor-cli"  # AI cli client.
-    "cuda_cccl"
-    "cuda_cudart"
-    "cuda_cuobjdump"
-    "cuda_cupti"
-    "cuda_cuxxfilt"
-    "cuda_gdb"
-    "cuda-merged"
-    "cuda_nvcc"
-    "cuda_nvdisasm"
-    "cuda_nvml_dev"
-    "cuda_nvprune"
-    "cuda_nvrtc"
-    "cuda_nvtx"
-    "cuda_profiler_api"
-    "cuda_sanitizer_api"
-    "cudnn" # cspell:disable-line
-    "libcublas"
-    "libcurand"
-    "libcusparse"
-    "libnvjitlink"
-    "libcufile" # cspell:disable-line
-    "libcufft"
-    "libcusolver"
-    "libcusparse_lt"
-    "libnpp"
+  # Non-free AI/CUDA libraries.
+  allowedUnfree = config.cuda.allowedPackages ++ [
+    "cursor-cli" # AI CLI client.
     # Self-hosted web solutions.
     "open-webui"
   ];
 
   # AI system tools.
   environment.systemPackages = with pkgs; [
-    cursor-cli        # Ai agent for the command line-
-    llmfit            # Checks what LLMs run optimally on current hardware.
-    shell-gpt         # ChatGPT/Ollama client.
-    tgpt              # ChatGPT client with no need for API keys.
-    video2x           # video upscaler with cuda support.
+    cursor-cli # AI CLI client.
+    llmfit # Checks what LLMs run optimally on current hardware.
+    shell-gpt # ChatGPT/Ollama client.
+    tgpt # ChatGPT client with no need for API keys.
+    video2x # video upscaler with cuda support.
   ];
 
   # Use cuda-powered ollama.

@@ -10,6 +10,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
 let
@@ -52,6 +53,7 @@ in
     # Modules.
     ./../../modules/ai.nix
     ./../../modules/non-free.nix
+    ./../../modules/cuda-packages.nix
   ];
 
   services.displayManager.gdm.enable = lib.mkForce true;
@@ -84,14 +86,14 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    3389  # RDP connections
-    3333  # LBRY Daemon
-    4444  # LBRY Streams
-    5567  # LBRY P2P
+    3389 # RDP connections
+    3333 # LBRY Daemon
+    4444 # LBRY Streams
+    5567 # LBRY P2P
     50001 # LBRY Wallet
   ];
   networking.firewall.allowedUDPPorts = [
-    4444  # LBRY Streams
+    4444 # LBRY Streams
   ];
 
   networking.hosts = {
@@ -196,7 +198,7 @@ in
   nix.settings.cores = lib.mkForce 4;
 
   # Non-free software whitelist / shame list.
-  allowedUnfree = [
+  allowedUnfree = config.cuda.allowedPackages ++ [
     # Game tools.
     "gamepad-tool"
 
@@ -209,35 +211,6 @@ in
 
     # GUI.
     "discord"
-
-    # Machine learning tools - ollama-cuda dependencies.
-    "cuda_cccl"
-    "cuda_nvcc"
-    "cuda_cudart"
-    "libcublas"
-
-    # nvtop dependencies.
-    "cuda-merged"
-    "cuda_cuobjdump"
-    "cuda_gdb"
-    "cuda_nvdisasm"
-    "cuda_nvprune"
-    "cuda_cupti"
-    "cuda_cuxxfilt"
-    "cuda_nvml_dev"
-    "cuda_nvrtc"
-    "cuda_nvtx"
-    "cuda_profiler_api"
-    "cuda_sanitizer_api"
-    "libcufft"
-    "libcurand"
-    "libcusolver"
-    "libnvjitlink"
-    "libcusparse"
-    "libnpp"
-    "libcufile"
-    "libcusparse_lt"
-    "cudnn"
   ];
 
   # Consult manual before changing.

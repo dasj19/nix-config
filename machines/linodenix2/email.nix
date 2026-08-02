@@ -18,7 +18,7 @@ in
     enable = true;
     fqdn = imigrant-fqdn;
     x509.useACMEHost = imigrant-fqdn;
-    # Use Let's Encrypt instead of self-signed certificate.
+    #Using Let's Encrypt instead of self-signed certificate.
     # The Caddy webserver takes care of certificates via ACME.
     # certificateScheme = "acme";
     domains = [
@@ -39,15 +39,4 @@ in
       };
     };
   };
-
-  services.rspamd.extraConfig = ''
-    # Add extended spam information.
-    milter_headers {
-      use = ["x-spamd-bar", "x-spam-level", "x-spam-flag", "x-spam-status", "x-spamd-result", "spam-header", "authentication-results"];
-    }
-    actions {
-      # Apply greylisting when reaching this score
-      greylist = 6;
-    }
-  '';
 }

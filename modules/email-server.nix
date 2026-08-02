@@ -1,57 +1,33 @@
-{ config, lib, ... }:
+# email-server: common mailserver configuration.
+# scope: servers with mail server
+# Provides base mailserver settings, full-text search, and rspamd spam filtering.
+
+_:
 
 {
-  config = {
+  # Setup for the mailserver.
+  mailserver.enable = true;
 
-    #    assertions = lib.optionals config.mailserver.enable ([
-    #      {
-    #        assertion = config.mailserver.fqdn == "";
-    #        message = "FQDN must be set.";
-    #      }
-    #      {
-    #        assertion = config.mailserver.domains == [];
-    #        message = "At least one domain must be set.";
-    #      }
-    #      {
-    #        assertion = config.mailserver.loginAccounts == {};
-    #        message = "loginAccounts must be set.";
-    #      }
-    #    ]);
+  # Index the body of the mails to perform full text search.
+  mailserver.fullTextSearch.enable = true;
+  # Index new email as they arrive.
+  mailserver.fullTextSearch.autoIndex = true;
 
-    # Setup for the mailserver.
-    mailserver.enable = true;
+  mailserver.stateVersion = 3;
+  # IMAPS only.
+  mailserver.enableImap = false;
+  mailserver.enableImapSsl = true;
+  # SMTPS only.
+  mailserver.enableSubmission = false;
+  mailserver.enableSubmissionSsl = true;
 
-    # Uses Let's Encrypt instead of self-signed certificate.
-    # The apache2 webserver takes care of getting the certificate.
-    #mailserver.certificateScheme = "acme";
-
-    # Index the body of the mails to perform full text search.
-    mailserver.fullTextSearch.enable = true;
-    # Index new email as they arrive.
-    mailserver.fullTextSearch.autoIndex = true;
-
-    # Debug authentication. @see: https://serverfault.com/a/1020853
-    # Disabled to allow fail2ban to do its job.
-    #services.dovecot2.extraConfig = ''
-    #  auth_verbose = yes
-    #'';
-
-    mailserver.stateVersion = 3;
-    # IMAPS only.
-    mailserver.enableImap = false;
-    mailserver.enableImapSsl = true;
-    # SMTPS only.
-    mailserver.enableSubmission = false;
-    mailserver.enableSubmissionSsl = true;
-
-    # Add extended spam information.
-    services.rspamd.extraConfig = ''
-      milter_headers {
-        use = ["x-spamd-bar", "x-spam-level", "x-spam-flag", "x-spam-status", "x-spamd-result", "spam-header", "authentication-results"];
-      }
-      actions {
-        greylist = 6; # Apply greylisting when reaching this score
-      }
-    '';
-  };
+  # Add extended spam information to rspamd.
+  services.rspamd.extraConfig = ''
+    milter_headers {
+      use = ["x-spamd-bar", "x-spam-level", "x-spam-flag", "x-spam-status", "x-spamd-result", "spam-header", "authentication-results"];
+    }
+    actions {
+      greylist = 6; # Apply greylisting when reaching this score
+    }
+  '';
 }
