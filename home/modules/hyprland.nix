@@ -7,8 +7,7 @@
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
   wayland.windowManager.hyprland.xwayland.enable = true; # legacy support for X11 apps.
   wayland.windowManager.hyprland.systemd.enable = true; # systemd integration.
-  wayland.windowManager.hyprland.extraConfig =    
-  ''
+  wayland.windowManager.hyprland.extraConfig = ''
     hl.env("GDK_BACKEND", "wayland")
 
     -- Monitor config.
@@ -193,7 +192,7 @@
   services.hypridle.settings = {
     # List of listeners. Only one supported for now.
     listener = {
-      timeout = 150; # seconds of inactivity before locking.
+      timeout = 500; # seconds of inactivity before locking.
       on-timeout = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
     };
     # @todo: Dim the screen after 300 of inactivity.
