@@ -26,16 +26,13 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
 
-      # Setup nix-shell and install linters.
-      - name: Setup nix
-        uses: workflow/nix-shell-action@v4.0.0
-        with:
-          packages: statix nixfmt
-          # Run the code linters.
-          script: |
-            echo "Running statix (static analysis)..."
-            statix check .
-            echo "Running nixfmt (format check)..."
-            nixfmt --check $(find . -name '*.nix' -not -path './.git/' -not -path './result/')
+      # Run the code linters.
+      - name: Lint
+        run: |
+          echo "Running statix (static analysis)..."
+          nix run github:NixOS/nixpkgs#statix -- check .
+          echo "Running nixfmt (format check)..."
+          nix run github:NixOS/nixpkgs#nixfmt -- --check $(find . -name "*.nix" -not -path "./.git/" -not -path "./result/")
