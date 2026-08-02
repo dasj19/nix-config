@@ -74,6 +74,8 @@
     sabnzbd
   ];
 
+  security.polkit.enable = true;
+
   # Enable virtualization.
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
