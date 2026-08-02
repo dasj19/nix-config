@@ -6,6 +6,7 @@ TODO:
 
 2026-08-02
 - vscodium: replace continue extension with kilo code
+- ai: add cursor
 
 2026-07-20
 - flake: remove nil

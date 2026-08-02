@@ -15,6 +15,7 @@
 
   # Non-free AI/Cuda libraries.
   allowedUnfree = [
+    "cursor-cli"  # AI cli client.
     "cuda_cccl"
     "cuda_cudart"
     "cuda_cuobjdump"
@@ -46,10 +47,11 @@
 
   # AI system tools.
   environment.systemPackages = with pkgs; [
-    llmfit      # Checks what LLMs run optimally on current hardware.
-    shell-gpt   # ChatGPT/Ollama client.
-    tgpt        # ChatGPT client with no need for API keys.
-    video2x     # video upscaler with cuda support.
+    cursor-cli        # Ai agent for the command line-
+    llmfit            # Checks what LLMs run optimally on current hardware.
+    shell-gpt         # ChatGPT/Ollama client.
+    tgpt              # ChatGPT client with no need for API keys.
+    video2x           # video upscaler with cuda support.
   ];
 
   # Use cuda-powered ollama.
@@ -63,8 +65,7 @@
 
   # cspell:ignore gguf
   # llama-cpp supports models in the gguf format.
-  #services.llama-cpp.enable = true;
-  #services.llama-cpp.modelsDir = "/var/lib/llama-cpp/models/";
+  services.llama-cpp.enable = true;
 
   # Enable ChatGPT-like user interface for ollama.
   services.open-webui.enable = true;
