@@ -35,4 +35,4 @@ jobs:
           echo "Running statix (static analysis)..."
           nix run github:NixOS/nixpkgs#statix -- check .
           echo "Running nixfmt (format check)..."
-          nix run github:NixOS/nixpkgs#nixfmt -- --check $(find . -name "*.nix" -not -path "./.git/" -not -path "./result/")
+          nix run github:NixOS/nixpkgs#nixfmt -- --check $(find . -name "*.nix" -not -path "./.git")
