@@ -26,10 +26,10 @@
     # Required packages.
     environment.systemPackages = with pkgs; [
       # Binary and dependencies.
-      fish # The fish shell.
-      fastfetch.minimal # Improved version of neofetch. Minimal build is even faster.
-      grc # Command colorizer.
-      fzf # Fuzzy finder.
+      fish      # The fish shell.
+      fastfetch # Improved version of neofetch.
+      grc       # Command colorizer.
+      fzf       # Fuzzy finder.
 
       # Fish plugins.
       #fishPlugins.done # Notify when long tasks are done.          Docs: https://github.com/franciscolourenco/done
