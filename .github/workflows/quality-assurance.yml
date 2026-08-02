@@ -28,12 +28,15 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
 
-      # Setup nix-shell and run statix.
+      # Setup nix-shell and install linters.
       - name: Setup nix
         uses: workflow/nix-shell-action@v4.0.0
         with:
-          packages: statix
-          # Run the code linter.
+          packages: statix nixfmt
+          # Run the code linters.
           script: |
-            nix-shell -p statix
+            nix-shell -p statix nixfmt
+            echo "Running statix (static analysis)..."
             statix check .
+            echo "Running nixfmt (format check)..."
+            nixfmt --check $(find . -name '*.nix' -not -path './.git/' -not -path './result/')
