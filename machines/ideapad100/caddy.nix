@@ -3,7 +3,10 @@
   pkgs,
   ...
 }:
+
 {
+  imports = [ ../../modules/php-fpm.nix ];
+
   # PHP-FPM pools.
   # https://discourse.nixos.org/t/502-bad-gateway-with-caddy-and-php-fastcgi/25429
   services.phpfpm.pools."php85" = {
@@ -11,10 +14,7 @@
     group = "caddy";
     phpPackage = pkgs.php85.buildEnv {
       extensions =
-        {
-          enabled,
-          all,
-        }:
+        { enabled, all }:
         enabled
         ++ (with all; [
           # Extensions for genealogy.
@@ -28,14 +28,10 @@
 
     settings = {
       "listen.owner" = config.services.caddy.user;
-      "pm" = "dynamic";
-      "pm.max_children" = 32;
-      "pm.max_requests" = 500;
-      "pm.start_servers" = 2;
-      "pm.min_spare_servers" = 2;
-      "pm.max_spare_servers" = 5;
+    }
+    // config.services.phpfpm.defaultPoolSettings
+    // {
       "php_admin_flag[log_errors]" = "on";
-      "catch_workers_output" = true;
       "php_flag[display_errors]" = "on";
     };
   };

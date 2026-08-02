@@ -1,31 +1,37 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let 
+let
 
   devbox-domain = "devbox.dev";
 
 in
 
 {
+  imports = [ ../../modules/php-fpm.nix ];
+
   # Using caddy webserver.
   services.caddy.enable = true;
 
   # Caddy virtual hosts.
   services.caddy.virtualHosts."https://${devbox-domain}:443".extraConfig = ''
-      # Self-signed certs. In FF about:config the network.stricttransportsecurity.preloadlist (HSTS) needs to be dissabled.
-      # Created with: openssl req  -nodes -new -x509  -keyout server.key -out server.cert
-      tls "/srv/certs/server.cert" "/srv/certs/server.key"
+    # Self-signed certs. In FF about:config the network.stricttransportsecurity.preloadlist (HSTS) needs to be dissabled.
+    # Created with: openssl req  -nodes -new -x509  -keyout server.key -out server.cert
+    tls "/srv/certs/server.cert" "/srv/certs/server.key"
 
-      # Use php82 with production-like settings for development tools.
-      handle /webgrind/* {
-        php_fastcgi unix/${config.services.phpfpm.pools.php82.socket}
-      }
+    # Use php82 with production-like settings for development tools.
+    handle /webgrind/* {
+      php_fastcgi unix/${config.services.phpfpm.pools.php82.socket}
+    }
 
-      # Deliver files and interpret php.
-      root * /srv/www/${devbox-domain}/
-      file_server
-      php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
-
+    # Deliver files and interpret php.
+    root * /srv/www/${devbox-domain}/
+    file_server
+    php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
   '';
 
   # PHP-FPM pools.
@@ -36,14 +42,8 @@ in
     phpPackage = pkgs.php82;
     settings = {
       "listen.owner" = config.services.caddy.user;
-      "pm" = "dynamic";
-      "pm.max_children" = 32;
-      "pm.max_requests" = 500;
-      "pm.start_servers" = 2;
-      "pm.min_spare_servers" = 2;
-      "pm.max_spare_servers" = 5;
-      "catch_workers_output" = true;
-    };
+    }
+    // config.services.phpfpm.defaultPoolSettings;
     phpOptions = ''
       # Report errors but do no display them.
       error_reporting=E_ALL
@@ -69,9 +69,12 @@ in
     user = "caddy";
     group = "caddy";
     phpPackage = pkgs.php84.buildEnv {
-      extensions = { enabled, all }: enabled ++ (with all; [
-        xdebug
-      ]);
+      extensions =
+        { enabled, all }:
+        enabled
+        ++ (with all; [
+          xdebug
+        ]);
       extraConfig = ''
         xdebug.mode=develop,profile
         xdebug.start_with_request=trigger
@@ -80,16 +83,8 @@ in
     };
     settings = {
       "listen.owner" = config.services.caddy.user;
-      "pm" = "dynamic";
-      "pm.max_children" = 32;
-      "pm.max_requests" = 500;
-      "pm.start_servers" = 2;
-      "pm.min_spare_servers" = 2;
-      "pm.max_spare_servers" = 5;
-#      "php_admin_value[error_log]" = "stderr";
-#      "php_admin_flag[log_errors]" = true;
-      "catch_workers_output" = true;
-    };
+    }
+    // config.services.phpfpm.defaultPoolSettings;
     phpOptions = ''
       # Development settings for php.ini.
       # Displaying errors to browser.

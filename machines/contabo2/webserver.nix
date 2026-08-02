@@ -8,21 +8,23 @@
 let
   firm-domain = gitSecrets.firmDomain;
   daniel-domain = gitSecrets.danielHackerDomain;
-#  caddy-browse = pkgs.callPackage ../../pkgs/caddy-browse.nix { };
+  #  caddy-browse = pkgs.callPackage ../../pkgs/caddy-browse.nix { };
 in
 
 {
+  imports = [ ../../modules/php-fpm.nix ];
+
   # Custom webserver dependencies.
   environment.systemPackages = [
-#    caddy-browse
+    #    caddy-browse
   ];
 
-#  system.activationScripts.caddyBrowse = {
-#    text = ''
-#      mkdir -p /var/lib/caddy
-#      ln -sf ${caddy-browse}/lib/caddy/browse.html /var/lib/caddy/browse.html
-#    '';
-#  };
+  #  system.activationScripts.caddyBrowse = {
+  #    text = ''
+  #      mkdir -p /var/lib/caddy
+  #      ln -sf ${caddy-browse}/lib/caddy/browse.html /var/lib/caddy/browse.html
+  #    '';
+  #  };
 
   # Using caddy webserver.
   services.caddy.enable = true;
@@ -36,7 +38,6 @@ in
     root * /var/www/${firm-domain}/web
     file_server
     php_fastcgi unix/${config.services.phpfpm.pools.php82.socket}
-
   '';
   services.caddy.virtualHosts."www.${daniel-domain}".extraConfig = ''
     redir https://${daniel-domain}{uri} permanent
@@ -86,15 +87,11 @@ in
     phpPackage = pkgs.php82;
     settings = {
       "listen.owner" = config.services.caddy.user;
-      "pm" = "dynamic";
-      "pm.max_children" = 32;
-      "pm.max_requests" = 500;
-      "pm.start_servers" = 2;
-      "pm.min_spare_servers" = 2;
-      "pm.max_spare_servers" = 5;
+    }
+    // config.services.phpfpm.defaultPoolSettings
+    // {
       "php_admin_value[error_log]" = "stderr";
       "php_admin_flag[log_errors]" = true;
-      "catch_workers_output" = true;
     };
   };
 
@@ -104,15 +101,11 @@ in
     phpPackage = pkgs.php84;
     settings = {
       "listen.owner" = config.services.caddy.user;
-      "pm" = "dynamic";
-      "pm.max_children" = 32;
-      "pm.max_requests" = 500;
-      "pm.start_servers" = 2;
-      "pm.min_spare_servers" = 2;
-      "pm.max_spare_servers" = 5;
+    }
+    // config.services.phpfpm.defaultPoolSettings
+    // {
       "php_admin_value[error_log]" = "stderr";
       "php_admin_flag[log_errors]" = true;
-      "catch_workers_output" = true;
     };
   };
 
@@ -126,7 +119,7 @@ in
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    80  # HTTP   - Caddy Webserver.
+    80 # HTTP   - Caddy Webserver.
     443 # HTTPS  - Caddy Webserver.
   ];
 
