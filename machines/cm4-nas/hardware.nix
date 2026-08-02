@@ -1,7 +1,6 @@
 # cm4-nas: hardware configuration for a CM4 on a Raxda Taco v1.3
 # @todo: investigate how we can have the taco working on a newer kernel.
 
-
 {
   lib,
   modulesPath,
@@ -38,18 +37,17 @@
   #  }
   #];
 
-
   # Mount the root filesystem.
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
+    fsType = "ext4";
+  };
 
   # Mount the raid disks onto /mnt/md0.
-  fileSystems."/mnt/md0" =
-    { device = "/dev/disk/by-uuid/5f480d33-ec91-4797-82cf-36118b7576fc";
-      fsType = "ext4";
-    };
+  fileSystems."/mnt/md0" = {
+    device = "/dev/disk/by-uuid/5f480d33-ec91-4797-82cf-36118b7576fc";
+    fsType = "ext4";
+  };
 
   swapDevices = [ ];
 
@@ -58,4 +56,3 @@
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
 }
-
