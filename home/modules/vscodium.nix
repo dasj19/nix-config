@@ -15,8 +15,8 @@
   programs.vscodium.profiles.default.extensions =
     with pkgs.vscode-extensions;
     [
-      # Open source AI remote+local coding agent.
-      continue.continue
+      # AI agent code assistant.
+      kilocode.kilo-code # cspell:disable-line
 
       # PHP.
       bmewburn.vscode-intelephense-client # cspell:disable-line
