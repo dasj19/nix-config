@@ -16,6 +16,7 @@ in
     # Profile.
     ./../../profiles/server.nix
     # Modules.
+    ./../../modules/acme.nix
     ./../../modules/email-server.nix
     ./../../modules/fish.nix
     ./../../modules/keyboard.nix

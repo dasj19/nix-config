@@ -20,6 +20,7 @@ in
     # Profile.
     ./../../profiles/server.nix
     # Modules.
+    ./../../modules/acme.nix
     ./../../modules/email-server.nix
     ./../../modules/fish.nix
     ./../../modules/keyboard.nix
@@ -33,9 +34,6 @@ in
   sops.secrets.root_password = { };
   sops.secrets.daniel_password = { };
   sops.secrets.daniel_daniel_email_password = { };
-  sops.secrets.cloudflare_email = { };
-  sops.secrets.cloudflare_dns_api_token = { };
-  sops.secrets.cloudflare_zone_api_token = { };
 
   # Email server.
   mailserver = {
@@ -82,14 +80,7 @@ in
   # List services.
 
   # ACME settings.
-  security.acme.acceptTerms = true;
   security.acme.defaults.email = "webmaster@${daniel-domain}";
-  security.acme.defaults.dnsProvider = "cloudflare";
-  security.acme.defaults.credentialFiles = {
-    "CLOUDFLARE_EMAIL_FILE" = config.sops.secrets.cloudflare_email.path;
-    "CF_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare_dns_api_token.path;
-    "CF_ZONE_API_TOKEN_FILE" = config.sops.secrets.cloudflare_zone_api_token.path;
-  };
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "24.05";

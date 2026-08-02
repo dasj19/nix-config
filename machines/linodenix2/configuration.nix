@@ -18,6 +18,8 @@ in
   imports = [
     # Profile.
     ./../../profiles/server.nix
+    # Modules.
+    ./../../modules/acme.nix
     # Hardware config.
     ./hardware.nix
     # Email config.
@@ -31,9 +33,6 @@ in
 
   sops.secrets.daniel_password = { };
   sops.secrets.root_password = { };
-  sops.secrets.cloudflare_email = { };
-  sops.secrets.cloudflare_dns_api_token = { };
-  sops.secrets.cloudflare_zone_api_token = { };
 
   # Host and network settings.
   networking.enableIPv6 = true;
@@ -60,16 +59,16 @@ in
   # Open ports in the firewall.
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
-    25  # SMTP
-    53  # DNS
-    80  # HTTP
+    25 # SMTP
+    53 # DNS
+    80 # HTTP
     143 # IMAP
     443 # HTTPS
     465 # SMTP over TLS
     993 # IMAP over TLS
   ];
   networking.firewall.allowedUDPPorts = [
-    53  # DNS
+    53 # DNS
     443 # HTTP/3(S)
   ];
   # https://www.linode.com/docs/products/compute/compute-instances/guides/ipv6/
@@ -79,14 +78,7 @@ in
   '';
 
   # ACME settings.
-  security.acme.acceptTerms = true;
   security.acme.defaults.email = acme-webmaster; # Rename to acmeWebmaster.
-  security.acme.defaults.dnsProvider = "cloudflare";
-  security.acme.defaults.credentialFiles = {
-    "CLOUDFLARE_EMAIL_FILE" = config.sops.secrets.cloudflare_email.path;
-    "CF_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare_dns_api_token.path;
-    "CF_ZONE_API_TOKEN_FILE" = config.sops.secrets.cloudflare_zone_api_token.path;
-  };
 
   # Set your time zone.
   time.timeZone = lib.mkForce "Europe/Berlin";
