@@ -1,51 +1,46 @@
 { pkgs, ... }:
+
 {
-  config = {
+  # Enable fish as the default shell.
+  users.defaultUserShell = pkgs.fish;
+  programs.fish.enable = true;
+  # Translates bash to fish.
+  programs.fish.useBabelfish = true;
 
-    # Enable fish as the default shell.
-    users.defaultUserShell = pkgs.fish;
-    programs.fish.enable = true;
-    # Translates bash to fish.
-    programs.fish.useBabelfish = true;
+  # Disable automatic man page cache generation.
+  documentation.man.cache.enable = false;
 
-    # Disable automatic man page cache generation.
-    documentation.man.cache.enable = false;
+  # Fish customizations.
+  programs.fish.interactiveShellInit = ''
+    # Forcing true colors.
+    set -g fish_term24bit 1
+    # Empty fish greeting.
+    set -g fish_greeting ""
+    # Increase sponge delay. To keep in history the last x commands no matter the exit status.
+    set -g sponge_delay 5
+    # System information.
+    fastfetch
+  '';
 
-    # Fish customizations.
-    programs.fish.interactiveShellInit = ''
-      # Forcing true colors.
-      set -g fish_term24bit 1
-      # Empty fish greeting. @TODO: make it a fish option upstream.
-      set -g fish_greeting ""
-      # Increase sponge delay. To keep in history the last x commands no matter the exit status.
-      set -g sponge_delay 5
-      # System information.
-      fastfetch
-    '';
+  # Required packages.
+  environment.systemPackages = with pkgs; [
+    # Binary and dependencies.
+    fish # The fish shell.
+    fastfetch # Improved version of neofetch.
+    grc # Command colorizer.
+    fzf # Fuzzy finder.
 
-    # Required packages.
-    environment.systemPackages = with pkgs; [
-      # Binary and dependencies.
-      fish      # The fish shell.
-      fastfetch # Improved version of neofetch.
-      grc       # Command colorizer.
-      fzf       # Fuzzy finder.
+    # Fish plugins.
+    fishPlugins.z # Pure-fish z directory jumping.            Docs: https://github.com/jethrokuan/z
+    fishPlugins.fzf-fish # Augment the CLI with key bindings.        Docs: https://github.com/PatrickF1/fzf.fish
+    fishPlugins.autopair # Navigate the matching pairs.              Docs: https://github.com/jorgebucaran/autopair.fish
+    fishPlugins.sponge # Cleans unwanted cli entries from history. Docs: https://github.com/meaningful-ooo/sponge
+    fishPlugins.puffer # Nice expander autocomplete improvement.   Docs: https://github.com/nickeb96/puffer-fish
+    fishPlugins.grc # Command colorizer.
+    fishPlugins.bass # Run bash commands in fish.                Docs: https://github.com/edc/bass
 
-      # Fish plugins.
-      #fishPlugins.done # Notify when long tasks are done.          Docs: https://github.com/franciscolourenco/done
-      fishPlugins.z # Pure-fish z directory jumping.            Docs: https://github.com/jethrokuan/z
-      fishPlugins.fzf-fish # Augment the CLI with key bindings.        Docs: https://github.com/PatrickF1/fzf.fish
-      fishPlugins.autopair # Navigate the matching pairs.              Docs: https://github.com/jorgebucaran/autopair.fish
-      fishPlugins.sponge # Cleans unwanted cli entries from history. Docs: https://github.com/meaningful-ooo/sponge
-      #fishPlugins.colored-man-pages   # Brings color to man pages.                Docs: https://github.com/PatrickF1/colored_man_pages.fish
-      fishPlugins.puffer # Nice expander autocomplete improvement.   Docs: https://github.com/nickeb96/puffer-fish
-      fishPlugins.grc # Command colorizer.
-      fishPlugins.bass # Run bash commands in fish.                Docs: https://github.com/edc/bass
-      #fishPlugins.async-prompt        # Make the prompt asynchronous thus faster. Docs: https://github.com/acomagu/fish-async-prompt
-
-      # Local fish plugins. @todo submit upstream.
-      # Brings colors to man pages, this works better than colored-man-pages.
-      (pkgs.callPackage ../pkgs/fish-colored-man.nix { inherit (pkgs.fishPlugins) buildFishPlugin; })
-    ];
-  };
+    # Local fish plugins. @todo submit upstream.
+    # Brings colors to man pages, this works better than colored-man-pages.
+    (pkgs.callPackage ../pkgs/fish-colored-man.nix { inherit (pkgs.fishPlugins) buildFishPlugin; })
+  ];
 }

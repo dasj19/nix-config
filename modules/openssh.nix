@@ -1,8 +1,7 @@
 # openssh: configuration for openssh server.
 # scope: servers
 
-_ :
-{
+_: {
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PubkeyAuthentication = true;
@@ -16,7 +15,7 @@ _ :
     22
   ];
 
-  # OpenSSH ports.
+  # Firewall.
   networking.firewall.allowedTCPPorts = [
     22 # OpenSSH.
   ];

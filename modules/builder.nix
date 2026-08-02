@@ -1,8 +1,8 @@
+# builder: remote nix build machine configuration.
+# Requires manual setup of ssh keys on the builder host.
+
 {
   nix.buildMachines = [
-    # Requires manual setup of ssh keys.
-    # The root user on host needs to be able
-    # to connect to the builder, preferably by ssh keys.
     {
       hostName = "hostup1";
       systems = [

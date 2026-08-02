@@ -1,8 +1,7 @@
 # audio: system-wide sound settings.
 # scope: desktop
 
-_:
-{
+_: {
   # Pipewire can acquire real time priority with rtkit.
   security.rtkit.enable = true;
   # Disable pulseaudio.

@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   # Install firefox.
@@ -211,11 +208,16 @@
   programs.firefox.policies.Preferences."extensions.pocket.enabled".Value = false;
   programs.firefox.policies.Preferences."browser.newtabpage.pinned".Value = "";
   programs.firefox.policies.Preferences."browser.topsites.contile.enabled".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsored".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.system.showSponsored".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsoredTopSites".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showWeather".Value = false;
-  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.feeds.topsites".Value = false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsored".Value =
+    false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.system.showSponsored".Value =
+    false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showSponsoredTopSites".Value =
+    false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.showWeather".Value =
+    false;
+  programs.firefox.policies.Preferences."browser.newtabpage.activity-stream.feeds.topsites".Value =
+    false;
 
   # Setup default search engine.
   programs.firefox.policies.Preferences."browser.search.defaultenginename".Value = "DuckDuckGo";
