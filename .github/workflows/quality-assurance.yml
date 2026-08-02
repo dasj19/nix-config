@@ -35,7 +35,6 @@ jobs:
           packages: statix nixfmt
           # Run the code linters.
           script: |
-            nix-shell -p statix nixfmt
             echo "Running statix (static analysis)..."
             statix check .
             echo "Running nixfmt (format check)..."
