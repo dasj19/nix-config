@@ -1,4 +1,4 @@
-# Shell aliases module.
+# aliases: shell aliases module.
 # Provides useful shell aliases for everyday terminal usage.
 # Rules:
 # - only non-conflicting aliases are provided (do not override existing linux commands).
@@ -15,148 +15,145 @@
 }:
 
 let
-  t500libre-lan     = gitSecrets.t500libreLanIp;
-  ideapad100-lan    = gitSecrets.ideapad100LanIp;
-  cm4-nas1-lan      = gitSecrets.cm4-nas1LanIp;
-  cm4-nas2-lan      = gitSecrets.cm4-nas2LanIp;
-  t14-lan           = gitSecrets.t14LanIp;
-  tuxedo-xa15-lan   = gitSecrets.tuxedo-xa15LanIp;
-  rpi4-tv-lan       = gitSecrets.rpi4-tvLanIp;
-  contabo2-pub      = gitSecrets.contabo2PublicIp;
-  hostup1-pub       = gitSecrets.hostup1PublicIp;
-  linodenix1-pub    = gitSecrets.linodenix1PublicIp;
-  linodenix2-pub    = gitSecrets.linodenix2PublicIp;
-  t500libre-pub     = gitSecrets.t500librePublicIp;
+  t500libre-lan = gitSecrets.t500libreLanIp;
+  ideapad100-lan = gitSecrets.ideapad100LanIp;
+  cm4-nas1-lan = gitSecrets.cm4-nas1LanIp;
+  cm4-nas2-lan = gitSecrets.cm4-nas2LanIp;
+  t14-lan = gitSecrets.t14LanIp;
+  tuxedo-xa15-lan = gitSecrets.tuxedo-xa15LanIp;
+  rpi4-tv-lan = gitSecrets.rpi4-tvLanIp;
+  contabo2-pub = gitSecrets.contabo2PublicIp;
+  hostup1-pub = gitSecrets.hostup1PublicIp;
+  linodenix1-pub = gitSecrets.linodenix1PublicIp;
+  linodenix2-pub = gitSecrets.linodenix2PublicIp;
+  t500libre-pub = gitSecrets.t500librePublicIp;
 in
 
 {
-  config = {
-    # Shell abbreviations. They do appear in shell history in their expanded form.
-    # Some are inspired from:
-    # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
-    # https://github.com/vikaskyadav/awesome-bash-alias
-    # https://opensource.com/article/19/7/bash-aliases
-    programs.fish.shellAbbrs = {
-      # Eza for well-known ls aliases, we still keep vanilla ls.
-      ll        = "eza -lh --icons --grid --group-directories-first";
-      lg        = "eza -lh --icons --grid --group-directories-first --git";
-      la        = "eza -lah --icons --grid --group-directories-first";
-      lag       = "eza -lah --icons --grid --group-directories-first --git";
-      # List files sorted by size ascending and descending. List by mod time.
-      lh        = "du -sh * | sort -h";
-      lr        = "du -sh * | sort -rh";
-      left      = "ls -t -1";
-      # Change file permissions.
-      cha       = "chmod a+rwx";
-      chr       = "chmod a+r";
-      chx       = "chmod a+x";
-      chw       = "chmod a+w";
-      # Assign ownership to current user, current group.
-      cho       = "chown $(whoami):$(id -gn $(whoami))";
-      # Git shortcuts.
-      gst       = "git status";
-      gsh       = "git stash";
-      ga        = "git add";
-      gc        = "git commit";
-      gch       = "git checkout";
-      gp        = "git push";
-      gu        = "git pull";
-      gd        = "git diff";
-      gl        = "git log";
-      g1        = "git log --oneline";
-      glp       = "git log -p";
-      gf        = "git fetch";
-      gm        = "git merge";
-      gmu       = "git merge upstream/master";
-      # Quick(er) navigation.
-      ".."      = "cd ..";
-      ".1"      = "cd ..";
-      ".2"      = "cd ../../";
-      ".3"      = "cd ../../../";
-      ".4"      = "cd ../../../../";
-      ".5"      = "cd ../../../../../";
-      h         = "cd ~";     # home
-      b         = "cd -";     # back
-      r         = "sudo -i";  # root shell
-      x         = "exit";     # exit shell
-      # Utils. background jobs, history shortcuts, simplified list of mounted partitions.
-      j         = "jobs -l";
-      o         = "history";
-      o1        = "history | head -10";
-      o2        = "history | head -20";
-      o3        = "history | head -30";
-      mnt       = ''mount | awk -F " " "{ printf \"%s\t%s\n\",\$1,\$3; }" | column -t | egrep ^/dev/ | sort'';
-      # Info about memory, cpu and gpu.
-      meminfo   = "free -m -l -t -h";
-      cpuinfo   = "lscpu";
-      gpuinfo   = "lshw -C display";
-      # Processes eating memory, and cpu. Files taking most space. Total used space.
-      psmem     = "ps auxf | sort -nr -k 4 | head -10";
-      pscpu     = "ps auxf | sort -nr -k 3 | head -10";
-      most      = "du -hsx * | sort -rh | head -10";
-      total     = "df -hl --total | grep  -E '(Use(d|%)|total)'";
-      dh        = "df -h";
-      # Development. Get request headers with and without compression; open DDG in a browser.
-      header    = "curl -I";
-      hd        = "curl -I";
-      zheader   = "curl -I --compressed";
-      zh        = "curl -I --compressed";
-      ff        = "xdg-open https://ddg.gg";
-      ddg       = "xdg-open https://ddg.gg";
-      # Networking. public ip, local ips, open ports, internal ports, speed test.
-      myip      = "curl http://icanhazip.com";
-      lip       = "ip addr show | grep \"inet\\b\" | awk \'{print $2,$NF}\'";
-      op        = "nmap localhost -p 0-65535";
-      p         = "ping 1.1";
-      ports     = "netstat -tulanp";
-      t         = "speedtest-cli";
-      f         = "sudo iptables --list-rules";
-      firewall  = "sudo iptables --list-rules";
-      # Nix specific. OS update. Flake update. Clean nix store.
-      osup      = "sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs";
-      nhup      = "nh os switch .#nixosConfigurations.$(hostname)"; # calls sudo when needed.
-      flup      = "nix flake update";
-      nhcl      = "nh clean all --keep-since 5d --keep 3";
-    };
+  # Shell abbreviations. They do appear in shell history in their expanded form.
+  # Some are inspired from:
+  # https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+  # https://github.com/vikaskyadav/awesome-bash-alias
+  # https://opensource.com/article/19/7/bash-aliases
+  programs.fish.shellAbbrs = {
+    # Eza for well-known ls aliases, we still keep vanilla ls.
+    ll = "eza -lh --icons --grid --group-directories-first";
+    lg = "eza -lh --icons --grid --group-directories-first --git";
+    la = "eza -lah --icons --grid --group-directories-first";
+    lag = "eza -lah --icons --grid --group-directories-first --git";
+    # List files sorted by size ascending and descending. List by mod time.
+    lh = "du -sh * | sort -h";
+    lr = "du -sh * | sort -rh";
+    left = "ls -t -1";
+    # Change file permissions.
+    cha = "chmod a+rwx";
+    chr = "chmod a+r";
+    chx = "chmod a+x";
+    chw = "chmod a+w";
+    # Assign ownership to current user, current group.
+    cho = "chown $(whoami):$(id -gn $(whoami))";
+    # Git shortcuts.
+    gst = "git status";
+    gsh = "git stash";
+    ga = "git add";
+    gc = "git commit";
+    gch = "git checkout";
+    gp = "git push";
+    gu = "git pull";
+    gd = "git diff";
+    gl = "git log";
+    g1 = "git log --oneline";
+    glp = "git log -p";
+    gf = "git fetch";
+    gm = "git merge";
+    gmu = "git merge upstream/master";
+    # Quick(er) navigation.
+    ".." = "cd ..";
+    ".1" = "cd ..";
+    ".2" = "cd ../../";
+    ".3" = "cd ../../../";
+    ".4" = "cd ../../../../";
+    ".5" = "cd ../../../../../";
+    h = "cd ~"; # home
+    b = "cd -"; # back
+    r = "sudo -i"; # root shell
+    x = "exit"; # exit shell
+    # Utils. background jobs, history shortcuts, simplified list of mounted partitions.
+    j = "jobs -l";
+    o = "history";
+    o1 = "history | head -10";
+    o2 = "history | head -20";
+    o3 = "history | head -30";
+    mnt = ''mount | awk -F " " "{ printf \"%s\t%s\n\",\$1,\$3; }" | column -t | egrep ^/dev/ | sort'';
+    # Info about memory, cpu and gpu.
+    meminfo = "free -m -l -t -h";
+    cpuinfo = "lscpu";
+    gpuinfo = "lshw -C display";
+    # Processes eating memory, and cpu. Files taking most space. Total used space.
+    psmem = "ps auxf | sort -nr -k 4 | head -10";
+    pscpu = "ps auxf | sort -nr -k 3 | head -10";
+    most = "du -hsx * | sort -rh | head -10";
+    total = "df -hl --total | grep  -E '(Use(d|%)|total)'";
+    dh = "df -h";
+    # Development. Get request headers with and without compression; open DDG in a browser.
+    header = "curl -I";
+    hd = "curl -I";
+    zheader = "curl -I --compressed";
+    zh = "curl -I --compressed";
+    ff = "xdg-open https://ddg.gg";
+    ddg = "xdg-open https://ddg.gg";
+    # Networking. public ip, local ips, open ports, internal ports, speed test.
+    myip = "curl http://icanhazip.com";
+    lip = "ip addr show | grep \"inet\\b\" | awk \'{print $2,$NF}\'";
+    op = "nmap localhost -p 0-65535";
+    p = "ping 1.1";
+    ports = "netstat -tulanp";
+    t = "speedtest-cli";
+    f = "sudo iptables --list-rules";
+    firewall = "sudo iptables --list-rules";
+    # Nix specific. OS update. Flake update. Clean nix store.
+    osup = "sudo nixos-rebuild switch --flake .#$(hostname) --print-build-logs";
+    nhup = "nh os switch .#nixosConfigurations.$(hostname)"; # calls sudo when needed.
+    flup = "nix flake update";
+    nhcl = "nh clean all --keep-since 5d --keep 3";
+  };
 
-    # Use aliases only for shell functions.
-    # If aliasing a command is needed, use shell abbreviations.
-    programs.fish.shellAliases = {
-      # Clear terminal and leave a message.
-      c         = ''function c; clear; echo "Console cleared! Next time use Ctrl+L instead."; end; c'';
-      # Create a dir and enter it.
-      # @see https://stackoverflow.com/a/55620350
-      indir     = "function indir; mkdir $argv; cd $argv; end; indir";
-      # Change into a directory and list its contents.
-      cl        = "function cl; cd $argv; ls; end; cl";
-    };
+  # Use aliases only for shell functions.
+  # If aliasing a command is needed, use shell abbreviations.
+  programs.fish.shellAliases = {
+    # Clear terminal and leave a message.
+    c = ''function c; clear; echo "Console cleared! Next time use Ctrl+L instead."; end; c'';
+    # Create a dir and enter it.
+    # @see https://stackoverflow.com/a/55620350
+    indir = "function indir; mkdir $argv; cd $argv; end; indir";
+    # Change into a directory and list its contents.
+    cl = "function cl; cd $argv; ls; end; cl";
+  };
 
-    # Packages required for aliases to work.
-    environment.systemPackages = with pkgs; [
-      curl          # Command line tool for transferring data from an URL.
-      nettools      # Contains netstat.
-      nh            # Nix helper - manage nixos and home-manager configurations.
-      speedtest-cli # Test internet bandwidth speed from the command line.
-    ];
+  # Packages required for aliases to work.
+  environment.systemPackages = with pkgs; [
+    curl # Command line tool for transferring data from an URL.
+    nettools # Contains netstat.
+    nh # Nix helper - manage nixos and home-manager configurations.
+    speedtest-cli # Test internet bandwidth speed from the command line.
+  ];
 
-    # Pair of IP - HostNames to be saved in /etc/hosts.
-    networking.hosts = {
-      # Tier 1 LAN-hosts (servers).
-      "${t500libre-lan}" = [ "t500libre.lan" ];
-      "${ideapad100-lan}" = [ "ideapad100.lan" ];
-      "${cm4-nas1-lan}" = [ "cm4-nas1.lan" ];
-      "${cm4-nas2-lan}" = [ "cm4-nas2.lan" ];
-      # Tier 2 LAN hosts (clients).
-      "${t14-lan}" = [ "t14.lan" ];
-      "${tuxedo-xa15-lan}" = [ "tuxedo-xa15.lan" ];
-      "${rpi4-tv-lan}" = [ "rpi4-tv.lan" ];
-      # Public hosts.
-      "${contabo2-pub}" = [ "contabo2" ];
-      "${hostup1-pub}" = [ "hostup1" ];
-      "${linodenix1-pub}" = [ "linodenix1" ];
-      "${linodenix2-pub}" = [ "linodenix2" ];
-      "${t500libre-pub}" = [ "t500libre" ];
-    };
-
+  # Pair of IP - HostNames to be saved in /etc/hosts.
+  networking.hosts = {
+    # Tier 1 LAN-hosts (servers).
+    "${t500libre-lan}" = [ "t500libre.lan" ];
+    "${ideapad100-lan}" = [ "ideapad100.lan" ];
+    "${cm4-nas1-lan}" = [ "cm4-nas1.lan" ];
+    "${cm4-nas2-lan}" = [ "cm4-nas2.lan" ];
+    # Tier 2 LAN hosts (clients).
+    "${t14-lan}" = [ "t14.lan" ];
+    "${tuxedo-xa15-lan}" = [ "tuxedo-xa15.lan" ];
+    "${rpi4-tv-lan}" = [ "rpi4-tv.lan" ];
+    # Public hosts.
+    "${contabo2-pub}" = [ "contabo2" ];
+    "${hostup1-pub}" = [ "hostup1" ];
+    "${linodenix1-pub}" = [ "linodenix1" ];
+    "${linodenix2-pub}" = [ "linodenix2" ];
+    "${t500libre-pub}" = [ "t500libre" ];
   };
 }
