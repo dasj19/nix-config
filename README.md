@@ -53,6 +53,14 @@ Whenever I run *osup* or *nhup* on a machine that uses the builder.nix part of t
 to the remote server that has updated builds of my configuration, thus making the build faster.
 I also get emails when the automated build fails thus I avoid the failure propagating to all of the machines.
 
+# Development
+
+Pre-commit hooks run `nixfmt` and `statix` on commit. Install them with:
+
+```
+nix run github:NixOS/nixpkgs#pre-commit install
+```
+
 # Secrets
 Passwords are managed using sops-nix.
 Rest of the secrets that are not to be shared in git are protected using git-crypt.

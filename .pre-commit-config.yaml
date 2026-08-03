@@ -1,0 +1,15 @@
+repos:
+  - repo: local
+    hooks:
+      - id: nixfmt
+        name: nixfmt
+        entry: nix run nixpkgs#nixfmt -- --check
+        language: system
+        types: [nix]
+        pass_filenames: true
+      - id: statix
+        name: statix
+        entry: nix run nixpkgs#statix -- check .
+        language: system
+        types: [nix]
+        pass_filenames: false
