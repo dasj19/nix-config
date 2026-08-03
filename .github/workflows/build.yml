@@ -13,6 +13,32 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This job validates the flake structure, the other job builds each machine.
+  validate:
+    runs-on: self-hosted
+    name: Validate flake
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # Unlocking secrets using the server's git-crypt key
+      - name: Unlocking git secrets
+        run: git-crypt unlock /etc/nixos/git-crypt-key
+
+      # Validate all NixOS configurations can be evaluated.
+      - name: Flake check
+        run: |
+          echo "Running nix flake check..."
+          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
+          flake check
+
+      # Pin all flake inputs for reproducible builds.
+      - name: Flake archive
+        run: |
+          echo "Archiving flake inputs to local store..."
+          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
+          flake archive
+
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
@@ -42,6 +68,7 @@ jobs:
       - uses: actions/checkout@v7
 
       - name: Install SSH key
+        # cspell:disable-next-line
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_KEY }}
