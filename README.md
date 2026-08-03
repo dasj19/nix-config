@@ -139,7 +139,7 @@ Git-crypt key: `git-crypt-key`
 | Status | Component                    | Current                            | R&D                   | Legacy                    |
 | :----: | :--------------------------: | :--------------------------------: | :-------------------: | :-----------------------: |
 |   ✅   | Operating System             | NixOS ❄️                           |                       | Debian/Ubuntu             |
-|   🚧   | Desktop Environment          | Hyprland 💣                        |                       | GNOME                     |
+|   🚧   | Desktop Environment          | Hyprland 💣                        |                       | GNOME 💣🐒🐍🦀            |
 |   🚧   | Application Launcher         | Ulauncher 🐍                       | Ulauncher Extensions  | Gnome Shell 💣🐒 kando 🐒 |
 |   🚧   | Terminal Client              | Alacritty 🦀                       | Wave 🐹               | Gnome Terminal 💣         |
 |   🚧   | File Manager                 | Nemo 💣                            | Sigma File Manager 💣 | Nautilus 💣               |
@@ -152,10 +152,10 @@ Git-crypt key: `git-crypt-key`
 |   ✅   | PDF Editor                   | Xournal++ 💣                       |                       |                           |
 |   ✅   | Web Browser (Primary)        | Firefox Developer Edition 💣🐒     |                       |                           |
 |   ✅   | Web Browser (Secondary)      | Chromium 💣                        |                       |                           |
-|   🚧   | Office Suite                 | Only Office 💣                     |                       | LibreOffice 💣            |
+|   🚧   | Office Suite                 | Only Office 💣                     |                       | LibreOffice 💣🫘🐍        |
 |   ✅   | Diagram Drawing Tool         | drawio 🐒                          |                       |                           |
 |   🚧   | Graphic Manipulation Tool    | GIMP 💣                            |                       |                           |
-|   🚧   | Vector Graphic Tool          | ???                                |                       |                           |
+|   ❓   | Vector Graphic Tool          |                                    |                       |                           |
 |   🚧   | Resource Monitor             | Mission Center 💣 resources 🦀     |                       | Gnome System Monitor 💣   |
 |   🚧   | Secret Management Tool       | Gnome Keyring 💣                   |                       |                           |
 |   🚧   | Image Viewer                 | Image Roll 🦀                      |                       | Gnome Loupe 🦀            |
@@ -167,5 +167,5 @@ Git-crypt key: `git-crypt-key`
 |   ✅   | File Transfer Tool           | Filezilla 💣                       |                       |                           |
 |   ✅   | Database Management Tool     | dbeaver 🫘                         |                       |                           |
 |   ✅   | Diff Manager                 | meld 🐍                            |                       |                           |
-|   🚧   | CLI AI Agent                 | copilot-cli 🐒                     | claude-code 🐚        |                           |
+|   🚧   | CLI AI Agent                 | kilo code 🐒                       |                       |                           |
 |   ✅   | Backup manager               | backintime 🐍                      |                       |                           |
