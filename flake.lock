@@ -301,11 +301,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785242276,
-        "narHash": "sha256-sJI/6nAkckPii1HUCNj4XwPV6E7CZ9t75WX/XQvSyG8=",
+        "lastModified": 1785702596,
+        "narHash": "sha256-PnJsHRZyM3iA+0BeEikWm2piQCuwtGU4xxjsWOMRvTU=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "d4165c1dc93aa7bb3019e5a90960c121e228cad5",
+        "rev": "531aa78a9f03f3831aa45566630ab52f6483159b",
         "type": "gitlab"
       },
       "original": {
@@ -533,11 +533,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785685192,
-        "narHash": "sha256-GrSWmmOWI8TYjv+yuPnyGC79Ddyg0Fw5nMOC2iJ60YY=",
+        "lastModified": 1785696380,
+        "narHash": "sha256-bx7DIz/8uNFt2TPWBjIhnDKSnY5wtbi3+hUpJTca17k=",
         "owner": "Ulauncher",
         "repo": "Ulauncher",
-        "rev": "51be23e33a2c0b4278f697c9a5bda09a6ac3b344",
+        "rev": "05fb48856b65c26c18cbec20e826b9527eb30caf",
         "type": "github"
       },
       "original": {
