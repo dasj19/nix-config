@@ -30,9 +30,6 @@
 
     # Non-free software for laptop.
     allowedUnfree = [
-      # CLI.
-      "claude-code"
-      "github-copilot-cli"
       # Libraries.
       "unrar"
       # GUI.
@@ -44,7 +41,6 @@
       # CLIs.
       asciinema # Terminal session recorder.
       bchunk # converts CD images from BIN/CUE to ISO and CDR tracks.
-      claude-code # Premium AI CLI client.
       localtunnel # CLI interface for the localtunnel service.
       #cron
       cuetools # Utilities for working with cue files and toc files.
@@ -53,7 +49,6 @@
       ffmpeg-full # Record, convert and stream audio and video.
       flac # Tools for encoding and decoding the FLAC lossless audio file format.
       gh # Github CLI tool.
-      github-copilot-cli # Copilot AI CLI client.
       jujutsu # Git-compatible alternative VCS.
       khard # CLI for managing contacts.
       tealdeer # Fast implementation of tldr.

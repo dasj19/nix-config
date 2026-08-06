@@ -4,6 +4,9 @@ In this file I'll try to mention major changes to the configuration.
 TODO:
 - setup smartd on cm4-nas
 
+2026-08-06
+- laptop: remove copilot and claude non-free cli clients
+
 2026-08-02
 - vscodium: replace continue extension with kilo code
 - ai: add cursor
