@@ -49,7 +49,6 @@
   environment.systemPackages = with pkgs; [
     # CLI.
     apkeep # Android APK downloader.
-    fwupd # Firmware updater utility.
     lrcget # Lyrics downloader.
 
     # GUI.
