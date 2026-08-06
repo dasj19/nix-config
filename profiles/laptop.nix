@@ -84,7 +84,7 @@
       meld # Visual diff merger.
       onlyoffice-desktopeditors # Primary office suite.
       pdfarranger # Basic PDF editor.
-      #qalculate-gtk              # Classic calculator.
+      qalculate-gtk # Classic calculator.
       qbittorrent # Torrent client.
       signal-desktop # Encrypted private messenger.
       usbimager # Bootable USB creator.
