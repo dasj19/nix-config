@@ -412,6 +412,7 @@ SMTPS
 snes
 SNIV
 sopsnix
+soulseek
 soulseekqt
 soundconverter
 soundcore

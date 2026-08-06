@@ -48,21 +48,21 @@
   # System-wide packages.
   environment.systemPackages = with pkgs; [
     # CLI.
-    apkeep
-    fwupd
-    lrcget
+    apkeep # Android APK downloader.
+    fwupd # Firmware updater utility.
+    lrcget # Lyrics downloader.
 
     # GUI.
-    gcstar
-    discord
-    mailspring
-    xsane
+    gcstar # Collection manager.
+    discord # Modern but non-free chat service.
+    xsane # Paper scanning software.
 
     # P2P.
-    nicotine-plus
-    sabnzbd
+    nicotine-plus # soulseek client.
+    sabnzbd # nzb client.
   ];
 
+  # Gnome's policy kit.
   security.polkit.enable = true;
 
   # Enable virtualization.
