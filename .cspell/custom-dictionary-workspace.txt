@@ -93,6 +93,7 @@ defaultenginename
 desktopeditors
 devbox
 devedition
+devenv
 dhcpcd
 dialout
 difftastic
