@@ -2,9 +2,9 @@
 # model: Lenovo T14 Gen1
 #
 # Notes:
-#  - any offline AI work has to be done on CPU which is very slow,
-#    therefore online AI should be used instead.
-#  - sudo-rs is set up to be used using fingerprint first but has password prompt as fallback.
+#  - any offline AI work has to be done on CPU which is slow.
+#  - sudo-rs is set up to be used using fingerprint first
+#    but has password prompt as fallback.
 #
 
 {
@@ -31,17 +31,6 @@
     ./../../modules/ai.nix
     ./../../modules/audio.nix
     ./../../modules/non-free.nix
-  ];
-
-  systemd.tmpfiles.rules = [
-    # Silence erros:
-    # jun 29 22:19:21 t14 polkitd[106479]: Loading rules from directory /run/polkit-1/rules.d
-    # jun 29 22:19:21 t14 polkitd[106479]: Error opening rules directory: Error opening directory “/run/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)
-    # jun 29 22:19:21 t14 polkitd[106479]: Loading rules from directory /usr/local/share/polkit-1/rules.d
-    # jun 29 22:19:21 t14 polkitd[106479]: Error opening rules directory: Error opening directory “/usr/local/share/polkit-1/rules.d”: No such file or directory (g-file-error-quark, 4)
-
-    "d /run/polkit-1/rules.d 1777 polkituser polkituser 10d"
-    "d /usr/local/share/polkit-1/rules.d 1777 polkituser polkituser 10d"
   ];
 
   # Non-free software whitelist / shame list.
