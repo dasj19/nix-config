@@ -1,5 +1,6 @@
 # email-server: common mailserver configuration.
 # scope: servers with mail server
+#
 # Provides base mailserver settings, full-text search, and rspamd spam filtering.
 
 _:

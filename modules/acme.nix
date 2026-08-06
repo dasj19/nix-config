@@ -1,5 +1,6 @@
 # acme: common ACME/Let's Encrypt configuration with Cloudflare DNS.
 # scope: servers
+#
 # Provides shared sops secret declarations and ACME defaults for Cloudflare DNS.
 # Individual machines should set security.acme.defaults.email to their ACME contact email.
 

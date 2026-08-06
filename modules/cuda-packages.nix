@@ -2,7 +2,10 @@
 # Declared as a module option so other modules can reference
 # `config.cuda.allowedPackages` without needing specialArgs.
 
-{ config, lib, ... }:
+{
+  lib,
+  ...
+}:
 
 {
   options.cuda.allowedPackages = lib.mkOption {

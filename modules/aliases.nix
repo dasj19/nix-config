@@ -1,4 +1,6 @@
 # aliases: shell aliases module.
+# scope: laptops and servers
+#
 # Provides useful shell aliases for everyday terminal usage.
 # Rules:
 # - only non-conflicting aliases are provided (do not override existing linux commands).
