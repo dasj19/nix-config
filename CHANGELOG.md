@@ -6,6 +6,7 @@ TODO:
 
 2026-08-06
 - laptop: remove copilot and claude non-free cli clients
+- nix: add nixd language server.
 
 2026-08-02
 - vscodium: replace continue extension with kilo code

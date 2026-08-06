@@ -301,6 +301,7 @@ newtabpage
 nhcl
 nhlt
 nhup
+nixd
 nixfmt
 nixos
 nixpkgs
