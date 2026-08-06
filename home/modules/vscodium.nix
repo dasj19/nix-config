@@ -96,6 +96,9 @@
 
     # Font settings.
     "editor.allowVariableFonts" = false;
+
+    # Disable Kilo Code autocomplete.
+    "kilo-code.new.autocomplete.enableAutoTrigger" = false;
   };
 
   # Allowed non-free packages.
