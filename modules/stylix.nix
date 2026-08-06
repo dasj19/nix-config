@@ -1,3 +1,5 @@
+# stylix: style the entire desktop uniform no matter which tech stack the software belongs to.
+
 {
   nixos-artwork,
   lib,

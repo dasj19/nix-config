@@ -2,7 +2,6 @@
 # contains: the base profile + laptop-specific modules.
 
 {
-  lib,
   pkgs,
   ...
 }:
