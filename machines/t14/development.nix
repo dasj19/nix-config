@@ -29,7 +29,6 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.extraPackages = [
     pkgs.docker-buildx # handles building docker remotely # cspell:disable-line
-    pkgs.docker-compose
   ];
 
   # Network bridge between vm guest and host.
