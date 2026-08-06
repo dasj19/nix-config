@@ -19,8 +19,10 @@ in
 
   # Caddy virtual hosts.
   services.caddy.virtualHosts."https://${devbox-domain}:443".extraConfig = ''
-    # Self-signed certs. In FF about:config the network.stricttransportsecurity.preloadlist (HSTS) needs to be dissabled.
-    # Created with: openssl req  -nodes -new -x509  -keyout server.key -out server.cert
+    # Self-signed certs. #cspell:disable-next-line
+    # In FF about:config the network.stricttransportsecurity.preloadlist
+    # (HSTS) needs to be disabled. #cspell:disable-next-line
+    # Created with: openssl req -nodes -new -x509 -keyout server.key -out server.cert
     tls "/srv/certs/server.cert" "/srv/certs/server.key"
 
     # Use php82 with production-like settings for development tools.
@@ -55,7 +57,7 @@ in
       log_errors_max_len=0
       # Increase memory limit.
       memory_limit=512M
-      # Increase transfer filesizes.
+      # Increase transfer filesize.
       post_max_size=100M
       upload_max_filesize=100M
       # Mailcatcher support for php.
@@ -97,7 +99,7 @@ in
       log_errors_max_len=0
       # Increase memory limit.
       memory_limit=512M
-      # Increase transfer filesizes.
+      # Increase transfer filesize.
       post_max_size=100M
       upload_max_filesize=100M
       # Mailcatcher support for php.

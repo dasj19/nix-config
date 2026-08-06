@@ -51,8 +51,10 @@ brightnessctl
 btintel
 btrtl
 btusb
+cachegrind
 cachix
 CAPSLOCK
+catchmail
 catppuccin
 cccl
 cdrom
@@ -129,6 +131,7 @@ felixfbecker
 fetchurl
 ffmpegthumbnailer
 fileinto
+filesize
 filezilla
 finegrained
 Fira
@@ -258,6 +261,7 @@ lshw
 luks
 macchiato
 MAILADDR
+mailcatcher
 mailipv
 mailserver
 Mailspring
@@ -489,6 +493,7 @@ wakeup
 Wayback
 waybar
 waydroid
+webgrind
 webp
 webroot
 webui
