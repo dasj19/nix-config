@@ -277,20 +277,12 @@
       private_browsing = true;
       updates_disabled = true;
     };
-    # Old extension, consider: https://addons.mozilla.org/en-US/firefox/addon/istilldontcareaboutcookies/
-    #"jid1-KKzOGWgsW3Ao4Q@jetpack" = {
-    #  install_url = "https://addons.mozilla.org/firefox/downloads/file/4202634/i_dont_care_about_cookies-3.5.0.xpi";
-    #  installation_mode = "force_installed";
-    #  private_browsing = true;
-    #  updates_disabled = true;
-    #};
-    # old extension, disable for now. @todo remove.
-    # "wayback_machine@mozilla.org" = {
-    #   install_url = "https://addons.mozilla.org/firefox/downloads/file/4047136/wayback_machine_new-3.2.xpi";
-    #   installation_mode = "force_installed";
-    #   private_browsing = true;
-    #   updates_disabled = true;
-    # };
+    "idcac-pub@guus.ninja" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4637154/istilldontcareaboutcookies-1.1.9.xpi";
+      installation_mode = "force_installed";
+      private_browsing = true;
+      updates_disabled = true;
+    };
     "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/file/4773733/user_agent_string_switcher-0.6.7.xpi";
       installation_mode = "force_installed";
