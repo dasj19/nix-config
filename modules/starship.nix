@@ -1,43 +1,36 @@
 # starship: cross-shell prompt configuration.
+# scope: all machines
+#
+# Provides prompt appearance, git status symbols, and disabled modules.
 
 {
   # Cross-shell prompt.
   programs.starship.enable = true;
+
   # Starship configuration.
   programs.starship.settings = {
-    # No new line before the prompt.
+    # General prompt settings.
     add_newline = false;
-    # Module configuration.
     line_break = {
       disabled = true;
     };
-    # Disable auto running commands that require sudo,
-    # spamming the logs with failed auth requests.
     sudo = {
       disabled = true;
     };
+
+    # Prompt segments.
     username = {
       show_always = true;
       format = "[$user]($style)@";
     };
     hostname = {
       ssh_only = false;
-      format = "[$ssh_symbol$hostname]($style)  ";
+      format = "[$ssh_symbol$hostname]($style) :";
     };
     directory = {
       format = "[ $path ]($style)";
       truncation_length = 3;
       truncation_symbol = "…/";
-    };
-    directory.substitutions = {
-      documents = "󰈙 ";
-      downloads = " ";
-      media = "🎞️ ";
-      music = "󰎄 ";
-      photos = " ";
-      video = "󰽜 ";
-      workspace = "󱗿 ";
-      "~" = " ";
     };
     time = {
       disabled = false;
@@ -46,6 +39,8 @@
       disabled = false;
       map_symbol = true;
     };
+
+    # Git status symbols.
     git_status = {
       disabled = false;
       conflicted = "🏳";
@@ -60,11 +55,44 @@
       renamed = "👅";
       deleted = "🗑";
     };
+
+    # Disabled language modules.
     php = {
       disabled = true;
     };
     nodejs = {
       disabled = true;
+    };
+
+    # Prompt symbol.
+    character = {
+      error_symbol = "✗";
+      success_symbol = "❯";
+    };
+
+    # Command duration.
+    cmd_duration = {
+      min_time = 2000;
+      format = "took [$duration]($style) ";
+    };
+
+    # Battery indicator (laptops only).
+    battery = {
+      disabled = false;
+      full_symbol = "🔋";
+      charging_symbol = "⚡";
+      discharging_symbol = "💀";
+    };
+
+    # Container runtime.
+    container = {
+      disabled = false;
+      style = "bold red";
+    };
+
+    # Background jobs.
+    jobs = {
+      disabled = false;
     };
   };
 }
