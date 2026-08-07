@@ -11,7 +11,6 @@
   environment.systemPackages = with pkgs; [
     ddev # tool for php-docker development. # cspell:disable-line
     devenv # control development environments with nix.
-
     mkcert # creates development environment certificates. # cspell:disable-line
     nodejs # node javascript library.
     php83 # PHP.

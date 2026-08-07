@@ -7,6 +7,10 @@
   # Translates bash to fish.
   programs.fish.useBabelfish = true;
 
+  # Handles environment variables per directory.
+  programs.direnv.enable = true;
+  programs.direnv.enableFishIntegration = true;
+
   # Disable automatic man page cache generation.
   documentation.man.cache.enable = false;
 

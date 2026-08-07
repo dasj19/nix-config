@@ -99,6 +99,7 @@ devenv
 dhcpcd
 dialout
 difftastic
+direnv
 Discogs
 distro
 dlna
