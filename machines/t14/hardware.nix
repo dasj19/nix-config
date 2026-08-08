@@ -3,7 +3,6 @@
 
 {
   config,
-  gitSecrets,
   lib,
   pkgs,
   ...
