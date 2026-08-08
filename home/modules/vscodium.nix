@@ -15,23 +15,26 @@
   programs.vscodium.profiles.default.extensions =
     with pkgs.vscode-extensions;
     [
-      # AI agent code assistant.
-      kilocode.kilo-code # cspell:disable-line
-
       # PHP.
       bmewburn.vscode-intelephense-client # cspell:disable-line
 
+      # editorconfig support.
+      editorconfig.editorconfig
+
       # Nix language support.
       jnoortheen.nix-ide # cspell:disable-line
+
+      # AI agent code assistant.
+      kilocode.kilo-code # cspell:disable-line
+
+      # Editor enhancements.
+      oderwat.indent-rainbow # cspell:disable-line
 
       # Yaml support.
       redhat.vscode-yaml
 
       # Spell checker.
       streetsidesoftware.code-spell-checker
-
-      # Editor enhancements.
-      oderwat.indent-rainbow # cspell:disable-line
 
       # Editor icons.
       vscode-icons-team.vscode-icons
