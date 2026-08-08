@@ -131,13 +131,13 @@
   # System-wide drivers and utilities.
   environment.systemPackages = with pkgs; [
     # Drivers.
+    libgbm # Generic Buffer Management API
+    libglvnd # The GL Vendor Neutral Dispatch library
     linux-firmware # needed for the intel graphic card.
     mesa # open-source graphics drivers.
+    vpl-gpu-rt # Intel oneAPI Video Processing Library - GPU Runtime
     vulkan-loader # Vulkan loader and utilities.
     vulkan-tools # Vulkan command-line tools.
-    vpl-gpu-rt # Intel oneAPI Video Processing Library - GPU Runtime
-    libglvnd # The GL Vendor Neutral Dispatch library
-    libgbm # Generic Buffer Management API
   ];
 
   # Install fingerprinting the driver.
