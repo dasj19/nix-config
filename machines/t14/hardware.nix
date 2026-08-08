@@ -5,18 +5,19 @@
   config,
   gitSecrets,
   lib,
-  modulesPath,
   pkgs,
   ...
 }:
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
     # Common hardware configuration.
     ../../modules/hardware.nix
     # Non-free software.
     ../../modules/non-free.nix
   ];
+
+  # Allow non-free firmware (example: wifi drivers).
+  hardware.enableRedistributableFirmware = true;
 
   # Non-free drivers.
   allowedUnfree = [

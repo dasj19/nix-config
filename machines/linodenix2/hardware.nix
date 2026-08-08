@@ -10,6 +10,7 @@
 
 {
   imports = [
+    # Virtualization specific kernel modules.
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 

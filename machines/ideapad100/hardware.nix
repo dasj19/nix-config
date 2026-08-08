@@ -4,14 +4,17 @@
 {
   config,
   lib,
-  modulesPath,
   ...
 }:
 
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+    # Common hardware configuration.
+    ../../modules/hardware.nix
   ];
+
+  # Allow non-free firmware (example: wifi drivers).
+  hardware.enableRedistributableFirmware = true;
 
   boot.initrd.availableKernelModules = [
     "ahci"

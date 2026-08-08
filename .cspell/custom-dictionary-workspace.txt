@@ -110,6 +110,7 @@ dont
 dslg
 dswexec
 dswload
+dtbo
 duckduckgo
 ehci
 Embedder

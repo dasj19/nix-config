@@ -1,9 +1,9 @@
-# Module for common hardware configuration.
-# To be used on bare metal / physical machines.
+# hardware: module for common hardware configuration.
+# scope: bare-metal machines
+#
 # Not to be used on virtual machines.
 {
   config,
-  lib,
   pkgs,
   ...
 }:
