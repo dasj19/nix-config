@@ -20,18 +20,5 @@
 
   environment.systemPackages = with pkgs; [
     smartmontools # Control utility for SMART disks.
-    mailutils # Provides the 'mail' command.
-  ];
-
-  # @TODO: try to encapsulate into fastfetch configuration.
-  programs.fish = lib.mkMerge [
-    {
-      interactiveShellInit = ''
-        # Print local mail messages at shell initialization.
-        # To read the mail, use the 'mail' command.
-        # SMART uses these to send notifications.
-        printf "Mail status: " && mail -H
-      '';
-    }
   ];
 }

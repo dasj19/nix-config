@@ -10,6 +10,7 @@
 {
   imports = [
     ./../modules/aliases.nix
+    ./../modules/fastfetch.nix
     ./../modules/fish.nix
     ./../modules/folders.nix
     ./../modules/keyboard.nix

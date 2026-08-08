@@ -30,7 +30,6 @@
   environment.systemPackages = with pkgs; [
     # Binary and dependencies.
     fish # The fish shell.
-    fastfetch # Improved version of neofetch.
     grc # Command colorizer.
     fzf # Fuzzy finder.
 
