@@ -47,7 +47,10 @@
           "wm",
           "theme",
           "icons",
-          "terminal",
+          {  
+            "type": "terminal",  
+            "format": "{pretty-name<20}"
+          },
           "cpu",
           "gpu",
           "memory",
