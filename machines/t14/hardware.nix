@@ -68,31 +68,8 @@
     options thinkpad_acpi fan_control=1
   '';
 
-  # Graphical LUKS password dialog. Only supported by boot.initrd.systemd
-  # boot.initrd.unl0kr.enable = true;
-  # Boot graphics instead of text.
   boot.plymouth.enable = true;
-  boot.plymouth.theme = "matrix";
-  boot.plymouth.themePackages = with pkgs; [
-    plymouth-matrix-theme
-  ];
-  # @todo, write a plymouth theme, based on a existing one. I thought it would be easy to add a custom message the following way, but I was wrong.
-  # https://linuxvox.com/blog/plymouth-linux/
-  # boot.plymouth.extraConfig =
-  #   let
-  #     overlayScript = pkgs.writeText "plymouth-overlay-script" ''
-  #       #!${pkgs.plymouth}/bin/plymouth
-  #       window = Window()
-  #       msg = "Booting..."
-  #       window.show_text(msg, 0.5, 0.85, 28, 1, 1, 1)
-  #     '';
-  #   in
-  #   ''
-  #     [PLYMOUTH Theme]
-  #     Name=overlay
-  #     ModuleName=script
-  #     ScriptFile=${overlayScript}
-  #   '';
+  boot.plymouth.theme = "spinner";
 
   boot.kernelModules = [
     # Bluetooth module.
