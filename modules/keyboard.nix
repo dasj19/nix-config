@@ -1,5 +1,7 @@
 # keyboard: keyboard layout configuration.
 
+_:
+
 {
   # Configure keyboard layout in X11.
   services.xserver.xkb.layout = "esrodk,es,dk,ro";
@@ -14,5 +16,5 @@
     "rum"
     "spa"
   ];
-  services.xserver.xkb.extraLayouts.esrodk.symbolsFile = ./esrodk;
+  services.xserver.xkb.extraLayouts.esrodk.symbolsFile = ../settings/esrodk;
 }

@@ -19,7 +19,6 @@ Coding conventions and project-specific guidance for this repository.
 │   ├── builder.nix           # Remote build machine config (hostup1)
 │   ├── cuda-packages.nix     # Module option: config.cuda.allowedPackages
 │   ├── email-server.nix      # Mailserver base config + rspamd
-│   ├── esrodk                # Custom XKB keyboard layout
 │   ├── fastfetch.nix         # Fast system information display
 │   ├── fish.nix              # Fish shell + plugins
 │   ├── folders.nix           # XDG user directories
@@ -36,6 +35,8 @@ Coding conventions and project-specific guidance for this repository.
 │   ├── starship.nix          # Shell prompt configuration
 │   ├── stylix.nix
 │   └── users.nix
+├── settings/                 # Static configuration files (keyboard layouts, etc.)
+│   └── esrodk                # Custom XKB keyboard layout (Spanish with RODK)
 ├── machines/                 # One folder per machine
 │   ├── <hostname>/
 │   │   ├── configuration.nix # Main config, imports modules + profiles
