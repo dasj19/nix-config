@@ -1,3 +1,8 @@
+# contabo2: web server configuration for Contabo VPS.
+# scope: machine
+#
+# Provides Caddy web server and PHP-FPM pools.
+
 {
   config,
   gitSecrets,

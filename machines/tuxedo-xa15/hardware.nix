@@ -1,3 +1,6 @@
+# tuxedo-xa15: hardware configuration for Tuxedo Book XA 15.
+# scope: machine
+
 {
   config,
   lib,

@@ -1,5 +1,5 @@
 # t14: my daily driver laptop
-# model: Lenovo T14 Gen1
+# scope: machine
 #
 # Notes:
 #  - any offline AI work has to be done on CPU which is slow.

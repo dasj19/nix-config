@@ -1,3 +1,6 @@
+# t14: hardware configuration for Lenovo ThinkPad T14 Gen1.
+# scope: machine
+
 {
   config,
   gitSecrets,

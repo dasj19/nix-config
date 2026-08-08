@@ -1,5 +1,5 @@
 # rpi4-tv: raspberry pi 4 for managing a tv-tuner.
-# scope: server
+# scope: machine
 
 {
   gitSecrets,

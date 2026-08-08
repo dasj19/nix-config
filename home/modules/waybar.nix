@@ -1,3 +1,8 @@
+# waybar: Waybar status bar configuration.
+# scope: laptops
+#
+# Provides Waybar settings, modules, and styling.
+
 _: {
   programs.waybar.enable = true;
   programs.waybar.settings = {

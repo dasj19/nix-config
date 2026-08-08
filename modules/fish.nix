@@ -1,4 +1,12 @@
-{ pkgs, ... }:
+# fish: fish shell configuration with plugins and customizations.
+# scope: all machines
+#
+# Provides the fish shell, direnv integration, shell plugins, and startup customizations.
+
+{
+  pkgs,
+  ...
+}:
 
 {
   # Enable fish as the default shell.

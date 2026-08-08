@@ -1,3 +1,8 @@
+# devbox: local web server configuration for development.
+# scope: server
+#
+# Provides Caddy web server, PHP-FPM pools, and development tools.
+
 {
   config,
   lib,

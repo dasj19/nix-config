@@ -1,5 +1,7 @@
 # cm4-nas: machine configuration for a raxda taco on compute module 4 from raspberry pi.
-# contains: raid5 configuration and a NFS share.
+# scope: machine
+#
+# Provides raid5 configuration and a NFS share.
 
 {
   pkgs,

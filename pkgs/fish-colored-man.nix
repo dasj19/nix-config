@@ -1,3 +1,8 @@
+# fish-colored-man: fish plugin for colored man pages.
+# scope: all machines with fish shell
+#
+# Local plugin pending upstream submission.
+
 {
   buildFishPlugin,
   fetchFromGitHub,

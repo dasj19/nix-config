@@ -1,12 +1,9 @@
-/*
-  * tuxedo-xa15: my old powerful but noisy laptop
-  * model: Tuxedo Book XA 15
-  *
-  * Notes:
-  *  - no longer used as a daily driver.
-  *  - used to test heavy offline-AI
-  *  - sometimes booted into Batocera from an external SDD.
-*/
+# tuxedo-xa15: old Tuxedo Book XA 15 laptop.
+# scope: machine
+#
+# No longer used as a daily driver. Used to test heavy offline-AI.
+# Sometimes booted into Batocera from an external SSD.
+
 {
   lib,
   pkgs,

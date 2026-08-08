@@ -1,5 +1,7 @@
+# linodenix1: Linode VPS server (surname domain).
+# scope: machine
+
 {
-  config,
   gitSecrets,
   lib,
   pkgs,

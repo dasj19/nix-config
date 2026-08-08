@@ -1,3 +1,6 @@
+# t500libre: hardware configuration for Lenovo ThinkPad T500.
+# scope: machine
+
 {
 
   imports = [

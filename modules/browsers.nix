@@ -1,3 +1,8 @@
+# browsers: Firefox and Chromium browser preferences.
+# scope: laptops
+#
+# Provides Firefox preferences, extensions, and Chromium settings.
+
 { pkgs, ... }:
 
 {

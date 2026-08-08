@@ -1,3 +1,6 @@
+# t500libre: Lenovo ThinkPad T500 laptop.
+# scope: machine
+
 {
   config,
   gitSecrets,

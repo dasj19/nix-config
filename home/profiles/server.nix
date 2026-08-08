@@ -1,3 +1,6 @@
+# server: base home-manager profile for servers.
+# scope: servers
+
 _:
 
 {

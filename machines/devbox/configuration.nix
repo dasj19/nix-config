@@ -1,3 +1,6 @@
+# devbox: development workstation server.
+# scope: machine
+
 { pkgs, ... }:
 
 {

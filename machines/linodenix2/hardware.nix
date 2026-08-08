@@ -1,3 +1,6 @@
+# linodenix2: hardware configuration for Linode server.
+# scope: machine
+
 {
   config,
   lib,

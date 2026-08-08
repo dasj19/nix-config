@@ -1,3 +1,6 @@
+# caddy-browse: directory browsing plugin for Caddy web server.
+# scope: servers running Caddy
+
 { fetchurl, stdenv, ... }:
 
 stdenv.mkDerivation {

@@ -1,3 +1,8 @@
+# linodenix2: mail server configuration for Linode VPS.
+# scope: server
+#
+# Provides mailserver and ACME certificates.
+
 { config, gitSecrets, ... }:
 
 let

@@ -1,3 +1,8 @@
+# ideapad100: Caddy web server configuration for Lenovo IdeaPad 100S-11IBY.
+# scope: machine
+#
+# Provides Caddy virtual hosts and PHP-FPM pools.
+
 {
   config,
   pkgs,

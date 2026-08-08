@@ -1,3 +1,6 @@
+# contabo2: VPS server on Contabo.
+# scope: machine
+
 {
   config,
   lib,

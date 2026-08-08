@@ -1,3 +1,8 @@
+# linodenix1: mail server configuration for Linode VPS.
+# scope: machine
+#
+# Provides mailserver, rspamd spam filtering, and ACME certificates.
+
 {
   config,
   gitSecrets,

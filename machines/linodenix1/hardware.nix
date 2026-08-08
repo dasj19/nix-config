@@ -1,7 +1,9 @@
+# linodenix1: hardware configuration for Linode server.
+# scope: machine
+
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:

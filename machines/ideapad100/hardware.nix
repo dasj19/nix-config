@@ -1,7 +1,9 @@
+# ideapad100: hardware configuration for Lenovo IdeaPad 100S-11IBY.
+# scope: machine
+
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:

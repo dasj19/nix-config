@@ -1,3 +1,6 @@
+# ideapad100: Lenovo IdeaPad 100S-11IBY laptop.
+# scope: machine
+
 {
   pkgs,
   ...

@@ -1,3 +1,7 @@
+# linodenix2: WordPress configuration for Linode VPS.
+# scope: machine
+# Provides WordPress, MariaDB, and PHP-FPM settings.
+
 {
   gitSecrets,
   pkgs,
@@ -26,7 +30,7 @@ let
   });
 
   # Pressbook theme.
-  pressbook = pkgs.stdenv.mkDerivation rec {
+  pressbook = pkgs.stdenv.mkDerivation {
     name = "pressbook";
     version = "2.1.6";
     src = pkgs.fetchurl {
@@ -43,7 +47,7 @@ let
   };
 
   # Oceanly theme.
-  oceanly = pkgs.stdenv.mkDerivation rec {
+  oceanly = pkgs.stdenv.mkDerivation {
     name = "oceanly";
     version = "1.8.3";
     src = pkgs.fetchurl {
@@ -60,7 +64,7 @@ let
   };
 
   # Oceanly News theme.
-  oceanly-news = pkgs.stdenv.mkDerivation rec {
+  oceanly-news = pkgs.stdenv.mkDerivation {
     name = "oceanly-news";
     version = "1.3.1";
     src = pkgs.fetchurl {
@@ -136,7 +140,7 @@ let
   #};
 
   # Say-it with updated composer dependencies.
-  say-it = pkgs.stdenv.mkDerivation rec {
+  say-it = pkgs.stdenv.mkDerivation {
     name = "say-it";
     version = "4.0.2";
     src = pkgs.fetchurl {

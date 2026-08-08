@@ -1,3 +1,8 @@
+# gnome: GNOME desktop environment home-manager configuration.
+# scope: laptops
+#
+# Provides GNOME extensions, settings, and home-manager customization.
+
 {
   config,
   lib,

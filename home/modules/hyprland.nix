@@ -1,3 +1,8 @@
+# hyprland: Hyprland window manager configuration.
+# scope: laptops
+#
+# Provides Hyprland settings, keybindings, and window rules.
+
 { pkgs, ... }:
 {
 

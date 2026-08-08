@@ -1,5 +1,7 @@
+# linodenix2: Linode VPS server.
+# scope: machine
+
 {
-  config,
   gitSecrets,
   lib,
   pkgs,
@@ -93,7 +95,7 @@ in
   services.fail2ban.ignoreIP = [ home-ip ];
   # Apply bans on all ports, based on firewall output.
   services.fail2ban.extraPackages = [ pkgs.ipset ];
-  services.fail2ban.banaction = "iptables-ipset-proto6-allports";
+  services.fail2ban.banaction = "iptables-ipset-proto6-allports"; # cspell:disable-line
 
   # INSTALLED PACKAGES:
   environment.systemPackages = with pkgs; [

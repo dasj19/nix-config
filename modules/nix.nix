@@ -1,3 +1,8 @@
+# nix: Nix daemon and nix-related configuration.
+# scope: all machines
+#
+# Provides Nix settings, substituters, distributed builds, and nix ecosystem tools.
+
 {
   lib,
   pkgs,

@@ -1,3 +1,8 @@
+# hyprlock: Hyprlock screen locker configuration.
+# scope: laptops
+#
+# Provides Hyprlock settings, auth, and appearance.
+
 {
   gitSecrets,
   ...

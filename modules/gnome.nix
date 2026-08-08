@@ -1,3 +1,8 @@
+# gnome: GNOME desktop environment configuration.
+# scope: laptops
+#
+# Provides GNOME settings, extensions, and desktop customization.
+
 {
   lib,
   pkgs,

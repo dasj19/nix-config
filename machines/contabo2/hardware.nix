@@ -1,3 +1,6 @@
+# contabo2: hardware configuration for Contabo VPS.
+# scope: machine
+
 { lib, modulesPath, ... }:
 
 {

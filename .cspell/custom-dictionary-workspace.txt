@@ -343,6 +343,7 @@ pciutils
 pcntl
 pdfarranger
 Peazip
+penta
 pgsql
 phpcs
 phpfpm

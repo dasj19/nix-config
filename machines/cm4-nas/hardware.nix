@@ -1,4 +1,6 @@
 # cm4-nas: hardware configuration for a CM4 on a Raxda Taco v1.3
+# scope: machine
+#
 # @todo: investigate how we can have the taco working on a newer kernel.
 
 {
