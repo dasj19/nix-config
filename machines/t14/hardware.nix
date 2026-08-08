@@ -48,9 +48,11 @@
   };
 
   boot.extraModprobeConfig = ''
+    # Enable manual fan control.
     options thinkpad_acpi fan_control=1
   '';
 
+  # Plymouth settings.
   boot.plymouth.enable = true;
   boot.plymouth.theme = "spinner";
 
@@ -95,6 +97,7 @@
     "i915.fastboot=0"
   ];
 
+  # Clean tmpfs on boot.
   boot.tmp.useTmpfs = true;
   boot.tmp.cleanOnBoot = true;
 
@@ -122,8 +125,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -144,25 +145,8 @@
   # https://wiki.nixos.org/wiki/Fingerprint_scanner
   services.fprintd.enable = true;
 
-  # Sudo login with fingerprint or password.
-  # Consider trying: https://github.com/ChocolateLoverRaj/pam-any
-  # security.pam.services.sudo.fprintAuth = true;
-  # security.pam.services.sudo.unixAuth = true;
-
-  # security.pam.services.sudo = lib.mkIf (config.services.fprintd.enable) {
-  #   text = ''
-  #     auth       sufficient   ${pkgs.fprintd}/lib/security/pam_fprintd.so
-  #     auth       include      login
-  #     account    include      login
-  #     session    include      login
-  #   '';
-  # };
-
-  # Enable TPM2 as an extra security layer. Read up first.
-  # security.tpm2.enable = true;
-
-  # Check that SSD support fstrim.
-  #services.fstrim.enable = true;
+  # Check that SSD support fstrim, to achieve faster writes.
+  services.fstrim.enable = true;
 
   # Enable the ACPI power management daemon.
   services.acpid.enable = true;
