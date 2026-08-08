@@ -47,23 +47,6 @@
     device = "/dev/disk/by-uuid/a2c62a27-7059-4ac5-ac4d-1408d3f86970";
   };
 
-  systemd.services.luks-a2c62a27-pre-open = {
-    description = "LUKS pre-open message for a2c62a27";
-    wantedBy = [ "cryptsetup-pre.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = "yes";
-      ExecStart = ''
-        echo "###############################################################"
-        echo -e "\033[31m If found, please contact Daniel:\033[0m"
-        echo -e "\033[31m Email: ${gitSecrets.danielPersonalEmail}\033[0m"
-        echo -e "\033[31m Phone: ${gitSecrets.danielPhoneNumber}\033[0m"
-        echo -e "\033[31m Thank you!\033[0m"
-        echo "###############################################################"
-      '';
-    };
-  };
-
   boot.extraModprobeConfig = ''
     options thinkpad_acpi fan_control=1
   '';
