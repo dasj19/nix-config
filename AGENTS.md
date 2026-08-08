@@ -36,7 +36,7 @@ Coding conventions and project-specific guidance for this repository.
 │   ├── stylix.nix
 │   └── users.nix
 ├── settings/                 # Static configuration files (keyboard layouts, etc.)
-│   └── esrodk                # Custom XKB keyboard layout (Spanish with RODK)
+│   └── esrodk                # Custom XKB keyboard layout (Spanish with RODK) #cspell:disable-line
 ├── machines/                 # One folder per machine
 │   ├── <hostname>/
 │   │   ├── configuration.nix # Main config, imports modules + profiles
