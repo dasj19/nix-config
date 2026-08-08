@@ -20,7 +20,9 @@
     set -g fish_term24bit 1
     # Empty fish greeting.
     set -g fish_greeting ""
-    # Increase sponge delay. To keep in history the last x commands no matter the exit status.
+
+    # Increase sponge delay.
+    # Keeps the history of the last x commands no matter the exit status.
     set -g sponge_delay 5
     # System information.
     fastfetch
