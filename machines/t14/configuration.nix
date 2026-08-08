@@ -24,7 +24,7 @@
     # Profile.
     ./../../profiles/laptop.nix
 
-    # DE.
+    # Desktop Environment.
     ./../../modules/hyprland.nix
 
     # Modules.
@@ -71,7 +71,7 @@
   # Measures USB traffic bandwidth.
   programs.usbtop.enable = true;
 
-  # Setup hostname and networking.
+  # Networking settings.
   networking.hostName = "t14";
   networking.networkmanager.enable = true;
 

@@ -20,86 +20,84 @@
     ./../modules/users.nix
   ];
 
-  config = {
-    # Preferred Linux kernel across systems - a LTS kernel. 6.18 is good until December 2028.
-    # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
+  # Preferred Linux kernel across systems - a LTS kernel. 6.18 is good until December 2028.
+  # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
 
-    # Enable fwupd - Firmware updater.
-    services.fwupd.enable = lib.mkDefault true;
+  # Enable fwupd - Firmware updater.
+  services.fwupd.enable = lib.mkDefault true;
 
-    # Adjust journald behavior.
-    services.journald.extraConfig = ''
-      # Limit the space occupied by logs.
-      SystemMaxUse=200M
-      # Keep logs for 30 days.
-      MaxRetentionSec=30d
-    '';
+  # Adjust journald behavior.
+  services.journald.extraConfig = ''
+    # Limit the space occupied by logs.
+    SystemMaxUse=200M
+    # Keep logs for 30 days.
+    MaxRetentionSec=30d
+  '';
 
-    # Log rotation.
-    services.logrotate.enable = true;
-    services.logrotate.checkConfig = false;
-    services.logrotate.settings.header.compress = true;
+  # Log rotation.
+  services.logrotate.enable = true;
+  services.logrotate.checkConfig = false;
+  services.logrotate.settings.header.compress = true;
 
-    # Machine's default time zone.
-    time.timeZone = lib.mkDefault "Europe/Copenhagen";
+  # Machine's default time zone.
+  time.timeZone = lib.mkDefault "Europe/Copenhagen";
 
-    # Base packages are a must for every machine.
-    # These should be CLI-only packages.
-    environment.systemPackages = with pkgs; [
-      # CLI.
-      aria2 # Multi-protocol downloader
-      bat # Improved version of cat.
-      bat-extras.batdiff # Diff in bat style.
-      cloc # Calculate lines of code.
-      dig # DNS lookup utility.
-      dmidecode # DMI table decoder
-      dust # Improved version of du.
-      eza # Improved version of ls-
-      fd # Simple alternative to find.
-      gh # Github CLI.
-      git # File versioning system CLI.
-      htop # Interactive process viewer.
-      iftop # Real-time network bandwidth monitor.
-      inetutils # Common network programs (ftp, telnet, rsh, etc).
-      iotop # Real-time disk I/O viewer.
-      jq # CLI Json processor.
-      killall # Improved kill command.
-      lf # Terminal file manager.
-      lsof # List open files.
-      lshw # List hardware data.
-      legit # Complementary utility for the git command.
-      moreutils # Collection of useful CLI utilities.
-      ncdu # du with ncurses.
-      nmap # Network exploration tool.
-      nvme-cli # interface to retrieve nvme metadata and logs.
-      pandoc # Document conversion utility.
-      pciutils # Inspects and manipulates configuration of PCI devices.
-      procs # Retrieve information about active processes.
-      pstree # Shows the running process tree.
-      pv # Pipe viewer - shows progress of data through a pipe.
-      ripgrep-all # Recursive search tool.
-      smartmontools # Control utility for SMART disks.
-      strace # Trace system calls and signals.
-      tcpdump # Network packet analyzer.
-      tmux # Terminal multiplexer.
-      tree # Displays hierarchical structure of folders.
-      usbutils # Tools for working with USB devices.
-      unzip # Unzipping cli tool.
-      w3m # Text-based web browser.
-      wget # Online resource fetcher.
-      whois # Domain information lookup utility.
-      wtfis # Shows information about ips.
-      xz # Compression utility.
-      yq # CLI YAML processor.
+  # Base packages are a must for every machine.
+  # These should be CLI-only packages.
+  environment.systemPackages = with pkgs; [
+    # CLI.
+    aria2 # Multi-protocol downloader
+    bat # Improved version of cat.
+    bat-extras.batdiff # Diff in bat style.
+    cloc # Calculate lines of code.
+    dig # DNS lookup utility.
+    dmidecode # DMI table decoder
+    dust # Improved version of du.
+    eza # Improved version of ls-
+    fd # Simple alternative to find.
+    gh # Github CLI.
+    git # File versioning system CLI.
+    htop # Interactive process viewer.
+    iftop # Real-time network bandwidth monitor.
+    inetutils # Common network programs (ftp, telnet, rsh, etc).
+    iotop # Real-time disk I/O viewer.
+    jq # CLI Json processor.
+    killall # Improved kill command.
+    lf # Terminal file manager.
+    lsof # List open files.
+    lshw # List hardware data.
+    legit # Complementary utility for the git command.
+    moreutils # Collection of useful CLI utilities.
+    ncdu # du with ncurses.
+    nmap # Network exploration tool.
+    nvme-cli # interface to retrieve nvme metadata and logs.
+    pandoc # Document conversion utility.
+    pciutils # Inspects and manipulates configuration of PCI devices.
+    procs # Retrieve information about active processes.
+    pstree # Shows the running process tree.
+    pv # Pipe viewer - shows progress of data through a pipe.
+    ripgrep-all # Recursive search tool.
+    smartmontools # Control utility for SMART disks.
+    strace # Trace system calls and signals.
+    tcpdump # Network packet analyzer.
+    tmux # Terminal multiplexer.
+    tree # Displays hierarchical structure of folders.
+    usbutils # Tools for working with USB devices.
+    unzip # Unzipping cli tool.
+    w3m # Text-based web browser.
+    wget # Online resource fetcher.
+    whois # Domain information lookup utility.
+    wtfis # Shows information about ips.
+    xz # Compression utility.
+    yq # CLI YAML processor.
 
-      # Drivers and Firmware.
-      ntfs3g # Driver for NTFS.
+    # Drivers and Firmware.
+    ntfs3g # Driver for NTFS.
 
-      # Encryption.
-      age # Age encryption libraries.
-      git-crypt # Git-based encryption utility.
-      sops # Sops secret manager.
-    ];
-  };
+    # Encryption.
+    age # Age encryption libraries.
+    git-crypt # Git-based encryption utility.
+    sops # Sops secret manager.
+  ];
 }
