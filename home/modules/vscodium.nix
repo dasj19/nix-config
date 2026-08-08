@@ -22,7 +22,7 @@
       bmewburn.vscode-intelephense-client # cspell:disable-line
 
       # Nix language support.
-      jnoortheen.nix-ide
+      jnoortheen.nix-ide # cspell:disable-line
 
       # Yaml support.
       redhat.vscode-yaml
@@ -31,7 +31,7 @@
       streetsidesoftware.code-spell-checker
 
       # Editor enhancements.
-      oderwat.indent-rainbow
+      oderwat.indent-rainbow # cspell:disable-line
 
       # Editor icons.
       vscode-icons-team.vscode-icons
@@ -40,21 +40,21 @@
       # Twig language support.
       {
         name = "twig-language";
-        publisher = "mblode";
+        publisher = "mblode"; # cspell:disable-line
         version = "0.9.4";
         hash = "sha256-TZRjodIQkgFlPlMaZs3K8Rrcl9XCUaz4/vnIaxU+SSA=";
       }
       # Symfony support.
       {
         name = "symfony-extension-pack";
-        publisher = "nadim-vscode";
+        publisher = "nadim-vscode"; # cspell:disable-line
         version = "1.2.0";
         hash = "sha256-y3mkrWhlICOiFHZip3AGNDGNCvzo8FFRhhyHMu8E4yI=";
       }
       # PHP IDE support.
       {
         name = "php-intellisense";
-        publisher = "felixfbecker";
+        publisher = "felixfbecker"; # cspell:disable-line
         version = "2.3.14";
         hash = "sha256-N5il3hFytYA4dzV9AFfj4SnY2CuPvgtTrijHd6AHXKY=";
       }

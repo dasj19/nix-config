@@ -1,6 +1,7 @@
 # AGENTS.md
 
 Coding conventions and project-specific guidance for this repository.
+Disable spell-checking for this file: cspell:disable.
 
 ## Project Structure
 
