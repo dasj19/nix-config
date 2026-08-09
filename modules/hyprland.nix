@@ -68,6 +68,7 @@
     orage # Calendar application.
     atril # PDF Document viewer.
     mpv # alternative vide player.
+    mako # Notification daemon for Wayland.
 
     pyprland # Plugin manager for hyprland.
     hyprcursor # Cursor manager for hyprland.
@@ -93,6 +94,7 @@
   # Mediator for access to system resources (file choosers, screenshots, etc).
   xdg.portal.enable = true;
   xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-gtk # To support GTK apps under Wayland.
     xdg-desktop-portal-hyprland # XDG desktop portal implementation for Hyprland.
   ];
 
@@ -150,4 +152,7 @@
     "x-scheme-handler/http" = "firefox-devedition.desktop";
     "x-scheme-handler/https" = "firefox-devedition.desktop";
   };
+
+  # Gnome's policy kit.
+  security.polkit.enable = true;
 }

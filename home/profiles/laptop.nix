@@ -22,10 +22,6 @@
   # HM installs and manages itself.
   programs.home-manager.enable = true;
 
-  # Notification daemon for wayland.
-  services.mako.enable = true;
-  services.mako.settings.default-timeout = 5000;
-
   # Populate linux user templates.
   home.file."awesome-linux-templates" = {
     target = "./system/templates";

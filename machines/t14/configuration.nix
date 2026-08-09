@@ -61,9 +61,6 @@
     sabnzbd # nzb client.
   ];
 
-  # Gnome's policy kit.
-  security.polkit.enable = true;
-
   # Enable virtualization.
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
