@@ -88,6 +88,11 @@
     gnome-keyring # Keyring for managing passwords and encryption keys.
     tauon # Album-based with lyrics support.
     vlc # Universal media player.
+  ];
+
+  # Mediator for access to system resources (file choosers, screenshots, etc).
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = with pkgs; [
     xdg-desktop-portal-hyprland # XDG desktop portal implementation for Hyprland.
   ];
 
