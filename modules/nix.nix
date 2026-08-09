@@ -21,8 +21,6 @@
   # Increase download buffer size to 1GB to speed up downloads of large derivations.
   nix.settings.download-buffer-size = 1073741824;
 
-  # Enable distributed builds for all nix builds.
-  nix.distributedBuilds = true;
   # Users allowed to use distributed builds.
   nix.settings.trusted-users = lib.mkForce [
     "root" # do not remove while using mkForce.
@@ -32,6 +30,39 @@
   # Build the max amount of jobs (amount of cpu cores) using 1 core per job.
   nix.settings.max-jobs = lib.mkDefault "auto";
   nix.settings.cores = lib.mkDefault 1;
+
+  # Nix store optimizations.
+  nix.settings.auto-optimise-store = true;
+
+  nix.extraOptions = ''
+    # Useful when the builder has a faster internet connection than yours
+    builders-use-substitutes = true
+
+    # Do not warn when dirty git repo is used.
+    warn-dirty = false
+  '';
+
+  # Enable distributed builds for all nix builds.
+  nix.distributedBuilds = true;
+
+  nix.buildMachines = [
+    {
+      hostName = "hostup1";
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      protocol = "ssh";
+      maxJobs = 4;
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
+      mandatoryFeatures = [ ];
+    }
+  ];
 
   # Nix and Nixpkgs configurations.
   nix.settings.experimental-features = [
@@ -53,17 +84,6 @@
     nixpkgs-review # Tool to review nixpkgs pull requests.
     statix # Static analysis tool for nix code.
   ];
-
-  # Nix store optimizations.
-  nix.settings.auto-optimise-store = true;
-
-  nix.extraOptions = ''
-    # Useful when the builder has a faster internet connection than yours
-    builders-use-substitutes = true
-
-    # Do not warn when dirty git repo is used.
-    warn-dirty = false
-  '';
 
   # Provides hints for commands that are missing from the system.
   # Loads an index of all available nix packages.

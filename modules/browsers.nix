@@ -415,6 +415,5 @@
     firefox-devedition
     tor-browser
     chromium
-    # ungoogled-chromium
   ];
 }

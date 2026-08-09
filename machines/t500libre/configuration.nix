@@ -24,7 +24,6 @@ in
     # Profile.
     ./../../profiles/server.nix
     # Modules.
-    ./../../modules/builder.nix
     ./../../modules/email-server.nix
   ];
 

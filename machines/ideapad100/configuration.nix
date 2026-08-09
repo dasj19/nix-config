@@ -1,5 +1,7 @@
 # ideapad100: Lenovo IdeaPad 100S-11IBY laptop.
 # scope: machine
+#
+# Provides an immich and a genealogy server.
 
 {
   pkgs,
@@ -8,12 +10,12 @@
 
 {
   imports = [
+    # ideapad100.
     ./hardware.nix
     ./caddy.nix
     # Profile.
     ./../../profiles/server.nix
     # Modules.
-    ./../../modules/builder.nix
   ];
 
   boot.loader.grub.devices = [ "/dev/sda" ];

@@ -17,7 +17,6 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── audio.nix             # PipeWire audio
 │   ├── bluetooth.nix         # Bluetooth configuration
 │   ├── browsers.nix          # Firefox, Chromium and other browser's preferences
-│   ├── builder.nix           # Remote build machine config (hostup1)
 │   ├── cuda-packages.nix     # Module option: config.cuda.allowedPackages
 │   ├── email-server.nix      # Mailserver base config + rspamd
 │   ├── fastfetch.nix         # Fast system information display

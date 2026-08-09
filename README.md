@@ -49,7 +49,7 @@ nhup
 Behind the scenes there are some workflows actions that help building the packages on a NixOS server I control.
 One action is responsible for building the packages of my machines.
 Another is updating the flake definitions each morning and triggers the build package action.
-Whenever I run *osup* or *nhup* on a machine that uses the builder.nix part of the building job is delegated
+Whenever I run *osup* or *nhup* on a machine, part of the building job is delegated
 to the remote server that has updated builds of my configuration, thus making the build faster.
 I also get emails when the automated build fails thus I avoid the failure propagating to all of the machines.
 
