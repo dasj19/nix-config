@@ -48,6 +48,7 @@
     wireplumber # PipeWire session manager.
     brightnessctl # Controls brightness levels from CLI.
     networkmanagerapplet # Small network manager application.
+    wl-clipboard # Clipboard utilities for Wayland.
 
     # GUI.
     brasero # Disc burning utility.
@@ -69,6 +70,7 @@
     atril # PDF Document viewer.
     mpv # alternative vide player.
     mako # Notification daemon for Wayland.
+    #(pkgs.callPackage ../pkgs/clipvault.nix { }) # Clipboard history manager for Wayland.
 
     pyprland # Plugin manager for hyprland.
     hyprcursor # Cursor manager for hyprland.
@@ -154,5 +156,18 @@
   };
 
   # Gnome's policy kit.
-  security.polkit.enable = true;
+  security.wrappers.pkexec.enable = lib.mkForce true;
+  systemd.user.services.polkit-gnome-authentication-agent-1 = {
+    description = "polkit-gnome-authentication-agent-1";
+    wantedBy = [ "graphical-session.target" ];
+    wants = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
 }
