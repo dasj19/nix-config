@@ -17,4 +17,8 @@ _:
     "spa"
   ];
   services.xserver.xkb.extraLayouts.esrodk.symbolsFile = ../settings/esrodk;
+
+  # Emulate keystrokes programmatically.
+  programs.ydotool.enable = true;
+  users.users.daniel.extraGroups = [ "ydotool" ];
 }

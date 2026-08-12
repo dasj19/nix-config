@@ -78,13 +78,17 @@
     -- Popular actions.
     -- Custom feedback actions. Icons list available here: https://specifications.freedesktop.org/icon-naming/latest/
     hl.bind("CTRL + X", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-cut --custom-message 'Cut'"), { non_consuming = true })
-    hl.bind("CTRL + C", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-copy --custom-message 'Copied'"), { non_consuming = true })
-    hl.bind("CTRL + V", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-paste --custom-message 'Pasted'"), { non_consuming = true })
+    hl.bind("CTRL + C", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-copy --custom-message 'Copy'"), { non_consuming = true })
+    hl.bind("CTRL + SHIFT + C", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-copy --custom-message 'Shift Copy'"), { non_consuming = true })
+    hl.bind("CTRL + V", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-paste --custom-message 'Paste'"), { non_consuming = true })
+    hl.bind("CTRL + SHIFT + V", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-paste --custom-message 'Shift Paste'"), { non_consuming = true })
     hl.bind("CTRL + Z", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-undo --custom-message 'Undid'"), { non_consuming = true })
     hl.bind("CTRL + S", hl.dsp.exec_cmd("swayosd-client --custom-icon document-save --custom-message 'Saving'"), { non_consuming = true })
     hl.bind("CTRL + R", hl.dsp.exec_cmd("swayosd-client --custom-icon view-refresh --custom-message 'Refreshing'"), { non_consuming = true })
     hl.bind("CTRL + Y", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-redo --custom-message 'Redone'"), { non_consuming = true })
     hl.bind("CTRL + SHIFT + Z", hl.dsp.exec_cmd("swayosd-client --custom-icon edit-redo --custom-message 'Redone'"), { non_consuming = true })
+    -- Execute a clipboard history menu (with auto-paste by pressing paste-key to have the same behavior in terminals and apps; ones Ctrl+Shift+V the others just Ctrl+V).
+    hl.bind("SUPER + V", hl.dsp.exec_cmd("clipvault list | tofi --prompt-text='Choose clip:' | clipvault get | wl-copy && ydotool key 135:1 135:0"))
 
     -- Screenshot.
     hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -o ~/media/photos/ -m output -m active"))
@@ -145,6 +149,7 @@
         },
       },
       group = {
+        -- cspell:disable-next-line
         groupbar = {
           col = {
             active = "rgb(4136d9)",
@@ -177,6 +182,8 @@
       hl.exec_cmd("sleep 1 & waybar")
       -- Start the plugin system.
       hl.exec_cmd("pypr")
+      -- Start the clipboard manager.
+      hl.exec_cmd("wl-paste --watch clipvault store")
     end)
   '';
   stylix.targets.hyprland.enable = true;

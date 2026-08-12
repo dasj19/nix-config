@@ -87,6 +87,7 @@
 
   # Provides hints for commands that are missing from the system.
   # Loads an index of all available nix packages.
+  # Use 'nix-locate' to search the index manually.
   programs.nix-index.enable = true;
   programs.nix-index.enableFishIntegration = true;
 

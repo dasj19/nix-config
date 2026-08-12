@@ -70,7 +70,7 @@
     atril # PDF Document viewer.
     mpv # alternative vide player.
     mako # Notification daemon for Wayland.
-    #(pkgs.callPackage ../pkgs/clipvault.nix { }) # Clipboard history manager for Wayland.
+    (pkgs.callPackage ../pkgs/clipvault.nix { }) # Clipboard history manager for Wayland.
 
     pyprland # Plugin manager for hyprland.
     hyprcursor # Cursor manager for hyprland.
@@ -90,6 +90,7 @@
     evolution # Email client with calendar support.
     gnome-keyring # Keyring for managing passwords and encryption keys.
     tauon # Album-based with lyrics support.
+    tofi # wayland-native dynamic menu.
     vlc # Universal media player.
   ];
 

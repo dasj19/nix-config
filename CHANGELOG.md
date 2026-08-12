@@ -3,6 +3,8 @@ In this file I'll try to mention major changes to the configuration.
 
 TODO:
 - setup smartd on cm4-nas
+- change services.openssh.settings.PermitRootLogin to "no".
+- check: https://github.com/iAmMrinal0/nix-config/blob/c1d06e9c3e9b9c4fabc720bb807a00c09bcbc3b7/hosts/yggdrasil.nix#L82
 
 2026-08-09
 - modules: merge builder.nix with nix.nix
