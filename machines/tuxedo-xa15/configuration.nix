@@ -128,7 +128,6 @@ in
     linux-firmware # needed for bluetooth firmware.
 
     # Desktop apps.
-    discord
     gparted
     lbry
     meld
@@ -205,9 +204,6 @@ in
 
     # AI stuff.
     "open-webui"
-
-    # GUI.
-    "discord"
   ];
 
   # Consult manual before changing.

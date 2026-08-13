@@ -35,8 +35,6 @@
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [
-    # GUI.
-    "discord"
   ];
 
   # t14 has a total of 8 cores.
@@ -53,7 +51,6 @@
 
     # GUI.
     gcstar # Collection manager.
-    discord # Modern but non-free chat service.
     xsane # Paper scanning software.
 
     # P2P.
