@@ -96,6 +96,10 @@
     "i915.fastboot=0"
   ];
 
+  # Preferred Linux kernel on t14 - a bleeding edge kernel. 7.1 is good until December 2026.
+  # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_1;
+
   # Clean tmpfs on boot.
   boot.tmp.useTmpfs = true;
   boot.tmp.cleanOnBoot = true;
