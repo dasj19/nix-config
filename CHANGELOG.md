@@ -6,8 +6,12 @@ TODO:
 - change services.openssh.settings.PermitRootLogin to "no".
 - check: https://github.com/iAmMrinal0/nix-config/blob/c1d06e9c3e9b9c4fabc720bb807a00c09bcbc3b7/hosts/yggdrasil.nix#L82
 
+2026-08-14
+- hyprland: address startup notifications
+
 2026-08-13
 - t14,tuxedo-xa15: remove discord package because it is non-free and rarely used
+- t14,devbox: set linux kernel on the 7.1 version
 
 2026-08-09
 - modules: merge builder.nix with nix.nix

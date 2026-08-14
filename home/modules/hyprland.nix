@@ -210,7 +210,7 @@
     # @todo: Dim the screen after 300 of inactivity.
   };
   # Pyprland plugin management tool.
-  home.file.".config/hypr/pyprland.toml".source = (pkgs.formats.toml { }).generate "pyprland-config" {
+  home.file.".config/pypr/config.toml".source = (pkgs.formats.toml { }).generate "pyprland-config" {
 
     pyprland = {
       plugins = [ "magnify" ];

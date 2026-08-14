@@ -30,7 +30,7 @@
   services.greetd.enable = true;
   services.greetd.settings.default_session = {
     # Command executed by greetd.
-    command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+    command = ''${pkgs.tuigreet}/bin/tuigreet --time --cmd "start-hyprland > /dev/null"'';
     # Default login user.
     user = "daniel";
   };
