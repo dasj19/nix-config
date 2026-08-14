@@ -29,12 +29,11 @@
   # greetd settings.
   services.greetd.enable = true;
   services.greetd.settings.default_session = {
-    # Command executed by greetd.
-    command = ''${pkgs.tuigreet}/bin/tuigreet --time --cmd "start-hyprland > /dev/null"'';
-    # Default login user.
+    # Start hyprland throwing all text output away.
+    command = "start-hyprland &>/dev/null";
+    # Auto-login user.
     user = "daniel";
   };
-
   # Improve audio performance.
   security.rtkit.enable = true;
   # Enable D-Bus for inter-process communication.

@@ -8,6 +8,7 @@ TODO:
 
 2026-08-14
 - hyprland: address startup notifications
+- hyprland: auto-login because the disk is protected with luks passphrase
 
 2026-08-13
 - t14,tuxedo-xa15: remove discord package because it is non-free and rarely used
