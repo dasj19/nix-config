@@ -102,6 +102,12 @@
 
     # Disable Kilo Code autocomplete.
     "kilo-code.new.autocomplete.enableAutoTrigger" = false;
+
+    # Commands ti be handled in editor before reaching the shell.
+    "terminal.integrated.commandsToSkipShell" = [
+      "kilo-code.new.agentManagerOpen"
+      "kilo-code.new.agentManager.showTerminal"
+    ];
   };
 
   # Allowed non-free packages.
