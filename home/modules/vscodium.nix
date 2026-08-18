@@ -54,13 +54,6 @@
         version = "1.2.0";
         hash = "sha256-y3mkrWhlICOiFHZip3AGNDGNCvzo8FFRhhyHMu8E4yI=";
       }
-      # PHP IDE support.
-      {
-        name = "php-intellisense";
-        publisher = "felixfbecker"; # cspell:disable-line
-        version = "2.3.14";
-        hash = "sha256-N5il3hFytYA4dzV9AFfj4SnY2CuPvgtTrijHd6AHXKY=";
-      }
       # PHP code formatter.
       {
         name = "pretty-php";
