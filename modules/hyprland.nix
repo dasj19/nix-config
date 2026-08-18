@@ -75,10 +75,12 @@
     hyprcursor # Cursor manager for hyprland.
     hyprlock # Manages the screen lock.
     hypridle # Manages idle settings.
+    hyprmon # TUI to manage monitors.
     hyprpaper # Deals with wallpapers.
     hyprshot # Takes screenshots.
     hyprpolkitagent # Agent to request elevated privileges.
     wlr-layout-ui # GUI for managing monitor layouts in Wayland.
+    nwg-displays # GUI to manage monitors.
 
     mission-center # Task manager and system monitor.
     resources # Task manager and resource monitor.
