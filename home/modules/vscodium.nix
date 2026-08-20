@@ -96,6 +96,9 @@
     # Disable Kilo Code autocomplete.
     "kilo-code.new.autocomplete.enableAutoTrigger" = false;
 
+    # Request approvals as often as possible.
+    "kilo-code.new.agentWorkStyle" = "human-in-the-loop";
+
     # Commands ti be handled in editor before reaching the shell.
     "terminal.integrated.commandsToSkipShell" = [
       "kilo-code.new.agentManagerOpen"
