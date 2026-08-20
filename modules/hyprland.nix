@@ -82,6 +82,7 @@
     wlr-layout-ui # GUI for managing monitor layouts in Wayland.
     nwg-displays # GUI to manage monitors.
 
+    lm_sensors # Tools for reading hardware sensors.
     mission-center # Task manager and system monitor.
     resources # Task manager and resource monitor.
     gparted # Gnome partition editor.

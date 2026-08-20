@@ -3,16 +3,21 @@
 #
 # Provides Hyprland settings, keybindings, and window rules.
 
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
+
 {
 
-  # Optional, hint Electron apps to use Wayland:
+  # Optional, hint Electron apps to use Ozone-Wayland:
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
   wayland.windowManager.hyprland.xwayland.enable = true; # legacy support for X11 apps.
   wayland.windowManager.hyprland.systemd.enable = true; # systemd integration.
   wayland.windowManager.hyprland.extraConfig = ''
+    -- Force GTK applications to use native Wayland backend.
     hl.env("GDK_BACKEND", "wayland")
 
     -- Monitor config.
@@ -55,7 +60,7 @@
     hl.bind("CTRL + SPACE", hl.dsp.exec_cmd("ulauncher"))
 
     -- Desktop shortcuts.
-    hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("GDK_BACKEND=x11 missioncenter"))
+    hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("missioncenter"))
     hl.bind("CTRL + SHIFT + MASCULINE", hl.dsp.exec_cmd("resources"))
     hl.bind("CTRL + SHIFT + PLUS", hl.dsp.exec_cmd("pypr zoom +0.25"))
     hl.bind("CTRL + SHIFT + MINUS", hl.dsp.exec_cmd("pypr zoom -0.25"))
