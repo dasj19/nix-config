@@ -193,6 +193,7 @@ hyprctl
 hyprcursor
 hypridle
 hyprlock
+hyprmon
 hyprpaper
 hyprpolkitagent
 hyprshot
@@ -425,6 +426,7 @@ soundconverter
 soundcore
 spamd
 splitratio
+sshfs
 statd
 statix
 stdenv

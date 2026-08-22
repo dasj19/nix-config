@@ -79,6 +79,7 @@
     pv # Pipe viewer - shows progress of data through a pipe.
     ripgrep-all # Recursive search tool.
     smartmontools # Control utility for SMART disks.
+    sshfs # Mount filesystems over ssh.
     strace # Trace system calls and signals.
     tcpdump # Network packet analyzer.
     tmux # Terminal multiplexer.
