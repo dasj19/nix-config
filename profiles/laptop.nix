@@ -77,7 +77,7 @@
     flameshot # Screenshot tool.
     gimp # Image manipulation software,
     lbry # Client for the LBRY protocol.
-    libreoffice-still # Secondary office suite.
+    libreoffice # Secondary office suite.
     meld # Visual diff merger.
     onlyoffice-desktopeditors # Primary office suite.
     pdfarranger # Basic PDF editor.
