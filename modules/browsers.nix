@@ -41,23 +41,68 @@
   programs.firefox.policies.Preferences."browser.search.suggest.enabled".Value = false;
   # Adding extra search engines.
   programs.firefox.policies.SearchEngines.Add = [
-    # Search NixOS packages with: "@np package-name".
+    # Search CVR.dk with: "@cvr company-name".
     {
-      Alias = "@np";
-      Description = "Search in NixOS Packages";
-      IconURL = "https://nixos.org/favicon.ico";
+      Alias = "@cvr";
+      Description = "Search on CVR.dk";
+      IconURL = "https://datacvr.virk.dk/favicon.ico";
       Method = "GET";
-      Name = "NixOS Packages";
-      URLTemplate = "https://search.nixos.org/packages?from=0&size=200&channel=unstable&sort=relevance&type=packages&query={searchTerms}";
+      Name = "CVR.dk";
+      URLTemplate = "https://datacvr.virk.dk/soegeresultater?fritekst={searchTerms}";
     }
-    # Search NixOS options with: "@no option-name".
+    # Search DuckDuckGo with: "@ddg query".
     {
-      Alias = "@no";
-      Description = "Search in NixOS Options";
-      IconURL = "https://nixos.org/favicon.ico";
+      Alias = "@ddg";
+      Description = "Search on DuckDuckGo";
+      IconURL = "https://duckduckgo.com/favicon.ico";
       Method = "GET";
-      Name = "NixOS Options";
-      URLTemplate = "https://search.nixos.org/options?from=0&size=200&sort=relevance&type=packages&query={searchTerms}";
+      Name = "DuckDuckGo";
+      URLTemplate = "https://duckduckgo.com/?q={searchTerms}";
+    }
+    # Search Discogs with: "@dgs query".
+    {
+      Alias = "@dgs";
+      Description = "Search on Discogs";
+      IconURL = "https://www.discogs.com/favicon.ico";
+      Method = "GET";
+      Name = "Discogs";
+      URLTemplate = "https://www.discogs.com/search/?q={searchTerms}&type=all";
+    }
+    # Search eBay with: "@eb item-name".
+    {
+      Alias = "@eb";
+      Description = "Search on eBay";
+      IconURL = "https://www.ebay.com/favicon.ico";
+      Method = "GET";
+      Name = "eBay";
+      URLTemplate = "https://www.ebay.com/sch/i.html?_nkw={searchTerms}";
+    }
+    # Search GitHub with: "@gh query".
+    {
+      Alias = "@gh";
+      Description = "Search on GitHub";
+      IconURL = "https://github.com/favicon.ico";
+      Method = "GET";
+      Name = "GitHub";
+      URLTemplate = "https://github.com/search?q={searchTerms}&type=repositories";
+    }
+    # Search GitLab with: "@gl query". (Requires login to search)
+    {
+      Alias = "@gl";
+      Description = "Search on GitLab";
+      IconURL = "https://gitlab.com/favicon.ico";
+      Method = "GET";
+      Name = "GitLab";
+      URLTemplate = "https://gitlab.com/search?search={searchTerms}";
+    }
+    # Search IMDb with: "@imdb movie-name".
+    {
+      Alias = "@imdb";
+      Description = "Search on IMDb";
+      IconURL = "https://www.imdb.com/favicon.ico";
+      Method = "GET";
+      Name = "IMDb";
+      URLTemplate = "https://www.imdb.com/find?q={searchTerms}";
     }
     # Search mynixos.com with: "@mn query".
     {
@@ -77,6 +122,24 @@
       Name = "NixOS Discourse";
       URLTemplate = "https://discourse.nixos.org/search?q={searchTerms}";
     }
+    # Search NixOS options with: "@no option-name".
+    {
+      Alias = "@no";
+      Description = "Search in NixOS Options";
+      IconURL = "https://nixos.org/favicon.ico";
+      Method = "GET";
+      Name = "NixOS Options";
+      URLTemplate = "https://search.nixos.org/options?from=0&size=200&sort=relevance&type=packages&query={searchTerms}";
+    }
+    # Search NixOS packages with: "@np package-name".
+    {
+      Alias = "@np";
+      Description = "Search in NixOS Packages";
+      IconURL = "https://nixos.org/favicon.ico";
+      Method = "GET";
+      Name = "NixOS Packages";
+      URLTemplate = "https://search.nixos.org/packages?from=0&size=200&channel=unstable&sort=relevance&type=packages&query={searchTerms}";
+    }
     # Search the official NixOS Wiki with: "@nw query".
     {
       Alias = "@nw";
@@ -85,69 +148,6 @@
       Method = "GET";
       Name = "NixOS Wiki";
       URLTemplate = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
-    }
-    # Search GitHub with: "@gh query".
-    {
-      Alias = "@gh";
-      Description = "Search on GitHub";
-      IconURL = "https://github.com/favicon.ico";
-      Method = "GET";
-      Name = "GitHub";
-      URLTemplate = "https://github.com/search?q={searchTerms}&type=repositories";
-    }
-    # Search DuckDuckGo with: "@ddg query".
-    {
-      Alias = "@ddg";
-      Description = "Search on DuckDuckGo";
-      IconURL = "https://duckduckgo.com/favicon.ico";
-      Method = "GET";
-      Name = "DuckDuckGo";
-      URLTemplate = "https://duckduckgo.com/?q={searchTerms}";
-    }
-    # Search Wikipedia with: "@wp query".
-    {
-      Alias = "@wp";
-      Description = "Search on Wikipedia";
-      IconURL = "https://en.wikipedia.org/favicon.ico";
-      Method = "GET";
-      Name = "Wikipedia";
-      URLTemplate = "https://en.wikipedia.org/w/index.php?search={searchTerms}";
-    }
-    # Search YouTube with: "@yt query".
-    {
-      Alias = "@yt";
-      Description = "Search on YouTube";
-      IconURL = "https://www.youtube.com/favicon.ico";
-      Method = "GET";
-      Name = "YouTube";
-      URLTemplate = "https://www.youtube.com/results?search_query={searchTerms}";
-    }
-    # Search Discogs with: "@dgs query".
-    {
-      Alias = "@dgs";
-      Description = "Search on Discogs";
-      IconURL = "https://www.discogs.com/favicon.ico";
-      Method = "GET";
-      Name = "Discogs";
-      URLTemplate = "https://www.discogs.com/search/?q={searchTerms}&type=all";
-    }
-    # Search IMDb with: "@imdb movie-name".
-    {
-      Alias = "@imdb";
-      Description = "Search on IMDb";
-      IconURL = "https://www.imdb.com/favicon.ico";
-      Method = "GET";
-      Name = "IMDb";
-      URLTemplate = "https://www.imdb.com/find?q={searchTerms}";
-    }
-    # Search eBay with: "@eb item-name".
-    {
-      Alias = "@eb";
-      Description = "Search on eBay";
-      IconURL = "https://www.ebay.com/favicon.ico";
-      Method = "GET";
-      Name = "eBay";
-      URLTemplate = "https://www.ebay.com/sch/i.html?_nkw={searchTerms}";
     }
     # Search PriceRunner with: "@pr item-name".
     {
@@ -158,15 +158,6 @@
       Name = "PriceRunner";
       URLTemplate = "https://www.pricerunner.dk/search?query={searchTerms}";
     }
-    # Search CVR.dk with: "@cvr company-name".
-    {
-      Alias = "@cvr";
-      Description = "Search on CVR.dk";
-      IconURL = "https://datacvr.virk.dk/favicon.ico";
-      Method = "GET";
-      Name = "CVR.dk";
-      URLTemplate = "https://datacvr.virk.dk/soegeresultater?fritekst={searchTerms}";
-    }
     # Search Reddit with: "@rd query".
     {
       Alias = "@rd";
@@ -175,15 +166,6 @@
       Method = "GET";
       Name = "Reddit";
       URLTemplate = "https://www.reddit.com/search/?q={searchTerms}";
-    }
-    # Search GitLab with: "@gl query". (Requires login to search)
-    {
-      Alias = "@gl";
-      Description = "Search on GitLab";
-      IconURL = "https://gitlab.com/favicon.ico";
-      Method = "GET";
-      Name = "GitLab";
-      URLTemplate = "https://gitlab.com/search?search={searchTerms}";
     }
     # Search Stack Overflow with: "@so question".
     {
@@ -202,6 +184,24 @@
       Method = "GET";
       Name = "Wordnik";
       URLTemplate = "https://www.wordnik.com/words/{searchTerms}";
+    }
+    # Search Wikipedia with: "@wp query".
+    {
+      Alias = "@wp";
+      Description = "Search on Wikipedia";
+      IconURL = "https://en.wikipedia.org/favicon.ico";
+      Method = "GET";
+      Name = "Wikipedia";
+      URLTemplate = "https://en.wikipedia.org/w/index.php?search={searchTerms}";
+    }
+    # Search YouTube with: "@yt query".
+    {
+      Alias = "@yt";
+      Description = "Search on YouTube";
+      IconURL = "https://www.youtube.com/favicon.ico";
+      Method = "GET";
+      Name = "YouTube";
+      URLTemplate = "https://www.youtube.com/results?search_query={searchTerms}";
     }
   ];
   # Start page settings (pick up where I left off).
