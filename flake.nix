@@ -51,6 +51,10 @@
   inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
   inputs.ulauncher.inputs.flake-parts.follows = "flake-parts";
 
+  # Winapps kvm windows virtualization.
+  inputs.winapps.url = "github:winapps-org/winapps";
+  inputs.winapps.inputs.nixpkgs.follows = "nixpkgs";
+
   inputs.systems.url = "github:nix-systems/x86_64-linux";
 
   outputs =
@@ -65,6 +69,7 @@
       stylix,
       home-manager,
       ulauncher,
+      winapps,
       ...
     }:
     let
@@ -203,9 +208,41 @@
           nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1-nvidia
         ];
       };
-      nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
+      nixosConfigurations.tuxedo-xa15 = mkDefaultSystem {
+        specialArgs = {
+          inherit nixos-artwork;
+          inherit awesome-linux-templates;
+        };
         modules = [
           ./machines/tuxedo-xa15/configuration.nix
+
+          stylix.nixosModules.stylix
+
+          # Winapps.
+          (
+            {
+              pkgs,
+              ...
+            }:
+            let
+              inherit (pkgs.stdenv.hostPlatform) system;
+            in
+            {
+              environment.systemPackages = [
+                winapps.packages.${system}.winapps
+                winapps.packages.${system}.winapps-launcher
+              ];
+            }
+          )
+          # Home Manager winapps module.
+          {
+            home-manager.useUserPackages = true;
+            home-manager.users.daniel = import ./home/profiles/windows.nix;
+            home-manager.extraSpecialArgs = {
+              inherit awesome-linux-templates;
+              inherit gitSecrets;
+            };
+          }
         ];
       };
       # END LAPTOPS.
