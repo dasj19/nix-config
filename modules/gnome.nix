@@ -79,9 +79,9 @@
     gnome-maps # Map application, I use a website instead.
     gnome-music # Music player, I use strawberry and tauon.
     gnome-online-accounts # Online account manager, I have no use for it.
-    gnome-photos # Advanced photo organizer, does much more than I need.
     gnome-tour # Gnome tour for beginners, I can use the help menu instead.
     gnome-weather # Weather service, I never use this.
+    loupe # Photo viewer.
     orca # screen reader.
     papers # document reader. I do not need it.
     showtime # newer video player. I use vlc.
