@@ -27,7 +27,6 @@ _ : {
     #     - RDP_ASKPASS="bash -c 'kwallet-query --folder winapps --read-password rdp kdewallet'"
     #
     RDP_PASS="daniel"
-    RDP_ASKPASS=""
 
     # [WINDOWS DOMAIN]
     # DEFAULT VALUE: ' '  (BLANK)
@@ -40,7 +39,7 @@ _ : {
     # - 'docker': '127.0.0.1'
     # - 'podman': '127.0.0.1'
     # - 'libvirt':' ' (BLANK)
-    RDP_IP="127.0.0.1"
+    RDP_IP="192.168.122.242"
 
     # [RDP PORT]
     # NOTES:
@@ -54,7 +53,7 @@ _ : {
     # - Only applicable when using 'libvirt'
     # - The libvirt VM name must match so that WinApps can determine VM IP, start the VM, etc.
     # DEFAULT VALUE: 'RDPWindows'
-    VM_NAME="Windows"
+    VM_NAME="RDPWindows"
 
     # [WINAPPS BACKEND]
     # DEFAULT VALUE: 'docker'
