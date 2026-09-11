@@ -27,14 +27,6 @@
   # Enable fwupd - Firmware updater.
   services.fwupd.enable = lib.mkDefault true;
 
-  # Adjust journald behavior.
-  services.journald.extraConfig = ''
-    # Limit the space occupied by logs.
-    SystemMaxUse=200M
-    # Keep logs for 30 days.
-    MaxRetentionSec=30d
-  '';
-
   # Log rotation.
   services.logrotate.enable = true;
   services.logrotate.checkConfig = false;
