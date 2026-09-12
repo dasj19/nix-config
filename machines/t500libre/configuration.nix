@@ -11,8 +11,6 @@ let
   # Git secrets.
   gnu-domain = gitSecrets.gnuDomain;
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
-  mailserver-fqdn = gitSecrets.gnuMailserverFqdn;
-  mailserver-daniel-email = gitSecrets.gnuMailserverDanielEmail;
 
 in
 {
@@ -23,50 +21,11 @@ in
     ./caddy.nix
     # Profile.
     ./../../profiles/server.nix
-    # Modules.
-    ./../../modules/email-server.nix
   ];
 
   # sops secrets.
   sops.secrets.root_password = { };
   sops.secrets.daniel_password = { };
-  sops.secrets.daniel_gnu_email_password = { };
-
-  # Defining variables for the email-server module.
-  mailserver = {
-    fqdn = mailserver-fqdn;
-    x509.useACMEHost = mailserver-fqdn;
-    domains = [
-      gnu-domain
-    ];
-    accounts = {
-      # Account name in the form of "username@domain.tld".
-      "${mailserver-daniel-email}" = {
-        # Password can be generated running: 'mkpasswd -sm bcrypt'.
-        hashedPasswordFile = config.sops.secrets.daniel_gnu_email_password.path;
-        # List of aliases in format: [ "username@domain.tld" ].
-        aliases = [
-          "postmaster@${gnu-domain}"
-          "tor@${gnu-domain}"
-          "webmaster@${gnu-domain}"
-        ];
-      };
-    };
-  };
-
-  nixpkgs.config = {
-
-    packageOverrides = pkgs: {
-      # Overriding the rspamd package replacing vectorscan with hyperscan.
-      rspamd = pkgs.rspamd.overrideAttrs (oldAttrs: {
-        # Replacing vectorscan with hyperscan.
-        # Vectorscan is not compatible with the old CPU of t500libre.
-        buildInputs = builtins.filter (pkg: pkg != pkgs.vectorscan) oldAttrs.buildInputs ++ [
-          pkgs.hyperscan
-        ];
-      });
-    };
-  };
 
   # Hostname + DHCP on all the networking interfaces.
   networking.useDHCP = true;
@@ -114,10 +73,6 @@ in
     80
     # HTTPS    - Apache2
     443
-    # SMTPS    - Postfix
-    465
-    # IMAPS    - Dovecot
-    993
     # SSH      - OpenSSH
     2201
     # LAN-open:
