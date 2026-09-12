@@ -26,9 +26,9 @@
     "ipv6.disable=1"
   ];
 
-  # Preferred Linux kernel on devbox - a bleeding edge kernel. 7.1 is good until December 2026.
+  # Preferred Linux kernel on devbox - a bleeding edge kernel.
   # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_1;
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_2;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/8c052335-1d2b-424b-9f41-1efa71349101";
