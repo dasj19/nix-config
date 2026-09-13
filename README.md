@@ -169,3 +169,4 @@ Git-crypt key: `git-crypt-key`
 |   ✅   | Diff Manager                 | meld 🐍                            |                       |                           |
 |   🚧   | CLI AI Agent                 | kilo code 🐒                       |                       |                           |
 |   ✅   | Backup manager               | backintime 🐍                      |                       |                           |
+|   ✅   | System tools                 | baobab 💣 czkawka 🦀               |                       |                           |
