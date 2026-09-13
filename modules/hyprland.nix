@@ -50,6 +50,7 @@
     wl-clipboard # Clipboard utilities for Wayland.
 
     # GUI.
+    baobab # Disc usage analyzer.
     brasero # Disc burning utility.
     ffmpegthumbnailer # Video thumbnail generator. Used by nemo and nemo-preview.
     xapp-thumbnailers # Set of thumbnailers for various file types. Used by nemo and nemo-preview.
