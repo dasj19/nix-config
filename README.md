@@ -1,14 +1,23 @@
 # nix-config
-A collection of (ever changing) nixos configurations used locally and in production.
-
-# Status
-CI: ![](https://github.com/dasj19/nix-config/actions/workflows/build.yml/badge.svg)
-QA: ![](https://github.com/dasj19/nix-config/actions/workflows/quality-assurance.yml/badge.svg)
+A collection of (ever changing) nixos configurations used on my machines
+raging from my daily-driver laptop to production servers.
 
 # Purpose
 This repository servers my own needs and should not be used verbatim.
 You can look and get inspired about how I use NixOS.
 This was made public for the sole purpose of sharing configurations and inspire others.
+
+
+# Status
+CI: ![](https://github.com/dasj19/nix-config/actions/workflows/build.yml/badge.svg)
+QA: ![](https://github.com/dasj19/nix-config/actions/workflows/quality-assurance.yml/badge.svg)
+
+I use github runners on on a server I control.
+Their job is to automatically build the configuration inside this repo (for all the machines).
+When the CI and QA are green I can safely do updates on the actual hardware,
+otherwise something needs tweaking (locally or upstream).
+I try to upstream fixes to the  NixOS/nixpkgs repository as much as possible.
+This applies to other projects I use as well.
 
 # Contents
 * The configuration now uses flakes and each folder under **machines** contains configuration for one server/machine.
