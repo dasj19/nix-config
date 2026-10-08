@@ -47,7 +47,7 @@
   inputs.awesome-linux-templates.flake = false;
 
   # Colibri AI.
-  inputs.colibri.url = "github:JustVugg/colibri/v1.12.1";
+  inputs.colibri.url = "github:JustVugg/colibri/v2.0.0";
   inputs.colibri.inputs.nixpkgs.follows = "nixpkgs";
 
   # Latest ulauncher.
