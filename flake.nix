@@ -46,6 +46,10 @@
   inputs.awesome-linux-templates.url = "github:dasj19/awesome-linux-templates";
   inputs.awesome-linux-templates.flake = false;
 
+  # Colibri AI.
+  inputs.colibri.url = "github:JustVugg/colibri/v1.12.1";
+  inputs.colibri.inputs.nixpkgs.follows = "nixpkgs";
+
   # Latest ulauncher.
   inputs.ulauncher.url = "github:Ulauncher/Ulauncher";
   inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
@@ -65,6 +69,7 @@
       stylix,
       home-manager,
       ulauncher,
+      colibri,
       ...
     }:
     let
@@ -206,6 +211,13 @@
       nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
         modules = [
           ./machines/tuxedo-xa15/configuration.nix
+
+          {
+            environment.systemPackages = [
+              ulauncher.packages.x86_64-linux.ulauncher6
+              colibri.packages.x86_64-linux.colibri
+            ];
+          }
         ];
       };
       # END LAPTOPS.
