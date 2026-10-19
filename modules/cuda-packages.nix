@@ -11,7 +11,9 @@
   options.cuda.allowedPackages = lib.mkOption {
     type = with lib.types; listOf str;
     default = [
+      "cccl"
       "cuda_cccl"
+      "cuda_crt"
       "cuda_cudart"
       "cuda_cuobjdump"
       "cuda_cupti"
@@ -31,6 +33,7 @@
       "libcurand"
       "libcusparse"
       "libnvjitlink"
+      "libnvvm"
       "libcufile" # cspell:disable-line
       "libcufft"
       "libcusolver"
