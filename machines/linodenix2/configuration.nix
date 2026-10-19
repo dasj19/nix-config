@@ -112,7 +112,7 @@ in
   # ENABLED SERVICES:
 
   # Linux kernel - Using a LTS kernel.
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_5_15;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_1;
 
   # Initial state version. Consult manual before changing.
   system.stateVersion = "22.11";

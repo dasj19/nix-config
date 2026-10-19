@@ -110,7 +110,7 @@ in
   };
 
   # Linux kernel - Using a LTS kernel.
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_5_15;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_1;
 
   # Consult the manual before changing the state version.
   system.stateVersion = "21.11";
