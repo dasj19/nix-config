@@ -47,6 +47,7 @@
   environment.systemPackages = with pkgs; [
     # CLI.
     apkeep # Android APK downloader.
+    (callPackage ./../../pkgs/archivebox.nix { }) # Self-hosted web archiving.
     lrcget # Lyrics downloader.
 
     # GUI.
@@ -58,6 +59,13 @@
     sabnzbd # nzb client.
   ];
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      (callPackage ./../../pkgs/archivebox.nix { })
+    ];
+  };
+
   # Enable virtualization.
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
@@ -68,6 +76,14 @@
   # Networking settings.
   networking.hostName = "t14";
   networking.networkmanager.enable = true;
+
+  networking.hosts = {
+    "127.0.0.1" = [
+      "localhost"
+      "archivebox.localhost"
+      "admin.archivebox.localhost"
+    ];
+  };
 
   # State version. Consult manual before changing.
   system.stateVersion = "26.05";

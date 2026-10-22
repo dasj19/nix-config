@@ -68,6 +68,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── git-secrets.json      # Non-sensitive values (IPs, domains), git-crypt encrypted
 │   └── variables.yaml        # Passwords and API keys, SOPS encrypted
 ├── pkgs/                     # Custom packages
+│   ├── archivebox.nix        # Self-hosted internet archiving, with its missing python deps
 │   ├── caddy-browse.nix      # Directory browsing plugin for Caddy
 │   ├── clipvault.nix         # Clipboard history manager for Wayland
 │   └── fish-colored-man.nix  # Local fish plugin, pending upstream submission
