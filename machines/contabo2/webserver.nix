@@ -42,7 +42,7 @@ in
 
     root * /var/www/${firm-domain}/web
     file_server
-    php_fastcgi unix/${config.services.phpfpm.pools.php82.socket}
+    php_fastcgi unix/${config.services.phpfpm.pools.php83.socket}
   '';
   services.caddy.virtualHosts."www.${daniel-domain}".extraConfig = ''
     redir https://${daniel-domain}{uri} permanent
@@ -86,10 +86,10 @@ in
 
   # PHP-FPM pools.
   # https://discourse.nixos.org/t/502-bad-gateway-with-caddy-and-php-fastcgi/25429
-  services.phpfpm.pools."php82" = {
+  services.phpfpm.pools."php83" = {
     user = "caddy";
     group = "caddy";
-    phpPackage = pkgs.php82;
+    phpPackage = pkgs.php83;
     settings = {
       "listen.owner" = config.services.caddy.user;
     }

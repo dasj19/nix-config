@@ -77,7 +77,7 @@ in
   # System-wide packages.
   environment.systemPackages = with pkgs; [
     # Development and Operations.
-    php82Packages.composer
+    php83Packages.composer
   ];
 
   # List services.
