@@ -55,7 +55,6 @@ Disable spell-checking for this file: cspell:disable.
 │   └── fish-colored-man.nix  # Local fish plugin, pending upstream submission
 ├── .pre-commit-config.yaml   # Pre-commit hooks: nixfmt + statix
 ├── .editorconfig             # Editor config: 2-space indent, LF, trim whitespace
-├── renovate.json             # Automated dependency updates (Renovate bot)
 ├── statix.toml               # Statix linter configuration
 ├── git-crypt-key             # git-crypt symmetric key (git-crypt encrypted)
 ├── AGENTS.md                 # This file

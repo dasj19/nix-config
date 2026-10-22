@@ -6,8 +6,5 @@
       "addWords": true,
       "scope": "workspace"
     }
-  },
-  "json.schemaDownload.trustedDomains": {
-    "https://docs.renovatebot.com/": true
   }
 }
