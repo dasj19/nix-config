@@ -161,7 +161,7 @@ Git-crypt key: `git-crypt-key`
 |   ✅   | PDF Editor                   | Xournal++ 💣                       |                       |                           |
 |   ✅   | Web Browser (Primary)        | Firefox Developer Edition 💣🐒     |                       |                           |
 |   ✅   | Web Browser (Secondary)      | Chromium 💣                        |                       |                           |
-|   🚧   | Office Suite                 | Only Office 💣                     |                       | LibreOffice 💣🫘🐍        |
+|   🚧   | Office Suite                 | EuroOffice 💣 Only Office 💣       |                       | LibreOffice 💣🫘🐍        |
 |   ✅   | Diagram Drawing Tool         | drawio 🐒                          |                       |                           |
 |   🚧   | Graphic Manipulation Tool    | GIMP 💣                            |                       |                           |
 |   ❓   | Vector Graphic Tool          |                                    |                       |                           |

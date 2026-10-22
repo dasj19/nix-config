@@ -91,6 +91,7 @@
     showmethekey # OSD of pressed keys.
     swayosd # Controls media keys and special keys with visuals.
     evolution # Email client with calendar support.
+    gnome-contacts # Contact manager.
     gnome-keyring # Keyring for managing passwords and encryption keys.
     tauon # Album-based with lyrics support.
     tofi # wayland-native dynamic menu.
@@ -117,17 +118,17 @@
     "application/gzip" = "xarchiver.desktop";
     "application/json" = "textadept.desktop";
     "application/ld+json" = "textadept.desktop";
-    "application/msword" = "onlyoffice-desktopeditors.desktop";
+    "application/msword" = "euro-office-desktopeditors.desktop";
     "application/octet-stream" = "org.qbittorrent.qBittorrent.desktop";
     "application/pdf" = "atril.desktop";
-    "application/rtf" = "onlyoffice-desktopeditors.desktop";
+    "application/rtf" = "euro-office-desktopeditors.desktop";
     "application/x-bzip" = "xarchiver.desktop";
     "application/x-bzip2" = "xarchiver.desktop";
     "application/zip" = "xarchiver.desktop";
-    "application/vnd.ms-powerpoint" = "onlyoffice-desktopeditors.desktop";
+    "application/vnd.ms-powerpoint" = "euro-office-desktopeditors.desktop";
     "application/vnd.rar" = "xarchiver.desktop";
     "application/vnd.mozilla.xul+xml" = "firefox-devedition.desktop";
-    "application/vnd.ms-excel" = "onlyoffice-desktopeditors.desktop";
+    "application/vnd.ms-excel" = "euro-office-desktopeditors.desktop";
     "application/x-sh" = "alacritty.desktop";
     "application/x-tar" = "xarchiver.desktop";
     "application/xml" = "textadept.desktop";

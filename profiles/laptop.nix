@@ -79,7 +79,8 @@
     lbry # Client for the LBRY protocol.
     libreoffice # Secondary office suite.
     meld # Visual diff merger.
-    onlyoffice-desktopeditors # Primary office suite.
+    onlyoffice-desktopeditors # Tertiary office suite.
+    euro-office-desktopeditors # Primary office suite.
     pdfarranger # Basic PDF editor.
     qalculate-gtk # Classic calculator.
     qbittorrent # Torrent client.
