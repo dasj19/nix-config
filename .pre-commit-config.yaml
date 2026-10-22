@@ -13,3 +13,9 @@ repos:
         language: system
         types: [nix]
         pass_filenames: false
+      - id: deadnix
+        name: deadnix
+        entry: nix run --inputs-from . nixpkgs#deadnix -- --fail
+        language: system
+        types: [nix]
+        pass_filenames: true

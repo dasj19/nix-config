@@ -170,6 +170,7 @@
       checks = forAllSystems (pkgs: {
         nixfmt = mkLintCheck pkgs "nixfmt" pkgs.nixfmt "find . -name '*.nix' -exec nixfmt --check {} +";
         statix = mkLintCheck pkgs "statix" pkgs.statix "statix check .";
+        deadnix = mkLintCheck pkgs "deadnix" pkgs.deadnix "deadnix --fail .";
       });
 
       # START SERVERS.

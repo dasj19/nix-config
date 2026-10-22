@@ -3,7 +3,7 @@
 # Reduces duplication of the common FPM pool 'settings' block.
 # Usage: services.phpfpm.pools."name" = { ... // config.services.phpfpm.defaultPoolSettings; };
 
-{ config, lib, ... }:
+{ lib, ... }:
 
 {
   options.services.phpfpm.defaultPoolSettings = lib.mkOption {

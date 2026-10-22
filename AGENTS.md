@@ -12,7 +12,7 @@ Disable spell-checking for this file: cspell:disable.
 ├── .github/workflows/
 │   ├── autoupdate-flake.yml  # Daily flake update, pushed only if all machines build
 │   ├── build.yml             # Flake check + build of every machine
-│   └── quality-assurance.yml # Lint (statix + nixfmt flake checks)
+│   └── quality-assurance.yml # Lint (statix + deadnix + nixfmt flake checks)
 ├── .cspell/                  # Workspace spell-check dictionary
 ├── .vscode/                  # Editor settings (cspell dictionary path)
 ├── modules/                  # Shared NixOS modules, imported by machine configs
@@ -69,7 +69,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── caddy-browse.nix      # Directory browsing plugin for Caddy
 │   ├── clipvault.nix         # Clipboard history manager for Wayland
 │   └── fish-colored-man.nix  # Local fish plugin, pending upstream submission
-├── .pre-commit-config.yaml   # Pre-commit hooks: nixfmt + statix
+├── .pre-commit-config.yaml   # Pre-commit hooks: nixfmt + statix + deadnix
 ├── .editorconfig             # Editor config: 2-space indent, LF, trim whitespace
 ├── statix.toml               # Statix linter configuration
 ├── .sops.yaml                # SOPS age keys and creation rules
@@ -119,7 +119,7 @@ Disable spell-checking for this file: cspell:disable.
 
 ## CI
 
-- **quality-assurance.yml**: lint-only workflow. Builds the `statix` and `nixfmt` flake checks. Triggers on all pushes and PRs.
+- **quality-assurance.yml**: lint-only workflow. Builds the `statix`, `deadnix` and `nixfmt` flake checks. Triggers on all pushes and PRs.
 - **autoupdate-flake.yml**: daily `nix flake update` on the self-hosted runner. Builds every machine with the new lock, commits and pushes `flake.lock` only if all builds pass, then dispatches `build.yml`.
 - **build.yml**: build workflow. Runs on self-hosted runner. Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (runs after `validate`, matrix of all machines listed from `nixosConfigurations`).
 - **Experimental features**: CI enables `nix-command flakes` via `extra_nix_config`.
@@ -127,7 +127,7 @@ Disable spell-checking for this file: cspell:disable.
 
 ## Pre-commit Hooks
 
-- Config: `.pre-commit-config.yaml` with local hooks for `nixfmt` and `statix`.
+- Config: `.pre-commit-config.yaml` with local hooks for `nixfmt`, `statix` and `deadnix`.
 - Install: `nix run github:NixOS/nixpkgs#pre-commit install`
 - Run manually: `nix run github:NixOS/nixpkgs#pre-commit run --all-files`
 
@@ -135,6 +135,7 @@ Disable spell-checking for this file: cspell:disable.
 
 - **nixfmt**: enforced. Run `nix fmt` to format all files, or `nix build .#checks.x86_64-linux.nixfmt` to only check them.
 - **statix**: enforced. Run `nix build .#checks.x86_64-linux.statix` locally before committing.
+- **deadnix**: enforced. Reports unused function arguments and let bindings. Run `nix build .#checks.x86_64-linux.deadnix`.
 - **nix flake check**: Do not run locally, run only in CI.
 - **cspell**: some terms are disabled inline with `# cspell:disable-line` (e.g., `cudnn`, `ddev`, `xdebug`). Do not add new cspell disables without need.
 

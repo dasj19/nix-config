@@ -2,14 +2,12 @@
 # scope: machine
 
 {
-  config,
   gitSecrets,
   pkgs,
   ...
 }:
 let
   # Git secrets.
-  gnu-domain = gitSecrets.gnuDomain;
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
 
 in
