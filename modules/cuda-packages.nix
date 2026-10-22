@@ -1,4 +1,5 @@
 # cuda-packages: list of non-free NVIDIA CUDA packages needed by AI tools.
+# scope: laptops with NVIDIA GPUs
 # Declared as a module option so other modules can reference
 # `config.cuda.allowedPackages` without needing specialArgs.
 

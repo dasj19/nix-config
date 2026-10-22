@@ -1,4 +1,5 @@
 # hyprland: module to configure system-wide hyprland.
+# scope: laptops
 # contains: desktop environment packages and customizations.
 
 {

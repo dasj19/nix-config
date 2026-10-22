@@ -1,4 +1,5 @@
 # laptop: profile meant to be inherited by all the laptop machine configurations.
+# scope: laptops
 # contains: the base profile + laptop-specific modules.
 
 {

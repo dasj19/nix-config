@@ -1,4 +1,5 @@
 # games: gaming-related packages.
+# scope: laptops
 
 { pkgs, ... }:
 

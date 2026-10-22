@@ -1,4 +1,5 @@
 # folders: custom user directory configuration.
+# scope: all machines
 
 {
   # Custom user directories.

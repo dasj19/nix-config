@@ -1,4 +1,5 @@
 # keyboard: keyboard layout configuration.
+# scope: all machines
 
 _:
 

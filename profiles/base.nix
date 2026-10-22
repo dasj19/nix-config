@@ -1,4 +1,5 @@
 # base: a profile inherited by all the other profiles.
+# scope: all machines
 # contains: common stuff that are needed on all the machines configured in this repo.
 
 {

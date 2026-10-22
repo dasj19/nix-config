@@ -1,4 +1,5 @@
 # locale: internationalization properties.
+# scope: all machines
 
 {
   # Internationalization properties.

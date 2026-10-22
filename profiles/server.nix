@@ -1,4 +1,5 @@
 # server: a profile inherited by all servers.
+# scope: servers
 # contains: common stuff that are needed on the servers.
 
 {

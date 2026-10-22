@@ -1,4 +1,5 @@
 # php-fpm: default PHP-FPM pool settings shared across machines.
+# scope: servers with PHP websites
 # Reduces duplication of the common FPM pool 'settings' block.
 # Usage: services.phpfpm.pools."name" = { ... // config.services.phpfpm.defaultPoolSettings; };
 

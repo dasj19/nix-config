@@ -1,4 +1,5 @@
 # stylix: style the entire desktop uniform no matter which tech stack the software belongs to.
+# scope: laptops
 
 {
   nixos-artwork,

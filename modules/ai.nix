@@ -1,4 +1,5 @@
 # ai: system-wide configuration of AI tools.
+# scope: laptops
 # contains: CLI tools based on ollama, video enhancing tools and more.
 
 { pkgs, config, ... }:

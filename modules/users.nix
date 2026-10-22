@@ -1,4 +1,5 @@
 # users: user account and password management.
+# scope: all machines
 
 {
   config,
