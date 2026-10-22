@@ -53,14 +53,8 @@ in
     ./../../modules/cuda-packages.nix
   ];
 
-  services.displayManager.gdm.enable = lib.mkForce true;
-  services.desktopManager.gnome.enable = lib.mkForce true;
-  programs.uwsm.enable = lib.mkForce false;
-  programs.hyprland.enable = lib.mkForce false;
-  programs.hyprland.withUWSM = lib.mkForce false;
-  programs.hyprland.xwayland.enable = lib.mkForce false;
-  programs.hyprlock.enable = lib.mkForce false;
-  services.greetd.enable = lib.mkForce false;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Disable unused xserver packages.
   services.xserver.excludePackages = with pkgs; [
