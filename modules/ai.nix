@@ -14,8 +14,6 @@
   allowedUnfree = config.cuda.allowedPackages ++ [
     "claude-code" # AI CLI client.
     "cursor-cli" # AI CLI client.
-    # Self-hosted web solutions.
-    "open-webui"
   ];
 
   # AI system tools.

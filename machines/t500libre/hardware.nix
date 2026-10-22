@@ -1,7 +1,9 @@
 # t500libre: hardware configuration for Lenovo ThinkPad T500.
 # scope: machine
 
-_: {
+{ lib, ... }:
+
+{
 
   imports = [
     # Common hardware configuration.
@@ -77,4 +79,6 @@ _: {
   swapDevices = [
     { device = "/dev/disk/by-uuid/6b9990be-ae4b-4358-adf0-1ce84e3c3458"; }
   ];
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

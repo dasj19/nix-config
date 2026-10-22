@@ -88,6 +88,7 @@ Disable spell-checking for this file: cspell:disable.
 - **sopsSecrets**: path to `secrets/variables.yaml`, passed as `specialArgs`.
 - **hostname**: always set `networking.hostName`.
 - **stateVersion**: always set `system.stateVersion`.
+- **hostPlatform**: always set `nixpkgs.hostPlatform` in `hardware.nix`. Do not pass `system` to the `mk*System` helpers.
 
 ## Secrets
 

@@ -158,4 +158,6 @@
   # daemon that monitors and controls CPU/GPU/chassis
   # temperature to prevent overheating and thermal throttling
   services.thermald.enable = true;
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

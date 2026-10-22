@@ -76,7 +76,6 @@
         cfg:
         let
           defaults = {
-            system = "x86_64-linux";
             # Common special arguments for all systems.
             specialArgs = {
               inherit gitSecrets;
@@ -153,7 +152,6 @@
         ];
       };
       nixosConfigurations.cm4-nas = mkServerSystem {
-        system = "aarch64-linux";
         modules = [
           ./machines/cm4-nas/configuration.nix
           # @todo Include hardware support for the compute module 4.
@@ -182,7 +180,6 @@
         ];
       };
       nixosConfigurations.rpi4-tv = mkServerSystem {
-        system = "aarch64-linux";
         modules = [
           ./machines/rpi4-tv/configuration.nix
           nixos-hardware.nixosModules.raspberry-pi-4
