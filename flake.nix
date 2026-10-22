@@ -38,10 +38,6 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-  # Collection of pure Nix functions that don't depend on nixpkgs.
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.flake-utils.inputs.systems.follows = "systems";
-
   # Collection of new file templates for the user environment.
   inputs.awesome-linux-templates.url = "github:dasj19/awesome-linux-templates";
   inputs.awesome-linux-templates.flake = false;
