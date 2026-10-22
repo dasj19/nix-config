@@ -69,9 +69,6 @@ in
     # NO UDP PORTS ALLOWED YET.
   ];
 
-  # Temp setting to not log refused connections.
-  #networking.firewall.logRefusedConnections = false;
-
   # INSTALLED PACKAGES:
   environment.systemPackages = with pkgs; [
     # CLI utils.

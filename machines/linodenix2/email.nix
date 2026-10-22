@@ -22,10 +22,8 @@ in
   mailserver = {
     enable = true;
     fqdn = imigrant-fqdn;
-    x509.useACMEHost = imigrant-fqdn;
-    #Using Let's Encrypt instead of self-signed certificate.
     # The Caddy webserver takes care of certificates via ACME.
-    # certificateScheme = "acme";
+    x509.useACMEHost = imigrant-fqdn;
     domains = [
       "${imigrant-domain}"
     ];

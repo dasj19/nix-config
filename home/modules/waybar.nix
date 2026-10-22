@@ -98,8 +98,6 @@ _: {
             5
           ];
         };
-        # "on-scroll-up" = "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e+1\" })'";
-        # "on-scroll-down" = "hyprctl dispatch 'hl.dsp.focus({ workspace = \"e-1\" })'";
       };
 
       cpu = {
@@ -212,15 +210,6 @@ _: {
         };
         timeout = "30.5";
       };
-
-      # "custom/hello-from-waybar" = {
-      #   format = "hello {}";
-      #   max-length = 40;
-      #   interval = "once";
-      #   exec = pkgs.writeShellScript "hello-from-waybar" ''
-      #     echo "from within waybar"
-      #   '';
-      # };
     };
   };
 }

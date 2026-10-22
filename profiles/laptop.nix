@@ -44,7 +44,6 @@
     asciinema # Terminal session recorder.
     bchunk # converts CD images from BIN/CUE to ISO and CDR tracks.
     localtunnel # CLI interface for the localtunnel service.
-    #cron
     cuetools # Utilities for working with cue files and toc files.
     dconf # Desktop-environment conf editor.
     fcron # Needed by backintime. @todo fix upstream.

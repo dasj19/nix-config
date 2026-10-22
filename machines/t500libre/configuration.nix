@@ -84,10 +84,6 @@ in
     53
   ];
 
-  # Allow immutable users.
-  # Consider adopting userborn: https://github.com/NixOS/nixpkgs/pull/332719
-  # users.mutableUsers = false;
-
   # Consult manual before changing.
   system.stateVersion = "26.05";
 }
