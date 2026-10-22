@@ -2,17 +2,21 @@ name: Autoupdate flake
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
   schedule:
     - cron: '0 1 * * *'  # Runs daily at 1:00 UTC
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# Never run two updates at the same time.
+concurrency:
+  group: autoupdate-flake
+  cancel-in-progress: false
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "update"
+  update:
     # The type of runner that the job will run on
     runs-on: self-hosted
 
@@ -21,22 +25,53 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v7
 
+      # Unlocking secrets using the server's git-crypt key, needed to evaluate the machines.
+      - name: Unlocking git secrets
+        run: git-crypt unlock /etc/nixos/git-crypt-key
+
       # Updating the flake input references.
       - name: Run flake update command
         run: |
           nix --extra-experimental-features nix-command --extra-experimental-features flakes \
           flake update
 
-      # Commit the updated flake.lock file
+      # Skip the remaining steps when no input has changed.
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "No flake input changed, nothing to do."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Build every machine with the updated inputs before anything reaches master.
+      - name: Build all machines
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          nix() { command nix --extra-experimental-features nix-command --extra-experimental-features flakes "$@"; }
+          machines=$(nix eval --raw .#nixosConfigurations --apply 'c: builtins.concatStringsSep " " (builtins.attrNames c)')
+          targets=()
+          for machine in $machines; do
+            targets+=(".#nixosConfigurations.$machine.config.system.build.toplevel")
+          done
+          echo "Building: $machines"
+          nix build --no-link --keep-going "${targets[@]}"
+
+      # Commit the updated flake.lock file, only reached when all builds succeeded.
       - name: Commit and Push Changes
+        if: steps.changes.outputs.changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Action Bot"
           git add flake.lock
           git commit -m "Automated flake update: $(date +'%Y-%m-%d %H:%M:%S')"
           git push
-      # Trigger a build using the CI
+
+      # Trigger the CI on the new commit, pushes made with GITHUB_TOKEN do not trigger it.
       - name: Trigger build
+        if: steps.changes.outputs.changed == 'true'
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: build.yml
