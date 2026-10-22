@@ -30,8 +30,10 @@ in
   sops.secrets.root_password.neededForUsers = true;
 
   # Allow updating of password hashes.
-  # Consider adopt userborn after it is merged: https://github.com/NixOS/nixpkgs/pull/332719
   users.mutableUsers = true;
+
+  # Create users with userborn instead of the perl script.
+  services.userborn.enable = true;
 
   # Underprivileged account.
   users.users.daniel = {

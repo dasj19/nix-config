@@ -11,6 +11,7 @@ TODO:
 - workflows: remove Renovate and Dependabot, flake inputs are updated by the autoupdate workflow
 - devbox: remove the machine and its configuration
 - modules: remove games.nix, unused since 2025-08-20, tuxedo-xa15 keeps its gamepad tools
+- users: create users with userborn instead of the perl script on all machines, user password secrets are now neededForUsers
 
 2026-08-14
 - hyprland: address startup notifications
