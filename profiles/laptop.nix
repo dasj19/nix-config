@@ -31,6 +31,10 @@
     "unrar"
     # GUI.
     "drawio"
+    # VSCodium extensions, used in home/modules/vscodium.nix.
+    # Unclear why this is marked as non-free. @todo: check upstream.
+    # cspell:disable-next-line
+    "vscode-extension-bmewburn-vscode-intelephense-client"
   ];
 
   # Laptop packages.

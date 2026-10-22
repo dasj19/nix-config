@@ -2,7 +2,6 @@
 # contains: vscodium with extensions and their configurations.
 
 {
-  lib,
   pkgs,
   ...
 }:
@@ -105,13 +104,4 @@
       "kilo-code.new.agentManager.showTerminal"
     ];
   };
-
-  # Allowed non-free packages.
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      # Unclear why this is marked as non-free. @todo: check upstream.
-      # cspell:disable-next-line
-      "vscode-extension-bmewburn-vscode-intelephense-client"
-    ];
 }

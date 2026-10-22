@@ -124,6 +124,7 @@
             stylix.nixosModules.stylix
 
             {
+              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.daniel = import ./home/profiles/laptop.nix;
               home-manager.extraSpecialArgs = {
@@ -150,6 +151,7 @@
         mkDefaultSystem {
           modules = [
             {
+              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.daniel = import ./home/profiles/server.nix;
               home-manager.extraSpecialArgs = {
