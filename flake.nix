@@ -203,12 +203,6 @@
       nixosConfigurations.tuxedo-xa15 = mkLaptopSystem {
         modules = [
           ./machines/tuxedo-xa15/configuration.nix
-
-          {
-            environment.systemPackages = [
-              ulauncher.packages.x86_64-linux.ulauncher6
-            ];
-          }
         ];
       };
       # END LAPTOPS.
