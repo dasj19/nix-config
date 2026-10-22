@@ -12,6 +12,7 @@
 
   # Non-free AI/CUDA libraries.
   allowedUnfree = config.cuda.allowedPackages ++ [
+    "claude-code" # AI CLI client.
     "cursor-cli" # AI CLI client.
     # Self-hosted web solutions.
     "open-webui"
@@ -19,6 +20,7 @@
 
   # AI system tools.
   environment.systemPackages = with pkgs; [
+    claude-code # AI CLI client.
     cursor-cli # AI CLI client.
     llmfit # Checks what LLMs run optimally on current hardware.
     shell-gpt # ChatGPT/Ollama client.
