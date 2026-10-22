@@ -36,6 +36,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── non-free.nix          # allowUnfreePredicate + allowedUnfree option
 │   ├── openssh.nix           # OpenSSH server
 │   ├── php-fpm.nix           # Module option: config.services.phpfpm.defaultPoolSettings
+│   ├── primary-user.nix      # Module option: config.users.primaryUser (main user name)
 │   ├── starship.nix          # Shell prompt configuration
 │   ├── stylix.nix            # Uniform desktop styling
 │   └── users.nix             # User accounts, sops passwords, sudo-rs
@@ -93,13 +94,14 @@ Disable spell-checking for this file: cspell:disable.
 - **ACME secrets**: always import `modules/acme.nix` on machines that use `security.acme` or `mailserver.x509.useACMEHost`. The module provides the sops secret declarations and Cloudflare DNS defaults.
 - **PHP-FPM settings**: import `modules/php-fpm.nix` and merge with `// config.services.phpfpm.defaultPoolSettings`.
 - **Non-free packages**: import `modules/non-free.nix` and extend `config.allowedUnfree` with package names.
+- **User name**: never hardcode the main user name, use `config.users.primaryUser` (declared in `modules/primary-user.nix`, available on every machine). Home Manager derives `home.username` and `home.homeDirectory` from it.
 - **Fastfetch**: `modules/fastfetch.nix` is imported in `profiles/base.nix` and provides the package, config file, and mail status command.
 
 ## flake.nix Conventions
 
 - **mkDefaultSystem / mkLaptopSystem / mkServerSystem**: all machines are defined via these helpers. Do not call `nixpkgs.lib.nixosSystem` directly.
 - **specialArgs**: injected into all machines via `mkDefaultSystem`. Keep minimal.
-- **modules**: base modules (`sops-nix`, `home-manager`) are in `mkDefaultSystem`. Machine-specific modules are in each `configuration.nix`.
+- **modules**: base modules (`sops-nix`, `home-manager`, `modules/primary-user.nix`) are in `mkDefaultSystem`. Machine-specific modules are in each `configuration.nix`.
 - **nixosConfigurations**: grouped as `# START SERVERS.` / `# START LAPTOPS.` / `# END ...`.
 
 ## Machine Config Conventions

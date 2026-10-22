@@ -1,7 +1,7 @@
 # keyboard: keyboard layout configuration.
 # scope: all machines
 
-_:
+{ config, ... }:
 
 {
   # Configure keyboard layout in X11.
@@ -21,5 +21,5 @@ _:
 
   # Emulate keystrokes programmatically.
   programs.ydotool.enable = true;
-  users.users.daniel.extraGroups = [ "ydotool" ];
+  users.users.${config.users.primaryUser}.extraGroups = [ "ydotool" ];
 }

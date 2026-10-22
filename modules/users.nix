@@ -36,7 +36,7 @@ in
   services.userborn.enable = true;
 
   # Underprivileged account.
-  users.users.daniel = {
+  users.users.${config.users.primaryUser} = {
     isNormalUser = true;
     description = daniel-fullname;
     hashedPasswordFile = config.sops.secrets.daniel_password.path;

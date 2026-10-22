@@ -3,6 +3,7 @@
 # contains: desktop environment packages and customizations.
 
 {
+  config,
   lib,
   pkgs,
   ...
@@ -33,7 +34,7 @@
     # Start hyprland throwing all text output away.
     command = "start-hyprland &>/dev/null";
     # Auto-login user.
-    user = "daniel";
+    user = config.users.primaryUser;
   };
   # Improve audio performance.
   security.rtkit.enable = true;

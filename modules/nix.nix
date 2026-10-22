@@ -4,6 +4,7 @@
 # Provides Nix settings, substituters, distributed builds, and nix ecosystem tools.
 
 {
+  config,
   lib,
   pkgs,
   ...
@@ -24,7 +25,7 @@
   # Users allowed to use distributed builds.
   nix.settings.trusted-users = lib.mkForce [
     "root" # do not remove while using mkForce.
-    "daniel"
+    config.users.primaryUser
   ];
 
   # Build the max amount of jobs (amount of cpu cores) using 1 core per job.

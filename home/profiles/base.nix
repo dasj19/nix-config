@@ -8,9 +8,6 @@
 }:
 
 {
-  home.username = "daniel";
-  home.homeDirectory = "/home/daniel";
-
   home.stateVersion = "26.05";
 
   # Home manager news.

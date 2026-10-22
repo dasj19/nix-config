@@ -104,6 +104,8 @@
             modules = [
               sops-nix.nixosModules.sops
               home-manager.nixosModules.home-manager
+              # Declares config.users.primaryUser.
+              ./modules/primary-user.nix
             ];
           };
           # Merge defaults with custom configuration.
@@ -128,15 +130,18 @@
           modules = [
             stylix.nixosModules.stylix
 
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.daniel = import ./home/profiles/laptop.nix;
-              home-manager.extraSpecialArgs = {
-                inherit awesome-linux-templates;
-                inherit gitSecrets;
-              };
-            }
+            (
+              { config, ... }:
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.${config.users.primaryUser} = import ./home/profiles/laptop.nix;
+                home-manager.extraSpecialArgs = {
+                  inherit awesome-linux-templates;
+                  inherit gitSecrets;
+                };
+              }
+            )
 
             (
               { pkgs, ... }:
@@ -155,14 +160,17 @@
         cfg:
         mkDefaultSystem {
           modules = [
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.daniel = import ./home/profiles/server.nix;
-              home-manager.extraSpecialArgs = {
-                inherit gitSecrets;
-              };
-            }
+            (
+              { config, ... }:
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.${config.users.primaryUser} = import ./home/profiles/server.nix;
+                home-manager.extraSpecialArgs = {
+                  inherit gitSecrets;
+                };
+              }
+            )
           ]
           ++ (cfg.modules or [ ]);
         };
