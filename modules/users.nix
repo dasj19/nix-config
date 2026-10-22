@@ -25,8 +25,9 @@ in
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
   # SOPS secrets.
-  sops.secrets.daniel_password = { };
-  sops.secrets.root_password = { };
+  # Password hashes are decrypted to /run/secrets-for-users, before the users are created.
+  sops.secrets.daniel_password.neededForUsers = true;
+  sops.secrets.root_password.neededForUsers = true;
 
   # Allow updating of password hashes.
   # Consider adopt userborn after it is merged: https://github.com/NixOS/nixpkgs/pull/332719

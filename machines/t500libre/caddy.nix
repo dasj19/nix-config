@@ -20,8 +20,6 @@ in
 {
   imports = [ ../../modules/php-fpm.nix ];
 
-  sops.secrets.root_password = { };
-
   # PHP-FPM pools.
   # https://discourse.nixos.org/t/502-bad-gateway-with-caddy-and-php-fastcgi/25429
   services.phpfpm.pools."php84" = {

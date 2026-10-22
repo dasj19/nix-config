@@ -34,8 +34,6 @@ in
   ];
 
   # sops secrets.
-  sops.secrets.root_password = { };
-  sops.secrets.daniel_password = { };
   sops.secrets.daniel_daniel_email_password = { };
 
   # Email server.

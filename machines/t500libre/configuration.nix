@@ -21,10 +21,6 @@ in
     ./../../profiles/server.nix
   ];
 
-  # sops secrets.
-  sops.secrets.root_password = { };
-  sops.secrets.daniel_password = { };
-
   # Hostname + DHCP on all the networking interfaces.
   networking.useDHCP = true;
   networking.hostName = "t500libre";

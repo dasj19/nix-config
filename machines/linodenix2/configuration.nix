@@ -5,7 +5,6 @@
   gitSecrets,
   lib,
   pkgs,
-  sopsSecrets,
   ...
 }:
 
@@ -29,12 +28,6 @@ in
     # Wordpress sites config.
     ./wordpress.nix
   ];
-
-  sops.defaultSopsFile = sopsSecrets;
-  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
-
-  sops.secrets.daniel_password = { };
-  sops.secrets.root_password = { };
 
   # Host and network settings.
   networking.enableIPv6 = true;
