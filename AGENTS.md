@@ -98,7 +98,7 @@ Disable spell-checking for this file: cspell:disable.
 ## CI
 
 - **quality-assurance.yml**: lint-only workflow. Runs `statix` and `nixfmt --check`. Triggers on all pushes and PRs.
-- **build.yml**: build workflow. Runs on self-hosted runner. Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (matrix of all 10 machines).
+- **build.yml**: build workflow. Runs on self-hosted runner. Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (runs after `validate`, matrix of all machines listed from `nixosConfigurations`).
 - **Experimental features**: CI enables `nix-command flakes` via `extra_nix_config`.
 - **Tools**: CI uses `nix run github:NixOS/nixpkgs#<tool>` to avoid flake resolution conflicts with the repo's own `flake.nix`.
 
