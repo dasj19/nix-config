@@ -33,8 +33,9 @@ jobs:
       # The linters are defined as flake checks, so they use the pinned nixpkgs.
       - name: Lint
         run: |
-          echo "Running statix (static analysis), deadnix (unused code) and nixfmt (format check)..."
+          echo "Running statix (static analysis), deadnix (unused code), nixfmt (format check) and sorted-lists (list order)..."
           nix build --no-link --print-build-logs --keep-going \
             .#checks.x86_64-linux.statix \
             .#checks.x86_64-linux.deadnix \
-            .#checks.x86_64-linux.nixfmt
+            .#checks.x86_64-linux.nixfmt \
+            .#checks.x86_64-linux.sorted-lists

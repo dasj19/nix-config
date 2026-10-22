@@ -11,8 +11,8 @@
 {
   imports = [
     # ideapad100.
-    ./hardware.nix
     ./caddy.nix
+    ./hardware.nix
     # Profile.
     ./../../profiles/server.nix
     # Modules.

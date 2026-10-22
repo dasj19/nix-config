@@ -7,12 +7,12 @@ Disable spell-checking for this file: cspell:disable.
 
 ```
 .
-├── flake.nix                 # Flake entrypoint, mk*System helpers, formatter + checks outputs
+├── flake.nix                 # Flake entrypoint, mk*System helpers, formatter, checks + apps outputs
 ├── flake.lock                # Pinned flake inputs
 ├── .github/workflows/
 │   ├── autoupdate-flake.yml  # Daily flake update, pushed only if all machines build
 │   ├── build.yml             # Flake check + build of every machine
-│   └── quality-assurance.yml # Lint (statix + deadnix + nixfmt flake checks)
+│   └── quality-assurance.yml # Lint (statix, deadnix, nixfmt and sorted-lists flake checks)
 ├── .cspell/                  # Workspace spell-check dictionary
 ├── .vscode/                  # Editor settings (cspell dictionary path)
 ├── modules/                  # Shared NixOS modules, imported by machine configs
@@ -39,6 +39,8 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── starship.nix          # Shell prompt configuration
 │   ├── stylix.nix            # Uniform desktop styling
 │   └── users.nix             # User accounts, sops passwords, sudo-rs
+├── lib/
+│   └── sorted-lists.nix      # Checks and sorts the imports and package lists, in pure nix
 ├── settings/                 # Static configuration files (keyboard layouts, etc.)
 │   └── esrodk                # Custom XKB keyboard layout (Spanish with RODK) #cspell:disable-line
 ├── machines/                 # One folder per machine
@@ -68,7 +70,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── caddy-browse.nix      # Directory browsing plugin for Caddy
 │   ├── clipvault.nix         # Clipboard history manager for Wayland
 │   └── fish-colored-man.nix  # Local fish plugin, pending upstream submission
-├── .pre-commit-config.yaml   # Pre-commit hooks: nixfmt + statix + deadnix
+├── .pre-commit-config.yaml   # Pre-commit hooks: nixfmt, statix, deadnix and sorted-lists
 ├── .editorconfig             # Editor config: 2-space indent, LF, trim whitespace
 ├── statix.toml               # Statix linter configuration
 ├── .sops.yaml                # SOPS age keys and creation rules
@@ -86,7 +88,7 @@ Disable spell-checking for this file: cspell:disable.
 - **Header format**: first line is `# module-name: short description.`, second line is `# scope: ...`, from the third line on more details are presented.
 - **Shorthand style**: use `_:` for unused args, not `{ ... }:` (statix requires `_`).
 - **No `config = { ... }` wrapper** unless the module declares `options` and needs `config` to reference them (like `non-free.nix`, `cuda-packages.nix`, `php-fpm.nix`).
-- **Ordering of elements**: order the elements in `imports` and `environment.systemPackages` alphabetically.
+- **Ordering of elements**: order the elements in `imports` and `environment.systemPackages` alphabetically (case-insensitive). Each group under a comment or after a blank line is sorted on its own, and an entry's trailing comment moves with it. Enforced by the `sorted-lists` check, the list names live in `sortedLists` in `lib/sorted-lists.nix`.
 - **Module options over specialArgs**: prefer declaring `options` in a module and importing it. Only use `specialArgs` for truly global values that cannot be module options (currently: `gitSecrets`, `sopsSecrets`).
 - **ACME secrets**: always import `modules/acme.nix` on machines that use `security.acme` or `mailserver.x509.useACMEHost`. The module provides the sops secret declarations and Cloudflare DNS defaults.
 - **PHP-FPM settings**: import `modules/php-fpm.nix` and merge with `// config.services.phpfpm.defaultPoolSettings`.
@@ -118,7 +120,7 @@ Disable spell-checking for this file: cspell:disable.
 
 ## CI
 
-- **quality-assurance.yml**: lint-only workflow. Builds the `statix`, `deadnix` and `nixfmt` flake checks. Triggers on all pushes and PRs.
+- **quality-assurance.yml**: lint-only workflow. Builds the `statix`, `deadnix`, `nixfmt` and `sorted-lists` flake checks. Triggers on all pushes and PRs.
 - **autoupdate-flake.yml**: daily `nix flake update` on the self-hosted runner. Builds every machine with the new lock, commits and pushes `flake.lock` only if all builds pass, then dispatches `build.yml`.
 - **build.yml**: build workflow. Runs on self-hosted runner. Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (runs after `validate`, matrix of all machines listed from `nixosConfigurations`).
 - **Experimental features**: CI enables `nix-command flakes` via `extra_nix_config`.
@@ -126,7 +128,7 @@ Disable spell-checking for this file: cspell:disable.
 
 ## Pre-commit Hooks
 
-- Config: `.pre-commit-config.yaml` with local hooks for `nixfmt`, `statix` and `deadnix`.
+- Config: `.pre-commit-config.yaml` with local hooks for `nixfmt`, `statix`, `deadnix` and `sorted-lists`.
 - Install: `nix run github:NixOS/nixpkgs#pre-commit install`
 - Run manually: `nix run github:NixOS/nixpkgs#pre-commit run --all-files`
 
@@ -135,6 +137,7 @@ Disable spell-checking for this file: cspell:disable.
 - **nixfmt**: enforced. Run `nix fmt` to format all files, or `nix build .#checks.x86_64-linux.nixfmt` to only check them.
 - **statix**: enforced. Run `nix build .#checks.x86_64-linux.statix` locally before committing.
 - **deadnix**: enforced. Reports unused function arguments and let bindings. Run `nix build .#checks.x86_64-linux.deadnix`.
+- **sorted-lists**: enforced. Run `nix build .#checks.x86_64-linux.sorted-lists` to check, or `nix run .#sort-lists` from the repository root to sort the lists in place.
 - **nix flake check**: Do not run locally, run only in CI.
 - **cspell**: some terms are disabled inline with `# cspell:disable-line` (e.g., `cudnn`, `ddev`, `xdebug`). Do not add new cspell disables without need.
 

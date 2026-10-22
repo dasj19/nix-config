@@ -49,8 +49,8 @@ in
     ./../../modules/gnome.nix
     # Modules.
     ./../../modules/ai.nix
-    ./../../modules/non-free.nix
     ./../../modules/cuda-packages.nix
+    ./../../modules/non-free.nix
   ];
 
   services.displayManager.gdm.enable = true;

@@ -72,6 +72,15 @@
       forAllSystems =
         f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
 
+      # Nix files whose imports or package lists are not sorted, see lib/sorted-lists.nix.
+      unsortedFiles = (import ./lib/sorted-lists.nix { inherit (nixpkgs) lib; }).unsortedFiles self;
+      unsortedReport = nixpkgs.lib.concatMapStrings (
+        file:
+        nixpkgs.lib.concatMapStrings (
+          problem: "${file.path}:${toString problem.line}: list not sorted, ${problem.message}\n"
+        ) file.problems
+      ) unsortedFiles;
+
       # A function to create a check that runs a linter over the repository.
       mkLintCheck =
         pkgs: name: tool: command:
@@ -167,6 +176,35 @@
         nixfmt = mkLintCheck pkgs "nixfmt" pkgs.nixfmt "find . -name '*.nix' -exec nixfmt --check {} +";
         statix = mkLintCheck pkgs "statix" pkgs.statix "statix check .";
         deadnix = mkLintCheck pkgs "deadnix" pkgs.deadnix "deadnix --fail .";
+        sorted-lists = pkgs.runCommand "check-sorted-lists" { inherit unsortedReport; } ''
+          if [ -n "$unsortedReport" ]; then
+            printf '%s' "$unsortedReport" >&2
+            echo "Fix them with: nix run .#sort-lists" >&2
+            exit 1
+          fi
+          touch $out
+        '';
+      });
+
+      # Sorts the lists checked by `sorted-lists` in place, run it from the repository root.
+      apps = forAllSystems (pkgs: {
+        sort-lists = {
+          type = "app";
+          meta.description = "Sort the imports and package lists of all nix files";
+          program = toString (
+            pkgs.writeShellScript "sort-lists" ''
+              set -eu
+              if [ ! -f flake.nix ]; then
+                echo "Run this from the repository root." >&2
+                exit 1
+              fi
+              ${nixpkgs.lib.concatMapStrings (file: ''
+                cat ${pkgs.writeText "sorted.nix" file.sorted} > ${nixpkgs.lib.escapeShellArg file.path}
+                echo ${nixpkgs.lib.escapeShellArg "${file.path}: sorted"}
+              '') unsortedFiles}
+            ''
+          );
+        };
       });
 
       # START SERVERS.

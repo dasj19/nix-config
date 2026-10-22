@@ -15,8 +15,8 @@
     ./../modules/audio.nix
     ./../modules/bluetooth.nix
     ./../modules/browsers.nix
-    ./../modules/stylix.nix
     ./../modules/non-free.nix
+    ./../modules/stylix.nix
   ];
 
   # Manage firmware updates.

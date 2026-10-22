@@ -7,8 +7,8 @@
 {
   imports = [
     # Non-free software.
-    ./non-free.nix
     ./cuda-packages.nix
+    ./non-free.nix
   ];
 
   # Non-free AI/CUDA libraries.

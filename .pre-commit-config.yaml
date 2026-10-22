@@ -19,3 +19,9 @@ repos:
         language: system
         types: [nix]
         pass_filenames: true
+      - id: sorted-lists
+        name: sorted-lists
+        entry: nix build --no-link .#checks.x86_64-linux.sorted-lists
+        language: system
+        types: [nix]
+        pass_filenames: false

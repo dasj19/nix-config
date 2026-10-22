@@ -146,6 +146,7 @@ flup
 fmask
 fmsx
 focuscurrentorlast
+foldl
 fontforge
 fprint
 fprintd
