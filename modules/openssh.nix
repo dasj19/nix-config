@@ -11,6 +11,11 @@ _: {
   # https://stackoverflow.com/questions/8250379/sftp-on-linux-server-gives-error-received-message-too-long
   services.openssh.sftpServerExecutable = "internal-sftp";
 
+  # Public keys allowed to log in as daniel, in addition to ~/.ssh/authorized_keys.
+  users.users.daniel.openssh.authorizedKeys.keys = [
+    "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBwDBtNViLPvD8qSVNZLo2Gr27ebrA9NFjtCqL/capFsu0cnA2hcC9zs0hNu7KVEUidzYwpPO/FhYUk7dDk83Kc= daniel@t14"
+  ];
+
   # OpenSSH ports.
   services.openssh.ports = [
     22
