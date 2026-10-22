@@ -3,7 +3,7 @@
 
   # Tracking 'nixpkgs-unstable' branch which is usually a couple days behind master.
   # 'nixpkgs-unstable' goes through less tests than 'nixos-unstable'.
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
   # Assures compatibility with older version of nix before the version 2.4.
   inputs.flake-compat.url = "github:NixOS/flake-compat";
