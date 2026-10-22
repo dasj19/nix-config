@@ -140,6 +140,16 @@
       Name = "NixOS Packages";
       URLTemplate = "https://search.nixos.org/packages?from=0&size=200&channel=unstable&sort=relevance&type=packages&query={searchTerms}";
     }
+    # cspell:ignore npkg
+    # Search the code of the nixpkgs GitHub repository with: "@npkg query". (Requires login to search)
+    {
+      Alias = "@npkg";
+      Description = "Search in the nixpkgs repository on GitHub";
+      IconURL = "https://github.com/favicon.ico";
+      Method = "GET";
+      Name = "nixpkgs on GitHub";
+      URLTemplate = "https://github.com/search?q=repo%3ANixOS%2Fnixpkgs+{searchTerms}&type=code";
+    }
     # Search the official NixOS Wiki with: "@nw query".
     {
       Alias = "@nw";
