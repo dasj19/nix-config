@@ -98,10 +98,10 @@ Disable spell-checking for this file: cspell:disable.
 
 ## CI
 
-- **quality-assurance.yml**: lint-only workflow. Runs `statix` and `nixfmt --check`. Triggers on all pushes and PRs.
+- **quality-assurance.yml**: lint-only workflow. Builds the `statix` and `nixfmt` flake checks. Triggers on all pushes and PRs.
 - **build.yml**: build workflow. Runs on self-hosted runner. Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (runs after `validate`, matrix of all machines listed from `nixosConfigurations`).
 - **Experimental features**: CI enables `nix-command flakes` via `extra_nix_config`.
-- **Tools**: CI uses `nix run github:NixOS/nixpkgs#<tool>` to avoid flake resolution conflicts with the repo's own `flake.nix`.
+- **Tools**: linters come from the flake's `checks` output, so CI, pre-commit and local runs use the nixpkgs pinned in `flake.lock`.
 
 ## Pre-commit Hooks
 
@@ -111,8 +111,8 @@ Disable spell-checking for this file: cspell:disable.
 
 ## Formatting and Linting
 
-- **nixfmt**: enforced. Run `nixfmt --check $(find . -name '*.nix' ...)` or `nix fmt` in CI.
-- **statix**: enforced. Run `statix check .` locally before committing.
+- **nixfmt**: enforced. Run `nix fmt` to format all files, or `nix build .#checks.x86_64-linux.nixfmt` to only check them.
+- **statix**: enforced. Run `nix build .#checks.x86_64-linux.statix` locally before committing.
 - **nix flake check**: Do not run locally, run only in CI.
 - **cspell**: some terms are disabled inline with `# cspell:disable-line` (e.g., `cudnn`, `ddev`, `xdebug`). Do not add new cspell disables without need.
 

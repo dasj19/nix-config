@@ -65,11 +65,25 @@
       stylix,
       home-manager,
       ulauncher,
+      systems,
       ...
     }:
     let
       gitSecrets = builtins.fromJSON (builtins.readFile "${self}/secrets/git-secrets.json");
       sopsSecrets = ./secrets/variables.yaml;
+
+      # A function to define an output for every supported system.
+      forAllSystems =
+        f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+
+      # A function to create a check that runs a linter over the repository.
+      mkLintCheck =
+        pkgs: name: tool: command:
+        pkgs.runCommand "check-${name}" { nativeBuildInputs = [ tool ]; } ''
+          cd ${self}
+          ${command}
+          touch $out
+        '';
 
       # A function to create a default system configuration that can be extended.
       mkDefaultSystem =
@@ -147,6 +161,15 @@
         };
     in
     {
+      # Formats all nix files with `nix fmt`.
+      formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
+
+      # Linters, run by `nix flake check` and by the QA workflow.
+      checks = forAllSystems (pkgs: {
+        nixfmt = mkLintCheck pkgs "nixfmt" pkgs.nixfmt "find . -name '*.nix' -exec nixfmt --check {} +";
+        statix = mkLintCheck pkgs "statix" pkgs.statix "statix check .";
+      });
+
       # START SERVERS.
       nixosConfigurations.contabo2 = mkServerSystem {
         modules = [

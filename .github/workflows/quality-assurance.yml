@@ -30,9 +30,10 @@ jobs:
             experimental-features = nix-command flakes
 
       # Run the code linters.
+      # The linters are defined as flake checks, so they use the pinned nixpkgs.
       - name: Lint
         run: |
-          echo "Running statix (static analysis)..."
-          nix run github:NixOS/nixpkgs#statix -- check .
-          echo "Running nixfmt (format check)..."
-          find . -name "*.nix" -not -path "./.git/*" -exec nix run github:NixOS/nixpkgs#nixfmt -- --check {} +
+          echo "Running statix (static analysis) and nixfmt (format check)..."
+          nix build --no-link --print-build-logs --keep-going \
+            .#checks.x86_64-linux.statix \
+            .#checks.x86_64-linux.nixfmt

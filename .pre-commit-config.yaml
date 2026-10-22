@@ -3,13 +3,13 @@ repos:
     hooks:
       - id: nixfmt
         name: nixfmt
-        entry: nix run nixpkgs#nixfmt -- --check
+        entry: nix run --inputs-from . nixpkgs#nixfmt -- --check
         language: system
         types: [nix]
         pass_filenames: true
       - id: statix
         name: statix
-        entry: nix run nixpkgs#statix -- check .
+        entry: nix run --inputs-from . nixpkgs#statix -- check .
         language: system
         types: [nix]
         pass_filenames: false
