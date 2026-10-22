@@ -27,7 +27,6 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── fastfetch.nix         # Fast system information display
 │   ├── fish.nix              # Fish shell + plugins
 │   ├── folders.nix           # XDG user directories
-│   ├── games.nix             # Gaming packages
 │   ├── gnome.nix             # GNOME desktop environment
 │   ├── hardware.nix          # Generic hardware detection + SMART + mail utils
 │   ├── hyprland.nix          # System-wide Hyprland
