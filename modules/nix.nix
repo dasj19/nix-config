@@ -73,13 +73,13 @@
   # Packages for nix ecosystem.
   environment.systemPackages = with pkgs; [
     hydra-check # Hydra build status checker.
-    nixd # Nix language server.
-    nixfmt # Nix code formatter following the rfc style.
-    nix-search-cli # CLI for searching nixpkgs.
     nix-prefetch # Nix fetcher for various sources.
     nix-prefetch-git # Nix fetcher for git repos.
+    nix-search-cli # CLI for searching nixpkgs.
     nix-serve # Simple Nix binary cache server.
     nix-tree # Visualize dependency graph of nix derivations.
+    nixd # Nix language server.
+    nixfmt # Nix code formatter following the rfc style.
     nixpkgs-fmt # Nix code formatter.
     nixpkgs-review # Tool to review nixpkgs pull requests.
     statix # Static analysis tool for nix code.

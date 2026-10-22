@@ -28,11 +28,11 @@ in
   # List packages installed system-wide.
   environment.systemPackages = with pkgs; [
     # CLI utils.
-    netcat-gnu
-    lynx
-    powertop
     dnsutils
+    lynx
+    netcat-gnu
     openssl
+    powertop
   ];
 
   # MySQL server.

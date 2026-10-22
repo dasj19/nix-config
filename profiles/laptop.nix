@@ -43,7 +43,6 @@
     # CLIs.
     asciinema # Terminal session recorder.
     bchunk # converts CD images from BIN/CUE to ISO and CDR tracks.
-    localtunnel # CLI interface for the localtunnel service.
     cuetools # Utilities for working with cue files and toc files.
     dconf # Desktop-environment conf editor.
     fcron # Needed by backintime. @todo fix upstream.
@@ -52,11 +51,12 @@
     gh # Github CLI tool.
     jujutsu # Git-compatible alternative VCS.
     khard # CLI for managing contacts.
+    localtunnel # CLI interface for the localtunnel service.
     tealdeer # Fast implementation of tldr.
 
     neo-cowsay # New go implementation of cowsay.
-    shotcut # Cross-platform video editor.
     shntool # Multi-purpose WAVE data processing and reporting utility.
+    shotcut # Cross-platform video editor.
     speedtest-cli # CLI Internet speed tester.
     subtitlecomposer # Open source text-based subtitle editor.
     unrar # Proprietary rar unpacker.
@@ -77,6 +77,7 @@
     czkawka # Tool to remove unnecessary files.
     drawio # Diagram creation tool.
     element-desktop # Matrix chat client.
+    euro-office-desktopeditors # Primary office suite.
     filezilla # FTP client.
     flameshot # Screenshot tool.
     gimp # Image manipulation software,
@@ -84,7 +85,6 @@
     libreoffice # Secondary office suite.
     meld # Visual diff merger.
     onlyoffice-desktopeditors # Tertiary office suite.
-    euro-office-desktopeditors # Primary office suite.
     pdfarranger # Basic PDF editor.
     qalculate-gtk # Classic calculator.
     qbittorrent # Torrent client.

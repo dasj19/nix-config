@@ -106,18 +106,18 @@ in
   # List packages specific to this host installed in system profile.
   environment.systemPackages = with pkgs; [
     # Development.
+    arduino
+    graphviz
+    nodejs
     php
     php.packages.composer
-    graphviz
-    arduino
-    symfony-cli
-    nodejs
     pomodoro-gtk
     postgresql
+    symfony-cli
 
     # Drivers and Firmware.
-    ntfs3g
     linux-firmware # needed for bluetooth firmware.
+    ntfs3g
 
     # Desktop apps.
     gparted
@@ -141,10 +141,10 @@ in
     xorriso
 
     # Streaming & Recording.
-    obs-studio
-    shotcut
     mediainfo
     mkvtoolnix
+    obs-studio
+    shotcut
 
     # Virtualization.
     virt-manager
@@ -160,9 +160,9 @@ in
 
     # Games.
     evtest
-    oversteer
-    linuxConsoleTools
     gamepad-tool
+    linuxConsoleTools
+    oversteer
   ];
 
   # Needed for codeium.

@@ -412,8 +412,8 @@
   environment.systemPackages = with pkgs; [
     # Internet browsers.
     brave
+    chromium
     firefox-devedition
     tor-browser
-    chromium
   ];
 }

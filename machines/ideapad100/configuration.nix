@@ -28,10 +28,10 @@
   time.timeZone = "Europe/Copenhagen";
 
   environment.systemPackages = with pkgs; [
-    php85
-    php85Packages.composer
     nodejs
     nssTools # caddy needs to mange its own certificate.
+    php85
+    php85Packages.composer
   ];
 
   # SERVICES:

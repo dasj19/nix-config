@@ -44,56 +44,56 @@
 
   environment.systemPackages = with pkgs; [
     # CLI.
-    playerctl # Controls media players from CLI.
-    wireplumber # PipeWire session manager.
     brightnessctl # Controls brightness levels from CLI.
     networkmanagerapplet # Small network manager application.
+    playerctl # Controls media players from CLI.
+    wireplumber # PipeWire session manager.
     wl-clipboard # Clipboard utilities for Wayland.
 
     # GUI.
+    alacritty # Terminal emulator.
+    atril # PDF Document viewer.
     baobab # Disc usage analyzer.
     brasero # Disc burning utility.
     ffmpegthumbnailer # Video thumbnail generator. Used by nemo and nemo-preview.
-    xapp-thumbnailers # Set of thumbnailers for various file types. Used by nemo and nemo-preview.
-    tumbler # Thumbnail generator service. Used by nemo and nemo-preview.
     foot # Wayland terminal emulator.
     image-roll # Image viewer for Wayland.
-    alacritty # Terminal emulator.
-    nemo-with-extensions # File manager forked from nautilus with extra features.
+    mako # Notification daemon for Wayland.
+    mpv # alternative vide player.
     nemo-preview # File previews for nemo.
+    nemo-with-extensions # File manager forked from nautilus with extra features.
+    orage # Calendar application.
     pwvucontrol # Pipewire volume control.
     textadept # Lightweight text editor.
+    tumbler # Thumbnail generator service. Used by nemo and nemo-preview.
     waybar # Status bar for Wayland.
     wl-mirror # Screen mirroring utility.
     wofi # Application launcher.
+    xapp-thumbnailers # Set of thumbnailers for various file types. Used by nemo and nemo-preview.
     xarchiver # Archive manager.
-    orage # Calendar application.
-    atril # PDF Document viewer.
-    mpv # alternative vide player.
-    mako # Notification daemon for Wayland.
     (pkgs.callPackage ../pkgs/clipvault.nix { }) # Clipboard history manager for Wayland.
 
-    pyprland # Plugin manager for hyprland.
     hyprcursor # Cursor manager for hyprland.
-    hyprlock # Manages the screen lock.
     hypridle # Manages idle settings.
+    hyprlock # Manages the screen lock.
     hyprmon # TUI to manage monitors.
     hyprpaper # Deals with wallpapers.
-    hyprshot # Takes screenshots.
     hyprpolkitagent # Agent to request elevated privileges.
-    wlr-layout-ui # GUI for managing monitor layouts in Wayland.
+    hyprshot # Takes screenshots.
     nwg-displays # GUI to manage monitors.
+    pyprland # Plugin manager for hyprland.
+    wlr-layout-ui # GUI for managing monitor layouts in Wayland.
 
-    lm_sensors # Tools for reading hardware sensors.
-    mission-center # Task manager and system monitor.
-    resources # Task manager and resource monitor.
-    gparted # Gnome partition editor.
-    strawberry # Collection-based music player.
-    showmethekey # OSD of pressed keys.
-    swayosd # Controls media keys and special keys with visuals.
     evolution # Email client with calendar support.
     gnome-contacts # Contact manager.
     gnome-keyring # Keyring for managing passwords and encryption keys.
+    gparted # Gnome partition editor.
+    lm_sensors # Tools for reading hardware sensors.
+    mission-center # Task manager and system monitor.
+    resources # Task manager and resource monitor.
+    showmethekey # OSD of pressed keys.
+    strawberry # Collection-based music player.
+    swayosd # Controls media keys and special keys with visuals.
     tauon # Album-based with lyrics support.
     tofi # wayland-native dynamic menu.
     vlc # Universal media player.

@@ -95,12 +95,12 @@
     dconf-editor # Gnome registry editor.
     evolution # Replacement for geary and gnome-calendar.
     ghex # Gnome hex editor.
-    gnome-tweaks # Extra setting manager for gnome.
     gnome-network-displays # Screen sharing app for gnome.
+    gnome-tweaks # Extra setting manager for gnome.
     gparted # Gnome partition editor.
     meld # Diff manager and editor.
-    xarchiver # Replacement for file-roller.
     remmina # Replacement for gnome-connections.
+    xarchiver # Replacement for file-roller.
     # Temporary disabled until this pr is ready: https://github.com/NixOS/nixpkgs/pull/545666
     #soundconverter # Gnome app for audio file conversions.
     strawberry # Replacement for gnome-music.

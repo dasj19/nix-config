@@ -57,10 +57,10 @@
     iotop # Real-time disk I/O viewer.
     jq # CLI Json processor.
     killall # Improved kill command.
-    lf # Terminal file manager.
-    lsof # List open files.
-    lshw # List hardware data.
     legit # Complementary utility for the git command.
+    lf # Terminal file manager.
+    lshw # List hardware data.
+    lsof # List open files.
     moreutils # Collection of useful CLI utilities.
     ncdu # du with ncurses.
     nmap # Network exploration tool.
@@ -77,8 +77,8 @@
     tcpdump # Network packet analyzer.
     tmux # Terminal multiplexer.
     tree # Displays hierarchical structure of folders.
-    usbutils # Tools for working with USB devices.
     unzip # Unzipping cli tool.
+    usbutils # Tools for working with USB devices.
     w3m # Text-based web browser.
     wget # Online resource fetcher.
     whois # Domain information lookup utility.
