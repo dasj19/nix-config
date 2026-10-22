@@ -186,11 +186,6 @@
           # @todo Include hardware support for the compute module 4.
         ];
       };
-      nixosConfigurations.devbox = mkServerSystem {
-        modules = [
-          ./machines/devbox/configuration.nix
-        ];
-      };
       nixosConfigurations.ideapad100 = mkServerSystem {
         modules = [
           ./machines/ideapad100/configuration.nix

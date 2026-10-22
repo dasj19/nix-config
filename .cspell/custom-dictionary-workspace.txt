@@ -90,6 +90,7 @@ dbeaver
 dbtype
 dbus
 dconf
+deadnix
 debootstrap
 deepseek
 defaultenginename

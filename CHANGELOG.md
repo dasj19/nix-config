@@ -9,6 +9,7 @@ TODO:
 2026-10-22
 - ai: add the non-free claude-code CLI client back, for t14 and tuxedo-xa15
 - workflows: remove Renovate and Dependabot, flake inputs are updated by the autoupdate workflow
+- devbox: remove the machine and its configuration
 
 2026-08-14
 - hyprland: address startup notifications
