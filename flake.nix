@@ -46,10 +46,6 @@
   inputs.awesome-linux-templates.url = "github:dasj19/awesome-linux-templates";
   inputs.awesome-linux-templates.flake = false;
 
-  # Colibri AI.
-  inputs.colibri.url = "github:JustVugg/colibri/v2.0.0";
-  inputs.colibri.inputs.nixpkgs.follows = "nixpkgs";
-
   # Latest ulauncher.
   inputs.ulauncher.url = "github:Ulauncher/Ulauncher";
   inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
@@ -69,7 +65,6 @@
       stylix,
       home-manager,
       ulauncher,
-      colibri,
       ...
     }:
     let
@@ -215,7 +210,6 @@
           {
             environment.systemPackages = [
               ulauncher.packages.x86_64-linux.ulauncher6
-              colibri.packages.x86_64-linux.colibri
             ];
           }
         ];
