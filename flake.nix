@@ -118,11 +118,14 @@
               };
             }
 
-            {
-              environment.systemPackages = [
-                ulauncher.packages.x86_64-linux.ulauncher6
-              ];
-            }
+            (
+              { pkgs, ... }:
+              {
+                environment.systemPackages = [
+                  ulauncher.packages.${pkgs.stdenv.hostPlatform.system}.ulauncher6
+                ];
+              }
+            )
           ]
           ++ (cfg.modules or [ ]);
         };
