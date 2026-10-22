@@ -39,8 +39,4 @@
   # cspell:ignore gguf
   # llama-cpp supports models in the gguf format.
   services.llama-cpp.enable = true;
-
-  # Enable ChatGPT-like user interface for ollama.
-  services.open-webui.enable = true;
-  services.open-webui.port = 4141;
 }
