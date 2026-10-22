@@ -7,12 +7,17 @@ Disable spell-checking for this file: cspell:disable.
 
 ```
 .
-├── flake.nix                 # Flake entrypoint, mkServerSystem/mkLaptopSystem helpers
+├── flake.nix                 # Flake entrypoint, mk*System helpers, formatter + checks outputs
 ├── flake.lock                # Pinned flake inputs
-├── .github/workflows/        # CI: quality-assurance.yml (lint) + build.yml (builds)
+├── .github/workflows/
+│   ├── autoupdate-flake.yml  # Daily flake update, pushed only if all machines build
+│   ├── build.yml             # Flake check + build of every machine
+│   └── quality-assurance.yml # Lint (statix + nixfmt flake checks)
+├── .cspell/                  # Workspace spell-check dictionary
+├── .vscode/                  # Editor settings (cspell dictionary path)
 ├── modules/                  # Shared NixOS modules, imported by machine configs
 │   ├── acme.nix              # ACME/Cloudflare DNS + sops secrets
-│   ├── ai.nix                # ollama, llama-cpp, open-webui
+│   ├── ai.nix                # ollama, llama-cpp, AI CLI clients
 │   ├── aliases.nix           # Fish shell abbreviations + aliases
 │   ├── audio.nix             # PipeWire audio
 │   ├── bluetooth.nix         # Bluetooth configuration
@@ -22,19 +27,19 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── fastfetch.nix         # Fast system information display
 │   ├── fish.nix              # Fish shell + plugins
 │   ├── folders.nix           # XDG user directories
-│   ├── games.nix
-│   ├── gnome.nix
+│   ├── games.nix             # Gaming packages
+│   ├── gnome.nix             # GNOME desktop environment
 │   ├── hardware.nix          # Generic hardware detection + SMART + mail utils
-│   ├── hyprland.nix
-│   ├── keyboard.nix
-│   ├── locale.nix
+│   ├── hyprland.nix          # System-wide Hyprland
+│   ├── keyboard.nix          # Keyboard layout
+│   ├── locale.nix            # Internationalization properties
 │   ├── nix.nix               # Nix daemon and nix-related config
 │   ├── non-free.nix          # allowUnfreePredicate + allowedUnfree option
-│   ├── openssh.nix
+│   ├── openssh.nix           # OpenSSH server
 │   ├── php-fpm.nix           # Module option: config.services.phpfpm.defaultPoolSettings
 │   ├── starship.nix          # Shell prompt configuration
-│   ├── stylix.nix
-│   └── users.nix
+│   ├── stylix.nix            # Uniform desktop styling
+│   └── users.nix             # User accounts, sops passwords, sudo-rs
 ├── settings/                 # Static configuration files (keyboard layouts, etc.)
 │   └── esrodk                # Custom XKB keyboard layout (Spanish with RODK) #cspell:disable-line
 ├── machines/                 # One folder per machine
@@ -48,16 +53,32 @@ Disable spell-checking for this file: cspell:disable.
 │   └── laptop.nix
 ├── home/                     # Home Manager configs
 │   ├── modules/              # Shared home-manager modules
-│   └── profiles/             # Per-profile home configs
-├── secrets/                  # SOPS + git-crypt encrypted secrets
+│   │   ├── gnome.nix         # GNOME settings
+│   │   ├── hyprland.nix      # Hyprland window manager
+│   │   ├── hyprlock.nix      # Hyprlock screen locker
+│   │   ├── shellgpt.nix      # shell-gpt with ollama
+│   │   ├── vscodium.nix      # VSCodium with extensions and settings
+│   │   └── waybar.nix        # Waybar status bar
+│   ├── pkgs/                 # Custom packages used by home-manager
+│   │   └── libreoffice-impress-templates.nix
+│   └── profiles/             # Per-profile home configs (base, laptop, server)
+├── secrets/
+│   ├── git-secrets.json      # Non-sensitive values (IPs, domains), git-crypt encrypted
+│   └── variables.yaml        # Passwords and API keys, SOPS encrypted
 ├── pkgs/                     # Custom packages
-│   ├── caddy-browse.nix
+│   ├── caddy-browse.nix      # Directory browsing plugin for Caddy
+│   ├── clipvault.nix         # Clipboard history manager for Wayland
 │   └── fish-colored-man.nix  # Local fish plugin, pending upstream submission
 ├── .pre-commit-config.yaml   # Pre-commit hooks: nixfmt + statix
 ├── .editorconfig             # Editor config: 2-space indent, LF, trim whitespace
 ├── statix.toml               # Statix linter configuration
-├── git-crypt-key             # git-crypt symmetric key (git-crypt encrypted)
+├── .sops.yaml                # SOPS age keys and creation rules
+├── .gitattributes            # Files encrypted by git-crypt
+├── git-crypt-key             # git-crypt symmetric key, local only (git-ignored)
 ├── AGENTS.md                 # This file
+├── CHANGELOG.md              # Dated log of major changes + TODO list
+├── CONTRIBUTING.md           # Contributions are not accepted, issues are welcome
+├── LICENSE
 └── README.md
 ```
 
@@ -93,12 +114,13 @@ Disable spell-checking for this file: cspell:disable.
 ## Secrets
 
 - **sops-nix**: manages passwords and API keys. Declare secrets with `sops.secrets.<name> = { };` in the module/machine that needs them. Access via `config.sops.secrets.<name>.path`.
-- **git-crypt**: hides non-sensitive data (IPs, domain names) from public git. The `secrets/` folder is git-crypt encrypted. CI uses `git-crypt unlock /etc/nixos/git-crypt-key`.
+- **git-crypt**: hides non-sensitive data (IPs, domain names) from public git. Only `secrets/git-secrets.json` is git-crypt encrypted (see `.gitattributes`); `secrets/variables.yaml` is SOPS encrypted. The key is never committed. CI uses `git-crypt unlock /etc/nixos/git-crypt-key`.
 - **Never commit secrets in plaintext**. SOPS-encrypted files and git-crypt are the only allowed mechanisms.
 
 ## CI
 
 - **quality-assurance.yml**: lint-only workflow. Builds the `statix` and `nixfmt` flake checks. Triggers on all pushes and PRs.
+- **autoupdate-flake.yml**: daily `nix flake update` on the self-hosted runner. Builds every machine with the new lock, commits and pushes `flake.lock` only if all builds pass, then dispatches `build.yml`.
 - **build.yml**: build workflow. Runs on self-hosted runner. Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (runs after `validate`, matrix of all machines listed from `nixosConfigurations`).
 - **Experimental features**: CI enables `nix-command flakes` via `extra_nix_config`.
 - **Tools**: linters come from the flake's `checks` output, so CI, pre-commit and local runs use the nixpkgs pinned in `flake.lock`.
