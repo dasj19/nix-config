@@ -115,7 +115,6 @@ in
     # Development.
     php
     php.packages.composer
-    #kcachegrind
     graphviz
     arduino
     symfony-cli
@@ -179,7 +178,6 @@ in
   programs.dconf.enable = true;
 
   # Enable virtualisation daemons.
-  #virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.enableOnBoot = false;
   virtualisation.waydroid.enable = true;
@@ -201,9 +199,6 @@ in
     # Graphic drivers.
     "nvidia-x11"
     "nvidia-settings"
-
-    # AI stuff.
-    "open-webui"
   ];
 
   # Consult manual before changing.

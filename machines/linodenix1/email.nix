@@ -28,8 +28,6 @@ in
   mailserver = {
     fqdn = "mail.${surname-domain}";
     x509.useACMEHost = "mail.${surname-domain}";
-    #Using Let's Encrypt certificate because self-signed certificates are troublesome.
-    #certificateScheme = lib.mkForce "acme-nginx";
     domains = [
       "${surname-domain}"
     ];
@@ -59,9 +57,5 @@ in
         hashedPasswordFile = config.sops.secrets.test_surname_email_password.path;
       };
     };
-
-    #monitoring.alertAddress = "postmaster@${surname-domain}";
-    #monitoring.enable = true;
-    #monitoring.config = (builtins.readFile /etc/nixos/monitrc);
   };
 }
