@@ -207,12 +207,18 @@
   # @see https://wiki.hypr.land/Hypr-Ecosystem/hypridle/
   services.hypridle.enable = true;
   services.hypridle.settings = {
-    # List of listeners. Only one supported for now.
-    listener = {
-      timeout = 500; # seconds of inactivity before locking.
-      on-timeout = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
-    };
-    # @todo: Dim the screen after 300 of inactivity.
+    # List of listeners, each triggered after its own timeout.
+    listener = [
+      {
+        timeout = 300; # seconds of inactivity before dimming.
+        on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl --save set 10%"; # save the current brightness, then dim.
+        on-resume = "${pkgs.brightnessctl}/bin/brightnessctl --restore"; # restore the saved brightness on activity.
+      }
+      {
+        timeout = 500; # seconds of inactivity before locking.
+        on-timeout = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+      }
+    ];
   };
   # Pyprland plugin management tool.
   home.file.".config/pypr/config.toml".source = (pkgs.formats.toml { }).generate "pyprland-config" {
