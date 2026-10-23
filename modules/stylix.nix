@@ -33,4 +33,8 @@
 
   # Plymouth.
   stylix.targets.plymouth.enable = false;
+
+  # Rofi is not used, and the stylix target sets the deprecated `programs.rofi.font`.
+  # https://github.com/nix-community/stylix/issues/2526
+  home-manager.sharedModules = [ { stylix.targets.rofi.enable = false; } ];
 }

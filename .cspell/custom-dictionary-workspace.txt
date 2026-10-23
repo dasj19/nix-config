@@ -397,6 +397,7 @@ Redistributable
 remmina
 retroarch
 rgba
+rofi
 rspamd
 rsrc
 rtkit
