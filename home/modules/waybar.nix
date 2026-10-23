@@ -277,8 +277,8 @@ in
       idle_inhibitor = {
         format = "{icon}";
         format-icons = {
-          activated = "";
-          deactivated = "";
+          activated = "👁️";
+          deactivated = "🌠";
         };
         timeout = "30.5";
         tooltip-format-activated = "Idle inhibitor on: the screen stays awake";
