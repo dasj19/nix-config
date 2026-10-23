@@ -118,7 +118,6 @@
   hardware.sane.extraBackends = with pkgs; [
     hplip
   ];
-  services.ipp-usb.enable = true;
 
   # Control programs.
   hardware.tuxedo-rs.enable = false;

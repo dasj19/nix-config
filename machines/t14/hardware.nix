@@ -182,7 +182,6 @@
   hardware.sane.extraBackends = with pkgs; [
     hplipWithPlugin
   ];
-  services.ipp-usb.enable = true;
 
   # Nvidia driver for MX330.
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
