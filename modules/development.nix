@@ -12,6 +12,7 @@
 {
   environment.systemPackages = with pkgs; [
     nodejs # node javascript library.
+    pre-commit # Git commit hook.
     symfony-cli # The CLI tool for Symfony PHP projects.
   ];
 
