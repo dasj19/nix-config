@@ -64,44 +64,43 @@
     ];
 
   programs.vscodium.profiles.default.userSettings = {
-    # Disable editor minimap.
-    "editor.minimap.enabled" = false;
-    # Startup empty.
-    "workbench.startupEditor" = "none";
-    # Set default tab size.
     "[php]"."editor.tabSize" = 2;
-
-    # Spell checker.
-    "cSpell.language" = "en";
     "cSpell.enabledFileTypes"."nix" = true;
-
-    # Nix language.
-    "nix.enableLanguageServer" = true;
-    "nix.formatterPath" = "nixfmt";
-
-    # Disable autoformatting of files.
-    # (Because vertical alignment is not preserved)
+    "cSpell.language" = "en";
+    "chat.editor.fontFamily" = "Hack Mono Nerd Font";
+    "chat.editor.fontSize" = 16.0;
+    "chat.fontFamily" = "UbuntuSans Nerd Font";
+    "debug.console.fontFamily" = "Hack Mono Nerd Font";
+    "debug.console.fontSize" = 16.0;
+    "editor.allowVariableFonts" = false;
+    "editor.fontFamily" = "Hack Mono Nerd Font";
+    "editor.fontSize" = 16.0;
+    "editor.formatOnPaste" = false;
     "editor.formatOnSave" = false;
     "editor.formatOnType" = false;
-    "editor.formatOnPaste" = false;
-
-    # Set icon and color themes.
-    "workbench.iconTheme" = "vscode-icons";
-    "workbench.colorTheme" = "Stylix";
-
-    # Font settings.
-    "editor.allowVariableFonts" = false;
-
-    # Disable Kilo Code autocomplete.
-    "kilo-code.new.autocomplete.enableAutoTrigger" = false;
-
-    # Request approvals as often as possible.
+    "editor.inlayHints.fontFamily" = "Hack Mono Nerd Font";
+    "editor.inlineSuggest.fontFamily" = "Hack Mono Nerd Font";
+    "editor.minimap.enabled" = false;
+    "editor.minimap.sectionHeaderFontSize" = 10.285714285714286;
     "kilo-code.new.agentWorkStyle" = "human-in-the-loop";
-
-    # Commands ti be handled in editor before reaching the shell.
+    "kilo-code.new.autocomplete.enableAutoTrigger" = false;
+    "markdown.preview.fontFamily" = "UbuntuSans Nerd Font";
+    "markdown.preview.fontSize" = 16.0;
+    "nix.enableLanguageServer" = true;
+    "nix.formatterPath" = "nixfmt";
+    "notebook.markup.fontFamily" = "UbuntuSans Nerd Font";
+    "scm.inputFontFamily" = "Hack Mono Nerd Font";
+    "scm.inputFontSize" = 14.857142857142858;
+    "screencastMode.fontSize" = 64.0;
     "terminal.integrated.commandsToSkipShell" = [
       "kilo-code.new.agentManagerOpen"
       "kilo-code.new.agentManager.showTerminal"
+      "kilo-code.new.agentManager.previousTerminal"
+      "kilo-code.new.agentManager.nextTerminal"
     ];
+    "terminal.integrated.fontSize" = 16.0;
+    "workbench.colorTheme" = "Stylix";
+    "workbench.iconTheme" = "vscode-icons";
+    "workbench.startupEditor" = "none";
   };
 }
