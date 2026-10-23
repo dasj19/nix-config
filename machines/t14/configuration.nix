@@ -59,13 +59,6 @@
     sabnzbd # nzb client.
   ];
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      (callPackage ./../../pkgs/archivebox.nix { })
-    ];
-  };
-
   # Enable virtualization.
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;

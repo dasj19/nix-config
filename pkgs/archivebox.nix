@@ -4,14 +4,88 @@
 # Removed from nixpkgs while stuck on django 3, packaged here with django 6 and
 # the python dependencies that nixpkgs lacks. The abx* versions are pinned by
 # archivebox and must be bumped together with it.
+#
+# The extractors' binaries come from nixpkgs, since the abxpkg installers (apt,
+# brew, puppeteer, uv wheels) do not work on NixOS. Only the chrome plugin's
+# node libraries, the chromewebstore extensions and the feedparser library are
+# still installed by `archivebox install`, their plugins accept no other
+# provider for them.
 
 {
+  bubblewrap,
+  buildNpmPackage,
+  chromium,
+  defuddle,
   fetchFromGitHub,
+  ffmpeg,
+  gallery-dl,
+  git,
+  imagemagick,
   lib,
+  liteparse,
+  nodejs,
+  pnpm,
+  poppler-utils,
   python3,
+  runCommand,
+  ripgrep,
+  sonic-server,
+  tesseract,
+  wget,
+  writeShellScriptBin,
+  yt-dlp,
 }:
 
 let
+  # The mercury plugin needs this fork, nixpkgs only has @postlight/parser.
+  mercury-parser = buildNpmPackage rec {
+    pname = "mercury-parser";
+    version = "3.1.1";
+    src = fetchFromGitHub {
+      owner = "jocmp";
+      repo = "mercury-parser";
+      tag = "v${version}";
+      hash = "sha256-FomVN1mW8CJldb8gPuxUeA1sFYQJI/aLePnqJTJjkCs=";
+    };
+    npmDepsHash = "sha256-Gpkear8tf3NGCvPoHv+sd7TlfDfYcwap9cNrH4cbC1E=";
+    # The built dist/ is committed.
+    dontNpmBuild = true;
+    npmFlags = [ "--ignore-scripts" ];
+    # npm writes the git dependencies into its cache.
+    makeCacheWritable = true;
+    # --version is parsed but never handled, abxpkg needs it for the min_version.
+    postPatch = ''
+      substituteInPlace cli.js --replace-fail "  addExtractor || x" "  addExtractor || x, version"
+    '';
+    # The mercury plugin loads dist/mercury.js next to the resolved binary.
+    postInstall = ''
+      ln -sf $out/lib/node_modules/@jocmp/mercury-parser/cli.js $out/bin/mercury-parser
+    '';
+    meta.mainProgram = "mercury-parser";
+  };
+
+  # nixpkgs ships 0.0.11, the readability plugin needs at least 0.0.12.
+  readability-extractor = buildNpmPackage rec {
+    pname = "readability-extractor";
+    version = "0.0.12";
+    src = fetchFromGitHub {
+      owner = "ArchiveBox";
+      repo = "readability-extractor";
+      tag = "v${version}";
+      hash = "sha256-CuI2KwJQAK62gPqlzsyi/lLAZru5MsOo+Rtuoq1uBX8=";
+    };
+    npmDepsHash = "sha256-i9f4NZmVgVzcXx8U0MRZpoVGVFThRAGF9NcGysb1tZY=";
+    dontNpmBuild = true;
+    meta.mainProgram = "readability-extractor";
+  };
+
+  # The system-wide chromium policies block every extension, including the
+  # unpacked ones archivebox loads, so hide them from its browser.
+  archiveboxChromium = writeShellScriptBin "chromium" ''
+    exec ${lib.getExe bubblewrap} --dev-bind / / --tmpfs /etc/chromium \
+      ${lib.getExe chromium} "$@"
+  '';
+
   # nixpkgs ships an older uv_build than the upstream build-system pins.
   relaxUvBuild = ''
     sed -i 's/"uv_build[^"]*"/"uv_build"/' pyproject.toml
@@ -185,6 +259,123 @@ let
         ];
       };
 
+      forum-dl = pySelf.buildPythonPackage rec {
+        pname = "forum-dl";
+        version = "0.3.0";
+        pyproject = true;
+        src = pySelf.fetchPypi {
+          pname = "forum_dl";
+          inherit version;
+          hash = "sha256-YmnIerB7SU+4iHI0ofWEYag3a5DLJ9NRI6Mdg2/kAjc=";
+        };
+        build-system = [ pySelf.setuptools ];
+        # Never imported, archivebox installs it without too.
+        pythonRemoveDeps = [ "cchardet" ];
+        dependencies = with pySelf; [
+          beautifulsoup4
+          html2text
+          lxml
+          pydantic
+          python-dateutil
+          requests
+          tenacity
+          urllib3
+          warcio
+        ];
+        pythonImportsCheck = [ "forum_dl" ];
+      };
+
+      # Installed by abxpkg with uv otherwise, but its PyMuPDF wheel needs a
+      # libstdc++ that NixOS does not provide globally.
+      papers-dl = pySelf.buildPythonPackage rec {
+        pname = "papers-dl";
+        version = "0.0.25";
+        pyproject = true;
+        src = pySelf.fetchPypi {
+          pname = "papers_dl";
+          inherit version;
+          hash = "sha256-PROZ071IdZQhSndBZN89YS2oHLl34FbiqZ6lDbYZC3g=";
+        };
+        build-system = [ pySelf.setuptools ];
+        # Every dependency is pinned upstream, bs4 and PyMuPDFb are dummy packages.
+        pythonRelaxDeps = true;
+        pythonRemoveDeps = [
+          "bs4"
+          "PyMuPDFb"
+        ];
+        dependencies = with pySelf; [
+          aiohttp
+          beautifulsoup4
+          cryptography
+          easygui
+          feedparser
+          google
+          loguru
+          pdf2doi
+          pdfminer-six
+          pdftitle
+          pymupdf
+          pypdf2
+          pyperclip
+          requests
+          retrying
+          sgmllib3k
+          w3lib
+        ];
+        pythonImportsCheck = [ "papers_dl" ];
+      };
+
+      pdf2doi = pySelf.buildPythonPackage rec {
+        pname = "pdf2doi";
+        version = "1.5.1";
+        pyproject = true;
+        src = pySelf.fetchPypi {
+          inherit pname version;
+          hash = "sha256-+QCVSdu/RR2hMPwfXimmHt6/bjtczvud0q0XvpYNXEE=";
+        };
+        build-system = [ pySelf.setuptools ];
+        pythonRelaxDeps = true;
+        dependencies = with pySelf; [
+          easygui
+          feedparser
+          google
+          pdfminer-six
+          pdftitle
+          pymupdf
+          pypdf2
+          pyperclip
+          requests
+        ];
+        pythonImportsCheck = [ "pdf2doi" ];
+      };
+
+      pdftitle = pySelf.buildPythonPackage rec {
+        pname = "pdftitle";
+        version = "0.11";
+        pyproject = true;
+        src = pySelf.fetchPypi {
+          inherit pname version;
+          hash = "sha256-geydQn2cdZvm+5vG4HT2QvZhV0fjXy4mDhSy6KoBJ9A=";
+        };
+        build-system = [ pySelf.setuptools ];
+        dependencies = [ pySelf.pdfminer-six ];
+        pythonImportsCheck = [ "pdftitle" ];
+      };
+
+      # pdf2doi still uses the PdfFileReader API that PyPDF2 3 removed.
+      pypdf2 = pySelf.buildPythonPackage rec {
+        pname = "pypdf2";
+        version = "2.0.0";
+        pyproject = true;
+        src = pySelf.fetchPypi {
+          pname = "PyPDF2";
+          inherit version;
+          hash = "sha256-bCxobL2tH6bUKoyvtdLwM9F5jdAOE+jXaRtRDFZ++jQ=";
+        };
+        build-system = [ pySelf.setuptools ];
+        pythonImportsCheck = [ "PyPDF2" ];
+      };
+
       sonic-client = pySelf.buildPythonPackage rec {
         pname = "sonic-client";
         version = "1.0.0";
@@ -195,6 +386,12 @@ let
         };
         build-system = [ pySelf.setuptools ];
         pythonImportsCheck = [ "sonic" ];
+      };
+
+      # The tests need wsgiprox, whose certauth dependency is marked broken.
+      warcio = pySuper.warcio.overridePythonAttrs {
+        doCheck = false;
+        nativeCheckInputs = [ ];
       };
 
       uuid7 = pySelf.buildPythonPackage rec {
@@ -210,6 +407,18 @@ let
       };
     };
   };
+
+  # The trafilatura plugin runs the python found next to the resolved binary,
+  # as in a uv venv. Only these two are exposed, to not shadow the hooks' python.
+  trafilatura =
+    let
+      env = python.withPackages (ps: [ ps.trafilatura ]);
+    in
+    runCommand "trafilatura-${python.pkgs.trafilatura.version}" { } ''
+      mkdir -p $out/bin
+      cp ${env}/bin/trafilatura $out/bin/
+      ln -s ${env}/bin/python $out/bin/python
+    '';
 in
 python.pkgs.buildPythonApplication rec {
   pname = "archivebox";
@@ -277,6 +486,35 @@ python.pkgs.buildPythonApplication rec {
     "PYTHONPATH"
     ":"
     "${placeholder "out"}/${python.sitePackages}:${python.pkgs.makePythonPath dependencies}"
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [
+      defuddle
+      ffmpeg
+      gallery-dl
+      git
+      imagemagick
+      liteparse
+      mercury-parser
+      nodejs
+      pnpm
+      poppler-utils
+      python.pkgs.forum-dl
+      python.pkgs.papers-dl
+      readability-extractor
+      ripgrep
+      sonic-server
+      tesseract
+      trafilatura
+      wget
+      yt-dlp
+    ])
+    # The chrome plugin only knows the puppeteer installer, so give it a path
+    # instead of a binary name to look up.
+    "--set-default"
+    "CHROME_BINARY"
+    (lib.getExe archiveboxChromium)
   ];
 
   # The upstream test suite needs network access and browser binaries.
