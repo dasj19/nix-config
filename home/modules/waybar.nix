@@ -64,6 +64,7 @@ in
         "tray"
         "cpu"
         "memory"
+        "disk"
         "custom/monitor-settings"
         "custom/projector-settings"
         "idle_inhibitor"
@@ -165,6 +166,15 @@ in
         tooltip-format = ''
           RAM: {used:0.1f}G used, {avail:0.1f}G available ({percentage}%)
           Swap: {swapUsed:0.1f}G / {swapTotal:0.1f}G ({swapState})'';
+      };
+
+      # Used space of the root filesystem, in GB.
+      disk = {
+        interval = 60;
+        path = "/";
+        unit = "GB";
+        format = "💿 {specific_used:0.0f} GB";
+        tooltip-format = "Disk {path}: {used} used of {total} ({percentage_used}%), {free} free";
       };
 
       "custom/monitor-settings" = {
