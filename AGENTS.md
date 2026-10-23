@@ -23,13 +23,14 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── bluetooth.nix         # Bluetooth configuration
 │   ├── browsers.nix          # Firefox, Chromium and other browser's preferences
 │   ├── cuda-packages.nix     # Module option: config.cuda.allowedPackages
+│   ├── desktop-common.nix    # Apps, keyring and MIME defaults shared by the desktop modules
 │   ├── email-server.nix      # Mailserver base config + rspamd
 │   ├── fastfetch.nix         # Fast system information display
 │   ├── fish.nix              # Fish shell + plugins
 │   ├── folders.nix           # XDG user directories
-│   ├── gnome.nix             # GNOME desktop environment
+│   ├── gnome.nix             # GNOME desktop + its home-manager modules (pick one desktop)
 │   ├── hardware.nix          # Generic hardware detection + SMART + mail utils
-│   ├── hyprland.nix          # System-wide Hyprland
+│   ├── hyprland.nix          # Hyprland desktop + its home-manager modules (pick one desktop)
 │   ├── keyboard.nix          # Keyboard layout
 │   ├── locale.nix            # Internationalization properties
 │   ├── nix.nix               # Nix daemon and nix-related config
@@ -96,6 +97,7 @@ Disable spell-checking for this file: cspell:disable.
 - **PHP-FPM settings**: import `modules/php-fpm.nix` and merge with `// config.services.phpfpm.defaultPoolSettings`.
 - **Non-free packages**: import `modules/non-free.nix` and extend `config.allowedUnfree` with package names.
 - **User name**: never hardcode the main user name, use `config.users.primaryUser` (declared in `modules/primary-user.nix`, available on every machine). Home Manager derives `home.username` and `home.homeDirectory` from it.
+- **Desktop environment**: a laptop imports exactly one desktop module (`modules/gnome.nix` or `modules/hyprland.nix`). The module imports `modules/desktop-common.nix` and adds its home-manager modules through `home-manager.sharedModules`, so `home/profiles/laptop.nix` stays desktop-agnostic.
 - **Fastfetch**: `modules/fastfetch.nix` is imported in `profiles/base.nix` and provides the package, config file, and mail status command.
 
 ## flake.nix Conventions

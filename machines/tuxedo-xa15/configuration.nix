@@ -53,14 +53,6 @@ in
     ./../../modules/non-free.nix
   ];
 
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
-  # Disable unused xserver packages.
-  services.xserver.excludePackages = with pkgs; [
-    xterm
-  ];
-
   # NETWORKING.
   networking.hostName = "tuxedo-xa15";
 

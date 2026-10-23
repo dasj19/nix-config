@@ -2,6 +2,7 @@
 # scope: laptops
 #
 # Provides GNOME settings, extensions, and desktop customization.
+# Importing this module selects GNOME as the desktop, including its home-manager settings.
 
 {
   lib,
@@ -10,6 +11,18 @@
 }:
 
 {
+  imports = [
+    ./desktop-common.nix
+  ];
+
+  # GNOME home-manager settings for every user on the machine.
+  home-manager.sharedModules = [
+    ./../home/modules/gnome.nix
+  ];
+
+  # GNOME display manager.
+  services.displayManager.gdm.enable = true;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.excludePackages = with pkgs; [
@@ -55,8 +68,6 @@
   services.gnome.core-developer-tools.enable = false;
   # Assistive technologies.
   services.gnome.at-spi2-core.enable = true;
-  # Enable gnome-keyring.
-  services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
   # Disable PAM for GDM.
   security.pam.services.gdm.enable = false;
@@ -91,68 +102,36 @@
 
   # Include gnome-packages as part of system-packages.
   environment.systemPackages = with pkgs; [
-    brasero # Disc burning application.
     dconf-editor # Gnome registry editor.
-    evolution # Replacement for geary and gnome-calendar.
     ghex # Gnome hex editor.
     gnome-network-displays # Screen sharing app for gnome.
     gnome-tweaks # Extra setting manager for gnome.
-    gparted # Gnome partition editor.
-    meld # Diff manager and editor.
     remmina # Replacement for gnome-connections.
-    xarchiver # Replacement for file-roller.
     # Temporary disabled until this pr is ready: https://github.com/NixOS/nixpkgs/pull/545666
     #soundconverter # Gnome app for audio file conversions.
-    strawberry # Replacement for gnome-music.
-    vlc # Replacement for totem.
   ];
 
-  xdg.mime.enable = true;
-  # Find the desktop file in nix store with: find /nix/store/ -name "*application_name*desktop"
+  # GNOME-specific defaults, the shared ones are declared in desktop-common.nix.
   xdg.mime.defaultApplications = {
     "inode/directory" = "nautilus.desktop";
-    "audio/aac" = "vlc.desktop";
-    "audio/mpeg" = "vlc.desktop";
-    "audio/ogg" = "vlc.desktop";
-    "audio/flac" = "org.strawberrymusicplayer.strawberry.desktop";
-    "audio/wav" = "vlc.desktop";
-    "audio/webm" = "vlc.desktop";
-    "application/gzip" = "xarchiver.desktop";
     "application/json" = "org.gnome.TextEditor.desktop";
     "application/ld+json" = "org.gnome.TextEditor.desktop";
     "application/msword" = "writer.desktop";
-    "application/octet-stream" = "org.qbittorrent.qBittorrent.desktop";
     "application/pdf" = "org.gnome.Evince.desktop";
     "application/rtf" = "writer.desktop";
-    "application/x-bzip" = "xarchiver.desktop";
-    "application/x-bzip2" = "xarchiver.desktop";
-    "application/zip" = "xarchiver.desktop";
     "application/vnd.ms-powerpoint" = "impress.desktop";
-    "application/vnd.rar" = "xarchiver.desktop";
     "application/vnd.ms-excel" = "calc.desktop";
     "application/x-sh" = "org.gnome.Console.desktop";
-    "application/x-tar" = "xarchiver.desktop";
     "application/xml" = "org.gnome.TextEditor.desktop";
-    "application/x-7z-compressed" = "xarchiver.desktop";
     "image/bmp" = "org.gnome.Loupe.desktop";
     "image/gif" = "org.gnome.Loupe.desktop";
     "image/vnd.microsoft.icon" = "org.gnome.Loupe.desktop";
     "image/jpeg" = "org.gnome.Loupe.desktop";
     "image/png" = "org.gnome.Loupe.desktop";
     "image/webp" = "org.gnome.Loupe.desktop";
-    "text/calendar" = "org.gnome.Evolution.desktop";
     "text/css" = "org.gnome.TextEditor.desktop";
     "text/csv" = "org.gnome.TextEditor.desktop";
     "text/javascript" = "org.gnome.TextEditor.desktop";
-    "text/html" = "firefox-devedition.desktop";
     "text/markdown" = "org.gnome.TextEditor.desktop";
-    "video/mp4" = "vlc.desktop";
-    "video/mpeg" = "vlc.desktop";
-    "video/mp2t" = "vlc.desktop";
-    "video/ogg" = "vlc.desktop";
-    "video/vnd.avi" = "vlc.desktop";
-    "video/webm" = "vlc.desktop";
-    "video/x-msvideo" = "vlc.desktop";
-    "video/x-matroska" = "vlc.desktop";
   };
 }

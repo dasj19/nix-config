@@ -1,6 +1,7 @@
 # hyprland: module to configure system-wide hyprland.
 # scope: laptops
 # contains: desktop environment packages and customizations.
+# Importing this module selects Hyprland as the desktop, including its home-manager settings.
 
 {
   config,
@@ -10,6 +11,17 @@
 }:
 
 {
+  imports = [
+    ./desktop-common.nix
+  ];
+
+  # Hyprland home-manager settings for every user on the machine.
+  home-manager.sharedModules = [
+    ./../home/modules/hyprland.nix
+    ./../home/modules/hyprlock.nix
+    ./../home/modules/waybar.nix
+  ];
+
   # Universal Wayland Session Manager.
   programs.uwsm.enable = true;
 
@@ -23,8 +35,7 @@
   # Force electron apps to use wayland instead of X11.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  # Gnome's seahorse is still needed for key management.
-  services.gnome.gnome-keyring.enable = true;
+  # Unlock the keyring (enabled in desktop-common.nix) at login.
   security.pam.services.hyprland.enableGnomeKeyring = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
@@ -55,7 +66,6 @@
     alacritty # Terminal emulator.
     atril # PDF Document viewer.
     baobab # Disc usage analyzer.
-    brasero # Disc burning utility.
     ffmpegthumbnailer # Video thumbnail generator. Used by nemo and nemo-preview.
     foot # Wayland terminal emulator.
     image-roll # Image viewer for Wayland.
@@ -71,7 +81,6 @@
     wl-mirror # Screen mirroring utility.
     wofi # Application launcher.
     xapp-thumbnailers # Set of thumbnailers for various file types. Used by nemo and nemo-preview.
-    xarchiver # Archive manager.
     (pkgs.callPackage ../pkgs/clipvault.nix { }) # Clipboard history manager for Wayland.
 
     hyprcursor # Cursor manager for hyprland.
@@ -85,15 +94,12 @@
     pyprland # Plugin manager for hyprland.
     wlr-layout-ui # GUI for managing monitor layouts in Wayland.
 
-    evolution # Email client with calendar support.
     gnome-contacts # Contact manager.
     gnome-keyring # Keyring for managing passwords and encryption keys.
-    gparted # Gnome partition editor.
     lm_sensors # Tools for reading hardware sensors.
     mission-center # Task manager and system monitor.
     resources # Task manager and resource monitor.
     showmethekey # OSD of pressed keys.
-    strawberry # Collection-based music player.
     swayosd # Controls media keys and special keys with visuals.
     # @TODO revert to tauon once it is fixed upstream. https://github.com/NixOS/nixpkgs/issues/577587
     #tauon # Album-based with lyrics support.
@@ -108,7 +114,6 @@
       '';
     }))
     tofi # wayland-native dynamic menu.
-    vlc # Universal media player.
   ];
 
   # Mediator for access to system resources (file choosers, screenshots, etc).
@@ -118,57 +123,32 @@
     xdg-desktop-portal-hyprland # XDG desktop portal implementation for Hyprland.
   ];
 
-  xdg.mime.enable = true;
-  # Find the desktop file in nix store with: find /nix/store/ -name "*application_name*desktop"
-  xdg.mime.defaultApplications = lib.mkForce {
+  # Hyprland-specific defaults, the shared ones are declared in desktop-common.nix.
+  xdg.mime.defaultApplications = {
     "inode/directory" = "nemo.desktop";
-    "audio/aac" = "vlc.desktop";
-    "audio/mpeg" = "vlc.desktop";
-    "audio/ogg" = "vlc.desktop";
-    "audio/flac" = "org.strawberrymusicplayer.strawberry.desktop";
-    "audio/wav" = "vlc.desktop";
-    "audio/webm" = "vlc.desktop";
-    "application/gzip" = "xarchiver.desktop";
     "application/json" = "textadept.desktop";
     "application/ld+json" = "textadept.desktop";
     "application/msword" = "euro-office-desktopeditors.desktop";
-    "application/octet-stream" = "org.qbittorrent.qBittorrent.desktop";
     "application/pdf" = "atril.desktop";
     "application/rtf" = "euro-office-desktopeditors.desktop";
-    "application/x-bzip" = "xarchiver.desktop";
-    "application/x-bzip2" = "xarchiver.desktop";
-    "application/zip" = "xarchiver.desktop";
     "application/vnd.ms-powerpoint" = "euro-office-desktopeditors.desktop";
-    "application/vnd.rar" = "xarchiver.desktop";
     "application/vnd.mozilla.xul+xml" = "firefox-devedition.desktop";
     "application/vnd.ms-excel" = "euro-office-desktopeditors.desktop";
     "application/x-sh" = "alacritty.desktop";
-    "application/x-tar" = "xarchiver.desktop";
     "application/xml" = "textadept.desktop";
     "application/xhtml+xml" = "firefox-devedition.desktop";
-    "application/x-7z-compressed" = "xarchiver.desktop";
     "image/bmp" = "com.github.weclaw1.ImageRoll.desktop";
     "image/gif" = "com.github.weclaw1.ImageRoll.desktop";
     "image/vnd.microsoft.icon" = "com.github.weclaw1.ImageRoll.desktop";
     "image/jpeg" = "com.github.weclaw1.ImageRoll.desktop";
     "image/png" = "com.github.weclaw1.ImageRoll.desktop";
     "image/webp" = "com.github.weclaw1.ImageRoll.desktop";
-    "text/calendar" = "org.gnome.Evolution.desktop";
     "text/css" = "textadept.desktop";
     "text/csv" = "textadept.desktop";
     "text/javascript" = "textadept.desktop";
-    "text/html" = "firefox-devedition.desktop";
     "text/markdown" = "textadept.desktop";
     "text/plain" = "textadept.desktop";
     "text/xml" = "textadept.desktop";
-    "video/mp4" = "vlc.desktop";
-    "video/mpeg" = "vlc.desktop";
-    "video/mp2t" = "vlc.desktop";
-    "video/ogg" = "vlc.desktop";
-    "video/vnd.avi" = "vlc.desktop";
-    "video/webm" = "vlc.desktop";
-    "video/x-msvideo" = "vlc.desktop";
-    "video/x-matroska" = "vlc.desktop";
     "x-scheme-handler/http" = "firefox-devedition.desktop";
     "x-scheme-handler/https" = "firefox-devedition.desktop";
   };

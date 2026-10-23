@@ -11,12 +11,9 @@
   imports = [
     ./base.nix
     # Home modules.
-    ../modules/gnome.nix # @todo Remove when not using Gnome.
-    ../modules/hyprland.nix
-    ../modules/hyprlock.nix
+    # Desktop-specific home modules are added by the system desktop module (modules/gnome.nix, modules/hyprland.nix).
     ../modules/shellgpt.nix
     ../modules/vscodium.nix
-    ../modules/waybar.nix
   ];
 
   # HM installs and manages itself.
