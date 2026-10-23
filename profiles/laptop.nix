@@ -19,8 +19,14 @@
     ./../modules/stylix.nix
   ];
 
-  # Manage firmware updates.
-  services.fwupd.enable = true;
+  # Laptops move between networks.
+  networking.networkmanager.enable = true;
+
+  # Builds max 8 parallel jobs at once using at most 4 cores per job.
+  # Laptops have at least 8 cores, override per machine when needed.
+  # @see https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
+  nix.settings.max-jobs = 8;
+  nix.settings.cores = 4;
 
   # A Fuse filesystem that returns symlinks to executables
   # based on the PATH of the requesting process.
@@ -48,7 +54,6 @@
     fcron # Needed by backintime. @todo fix upstream.
     ffmpeg-full # Record, convert and stream audio and video.
     flac # Tools for encoding and decoding the FLAC lossless audio file format.
-    gh # Github CLI tool.
     jujutsu # Git-compatible alternative VCS.
     khard # CLI for managing contacts.
     localtunnel # CLI interface for the localtunnel service.
@@ -60,7 +65,6 @@
     speedtest-cli # CLI Internet speed tester.
     subtitlecomposer # Open source text-based subtitle editor.
     unrar # Proprietary rar unpacker.
-    usbutils # Tools for working with USB devices
     yt-dlp # Versatile media downloader.
     zip # Compressor for zip files.
     zstd # Zstandard real-time compression algorithm.
@@ -97,8 +101,5 @@
     # fontforge-gtk
     insomnia # Request debugger.
     vscodium # IDE.
-
-    # Drivers.
-    ntfs3g # NTFS drivers and utilities.
   ];
 }

@@ -5,7 +5,6 @@
 # Sometimes booted into Batocera from an external SSD.
 
 {
-  lib,
   pkgs,
   config,
   ...
@@ -51,14 +50,12 @@ in
     ./../../modules/ai.nix
     ./../../modules/cuda-packages.nix
     ./../../modules/development.nix
-    ./../../modules/non-free.nix
   ];
 
   # NETWORKING.
   networking.hostName = "tuxedo-xa15";
 
-  networking.networkmanager.enable = true;
-  # Enable only the needed plugins.
+  # Enable only the needed NetworkManager plugins.
   # Avoids # jun 29 23:04:28 t14 dbus-daemon[999]: Unknown username "nm-openconnect" in message bus configuration file
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openvpn
@@ -91,8 +88,6 @@ in
   # Use suspend and hibernate instead of suspend. Use: 'systemctl suspend' to test.
   systemd.services."systemd-suspend-then-hibernate".aliases = [ "systemd-suspend.service" ];
 
-  services.fwupd.enable = true;
-
   # Manage the touchpad with libinput.
   services.libinput.enable = true;
 
@@ -108,12 +103,8 @@ in
 
     # Drivers and Firmware.
     linux-firmware # needed for bluetooth firmware.
-    ntfs3g
 
     # Desktop apps.
-    gparted
-    lbry
-    meld
     proton-vpn
 
     #Localization
@@ -123,7 +114,6 @@ in
     # CLI Utilities.
     hdparm
     iat
-    killall
     nnn # compare with lf
     nvtopPackages.full
     p7zip
@@ -134,7 +124,6 @@ in
     mediainfo
     mkvtoolnix
     obs-studio
-    shotcut
 
     # Virtualization.
     virt-manager
@@ -158,18 +147,10 @@ in
   # Needed for codeium.
   programs.nix-ld.enable = true;
 
-  programs.dconf.enable = true;
-
   # Enable virtualisation daemons.
   # Docker is enabled in development.nix, here it only starts on demand.
   virtualisation.docker.enableOnBoot = false;
   virtualisation.waydroid.enable = true;
-
-  # tuxedo-xa15 has a total of 32 cores.
-  # use at most 4 corse per jobs, and max 8 parallel jobs in total.
-  # @see https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
-  nix.settings.max-jobs = lib.mkForce 8;
-  nix.settings.cores = lib.mkForce 4;
 
   # Non-free software whitelist / shame list.
   allowedUnfree = config.cuda.allowedPackages ++ [

@@ -8,7 +8,6 @@
 #
 
 {
-  lib,
   pkgs,
   ...
 }:
@@ -26,20 +25,12 @@
 
     # Modules.
     ./../../modules/ai.nix
-    ./../../modules/audio.nix
     ./../../modules/development.nix
-    ./../../modules/non-free.nix
   ];
 
   # Non-free software whitelist / shame list.
   allowedUnfree = [
   ];
-
-  # t14 has a total of 8 cores.
-  # Builds max 8 parallel jobs at once using at most 4 cores per job.
-  # @see https://nix.dev/manual/nix/2.22/advanced-topics/cores-vs-jobs
-  nix.settings.max-jobs = lib.mkForce 8;
-  nix.settings.cores = lib.mkForce 4;
 
   # System-wide packages.
   environment.systemPackages = with pkgs; [
@@ -80,7 +71,6 @@
 
   # Networking settings.
   networking.hostName = "t14";
-  networking.networkmanager.enable = true;
 
   networking.hosts = {
     "127.0.0.1" = [

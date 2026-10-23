@@ -6,6 +6,12 @@ TODO:
 - change services.openssh.settings.PermitRootLogin to "no".
 - check: https://github.com/iAmMrinal0/nix-config/blob/c1d06e9c3e9b9c4fabc720bb807a00c09bcbc3b7/hosts/yggdrasil.nix#L82
 
+2026-10-23
+- desktops: gnome.nix and hyprland.nix now bring their home-manager modules, laptops no longer get both desktops' home settings
+- desktops: add desktop-common.nix with the apps, keyring and MIME defaults shared by gnome and hyprland
+- development: add a shared development module for t14 and tuxedo-xa15, drop machines/t14/development.nix
+- laptop: move networkmanager and nix build job settings into the profile, drop duplicated imports and packages
+
 2026-10-22
 - ai: add the non-free claude-code CLI client back, for t14 and tuxedo-xa15
 - workflows: remove Renovate and Dependabot, flake inputs are updated by the autoupdate workflow
