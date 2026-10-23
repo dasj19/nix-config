@@ -3,10 +3,17 @@
 # contains: the base profile + laptop-specific modules.
 
 {
+  config,
+  gitSecrets,
+  lib,
   pkgs,
   ...
 }:
 
+let
+  # Shown under the passphrase field of the Plymouth LUKS prompt, same as on hyprlock.
+  luksMessage = "If found return to the owner! ${gitSecrets.danielFullname} ${gitSecrets.danielPersonalEmail} ${gitSecrets.danielPhoneNumber}";
+in
 {
   imports = [
     # Profiles.
@@ -31,6 +38,23 @@
   # A Fuse filesystem that returns symlinks to executables
   # based on the PATH of the requesting process.
   services.envfs.enable = true;
+
+  # Show a custom message on the Plymouth LUKS prompt, hidden when the initrd ends.
+  boot.initrd.systemd.services.plymouth-luks-message = lib.mkIf config.boot.plymouth.enable {
+    description = "Show a message on the Plymouth LUKS prompt";
+    # cryptsetup-pre.target is passive, so it has to be pulled in to order against it.
+    wantedBy = [ "cryptsetup.target" ];
+    wants = [ "cryptsetup-pre.target" ];
+    before = [ "cryptsetup-pre.target" ];
+    after = [ "plymouth-start.service" ];
+    unitConfig.DefaultDependencies = false;
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = ''/bin/plymouth display-message --text="${luksMessage}"'';
+      ExecStop = ''/bin/plymouth hide-message --text="${luksMessage}"'';
+    };
+  };
 
   # Non-free software for laptop.
   allowedUnfree = [
