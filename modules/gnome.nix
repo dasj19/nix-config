@@ -104,7 +104,6 @@
     # Temporary disabled until this pr is ready: https://github.com/NixOS/nixpkgs/pull/545666
     #soundconverter # Gnome app for audio file conversions.
     strawberry # Replacement for gnome-music.
-    tauon # Replacement for gnome-music with lyrics support.
     vlc # Replacement for totem.
   ];
 

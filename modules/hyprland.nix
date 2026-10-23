@@ -95,7 +95,18 @@
     showmethekey # OSD of pressed keys.
     strawberry # Collection-based music player.
     swayosd # Controls media keys and special keys with visuals.
-    tauon # Album-based with lyrics support.
+    # @TODO revert to tauon once it is fixed upstream. https://github.com/NixOS/nixpkgs/issues/577587
+    #tauon # Album-based with lyrics support.
+    # cspell: ignore typelib
+    # Port of https://github.com/NixOS/nixpkgs/pull/575801: replace the last 4 wrapper args
+    # ("$out/share/tauon" --set GI_TYPELIB_PATH "$GI_TYPELIB_PATH"), which are not expanded.
+    (pkgs.tauon.overrideAttrs (oldAttrs: {
+      makeWrapperArgs = lib.dropEnd 4 oldAttrs.makeWrapperArgs ++ [ "${placeholder "out"}/share/tauon" ];
+
+      preFixup = ''
+        makeWrapperArgs+=(--set GI_TYPELIB_PATH "$GI_TYPELIB_PATH")
+      '';
+    }))
     tofi # wayland-native dynamic menu.
     vlc # Universal media player.
   ];
