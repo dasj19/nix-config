@@ -70,6 +70,7 @@ jobs:
           git push
 
       # Trigger the CI on the new commit, pushes made with GITHUB_TOKEN do not trigger it.
+      # cspell:ignore benc
       - name: Trigger build
         if: steps.changes.outputs.changed == 'true'
         uses: benc-uk/workflow-dispatch@v1
