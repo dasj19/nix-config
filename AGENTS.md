@@ -24,6 +24,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── browsers.nix          # Firefox, Chromium and other browser's preferences
 │   ├── cuda-packages.nix     # Module option: config.cuda.allowedPackages
 │   ├── desktop-common.nix    # Apps, keyring and MIME defaults shared by the desktop modules
+│   ├── development.nix       # Shared web development stack (nodejs, mariadb, docker)
 │   ├── email-server.nix      # Mailserver base config + rspamd
 │   ├── fastfetch.nix         # Fast system information display
 │   ├── fish.nix              # Fish shell + plugins

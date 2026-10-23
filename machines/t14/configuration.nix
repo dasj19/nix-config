@@ -18,9 +18,6 @@
     # Hardware config.
     ./hardware.nix
 
-    # Development environment.
-    ./development.nix
-
     # Profile.
     ./../../profiles/laptop.nix
 
@@ -30,6 +27,7 @@
     # Modules.
     ./../../modules/ai.nix
     ./../../modules/audio.nix
+    ./../../modules/development.nix
     ./../../modules/non-free.nix
   ];
 
@@ -50,6 +48,13 @@
     (callPackage ./../../pkgs/archivebox.nix { }) # Self-hosted web archiving.
     lrcget # Lyrics downloader.
 
+    # Development.
+    ddev # tool for php-docker development. # cspell:disable-line
+    devenv # control development environments with nix.
+    mkcert # creates development environment certificates. # cspell:disable-line
+    php83 # PHP.
+    php83Packages.composer # Composer package manager for PHP.
+
     # GUI.
     gcstar # Collection manager.
     xsane # Paper scanning software.
@@ -62,6 +67,13 @@
   # Enable virtualization.
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+  # Network bridge between vm guest and host.
+  virtualisation.libvirtd.allowedBridges = [ "virbr0" ]; # cspell:disable-line
+
+  # Docker is enabled in development.nix, buildx handles building docker remotely.
+  virtualisation.docker.extraPackages = [
+    pkgs.docker-buildx # cspell:disable-line
+  ];
 
   # Measures USB traffic bandwidth.
   programs.usbtop.enable = true;

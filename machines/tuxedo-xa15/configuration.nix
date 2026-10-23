@@ -50,6 +50,7 @@ in
     # Modules.
     ./../../modules/ai.nix
     ./../../modules/cuda-packages.nix
+    ./../../modules/development.nix
     ./../../modules/non-free.nix
   ];
 
@@ -100,12 +101,10 @@ in
     # Development.
     arduino
     graphviz
-    nodejs
     php
     php.packages.composer
     pomodoro-gtk
     postgresql
-    symfony-cli
 
     # Drivers and Firmware.
     linux-firmware # needed for bluetooth firmware.
@@ -125,7 +124,6 @@ in
     hdparm
     iat
     killall
-    mariadb
     nnn # compare with lf
     nvtopPackages.full
     p7zip
@@ -163,12 +161,9 @@ in
   programs.dconf.enable = true;
 
   # Enable virtualisation daemons.
-  virtualisation.docker.enable = true;
+  # Docker is enabled in development.nix, here it only starts on demand.
   virtualisation.docker.enableOnBoot = false;
   virtualisation.waydroid.enable = true;
-
-  services.mysql.enable = true;
-  services.mysql.package = pkgs.mariadb;
 
   # tuxedo-xa15 has a total of 32 cores.
   # use at most 4 corse per jobs, and max 8 parallel jobs in total.
