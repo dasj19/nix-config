@@ -119,6 +119,7 @@ Embedder
 emulationstation
 envfs
 erros
+esac
 esrodk
 essid
 evtest
@@ -366,6 +367,7 @@ polkit
 polkitd
 polkituser
 pomodoro
+poweroff
 powersave
 powertop
 pressbook

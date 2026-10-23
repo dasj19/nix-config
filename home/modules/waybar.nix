@@ -3,7 +3,43 @@
 #
 # Provides Waybar settings, modules, and styling.
 
-_: {
+{
+  pkgs,
+  ...
+}:
+
+let
+  # A small tofi window in the center of the screen, the defaults (1280x720) are meant for long lists.
+  tofi = builtins.concatStringsSep " " [
+    "${pkgs.tofi}/bin/tofi"
+    "--anchor=center"
+    "--width=300"
+    "--height=180"
+    "--font-size=16"
+    "--border-width=4"
+    "--outline-width=2"
+    "--corner-radius=8"
+    "--padding-top=12"
+    "--padding-bottom=12"
+    "--padding-left=16"
+    "--padding-right=16"
+  ];
+
+  # Power menu shown with tofi, every action asks for a confirmation first.
+  # "No" is listed first in the confirmation so that pressing Enter or Escape cancels.
+  powerMenu = pkgs.writeShellScript "power-menu" ''
+    confirm() {
+      [ "$(printf 'No\nYes\n' | ${tofi} --prompt-text="$1? ")" = "Yes" ]
+    }
+
+    case "$(printf 'Logout\nReboot\nPower off\n' | ${tofi} --prompt-text='Power: ')" in
+      "Logout") confirm "Logout" && hyprctl dispatch 'hl.dsp.exit()' ;;
+      "Reboot") confirm "Reboot" && systemctl reboot ;;
+      "Power off") confirm "Power off" && systemctl poweroff ;;
+    esac
+  '';
+in
+{
   programs.waybar.enable = true;
   programs.waybar.settings = {
     mainBar = {
@@ -37,6 +73,7 @@ _: {
         "wireplumber#sink"
         "wireplumber#source"
         "battery"
+        "custom/power"
       ];
 
       backlight = {
@@ -136,6 +173,14 @@ _: {
         on-click = "hyprctl eval \"hl.monitor({ output = '', mode = 'preferred', position = 'auto', scale = 1, mirror = 'eDP-1' })\"";
         on-click-right = "hyprctl eval \"hl.monitor({ output = '', mode = 'preferred', position = 'auto', scale = 1, mirror='' })\"";
         tooltip = "Screen mirroring";
+      };
+
+      # Opens the tofi power menu with session and power actions.
+      "custom/power" = {
+        interval = "once";
+        format = "⏻";
+        tooltip-format = "Logout, reboot or power off";
+        on-click = "${powerMenu}";
       };
 
       network = {
