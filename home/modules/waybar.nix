@@ -79,6 +79,7 @@ in
       backlight = {
         device = "intel_backlight";
         format = "{icon} {percent}%";
+        tooltip-format = "Screen brightness: {percent}%";
         format-icons = [
           ""
           ""
@@ -87,6 +88,12 @@ in
 
       battery = {
         format = "{icon} {capacity}%";
+        # {timeTo} is "Empty in ...", "Full in ..." or the charging status.
+        tooltip-format = ''
+          {timeTo}
+          Power draw: {power:.1f} W
+          Health: {health}%
+          Charge cycles: {cycles}'';
         format-icons = [
           " "
           " "
@@ -155,6 +162,9 @@ in
       memory = {
         interval = 30;
         format = "{used:0.1f}G / {total:0.1f}G ";
+        tooltip-format = ''
+          RAM: {used:0.1f}G used, {avail:0.1f}G available ({percentage}%)
+          Swap: {swapUsed:0.1f}G / {swapTotal:0.1f}G ({swapState})'';
       };
 
       "custom/monitor-settings" = {
@@ -169,10 +179,9 @@ in
       "custom/projector-settings" = {
         interval = "once";
         format = "📽️";
-        tooltip-format = "Projector settings";
+        tooltip-format = "Screen mirroring\nClick: mirror the laptop screen\nRight-click: stop mirroring";
         on-click = "hyprctl eval \"hl.monitor({ output = '', mode = 'preferred', position = 'auto', scale = 1, mirror = 'eDP-1' })\"";
         on-click-right = "hyprctl eval \"hl.monitor({ output = '', mode = 'preferred', position = 'auto', scale = 1, mirror='' })\"";
-        tooltip = "Screen mirroring";
       };
 
       # Opens the tofi power menu with session and power actions.
@@ -191,6 +200,12 @@ in
           Network:          <b>{essid}</b>
           Signal strength:  <b>{signalStrength}%</b>
           Frequency:        <b>{frequency}MHz</b>
+          Interface:        <b>{ifname}</b>
+          IP:               <b>{ipaddr}</b>
+          Gateway:          <b>{gwaddr}</b>
+          Netmask:          <b>{netmask}</b>
+        '';
+        tooltip-format-ethernet = ''
           Interface:        <b>{ifname}</b>
           IP:               <b>{ipaddr}</b>
           Gateway:          <b>{gwaddr}</b>
@@ -228,6 +243,7 @@ in
           ""
           ""
         ];
+        tooltip-format = "Output: {node_name} ({volume}%)\nClick: volume control\nRight-click: mute";
         on-click = "pwvucontrol";
         on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
         scroll-step = 5;
@@ -236,6 +252,7 @@ in
         node-type = "Audio/Source";
         format = " {volume}%";
         format-muted = "";
+        tooltip-format = "Microphone: {node_name} ({volume}%)\nClick: volume control\nRight-click: mute";
         on-click = "pwvucontrol";
         on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
         scroll-step = 5;
@@ -254,6 +271,8 @@ in
           deactivated = "";
         };
         timeout = "30.5";
+        tooltip-format-activated = "Idle inhibitor on: the screen stays awake";
+        tooltip-format-deactivated = "Idle inhibitor off: the screen dims and locks when idle";
       };
     };
   };
