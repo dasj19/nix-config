@@ -177,6 +177,16 @@
       Name = "Reddit";
       URLTemplate = "https://www.reddit.com/search/?q={searchTerms}";
     }
+    # cspell:ignore sepiasearch
+    # Search PeerTube videos on Sepia Search with: "@ses query".
+    {
+      Alias = "@ses";
+      Description = "Search PeerTube videos on Sepia Search";
+      IconURL = "https://sepiasearch.org/img/favicon.png";
+      Method = "GET";
+      Name = "Sepia Search";
+      URLTemplate = "https://sepiasearch.org/search?search={searchTerms}";
+    }
     # Search Stack Overflow with: "@so question".
     {
       Alias = "@so";
