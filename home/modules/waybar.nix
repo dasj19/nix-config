@@ -169,9 +169,9 @@ in
 
       memory = {
         interval = 30;
-        format = "{used:0.1f}G / {total:0.1f}G ";
+        format = " {used:0.1f}G";
         tooltip-format = ''
-          RAM: {used:0.1f}G used, {avail:0.1f}G available ({percentage}%)
+          RAM: {used:0.1f}G / {total:0.1f}G used, {avail:0.1f}G available ({percentage}%)
           Swap: {swapUsed:0.1f}G / {swapTotal:0.1f}G ({swapState})'';
       };
 
