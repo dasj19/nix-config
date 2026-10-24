@@ -2,17 +2,16 @@
 # scope: laptops
 # contains: CLI tools based on ollama, video enhancing tools and more.
 
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     # Non-free software.
-    ./cuda-packages.nix
     ./non-free.nix
   ];
 
-  # Non-free AI/CUDA libraries.
-  allowedUnfree = config.cuda.allowedPackages ++ [
+  # Non-free AI tools.
+  allowedUnfree = [
     "claude-code" # AI CLI client.
     "cursor-cli" # AI CLI client.
   ];
@@ -26,10 +25,8 @@
     tgpt # ChatGPT client with no need for API keys.
   ];
 
-  # Use cuda-powered ollama.
   services.ollama.enable = true;
   services.ollama.user = "ollama";
-  services.ollama.package = pkgs.ollama-cuda;
   # Prefer cuda packages from nixpkgs.
   # This triggers rebuilding of massive software packages
   # like GIMP and the like, we avoid it for now.
