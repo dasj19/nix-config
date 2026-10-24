@@ -168,6 +168,7 @@ Git-crypt key: `git-crypt-key`
 |   🚧   | Secret Management Tool       | Gnome Keyring 💣                   |                       |                           |
 |   🚧   | Image Viewer                 | Image Roll 🦀                      |                       | Gnome Loupe 🦀            |
 |   🚧   | Email client                 | Evolution 💣                       | Mailspring 🐒         |                           |
+|   🚧   | Contacts Manager             | Gnome Contacts 💣                  |                       |                           |
 |   🚧   | Compression Tool             | Xarchiver 💣 File-roller 💣        |                       | Peazip 🦎                 |
 |   ✅   | Personal messenger           | Signal Desktop 🐒                  |                       |                           |
 |   ✅   | Community messenger          | Element 🐒                         |                       |                           |
