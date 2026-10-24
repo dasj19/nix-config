@@ -160,7 +160,7 @@ in
 {
   # php-fpm with custom extensions.
   services.phpfpm.phpOptions = ''
-    extension=${pkgs.php82Extensions.imagick}/lib/php/extensions/imagick.so
+    extension=${pkgs.php83Extensions.imagick}/lib/php/extensions/imagick.so
   '';
   # Using caddy webserver.
   services.wordpress.webserver = "caddy";
