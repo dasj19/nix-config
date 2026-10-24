@@ -124,9 +124,8 @@ in
       clock = {
         format = "{:%H:%M - %d-%m-%Y}";
         rotate = 0;
-        format-alt = "{  %d·%m·%y}";
         # Open calendar in a floating window on click.
-        on-click = ''hyprctl dispatch '''hl.dsp.exec_cmd("orage --toggle")''''';
+        on-click = "hyprctl dispatch 'hl.dsp.exec_cmd(\"orage --toggle\")'";
         tooltip-format = "<span>{calendar}</span>";
         calendar = {
           mode = "month";
@@ -151,15 +150,6 @@ in
           "5" = "";
           "active" = "";
           "default" = "";
-        };
-        persistent-workspaces = {
-          "Virtual-1" = [
-            1
-            2
-            3
-            4
-            5
-          ];
         };
       };
 
