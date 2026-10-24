@@ -9,7 +9,8 @@
 }:
 
 let
-  lockCmd = ''pidof hyprlock || hyprctl dispatch 'hl.dsp.exec_cmd("hyprlock")' '';
+  # `pidof` avoids starting multiple hyprlock instances.
+  lockCmd = "pidof hyprlock || hyprlock";
 in
 {
 
@@ -18,7 +19,9 @@ in
 
   wayland.windowManager.hyprland.enable = true; # enable Hyprland
   wayland.windowManager.hyprland.xwayland.enable = true; # legacy support for X11 apps.
-  wayland.windowManager.hyprland.systemd.enable = true; # systemd integration.
+  # uwsm handles the systemd integration (environment, graphical-session.target), the one
+  # from home-manager would conflict with it.
+  wayland.windowManager.hyprland.systemd.enable = false;
   wayland.windowManager.hyprland.extraConfig = ''
     -- Force GTK applications to use native Wayland backend.
     hl.env("GDK_BACKEND", "wayland")
@@ -114,8 +117,6 @@ in
     hl.bind("SUPER + CTRL + Right", hl.dsp.window.move({ direction = "r" }))
     hl.bind("SUPER + CTRL + Up", hl.dsp.window.move({ direction = "u" }))
     hl.bind("SUPER + CTRL + Down", hl.dsp.window.move({ direction = "d" }))
-    hl.bind("SUPER + LEFT", hl.dsp.focus({ direction = "left" }))
-    hl.bind("SUPER + RIGHT", hl.dsp.focus({ direction = "right" }))
     hl.bind("SUPER + UP", hl.dsp.focus({ direction = "up" }))
     hl.bind("SUPER + DOWN", hl.dsp.focus({ direction = "down" }))
 
@@ -133,13 +134,16 @@ in
     -- Workspace navigation.
     hl.bind("SUPER + TAB", hl.dsp.focus({ workspace = "e+1" }))
     hl.bind("SUPER + SHIFT + TAB", hl.dsp.focus({ workspace = "e-1" }))
+    -- Previous/next workspace by number, including empty ones.
+    hl.bind("SUPER + LEFT", hl.dsp.focus({ workspace = "-1" }))
+    hl.bind("SUPER + RIGHT", hl.dsp.focus({ workspace = "+1" }))
 
     -- Alternative navigation. (consider removing)
     hl.bind("CTRL + ALT + LEFT", hl.dsp.focus({ workspace = "e-1" }))
     hl.bind("CTRL + ALT + RIGHT", hl.dsp.focus({ workspace = "e+1" }))
 
     -- Move focused window to next/previous workspace.
-    hl.bind("SUPER + SHIFT + LEFT", hl.dsp.window.move({ workspace = -1 }))
+    hl.bind("SUPER + SHIFT + LEFT", hl.dsp.window.move({ workspace = "-1" }))
     hl.bind("SUPER + SHIFT + RIGHT", hl.dsp.window.move({ workspace = "+1" }))
 
     hl.config({
@@ -204,16 +208,11 @@ in
 
   # Hyprland auto lock screen management.
   # @see https://wiki.hypr.land/Hypr-Ecosystem/hypridle/
-  # Hyprland starts hyprlock, so it runs in the active session and polkit lets it use the fingerprint
-  # reader, which is not the case for processes started by the hypridle user service.
-  # `pidof` avoids starting multiple hyprlock instances.
   services.hypridle.enable = true;
   services.hypridle.settings = {
     general = {
       lock_cmd = lockCmd; # run on `loginctl lock-session`.
-      # Lock before suspending, e.g. when closing the lid. Does not use `loginctl lock-session`
-      # because logind cannot lock greetd's greeter session, which Hyprland runs in.
-      before_sleep_cmd = lockCmd;
+      before_sleep_cmd = lockCmd; # lock before suspending, e.g. when closing the lid.
     };
     # List of listeners, each triggered after its own timeout.
     listener = [

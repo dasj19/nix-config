@@ -42,13 +42,21 @@
   security.pam.services.greetd.enableGnomeKeyring = true;
 
   # greetd settings.
+  # Hyprland is started by uwsm as a systemd user service, its output goes to the journal.
   services.greetd.enable = true;
-  services.greetd.settings.default_session = {
-    # Start hyprland throwing all text output away.
-    command = "start-hyprland &>/dev/null";
-    # Auto-login user.
+  # Auto-login the main user once at boot, as a regular session that logind can lock.
+  services.greetd.settings.initial_session = {
+    # uwsm also logs to the journal, so its text on the console is thrown away.
+    command = "uwsm start hyprland-uwsm.desktop >/dev/null 2>&1";
     user = config.users.primaryUser;
   };
+  # Login prompt shown after logging out.
+  services.greetd.settings.default_session.command = lib.concatStringsSep " " [
+    "${pkgs.tuigreet}/bin/tuigreet"
+    "--time"
+    "--asterisks"
+    "--cmd 'uwsm start hyprland-uwsm.desktop'"
+  ];
   # Improve audio performance.
   security.rtkit.enable = true;
   # Enable D-Bus for inter-process communication.
