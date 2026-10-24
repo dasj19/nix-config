@@ -61,7 +61,7 @@
   # Network bridge between vm guest and host.
   virtualisation.libvirtd.allowedBridges = [ "virbr0" ]; # cspell:disable-line
 
-  # Docker is enabled in development.nix, buildx handles building docker remotely.
+  # Docker is enabled in development.nix, buildx handles building docker remotely. cspell:ignore buildx
   virtualisation.docker.extraPackages = [
     pkgs.docker-buildx # cspell:disable-line
   ];
