@@ -71,7 +71,6 @@
     ffmpegthumbnailer # Video thumbnail generator. Used by nemo and nemo-preview.
     foot # Wayland terminal emulator.
     image-roll # Image viewer for Wayland.
-    mako # Notification daemon for Wayland.
     mpv # alternative vide player.
     nemo-preview # File previews for nemo.
     nemo-with-extensions # File manager forked from nautilus with extra features.

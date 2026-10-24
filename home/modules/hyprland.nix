@@ -240,6 +240,13 @@ in
     };
   };
 
+  # Notification daemon.
+  services.mako.enable = true;
+  services.mako.settings = {
+    default-timeout = 8000; # milliseconds before a notification disappears.
+    ignore-timeout = true; # apply default-timeout even when apps ask to keep their notification.
+  };
+
   # Display nice icons on screen for known special actions.
   services.swayosd = {
     enable = true;
