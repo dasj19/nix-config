@@ -36,7 +36,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.kernelModules = [ ];
-  boot.initrd.verbose = false;
   # Report just alert, critical and error.
   boot.consoleLogLevel = 3;
 
