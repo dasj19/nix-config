@@ -57,7 +57,7 @@ in
     -- Launching Apps.
     hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("alacritty"))
     hl.bind("SUPER + B", hl.dsp.exec_cmd("firefox-devedition"))
-    hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"))
+    hl.bind("SUPER + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
     hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd("alacritty"))
     hl.bind("CTRL + ALT + F", hl.dsp.exec_cmd("nemo"))
     hl.bind("CTRL + SPACE", hl.dsp.exec_cmd("ulauncher"))
@@ -137,8 +137,6 @@ in
     -- Alternative navigation. (consider removing)
     hl.bind("CTRL + ALT + LEFT", hl.dsp.focus({ workspace = "e-1" }))
     hl.bind("CTRL + ALT + RIGHT", hl.dsp.focus({ workspace = "e+1" }))
-    hl.bind("SUPER + LEFT", hl.dsp.focus({ workspace = -1 }))
-    hl.bind("SUPER + RIGHT", hl.dsp.focus({ workspace = "+1" }))
 
     -- Move focused window to next/previous workspace.
     hl.bind("SUPER + SHIFT + LEFT", hl.dsp.window.move({ workspace = -1 }))
@@ -186,8 +184,6 @@ in
     hl.on("hyprland.start", function()
       -- prepare the network indicator
       hl.exec_cmd("nm-applet --indicator")
-      -- delay the launch of the bar
-      hl.exec_cmd("sleep 1 & waybar")
       -- Start the plugin system.
       hl.exec_cmd("pypr")
       -- Start the clipboard manager.

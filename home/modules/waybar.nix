@@ -42,6 +42,8 @@ let
 in
 {
   programs.waybar.enable = true;
+  # Start with the graphical session, restarted by systemd if it crashes.
+  programs.waybar.systemd.enable = true;
   # @TODO revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs.
   # Waybar 0.15.0 switches workspaces with the legacy dispatch syntax, rejected by the Lua config of
   # Hyprland, so clicking a workspace does nothing. Fixed upstream in https://github.com/Alexays/Waybar/pull/5013
@@ -67,10 +69,6 @@ in
       margin-top = 5;
       margin-bottom = 5;
       height = 35;
-      output = [
-        "eDP-1"
-        "HDMI-A-1"
-      ];
       modules-left = [
         "hyprland/workspaces"
         "wlr/taskbar"

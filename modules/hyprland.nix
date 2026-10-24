@@ -88,7 +88,6 @@
     hyprlock # Manages the screen lock.
     hyprmon # TUI to manage monitors.
     hyprpaper # Deals with wallpapers.
-    hyprpolkitagent # Agent to request elevated privileges.
     hyprshot # Takes screenshots.
     nwg-displays # GUI to manage monitors.
     pyprland # Plugin manager for hyprland.
