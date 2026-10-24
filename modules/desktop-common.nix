@@ -5,6 +5,7 @@
 # Contains: the applications both desktops use, the keyring, and the shared MIME defaults.
 
 {
+  lib,
   pkgs,
   ...
 }:
@@ -18,7 +19,17 @@
     brasero # Disc burning application.
     evolution # Email client with calendar support.
     gparted # Gnome partition editor.
-    strawberry # Collection-based music player.
+    # Collection-based music player, without the unused streaming services.
+    (pkgs.strawberry.overrideAttrs (oldAttrs: {
+      cmakeFlags = oldAttrs.cmakeFlags ++ [
+        (lib.cmakeBool "ENABLE_SUBSONIC" false)
+        (lib.cmakeBool "ENABLE_TIDAL" false)
+        (lib.cmakeBool "ENABLE_SPOTIFY" false)
+        (lib.cmakeBool "ENABLE_QOBUZ" false)
+        (lib.cmakeBool "ENABLE_PLEX" false)
+        (lib.cmakeBool "ENABLE_JELLYFIN" false)
+      ];
+    }))
     vlc # Universal media player.
     xarchiver # Archive manager.
   ];
