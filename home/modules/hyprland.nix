@@ -61,6 +61,8 @@ in
     hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("alacritty"))
     hl.bind("SUPER + B", hl.dsp.exec_cmd("firefox-devedition"))
     hl.bind("SUPER + L", hl.dsp.exec_cmd("pidof hyprlock || hyprlock"))
+    -- Show or hide the on-screen keyboard, the wvkbd service is declared in waybar.nix.
+    hl.bind("SUPER + K", hl.dsp.exec_cmd("systemctl --user kill --signal=SIGRTMIN wvkbd.service"))
     hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd("alacritty"))
     hl.bind("CTRL + ALT + F", hl.dsp.exec_cmd("nemo"))
     hl.bind("CTRL + SPACE", hl.dsp.exec_cmd("ulauncher"))

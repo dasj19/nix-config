@@ -282,6 +282,7 @@ mkpasswd
 mktplc
 mkvtoolnix
 Mnnxcxis
+mobintl
 modemmanager
 modeset
 Modesetting
@@ -521,6 +522,7 @@ worpress
 wpctl
 WPLANG
 wtfis
+wvkbd
 wwwrun
 xapp
 xarchiver

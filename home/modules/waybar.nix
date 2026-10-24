@@ -83,6 +83,7 @@ in
         "disk"
         "custom/monitor-settings"
         "custom/projector-settings"
+        "custom/keyboard"
         "idle_inhibitor"
         "backlight"
         "bluetooth"
@@ -200,6 +201,14 @@ in
         on-click-right = "hyprctl eval \"hl.monitor({ output = '', mode = 'preferred', position = 'auto', scale = 1, mirror='' })\"";
       };
 
+      # Shows or hides the on-screen keyboard, SIGRTMIN toggles its visibility.
+      "custom/keyboard" = {
+        interval = "once";
+        format = "⌨️";
+        tooltip-format = "On-screen keyboard";
+        on-click = "systemctl --user kill --signal=SIGRTMIN wvkbd.service";
+      };
+
       # Opens the tofi power menu with session and power actions.
       "custom/power" = {
         interval = "once";
@@ -291,5 +300,17 @@ in
         tooltip-format-deactivated = "Idle inhibitor off: the screen dims and locks when idle";
       };
     };
+  };
+
+  # On-screen keyboard toggled from the bar, it starts hidden with the graphical session.
+  # It draws its own layouts, so the esrodk layout is not shown, mobintl has the Spanish characters.
+  systemd.user.services.wvkbd = {
+    Unit.Description = "On-screen keyboard";
+    Unit.PartOf = [ "graphical-session.target" ];
+    Unit.After = [ "graphical-session.target" ];
+    # Twice the default heights of the mobintl layout: 250 px in portrait and 120 px in landscape.
+    Service.ExecStart = "${pkgs.wvkbd}/bin/wvkbd-mobintl --hidden -H 500 -L 240";
+    Service.Restart = "on-failure";
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 }
