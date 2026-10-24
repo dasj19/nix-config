@@ -227,6 +227,11 @@ in
         timeout = 500; # seconds of inactivity before locking.
         on-timeout = lockCmd;
       }
+      {
+        timeout = 620; # seconds of inactivity before turning the screen off, 2 minutes after locking.
+        on-timeout = "hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'";
+        on-resume = "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
+      }
     ];
   };
   # Pyprland plugin management tool.
