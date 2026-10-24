@@ -34,6 +34,12 @@
   # hyprlock reads fingerprints itself, pam_fprintd would compete with it for the reader.
   security.pam.services.hyprlock.fprintAuth = false;
 
+  # Icon theme for GTK and Qt apps, unlike GNOME there is none by default.
+  stylix.icons.enable = true;
+  stylix.icons.package = pkgs.papirus-icon-theme;
+  stylix.icons.dark = "Papirus-Dark";
+  stylix.icons.light = "Papirus-Light";
+
   # Force electron apps to use wayland instead of X11.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -103,6 +109,7 @@
 
     gnome-contacts # Contact manager.
     gnome-keyring # Keyring for managing passwords and encryption keys.
+    kdePackages.kwindowsystem # Wayland plugin for KWindowSystem, used by the kvantum Qt style.
     lm_sensors # Tools for reading hardware sensors.
     mission-center # Task manager and system monitor.
     resources # Task manager and resource monitor.
