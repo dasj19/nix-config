@@ -31,6 +31,8 @@
   programs.hyprland.xwayland.enable = true;
 
   programs.hyprlock.enable = true;
+  # hyprlock reads fingerprints itself, pam_fprintd would compete with it for the reader.
+  security.pam.services.hyprlock.fprintAuth = false;
 
   # Force electron apps to use wayland instead of X11.
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

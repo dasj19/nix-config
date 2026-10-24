@@ -8,6 +8,9 @@
   ...
 }:
 
+let
+  lockCmd = ''pidof hyprlock || hyprctl dispatch 'hl.dsp.exec_cmd("hyprlock")' '';
+in
 {
 
   # Optional, hint Electron apps to use Ozone-Wayland:
@@ -205,8 +208,17 @@
 
   # Hyprland auto lock screen management.
   # @see https://wiki.hypr.land/Hypr-Ecosystem/hypridle/
+  # Hyprland starts hyprlock, so it runs in the active session and polkit lets it use the fingerprint
+  # reader, which is not the case for processes started by the hypridle user service.
+  # `pidof` avoids starting multiple hyprlock instances.
   services.hypridle.enable = true;
   services.hypridle.settings = {
+    general = {
+      lock_cmd = lockCmd; # run on `loginctl lock-session`.
+      # Lock before suspending, e.g. when closing the lid. Does not use `loginctl lock-session`
+      # because logind cannot lock greetd's greeter session, which Hyprland runs in.
+      before_sleep_cmd = lockCmd;
+    };
     # List of listeners, each triggered after its own timeout.
     listener = [
       {
@@ -216,7 +228,7 @@
       }
       {
         timeout = 500; # seconds of inactivity before locking.
-        on-timeout = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+        on-timeout = lockCmd;
       }
     ];
   };

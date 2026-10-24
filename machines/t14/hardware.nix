@@ -159,6 +159,15 @@
   systemd.services.fprintd.wantedBy = [
     "multi-user.target"
   ];
+  # Let the main user verify fingerprints from any session. By default only the active session can,
+  # and polkit rejects hyprlock when it claims the reader right after resuming from suspend.
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "net.reactivated.fprint.device.verify" && subject.user == "${config.users.primaryUser}") {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 
   # Enable the temperature management daemon.
   services.thermald.enable = true;
