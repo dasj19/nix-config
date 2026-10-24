@@ -78,7 +78,6 @@
     pwvucontrol # Pipewire volume control.
     textadept # Lightweight text editor.
     tumbler # Thumbnail generator service. Used by nemo and nemo-preview.
-    waybar # Status bar for Wayland.
     wl-mirror # Screen mirroring utility.
     wofi # Application launcher.
     xapp-thumbnailers # Set of thumbnailers for various file types. Used by nemo and nemo-preview.
