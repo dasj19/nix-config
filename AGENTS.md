@@ -153,6 +153,7 @@ Disable spell-checking for this file: cspell:disable.
 - **Short alias**: `osup` (defined in `modules/aliases.nix`)
 - **nh switch**: `nh os switch .#nixosConfigurations.<hostname>` (requires `nh` package)
 - **Short alias**: `nhup`
+- **Remote deploy**: `reup <hostname>` builds the machine locally with `nh` and switches it over ssh (`--target-host <hostname>`)
 - **Flake update**: `nix flake update` or `flup` alias
 - **Clean old generations**: `nh clean all --keep-since 5d --keep 3` or `nhcl` alias
 - **Build specific machine**: `nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel`

@@ -130,6 +130,8 @@ in
     indir = "function indir; mkdir $argv; cd $argv; end; indir";
     # Change into a directory and list its contents.
     cl = "function cl; cd $argv; ls; end; cl";
+    # Build a machine locally and deploy it over ssh, e.g. `reup linodenix1`.
+    reup = "function reup; nh os switch .#nixosConfigurations.$argv[1] --target-host $argv[1] --use-substitutes; end; reup"; # calls sudo when needed.
   };
 
   # Packages required for aliases to work.
