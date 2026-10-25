@@ -7,6 +7,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
 let
@@ -148,8 +149,14 @@ in
   programs.nix-ld.enable = true;
 
   # Enable virtualisation daemons.
-  # Docker is enabled in development.nix, here it only starts on demand.
-  virtualisation.docker.enableOnBoot = false;
+  # Testing podman in place of the docker enabled in development.nix.
+  virtualisation.docker.enable = lib.mkForce false;
+  virtualisation.podman.enable = true;
+  # Provides the docker command and socket for tools like ddev and docker compose.
+  virtualisation.podman.dockerCompat = true;
+  virtualisation.podman.dockerSocket.enable = true;
+  # Lets compose containers resolve each other by name.
+  virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
   virtualisation.waydroid.enable = true;
 
   # Non-free software whitelist / shame list.
