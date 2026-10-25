@@ -109,6 +109,7 @@ in
     filezilla # FTP client.
     flameshot # Screenshot tool.
     gimp # Image manipulation software,
+    inkscape # vector image editor.
     lbry # Client for the LBRY protocol.
     libreoffice # Secondary office suite.
     meld # Visual diff merger.

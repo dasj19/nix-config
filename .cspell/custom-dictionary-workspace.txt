@@ -213,6 +213,7 @@ immich
 improvesearch
 indir
 inetutils
+inkscape
 intelephense
 iotop
 iperf
