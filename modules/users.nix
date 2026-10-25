@@ -4,6 +4,7 @@
 {
   config,
   gitSecrets,
+  lib,
   pkgs,
   sopsSecrets,
   ...
@@ -43,14 +44,16 @@ in
     extraGroups = [
       "audio"
       "dialout"
-      "docker"
       "lp"
       "networkmanager"
       "scanner"
       "tty" # Needed to allow serial console connections (Charachorder) in Chromium.
       "video"
       "wheel"
-    ];
+    ]
+    # Access to the container socket, only on machines that enable it.
+    ++ lib.optional config.virtualisation.docker.enable "docker"
+    ++ lib.optional config.virtualisation.podman.dockerSocket.enable "podman";
   };
   users.users.root = {
     hashedPasswordFile = config.sops.secrets.root_password.path;
