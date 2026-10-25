@@ -40,7 +40,6 @@
     lrcget # Lyrics downloader.
 
     # Development.
-    ddev # tool for php-docker development. # cspell:disable-line
     devenv # control development environments with nix.
     mkcert # creates development environment certificates. # cspell:disable-line
     php83 # PHP.
@@ -60,11 +59,6 @@
   programs.virt-manager.enable = true;
   # Network bridge between vm guest and host.
   virtualisation.libvirtd.allowedBridges = [ "virbr0" ]; # cspell:disable-line
-
-  # Docker is enabled in development.nix, buildx handles building docker remotely. cspell:ignore buildx
-  virtualisation.docker.extraPackages = [
-    pkgs.docker-buildx # cspell:disable-line
-  ];
 
   # Measures USB traffic bandwidth.
   programs.usbtop.enable = true;

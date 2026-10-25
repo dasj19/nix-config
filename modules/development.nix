@@ -21,5 +21,10 @@
   services.mysql.package = pkgs.mariadb;
 
   # Containers.
-  virtualisation.docker.enable = true;
+  virtualisation.podman.enable = true;
+  # Provides the docker command and socket for tools like docker compose.
+  virtualisation.podman.dockerCompat = true;
+  virtualisation.podman.dockerSocket.enable = true;
+  # Lets compose containers resolve each other by name.
+  virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
 }

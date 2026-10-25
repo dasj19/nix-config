@@ -24,7 +24,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── browsers.nix          # Firefox, Chromium and other browser's preferences
 │   ├── cuda-packages.nix     # Module option: config.cuda.allowedPackages
 │   ├── desktop-common.nix    # Apps, keyring and MIME defaults shared by the desktop modules
-│   ├── development.nix       # Shared web development stack (nodejs, mariadb, docker)
+│   ├── development.nix       # Shared web development stack (nodejs, mariadb, podman)
 │   ├── email-server.nix      # Mailserver base config + rspamd
 │   ├── fastfetch.nix         # Fast system information display
 │   ├── fish.nix              # Fish shell + plugins
@@ -145,7 +145,7 @@ Disable spell-checking for this file: cspell:disable.
 - **deadnix**: enforced. Reports unused function arguments and let bindings. Run `nix build .#checks.x86_64-linux.deadnix`.
 - **sorted-lists**: enforced. Run `nix build .#checks.x86_64-linux.sorted-lists` to check, or `nix run .#sort-lists` from the repository root to sort the lists in place.
 - **nix flake check**: Do not run locally, run only in CI.
-- **cspell**: some terms are disabled inline with `# cspell:disable-line` (e.g., `cudnn`, `ddev`, `xdebug`). Do not add new cspell disables without need.
+- **cspell**: some terms are disabled inline with `# cspell:disable-line` (e.g., `cudnn`, `mkcert`, `xdebug`). Do not add new cspell disables without need.
 
 ## Build and Deploy Commands
 
