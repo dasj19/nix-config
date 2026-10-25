@@ -69,6 +69,10 @@
   # Measures USB traffic bandwidth.
   programs.usbtop.enable = true;
 
+  # Use the hostup1 nix store as binary cache, after cache.nixos.org (priority 40).
+  # Trusted without signatures, root already uses ssh to hostup1 for remote builds.
+  nix.settings.substituters = [ "ssh-ng://hostup1?trusted=true&priority=50" ];
+
   # Networking settings.
   networking.hostName = "t14";
 
