@@ -153,4 +153,31 @@ in
     domain = "gen.${name-domain}";
     extraDomainNames = [ "www.gen.${name-domain}" ];
   };
+
+  # Daniel + name domain.
+  services.caddy.virtualHosts."http://${name-domain}".extraConfig = ''
+    redir https://daniel.${name-domain}{uri} permanent
+  '';
+  services.caddy.virtualHosts."https://${name-domain}".extraConfig = ''
+    redir https://daniel.${name-domain}{uri} permanent
+  '';
+  services.caddy.virtualHosts."http://daniel.${name-domain}".extraConfig = ''
+    redir https://daniel.${name-domain}{uri} permanent
+  '';
+  services.caddy.virtualHosts."https://daniel.${name-domain}:443".extraConfig = ''
+    root * /var/www/daniel.${name-domain}
+
+    # Serve only static files if they exist
+    file_server
+    log {
+      output file /var/log/caddy/https-daniel-name-domain.log
+    }
+  '';
+  # ACME settings for the daniel name domain.
+  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
+  security.acme.certs."daniel-name-domain" = {
+    inherit (config.services.caddy) group;
+
+    domain = "daniel.${name-domain}";
+  };
 }
