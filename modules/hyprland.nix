@@ -116,17 +116,7 @@
     showmethekey # OSD of pressed keys.
     swayosd # Controls media keys and special keys with visuals.
     # @TODO revert to tauon once it is fixed upstream. https://github.com/NixOS/nixpkgs/issues/577587
-    #tauon # Album-based with lyrics support.
-    # cspell: ignore typelib
-    # Port of https://github.com/NixOS/nixpkgs/pull/575801: replace the last 4 wrapper args
-    # ("$out/share/tauon" --set GI_TYPELIB_PATH "$GI_TYPELIB_PATH"), which are not expanded.
-    (pkgs.tauon.overrideAttrs (oldAttrs: {
-      makeWrapperArgs = lib.dropEnd 4 oldAttrs.makeWrapperArgs ++ [ "${placeholder "out"}/share/tauon" ];
-
-      preFixup = ''
-        makeWrapperArgs+=(--set GI_TYPELIB_PATH "$GI_TYPELIB_PATH")
-      '';
-    }))
+    tauon # Album-based with lyrics support.
     tofi # wayland-native dynamic menu.
   ];
 
