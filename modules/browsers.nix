@@ -296,6 +296,12 @@
       private_browsing = true;
       updates_disabled = true;
     };
+    "deArrow@ajay.app" = {
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/4897568/dearrow-2.3.10.xpi";
+      installation_mode = "force_installed";
+      private_browsing = true;
+      updates_disabled = true;
+    };
     "{1018e4d6-728f-4b20-ad56-37578a4de76b}" = {
       install_url = "https://addons.mozilla.org/firefox/downloads/file/4929641/flagfox-6.2.2.xpi";
       installation_mode = "force_installed";
