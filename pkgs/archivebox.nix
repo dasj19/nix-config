@@ -21,7 +21,9 @@
   gallery-dl,
   git,
   imagemagick,
+  jq,
   lib,
+  libjxl,
   liteparse,
   nodejs,
   pnpm,
@@ -40,14 +42,14 @@ let
   # The mercury plugin needs this fork, nixpkgs only has @postlight/parser.
   mercury-parser = buildNpmPackage rec {
     pname = "mercury-parser";
-    version = "3.1.1";
+    version = "3.1.2";
     src = fetchFromGitHub {
       owner = "jocmp";
       repo = "mercury-parser";
       tag = "v${version}";
-      hash = "sha256-FomVN1mW8CJldb8gPuxUeA1sFYQJI/aLePnqJTJjkCs=";
+      hash = "sha256-yE/odH1Q0TmiWe0VwcizCxuJuuYard9PEGXQp/5gRpY=";
     };
-    npmDepsHash = "sha256-Gpkear8tf3NGCvPoHv+sd7TlfDfYcwap9cNrH4cbC1E=";
+    npmDepsHash = "sha256-/nFa2ohkfBrze5spT1OFYlgjJN5XJSDOufTGMlCe5aQ=";
     # The built dist/ is committed.
     dontNpmBuild = true;
     npmFlags = [ "--ignore-scripts" ];
@@ -64,17 +66,17 @@ let
     meta.mainProgram = "mercury-parser";
   };
 
-  # nixpkgs ships 0.0.11, the readability plugin needs at least 0.0.12.
+  # nixpkgs ships 0.0.11, the readability plugin needs at least 0.0.15.
   readability-extractor = buildNpmPackage rec {
     pname = "readability-extractor";
-    version = "0.0.12";
+    version = "0.0.15";
     src = fetchFromGitHub {
       owner = "ArchiveBox";
       repo = "readability-extractor";
       tag = "v${version}";
-      hash = "sha256-CuI2KwJQAK62gPqlzsyi/lLAZru5MsOo+Rtuoq1uBX8=";
+      hash = "sha256-9kFyg8Eh6gTOP42VQPZ11n8b6+I1P/FiOKK75tZDW2A=";
     };
-    npmDepsHash = "sha256-i9f4NZmVgVzcXx8U0MRZpoVGVFThRAGF9NcGysb1tZY=";
+    npmDepsHash = "sha256-mBjrqcvndxU1EDFri2Av8CaTx5Tc76GQmAD81MU9Vx8=";
     dontNpmBuild = true;
     meta.mainProgram = "readability-extractor";
   };
@@ -98,12 +100,12 @@ let
 
       abx-dl = pySelf.buildPythonPackage rec {
         pname = "abx-dl";
-        version = "1.13.242";
+        version = "1.13.277";
         pyproject = true;
         src = pySelf.fetchPypi {
           pname = "abx_dl";
           inherit version;
-          hash = "sha256-BIqxrCiL6+j1ijnGmgXTVFz0i+3jRvByf9qjhV8wQdY=";
+          hash = "sha256-dJLlARhh9mFegnSxqsIoirE5n1bh0h+yiFbrtfRSLig=";
         };
         build-system = [ pySelf.pdm-backend ];
         # nixpkgs ships psutil 7.2.2, excluded upstream for a macOS-only bug.
@@ -125,17 +127,30 @@ let
 
       abx-plugins = pySelf.buildPythonPackage rec {
         pname = "abx-plugins";
-        version = "1.13.474";
+        version = "1.13.578";
         pyproject = true;
         src = pySelf.fetchPypi {
           pname = "abx_plugins";
           inherit version;
-          hash = "sha256-Y7fWhxpU+QigchQe6b3Ax6YIEbb5Uw2W8QSQwAmlbhw=";
+          hash = "sha256-22PAQhgCtJ0snFJoi6BCMZhSN5e26n73e4tTaonMDMY=";
         };
         build-system = [ pySelf.hatchling ];
+        nativeBuildInputs = [ jq ];
+        # The plugins pin the exact versions of their binaries, nixpkgs ships
+        # other ones of these three.
+        postPatch = ''
+          for config in abx_plugins/plugins/*/config.json; do
+            jq '(.required_binaries[]? | select(.name | IN("{NODE_BINARY}", "{GALLERYDL_BINARY}", "{CHROME_BINARY}"))) |= del(.min_version, .max_version)' \
+              "$config" > "$config.tmp"
+            mv "$config.tmp" "$config"
+          done
+        '';
+        # nixpkgs ships an older certifi.
+        pythonRelaxDeps = [ "certifi" ];
         dependencies = with pySelf; [
           abxbus
           abxpkg
+          certifi
           imagesize
           rich-click
           uv
@@ -150,11 +165,11 @@ let
 
       abxbus = pySelf.buildPythonPackage rec {
         pname = "abxbus";
-        version = "2.5.77";
+        version = "2.5.79";
         pyproject = true;
         src = pySelf.fetchPypi {
           inherit pname version;
-          hash = "sha256-0ssltJN7FJnLv7qCo4Xx6FKrIVvz2Nkcs1CQwuToGcI=";
+          hash = "sha256-x8aa3zW8OK12N3lupPmJATCZxRDH6OO6nmLJEvM7byY=";
         };
         build-system = [ pySelf.uv-build ];
         postPatch = relaxUvBuild;
@@ -168,14 +183,15 @@ let
 
       abxpkg = pySelf.buildPythonPackage rec {
         pname = "abxpkg";
-        version = "1.13.58";
+        version = "1.13.73";
         pyproject = true;
         src = pySelf.fetchPypi {
           inherit pname version;
-          hash = "sha256-xNacL2I+mY02TNOyGUBdlp2F31h9YDIEYM2NkUxmzAc=";
+          hash = "sha256-LQRlCegu8RESE8ETNr/wEBPKWOP3e1V1+gZ5+bHhbDg=";
         };
         build-system = [ pySelf.hatchling ];
         dependencies = with pySelf; [
+          packaging
           platformdirs
           pydantic
           rich-click
@@ -422,17 +438,24 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "archivebox";
-  version = "0.9.74rc338";
+  version = "0.9.77";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "ArchiveBox";
     repo = "ArchiveBox";
     tag = "v${version}";
-    hash = "sha256-5gwDrIj16OBEaWkQ7iqwve6Yj6fF/09gZItspKcYUsM=";
+    hash = "sha256-WMFanzQzX6hcIHMM351d6EpEFSBmBEbEpfgmA3UtfV0=";
   };
 
   build-system = [ python.pkgs.pdm-backend ];
+
+  # nixpkgs ships older versions of these.
+  pythonRelaxDeps = [
+    "setuptools"
+    "twisted"
+    "uvicorn"
+  ];
 
   dependencies =
     with python.pkgs;
@@ -471,15 +494,18 @@ python.pkgs.buildPythonApplication rec {
       sonic-client
       supervisor
       toml
+      twisted
       tzdata
+      uvicorn
       w3lib
     ]
     ++ abx-plugins.optional-dependencies.opencode
     # HTTP/2 support for daphne.
     ++ twisted.optional-dependencies.http2
-    ++ twisted.optional-dependencies.tls;
+    ++ twisted.optional-dependencies.tls
+    ++ uvicorn.optional-dependencies.standard;
 
-  # Workers like daphne are spawned as `python -m ...` with the bare interpreter,
+  # Workers like uvicorn are spawned as `python -m ...` with the bare interpreter,
   # so they only find the python dependencies through PYTHONPATH.
   makeWrapperArgs = [
     "--prefix"
@@ -495,6 +521,7 @@ python.pkgs.buildPythonApplication rec {
       gallery-dl
       git
       imagemagick
+      libjxl
       liteparse
       mercury-parser
       nodejs
