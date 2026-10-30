@@ -115,7 +115,6 @@
     resources # Task manager and resource monitor.
     showmethekey # OSD of pressed keys.
     swayosd # Controls media keys and special keys with visuals.
-    # @TODO revert to tauon once it is fixed upstream. https://github.com/NixOS/nixpkgs/issues/577587
     tauon # Album-based with lyrics support.
     tofi # wayland-native dynamic menu.
   ];
