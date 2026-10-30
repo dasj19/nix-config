@@ -279,13 +279,13 @@
       blocked_install_message = "Install extensions via nix config!";
     };
     "uBlock0@raymondhill.net" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4888680/ublock_origin-1.72.2.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/5034826/ublock_origin-1.75.0.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "jid1-MnnxcxisBPnSXQ@jetpack" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4854040/privacy_badger17-2026.6.16.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/5032646/privacy_badger17-2026.9.15.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
@@ -303,7 +303,7 @@
       updates_disabled = true;
     };
     "{1018e4d6-728f-4b20-ad56-37578a4de76b}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4929641/flagfox-6.2.2.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/5067561/flagfox-6.2.6.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
@@ -315,13 +315,13 @@
       updates_disabled = true;
     };
     "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4773733/user_agent_string_switcher-0.6.7.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/5081116/user_agent_string_switcher-0.7.2.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
     };
     "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-      install_url = "https://addons.mozilla.org/firefox/downloads/file/4915668/bitwarden_password_manager-2026.7.0.xpi";
+      install_url = "https://addons.mozilla.org/firefox/downloads/file/5182191/bitwarden_password_manager-2026.10.1.xpi";
       installation_mode = "force_installed";
       private_browsing = true;
       updates_disabled = true;
