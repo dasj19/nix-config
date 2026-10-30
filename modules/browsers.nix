@@ -335,7 +335,6 @@
     "mdjildafknihdffpkfmmpnpoiajfjnjd" # Consent-O-Matic                # cspell: disable-line
     "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock for YouTube       # cspell: disable-line
     "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike         # cspell: disable-line
-    "kimbeggjgnmckoikpckibeoaocafcpbg" # YouTube Captions Search        # cspell: disable-line
     "fploionmjgeclbkemipmkogoaohcdbig" # Page load time                 # cspell: disable-line
     "fhnegjjodccfaliddboelcleikbmapik" # Tab Counter                    # cspell: disable-line
     "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine                # cspell: disable-line
