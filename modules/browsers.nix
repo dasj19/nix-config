@@ -336,7 +336,6 @@
     "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock for YouTube       # cspell: disable-line
     "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike         # cspell: disable-line
     "kimbeggjgnmckoikpckibeoaocafcpbg" # YouTube Captions Search        # cspell: disable-line
-    "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere               # cspell: disable-line
     "fploionmjgeclbkemipmkogoaohcdbig" # Page load time                 # cspell: disable-line
     "fhnegjjodccfaliddboelcleikbmapik" # Tab Counter                    # cspell: disable-line
     "fpnmgdkabkmnadcjpehmlllkndpkmiak" # Wayback Machine                # cspell: disable-line
@@ -344,6 +343,8 @@
   ];
   # See available options at https://chromeenterprise.google/policies/
   programs.chromium.extraOpts = {
+    # Warn before loading any page over plain HTTP.
+    "HttpsOnlyMode" = "force_enabled";
     # Disable browser sign-in functionality.
     "BrowserSignin" = 0;
     # Disable the profile creation prompt on startup.
