@@ -8,6 +8,7 @@
 #
 
 {
+  lib,
   pkgs,
   ...
 }:
@@ -47,11 +48,43 @@
 
     # GUI.
     gcstar # Collection manager.
+    # Screen casting over Miracast, with the hardcoded 4 Mbit/s video bitrate raised to 8 Mbit/s.
+    (gnome-network-displays.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        substituteInPlace src/wfd/wfd-media-factory.c --replace-fail "512 * 8" "8000"
+      '';
+    }))
     xsane # Paper scanning software.
 
     # P2P.
     nicotine-plus # soulseek client.
     sabnzbd # nzb client.
+  ];
+
+  # NixOS runs wpa_supplicant as non-root, and the NetworkManager policy denies messages to it by
+  # default. This drops signals like DeviceFound, so NetworkManager never sees any Wi-Fi Direct peer.
+  services.dbus.packages = [
+    (pkgs.writeTextDir "share/dbus-1/system.d/wpa-supplicant-networkmanager.conf" ''
+      <!DOCTYPE busconfig PUBLIC
+       "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+       "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+      <busconfig>
+        <policy group="wpa_supplicant">
+          <allow send_destination="org.freedesktop.NetworkManager" send_type="signal"/>
+        </policy>
+      </busconfig>
+    '')
+  ];
+
+  # The wpa_supplicant module restarts it when a wlan interface appears or disappears, which
+  # includes the Wi-Fi Direct group interface it creates itself, aborting every connection.
+  services.udev.extraRules = lib.mkMerge [
+    (lib.mkBefore ''
+      SUBSYSTEM=="net", KERNEL=="p2p-*", GOTO="wifi_direct_end"
+    '')
+    (lib.mkAfter ''
+      LABEL="wifi_direct_end"
+    '')
   ];
 
   # Enable virtualization.
@@ -75,6 +108,16 @@
       "localhost"
       "archivebox.localhost"
       "admin.archivebox.localhost"
+    ];
+  };
+
+  # Only on the Wi-Fi Direct groups of gnome-network-displays, numbered per connection.
+  networking.firewall.interfaces."p2p-wlp0s20-+" = {
+    allowedTCPPorts = [
+      7236 # Miracast RTSP
+    ];
+    allowedUDPPorts = [
+      67 # DHCP
     ];
   };
 
