@@ -48,12 +48,7 @@
 
     # GUI.
     gcstar # Collection manager.
-    # Screen casting over Miracast, with the hardcoded 4 Mbit/s video bitrate raised to 8 Mbit/s.
-    (gnome-network-displays.overrideAttrs (old: {
-      postPatch = (old.postPatch or "") + ''
-        substituteInPlace src/wfd/wfd-media-factory.c --replace-fail "512 * 8" "8000"
-      '';
-    }))
+    gnome-network-displays # Screen casting over Miracast.
     xsane # Paper scanning software.
 
     # P2P.
