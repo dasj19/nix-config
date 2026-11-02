@@ -159,9 +159,9 @@ let
 in
 {
   # php-fpm with custom extensions.
-  services.phpfpm.phpOptions = ''
-    extension=${pkgs.php83Extensions.imagick}/lib/php/extensions/imagick.so
-  '';
+  services.phpfpm.phpOptions = {
+    extension = "${pkgs.php.extensions.imagick}/lib/php/extensions/imagick.so";
+  };
   # Using caddy webserver.
   services.wordpress.webserver = "caddy";
   # Note the .sites - the upstream module says this is the new syntax,
