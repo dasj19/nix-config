@@ -10,7 +10,7 @@
 }:
 buildFishPlugin rec {
   pname = "fish-colored-man";
-  version = "0-unstable-20240416";
+  version = "0-unstable-2021-07-16";
   src = fetchFromGitHub {
     owner = "decors";
     repo = pname;
