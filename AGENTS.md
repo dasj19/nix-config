@@ -128,7 +128,7 @@ Disable spell-checking for this file: cspell:disable.
 
 - **quality-assurance.yml**: lint-only workflow. Builds the `statix`, `deadnix`, `nixfmt` and `sorted-lists` flake checks. Triggers on all pushes and PRs.
 - **autoupdate-flake.yml**: daily `nix flake update` on the self-hosted runner. Builds every machine with the new lock, commits and pushes `flake.lock` only if all builds pass, then dispatches `build.yml`.
-- **build.yml**: build workflow. Runs on self-hosted runner. Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (runs after `validate`, matrix of all machines listed from `nixosConfigurations`).
+- **build.yml**: build workflow. Runs on self-hosted runner, only on pushes to master and manual dispatch (never on pull requests, the runner holds the git-crypt key). Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (runs after `validate`, matrix of all machines listed from `nixosConfigurations`).
 - **Experimental features**: CI enables `nix-command flakes` via `extra_nix_config`.
 - **Tools**: linters come from the flake's `checks` output, so CI, pre-commit and local runs use the nixpkgs pinned in `flake.lock`.
 

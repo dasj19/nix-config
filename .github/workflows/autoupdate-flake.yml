@@ -13,6 +13,15 @@ concurrency:
   group: autoupdate-flake
   cancel-in-progress: false
 
+# Push the updated flake.lock and dispatch build.yml.
+permissions:
+  contents: write
+  actions: write
+
+# Enable flakes once for every nix command in this workflow.
+env:
+  NIX_CONFIG: extra-experimental-features = nix-command flakes
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "update"
@@ -31,9 +40,7 @@ jobs:
 
       # Updating the flake input references.
       - name: Run flake update command
-        run: |
-          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          flake update
+        run: nix flake update
 
       # Skip the remaining steps when no input has changed.
       - name: Check for changes
@@ -50,7 +57,6 @@ jobs:
       - name: Build all machines
         if: steps.changes.outputs.changed == 'true'
         run: |
-          nix() { command nix --extra-experimental-features nix-command --extra-experimental-features flakes "$@"; }
           machines=$(nix eval --raw .#nixosConfigurations --apply 'c: builtins.concatStringsSep " " (builtins.attrNames c)')
           targets=()
           for machine in $machines; do
@@ -73,6 +79,7 @@ jobs:
       # cspell:ignore benc
       - name: Trigger build
         if: steps.changes.outputs.changed == 'true'
-        uses: benc-uk/workflow-dispatch@v1
+        # Pinned to the commit of v1.3.3, a moving tag could change the code run on the self-hosted runner.
+        uses: benc-uk/workflow-dispatch@d004979be141727c7a17c28f603e2facc40d0855 # v1.3.3
         with:
           workflow: build.yml

@@ -2,14 +2,23 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the "master" branch
+  # Triggers the workflow on push events but only for the "master" branch.
+  # No pull_request trigger: the self-hosted runner holds the git-crypt key,
+  # and the repository is public, so PRs from forks must never run on it.
+  # Pull requests are linted by quality-assurance.yml on GitHub-hosted runners.
   push:
-    branches: [ "master" ]
-  pull_request:
     branches: [ "master" ]
 
   # Allows manual run of this workflow from the Actions tab
   workflow_dispatch:
+
+# The jobs only read the repository.
+permissions:
+  contents: read
+
+# Enable flakes once for every nix command in this workflow.
+env:
+  NIX_CONFIG: extra-experimental-features = nix-command flakes
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,22 +42,19 @@ jobs:
       - name: Flake check
         run: |
           echo "Running nix flake check..."
-          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          flake check
+          nix flake check
 
       # Pin all flake inputs for reproducible builds.
       - name: Flake archive
         run: |
           echo "Archiving flake inputs to local store..."
-          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          flake archive
+          nix flake archive
 
       # List all machines defined in the flake.
       - name: List machines
         id: machines
         run: |
-          machines=$(nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          eval --json .#nixosConfigurations --apply builtins.attrNames)
+          machines=$(nix eval --json .#nixosConfigurations --apply builtins.attrNames)
           echo "Machines: $machines"
           echo "machines=$machines" >> "$GITHUB_OUTPUT"
 
@@ -79,8 +85,7 @@ jobs:
       # Building packages for the system.
       - name: Build ${{ matrix.system }} packages
         run: |
-          nix --extra-experimental-features nix-command --extra-experimental-features flakes \
-          build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel \
+          nix build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel \
           --keep-going
       # Print total storage to know when to garbage collect.
       - name: Print total storage resources
