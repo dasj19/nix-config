@@ -17,6 +17,9 @@ TODO:
 - laptop: fix upstream backintime needing fcron installed separately (profiles/laptop.nix)
 - waybar: revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs (home/modules/waybar.nix)
 
+2026-11-02
+- t14: add a local duckduckgo-chat-cli package, a terminal client for DuckDuckGo's AI chat
+
 2026-10-23
 - desktops: gnome.nix and hyprland.nix now bring their home-manager modules, laptops no longer get both desktops' home settings
 - desktops: add desktop-common.nix with the apps, keyring and MIME defaults shared by gnome and hyprland

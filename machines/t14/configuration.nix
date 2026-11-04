@@ -38,10 +38,12 @@
     # CLI.
     apkeep # Android APK downloader.
     (callPackage ./../../pkgs/archivebox.nix { }) # Self-hosted web archiving.
+    (callPackage ./../../pkgs/duckduckgo-chat-cli.nix { }) # DuckDuckGo AI chat client.
     lrcget # Lyrics downloader.
 
     # Development.
     devenv # control development environments with nix.
+    go
     mkcert # creates development environment certificates. # cspell:disable-line
     php83 # PHP.
     php83Packages.composer # Composer package manager for PHP.
