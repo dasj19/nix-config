@@ -83,7 +83,6 @@
     nixfmt # Nix code formatter following the rfc style.
     nixpkgs-fmt # Nix code formatter.
     nixpkgs-review # Tool to review nixpkgs pull requests.
-    statix # Static analysis tool for nix code.
   ];
 
   # Provides hints for commands that are missing from the system.

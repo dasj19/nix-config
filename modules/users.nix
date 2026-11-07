@@ -5,7 +5,6 @@
   config,
   gitSecrets,
   lib,
-  pkgs,
   sopsSecrets,
   ...
 }:
@@ -16,12 +15,7 @@ let
 in
 
 {
-  # Required packages.
-  environment.systemPackages = with pkgs; [
-    sops
-  ];
-
-  # SOPS settings.
+  # SOPS settings, the sops CLI is installed by profiles/base.nix.
   sops.defaultSopsFile = sopsSecrets;
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
