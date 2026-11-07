@@ -82,6 +82,12 @@ in
 
   # ACME settings.
   security.acme.defaults.email = "webmaster@${daniel-domain}";
+  security.acme.certs."mail.${daniel-domain}" = {
+    domain = "mail.${daniel-domain}";
+    dnsProvider = "cloudflare";
+    dnsResolver = "1.1.1.1:53";
+    dnsPropagationCheck = true;
+  };
 
   # Initial version. Consult manual before changing.
   system.stateVersion = "24.05";
