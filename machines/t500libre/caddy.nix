@@ -92,7 +92,7 @@ in
   '';
   # ACME settings for the gnu domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
-  security.acme.certs."gnu-domain" = {
+  security.acme.certs."${gnu-domain}" = {
     inherit (config.services.caddy) group;
 
     domain = "${gnu-domain}";
@@ -115,7 +115,7 @@ in
   '';
   # ACME settings for the planning tool domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
-  security.acme.certs."do-gnu-domain" = {
+  security.acme.certs."do.${gnu-domain}" = {
     inherit (config.services.caddy) group;
 
     domain = "do.${gnu-domain}";
@@ -131,7 +131,7 @@ in
   '';
   # ACME settings for the media domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
-  security.acme.certs."media-domain" = {
+  security.acme.certs."media.${name-domain}" = {
     inherit (config.services.caddy) group;
 
     domain = "media.${name-domain}";
@@ -147,7 +147,7 @@ in
   '';
   # ACME settings for the genealogy domain.
   # https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/
-  security.acme.certs."gen-domain" = {
+  security.acme.certs."gen.${name-domain}" = {
     inherit (config.services.caddy) group;
 
     domain = "gen.${name-domain}";
@@ -175,7 +175,7 @@ in
   '';
   # ACME settings for the daniel name domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
-  security.acme.certs."daniel-name-domain" = {
+  security.acme.certs."daniel.${name-domain}" = {
     inherit (config.services.caddy) group;
 
     domain = "daniel.${name-domain}";
