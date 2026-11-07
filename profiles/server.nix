@@ -13,6 +13,10 @@
   networking.firewall.allowPing = true;
   networking.firewall.pingLimit = "--limit 1/minute --limit-burst 5";
 
+  environment.systemPackages = with pkgs; [
+    goaccess # log analyzer
+  ];
+
   # Don't build documentation on servers.
   documentation.enable = false;
   documentation.man.enable = false;
