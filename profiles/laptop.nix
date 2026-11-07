@@ -56,10 +56,6 @@ in
     };
   };
 
-  # gtk2 is marked broken ahead of its removal (https://github.com/NixOS/nixpkgs/issues/410814).
-  # @todo: drop this once euro-office-desktopeditors and xsane no longer depend on gtk2.
-  nixpkgs.config.problems.handlers."gtk+".broken = "warn";
-
   # Non-free software for laptop.
   allowedUnfree = [
     # Libraries.

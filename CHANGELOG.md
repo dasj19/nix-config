@@ -14,9 +14,12 @@ TODO:
 - development: move the development stack into separate devenv configurations (modules/development.nix)
 - fish: submit the local fish-colored-man plugin upstream (modules/fish.nix)
 - laptop: check upstream why the intelephense vscode extension is marked as non-free (profiles/laptop.nix)
-- laptop: drop the gtk2 broken warning once euro-office-desktopeditors and xsane no longer depend on gtk2 (profiles/laptop.nix)
 - laptop: fix upstream backintime needing fcron installed separately (profiles/laptop.nix)
 - waybar: revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs (home/modules/waybar.nix)
+
+2026-11-07
+- t14: replace the gtk2-only xsane with simple-scan
+- laptop: drop the gtk2 broken warning, no package depends on gtk2 anymore
 
 2026-11-04
 - laptop: let the broken gtk2 evaluate with a warning, needed by euro-office-desktopeditors and xsane

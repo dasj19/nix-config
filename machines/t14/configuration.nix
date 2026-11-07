@@ -51,7 +51,7 @@
     # GUI.
     gcstar # Collection manager.
     gnome-network-displays # Screen casting over Miracast.
-    xsane # Paper scanning software.
+    simple-scan # Paper scanning software.
 
     # P2P.
     nicotine-plus # soulseek client.
