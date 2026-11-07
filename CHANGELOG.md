@@ -2,7 +2,6 @@
 In this file I'll try to mention major changes to the configuration.
 
 TODO:
-- setup smartd on cm4-nas
 - change services.openssh.settings.PermitRootLogin to "no".
 - check: https://github.com/iAmMrinal0/nix-config/blob/c1d06e9c3e9b9c4fabc720bb807a00c09bcbc3b7/hosts/yggdrasil.nix#L82
 - cm4-nas: include hardware support for the compute module 4 (flake.nix)
@@ -18,6 +17,7 @@ TODO:
 - waybar: revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs (home/modules/waybar.nix)
 
 2026-11-07
+- cm4-nas: schedule daily short and weekly long SMART self-tests on the raid disks
 - t14: replace the gtk2-only xsane with simple-scan
 - laptop: drop the gtk2 broken warning, no package depends on gtk2 anymore
 

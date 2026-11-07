@@ -4,6 +4,7 @@
 # Provides raid5 configuration and a NFS share.
 
 {
+  config,
   pkgs,
   ...
 }:
@@ -24,8 +25,12 @@
   # Automount software raid at boot time.
   boot.swraid.enable = true;
   boot.swraid.mdadmConf = ''
-    MAILADDR="daniel@cm4-nas"
+    MAILADDR="${config.users.primaryUser}@cm4-nas"
   '';
+
+  # Schedule SMART self-tests on the raid disks: short daily at 02:00, long weekly on Saturday at 03:00.
+  # Also enable automatic offline data collection. Failures are mailed by smartd (modules/hardware.nix).
+  services.smartd.defaults.autodetected = "-a -o on -s (S/../.././02|L/../../6/03)";
 
   networking.hostName = "cm4-nas";
   networking.networkmanager.enable = true;
