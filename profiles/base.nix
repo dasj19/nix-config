@@ -30,7 +30,6 @@
 
   # Log rotation.
   services.logrotate.enable = true;
-  services.logrotate.checkConfig = false;
   services.logrotate.settings.header.compress = true;
 
   # Machine's default time zone.

@@ -15,6 +15,7 @@ TODO:
 - waybar: revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs (home/modules/waybar.nix)
 
 2026-11-08
+- base: check the logrotate configuration at build time again, it passes on all machines
 - hostup1: still running as a nix builder and binary cache outside the fleet, it has no configuration in this repo
 - contabo2: migrate from dbus to dbus-broker, the default implementation
 - servers: disallow root login over ssh, use the primary user and sudo instead
