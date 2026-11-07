@@ -2,7 +2,6 @@
 In this file I'll try to mention major changes to the configuration.
 
 TODO:
-- change services.openssh.settings.PermitRootLogin to "no".
 - check: https://github.com/iAmMrinal0/nix-config/blob/c1d06e9c3e9b9c4fabc720bb807a00c09bcbc3b7/hosts/yggdrasil.nix#L82
 - cm4-nas: include hardware support for the compute module 4 (flake.nix)
 - cm4-nas: investigate how to have the taco working on a newer kernel (machines/cm4-nas/hardware.nix)
@@ -15,6 +14,9 @@ TODO:
 - laptop: check upstream why the intelephense vscode extension is marked as non-free (profiles/laptop.nix)
 - laptop: fix upstream backintime needing fcron installed separately (profiles/laptop.nix)
 - waybar: revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs (home/modules/waybar.nix)
+
+2026-11-08
+- servers: disallow root login over ssh, use the primary user and sudo instead
 
 2026-11-07
 - cm4-nas: schedule daily short and weekly long SMART self-tests on the raid disks

@@ -7,8 +7,8 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.settings.PubkeyAuthentication = true;
-  # Root may only log in with a key, never with a password.
-  services.openssh.settings.PermitRootLogin = "prohibit-password";
+  # Root may never log in, use the primary user and sudo instead.
+  services.openssh.settings.PermitRootLogin = "no";
   services.openssh.extraConfig = "MaxAuthTries 10";
   # https://stackoverflow.com/questions/8250379/sftp-on-linux-server-gives-error-received-message-too-long
   services.openssh.sftpServerExecutable = "internal-sftp";
