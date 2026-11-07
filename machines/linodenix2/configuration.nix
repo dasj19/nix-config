@@ -52,7 +52,6 @@ in
   networking.useDHCP = true;
 
   # Open ports in the firewall.
-  networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
     25 # SMTP
     53 # DNS

@@ -56,7 +56,6 @@ in
   };
 
   # Open ports in the firewall.
-  networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
     25 # SMTP
     80 # HTTP (for signing acme certificates)
