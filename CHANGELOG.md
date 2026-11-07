@@ -5,7 +5,6 @@ TODO:
 - check: https://github.com/iAmMrinal0/nix-config/blob/c1d06e9c3e9b9c4fabc720bb807a00c09bcbc3b7/hosts/yggdrasil.nix#L82
 - cm4-nas: include hardware support for the compute module 4 (flake.nix)
 - cm4-nas: investigate how to have the taco working on a newer kernel (machines/cm4-nas/hardware.nix)
-- contabo2: migrate from dbus to dbus-broker when it's safe to reboot (machines/contabo2/configuration.nix)
 - linodenix1: build a custom fail2ban filter for the kernel access refused messages (machines/linodenix1/configuration.nix)
 - t500libre: make an overall map of the services hosted at the gnu domain (machines/t500libre/caddy.nix)
 - t500libre: recheck and update the list of blacklisted kernel modules (machines/t500libre/hardware.nix)
@@ -16,6 +15,7 @@ TODO:
 - waybar: revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs (home/modules/waybar.nix)
 
 2026-11-08
+- contabo2: migrate from dbus to dbus-broker, the default implementation
 - servers: disallow root login over ssh, use the primary user and sudo instead
 
 2026-11-07
