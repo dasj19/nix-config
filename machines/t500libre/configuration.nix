@@ -57,7 +57,9 @@ in
   # ACME properties.
   security.acme.acceptTerms = true;
   security.acme.defaults.email = acme-webmaster;
-  security.acme.defaults.webroot = "/var/lib/acme/acme-challenge/";
+  security.acme.defaults.dnsProvider = "cloudflare";
+  security.acme.defaults.dnsResolver = "1.1.1.1:53";
+  security.acme.defaults.dnsPropagationCheck = true;
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
