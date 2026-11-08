@@ -129,7 +129,7 @@
       IconURL = "https://nixos.org/favicon.ico";
       Method = "GET";
       Name = "NixOS Options";
-      URLTemplate = "https://search.nixos.org/options?from=0&size=200&sort=relevance&type=packages&query={searchTerms}";
+      URLTemplate = "https://search.nixos.org/options?from=0&size=200&channel=unstable&sort=relevance&type=packages&query={searchTerms}";
     }
     # Search NixOS packages with: "@np package-name".
     {
