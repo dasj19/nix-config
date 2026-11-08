@@ -20,7 +20,8 @@
   ];
 
   # Increase download buffer size to 1GB to speed up downloads of large derivations.
-  nix.settings.download-buffer-size = 1073741824;
+  # Servers lower it in profiles/server.nix, the buffer is held in memory.
+  nix.settings.download-buffer-size = lib.mkDefault 1073741824;
 
   # Users allowed to use distributed builds.
   nix.settings.trusted-users = lib.mkForce [

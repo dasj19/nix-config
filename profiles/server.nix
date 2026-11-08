@@ -20,6 +20,9 @@
     goaccess # log analyzer
   ];
 
+  # A 128MiB nix download buffer, servers have less memory than laptops.
+  nix.settings.download-buffer-size = 134217728;
+
   # Don't build documentation on servers.
   documentation.enable = false;
   documentation.man.enable = false;

@@ -16,6 +16,7 @@ TODO:
 
 2026-11-08
 - memory: add zram swap and systemd-oomd on all slices, for all machines
+- servers: lower the nix download buffer from 1GiB to 128MiB
 - base: check the logrotate configuration at build time again, it passes on all machines
 - hostup1: still running as a nix builder and binary cache outside the fleet, it has no configuration in this repo
 - contabo2: migrate from dbus to dbus-broker, the default implementation
