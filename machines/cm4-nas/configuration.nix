@@ -17,6 +17,9 @@
     ./../../profiles/server.nix
   ];
 
+  # Never build locally, every build goes to the remote builders in modules/nix.nix.
+  nix.settings.max-jobs = 0;
+
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot.loader.grub.enable = false;
   # Enables the generation of /boot/extlinux/extlinux.conf
