@@ -2,14 +2,16 @@
 # scope: machine
 
 {
+  config,
   gitSecrets,
+  lib,
   pkgs,
   ...
 }:
 let
   # Git secrets.
   acme-webmaster = gitSecrets.gnuAcmeWebmaster;
-
+  name-domain = gitSecrets.nameDomain;
 in
 {
   imports = [
@@ -20,6 +22,10 @@ in
     # Profile.
     ./../../profiles/server.nix
   ];
+
+  # Sops secrets.
+  sops.secrets.plausible_admin_password = { };
+  sops.secrets.plausible_server_key = { };
 
   # Hostname + DHCP on all the networking interfaces.
   networking.useDHCP = true;
@@ -53,6 +59,19 @@ in
   # Control the laptop lidswitch behavior.
   services.logind.settings.Login.HandleLidSwitch = "ignore";
   services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
+
+  # Plausible server.
+  services.plausible.enable = true;
+  services.plausible.adminUser = {
+    email = "admin@${name-domain}";
+    passwordHashFile = config.sops.secrets.plausible_admin_password.path;
+  };
+  services.plausible.server = {
+    baseUrl = "http://stats.${name-domain}";
+    secretKeybaseFile = config.sops.secrets.plausible_server_key.path;
+  };
+  # A plausible submodule attempts to set the timezone to UTC.
+  time.timeZone = lib.mkForce "Europe/Copenhagen";
 
   # ACME properties.
   security.acme.acceptTerms = true;

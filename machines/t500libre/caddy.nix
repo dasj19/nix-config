@@ -180,4 +180,18 @@ in
 
     domain = "daniel.${name-domain}";
   };
+
+  # ACME settings for the stats name domain.
+  # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with->
+  security.acme.certs."stats.${name-domain}" = {
+    inherit (config.services.caddy) group;
+
+    domain = "stats.${name-domain}";
+  };
+  services.caddy.virtualHosts."http://stats.${name-domain}".extraConfig = ''
+    redir https://stats.${name-domain}{uri} permanent
+  '';
+  services.caddy.virtualHosts."https://stats.${name-domain}".extraConfig = ''
+    reverse_proxy localhost:8000
+  '';
 }
