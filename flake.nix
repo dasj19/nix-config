@@ -225,7 +225,6 @@
       nixosConfigurations.cm4-nas = mkServerSystem {
         modules = [
           ./machines/cm4-nas/configuration.nix
-          # @todo Include hardware support for the compute module 4.
         ];
       };
       nixosConfigurations.ideapad100 = mkServerSystem {

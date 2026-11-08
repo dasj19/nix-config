@@ -78,12 +78,8 @@
     nix-prefetch # Nix fetcher for various sources.
     nix-prefetch-git # Nix fetcher for git repos.
     nix-search-cli # CLI for searching nixpkgs.
-    nix-serve # Simple Nix binary cache server.
     nix-tree # Visualize dependency graph of nix derivations.
-    nixd # Nix language server.
     nixfmt # Nix code formatter following the rfc style.
-    nixpkgs-fmt # Nix code formatter.
-    nixpkgs-review # Tool to review nixpkgs pull requests.
   ];
 
   # Provides hints for commands that are missing from the system.

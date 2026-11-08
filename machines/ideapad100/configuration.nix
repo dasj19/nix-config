@@ -36,9 +36,6 @@
 
   # SERVICES:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Enable immich.
   services.immich.enable = true;
   services.immich.port = 2283;

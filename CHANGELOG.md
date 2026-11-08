@@ -3,7 +3,7 @@ In this file I'll try to mention major changes to the configuration.
 
 TODO:
 - check: https://github.com/iAmMrinal0/nix-config/blob/c1d06e9c3e9b9c4fabc720bb807a00c09bcbc3b7/hosts/yggdrasil.nix#L82
-- cm4-nas: include hardware support for the compute module 4 (flake.nix)
+- cm4-nas: include hardware support for the compute module 4
 - cm4-nas: investigate how to have the taco working on a newer kernel (machines/cm4-nas/hardware.nix)
 - linodenix1: build a custom fail2ban filter for the kernel access refused messages (machines/linodenix1/configuration.nix)
 - t500libre: make an overall map of the services hosted at the gnu domain (machines/t500libre/caddy.nix)
@@ -15,6 +15,8 @@ TODO:
 - waybar: revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs (home/modules/waybar.nix)
 
 2026-11-08
+- nix: drop nixpkgs-fmt and nix-serve, move nixd and nixpkgs-review to the laptop profile
+- ideapad100: drop the duplicate openssh enable, the server profile provides it
 - memory: add zram swap and systemd-oomd on all slices, for all machines
 - servers: lower the nix download buffer from 1GiB to 128MiB
 - cm4-nas,rpi4-tv: never build locally, use the remote builders

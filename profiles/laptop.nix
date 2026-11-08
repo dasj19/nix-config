@@ -81,6 +81,8 @@ in
     jujutsu # Git-compatible alternative VCS.
     khard # CLI for managing contacts.
     localtunnel # CLI interface for the localtunnel service.
+    nixd # Nix language server.
+    nixpkgs-review # Tool to review nixpkgs pull requests.
     tealdeer # Fast implementation of tldr.
 
     neo-cowsay # New go implementation of cowsay.
