@@ -16,6 +16,7 @@
     ./../modules/folders.nix
     ./../modules/keyboard.nix
     ./../modules/locale.nix
+    ./../modules/memory.nix
     ./../modules/nix.nix
     ./../modules/starship.nix
     ./../modules/users.nix

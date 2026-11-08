@@ -34,6 +34,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── hyprland.nix          # Hyprland desktop + its home-manager modules (pick one desktop)
 │   ├── keyboard.nix          # Keyboard layout
 │   ├── locale.nix            # Internationalization properties
+│   ├── memory.nix            # zram swap + systemd-oomd
 │   ├── nix.nix               # Nix daemon and nix-related config
 │   ├── non-free.nix          # allowUnfreePredicate + allowedUnfree option
 │   ├── openssh.nix           # OpenSSH server
