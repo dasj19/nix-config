@@ -13,8 +13,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── autoupdate-flake.yml  # Daily flake update, pushed only if all machines build
 │   ├── build.yml             # Flake check + build of every machine
 │   └── quality-assurance.yml # Lint (statix, deadnix, nixfmt and sorted-lists flake checks)
-├── .cspell/                  # Workspace spell-check dictionary
-├── .vscode/                  # Editor settings (cspell dictionary path)
+├── .vscode/                  # Editor settings (cspell workspace dictionary)
 ├── modules/                  # Shared NixOS modules, imported by machine configs
 │   ├── acme.nix              # ACME/Cloudflare DNS + sops secrets
 │   ├── ai.nix                # ollama, llama-cpp, AI CLI clients
