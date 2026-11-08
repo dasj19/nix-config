@@ -14,6 +14,9 @@
   programs.vscodium.profiles.default.extensions =
     with pkgs.vscode-extensions;
     [
+      # Claude Code AI agent.
+      anthropic.claude-code
+
       # PHP.
       bmewburn.vscode-intelephense-client # cspell:disable-line
 
