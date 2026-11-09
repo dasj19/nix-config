@@ -163,6 +163,8 @@ in
     redir https://daniel.${name-domain}{uri} permanent
   '';
   services.caddy.virtualHosts."https://${name-domain}".extraConfig = ''
+    # Covers the first visit on the apex, includeSubDomains extends it to all subdomains.
+    header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
     redir https://daniel.${name-domain}{uri} permanent
   '';
   services.caddy.virtualHosts."http://daniel.${name-domain}".extraConfig = ''
@@ -182,6 +184,10 @@ in
     header X-Frame-Options "DENY"
     # The page uses none of these features, block them in case a script asks.
     header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=(), fullscreen=()"
+    # Isolate the window from cross-origin pages that open it or are opened by it.
+    header Cross-Origin-Opener-Policy "same-origin"
+    # Only pages on the same site may load these files, bots fetching the preview image are not affected.
+    header Cross-Origin-Resource-Policy "same-site"
     root * /var/www/daniel.${name-domain}
 
     # Serve only static files if they exist
