@@ -80,6 +80,7 @@ in
   services.caddy.virtualHosts."https://www.${gnu-domain}:443".extraConfig = ''
     # https://hstspreload.org/
     header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    header X-Content-Type-Options "nosniff"
     redir https://${gnu-domain}{uri} permanent
     file_server
   '';
@@ -87,6 +88,7 @@ in
   services.caddy.virtualHosts."https://${gnu-domain}:443".extraConfig = ''
     # https://hstspreload.org/
     header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    header X-Content-Type-Options "nosniff"
     root * /var/www/${gnu-domain}
     file_server
   '';
@@ -167,6 +169,7 @@ in
   services.caddy.virtualHosts."https://daniel.${name-domain}:443".extraConfig = ''
     # https://hstspreload.org/
     header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    header X-Content-Type-Options "nosniff"
     # All assets are self-hosted, there are no inline scripts or styles.
     header Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
     root * /var/www/daniel.${name-domain}
