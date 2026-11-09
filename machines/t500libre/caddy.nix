@@ -172,6 +172,8 @@ in
     header X-Content-Type-Options "nosniff"
     # All assets are self-hosted, there are no inline scripts or styles.
     header Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+    # Revalidate on every visit, unchanged files are answered with a cheap 304.
+    header Cache-Control "no-cache"
     root * /var/www/daniel.${name-domain}
 
     # Serve only static files if they exist
