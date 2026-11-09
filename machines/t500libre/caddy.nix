@@ -174,6 +174,8 @@ in
     header Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
     # Revalidate on every visit, unchanged files are answered with a cheap 304.
     header Cache-Control "no-cache"
+    # A personal page without analytics, linked sites need not know the source.
+    header Referrer-Policy "no-referrer"
     root * /var/www/daniel.${name-domain}
 
     # Serve only static files if they exist
