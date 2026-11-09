@@ -81,6 +81,7 @@ in
     # https://hstspreload.org/
     header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
     header X-Content-Type-Options "nosniff"
+    header X-Frame-Options "DENY"
     redir https://${gnu-domain}{uri} permanent
     file_server
   '';
@@ -89,6 +90,7 @@ in
     # https://hstspreload.org/
     header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
     header X-Content-Type-Options "nosniff"
+    header X-Frame-Options "DENY"
     root * /var/www/${gnu-domain}
     file_server
   '';
@@ -176,6 +178,8 @@ in
     header Cache-Control "no-cache"
     # A personal page without analytics, linked sites need not know the source.
     header Referrer-Policy "no-referrer"
+    # Only for older browsers, CSP frame-ancestors supersedes it.
+    header X-Frame-Options "DENY"
     root * /var/www/daniel.${name-domain}
 
     # Serve only static files if they exist
