@@ -21,6 +21,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── audio.nix             # PipeWire audio
 │   ├── bluetooth.nix         # Bluetooth configuration
 │   ├── browsers.nix          # Firefox, Chromium and other browser's preferences
+│   ├── caddy.nix             # Response headers shared by every Caddy virtual host
 │   ├── cuda-packages.nix     # Module option: config.cuda.allowedPackages
 │   ├── desktop-common.nix    # Apps, keyring and MIME defaults shared by the desktop modules
 │   ├── development.nix       # Shared web development stack (nodejs, mariadb, podman)

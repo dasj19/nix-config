@@ -17,7 +17,10 @@ let
   ideapad-ip = gitSecrets.ideapad100LanIp;
 in
 {
-  imports = [ ../../modules/php-fpm.nix ];
+  imports = [
+    ../../modules/caddy.nix
+    ../../modules/php-fpm.nix
+  ];
 
   # PHP-FPM pools.
   # https://discourse.nixos.org/t/502-bad-gateway-with-caddy-and-php-fastcgi/25429
