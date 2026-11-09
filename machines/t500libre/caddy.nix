@@ -191,6 +191,8 @@ in
     header Cross-Origin-Opener-Policy "same-origin"
     # Only pages on the same site may load these files, bots fetching the preview image are not affected.
     header Cross-Origin-Resource-Policy "same-site"
+    # Only same-origin files are loaded, cross-origin embeds would need CORP or CORS.
+    header Cross-Origin-Embedder-Policy "require-corp"
     root * /var/www/daniel.${name-domain}
 
     # Serve only static files if they exist
