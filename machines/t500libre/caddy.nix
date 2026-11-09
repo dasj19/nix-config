@@ -180,6 +180,8 @@ in
     header Referrer-Policy "no-referrer"
     # Only for older browsers, CSP frame-ancestors supersedes it.
     header X-Frame-Options "DENY"
+    # The page uses none of these features, block them in case a script asks.
+    header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=(), fullscreen=()"
     root * /var/www/daniel.${name-domain}
 
     # Serve only static files if they exist
