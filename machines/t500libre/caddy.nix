@@ -174,6 +174,7 @@ in
     redir https://daniel.${name-domain}{uri} permanent
   '';
   services.caddy.virtualHosts."https://daniel.${name-domain}:443".extraConfig = ''
+    # https://securityheaders.com/
     # https://hstspreload.org/
     header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
     header X-Content-Type-Options "nosniff"
