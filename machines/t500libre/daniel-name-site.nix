@@ -1,32 +1,32 @@
-# daniel-name-site: static personal page served on the daniel name domain.
-# scope: servers running Caddy
+# t500libre: static personal page served on the daniel name domain.
+# scope: machine
 #
-# GitHub's source archive honours the repository's export-ignore rules, so only
-# served files and the licences are fetched. Text files get Brotli, zstd and
+# The source is the daniel-name-site flake input (flake = false), applied
+# through an overlay in flake.nix. GitHub's source archive honours the
+# repository's export-ignore rules, so only served files and the licences
+# are fetched. Text files get Brotli, zstd and
 # gzip sidecars for Caddy's file_server precompressed option. Every file gets a
 # ".etag" sidecar with a content hash, read by file_server etag_file_extensions,
 # because all store files share mtime 1 and Caddy's default ETag (mtime + size)
 # would not change on same-size edits.
-# The domain is passed in so it stays in the git-crypt encrypted secrets.
 
 {
   brotli,
-  domain,
-  fetchFromGitHub,
+  src,
   stdenvNoCC,
   zstd,
 }:
 
 stdenvNoCC.mkDerivation {
   pname = "daniel-name-site";
-  version = "0-unstable-2026-11-10";
+  # e.g. 0-unstable-2026-11-10, from the input's last commit date.
+  version =
+    let
+      date = src.lastModifiedDate;
+    in
+    "0-unstable-${builtins.substring 0 4 date}-${builtins.substring 4 2 date}-${builtins.substring 6 2 date}";
 
-  src = fetchFromGitHub {
-    owner = "dasj19";
-    repo = "daniel.${domain}";
-    rev = "40293ada719df152445234770faae5302cb9e191";
-    hash = "sha256-Xkb1Aih5dJRpL//FIZcqst2Ct4PrLJxwL88qxcnlpqI=";
-  };
+  inherit src;
 
   nativeBuildInputs = [
     brotli

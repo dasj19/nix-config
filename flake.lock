@@ -100,6 +100,22 @@
         "type": "gitlab"
       }
     },
+    "daniel-name-site": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794323812,
+        "narHash": "sha256-Xkb1Aih5dJRpL//FIZcqst2Ct4PrLJxwL88qxcnlpqI=",
+        "owner": "dasj19",
+        "repo": "daniel.serbanescu.dk",
+        "rev": "40293ada719df152445234770faae5302cb9e191",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dasj19",
+        "repo": "daniel.serbanescu.dk",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -353,6 +369,7 @@
     "root": {
       "inputs": {
         "awesome-linux-templates": "awesome-linux-templates",
+        "daniel-name-site": "daniel-name-site",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",

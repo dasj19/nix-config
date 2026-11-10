@@ -15,9 +15,6 @@ let
   gnu-domain = gitSecrets.gnuDomain;
   name-domain = gitSecrets.nameDomain;
   ideapad-ip = gitSecrets.ideapad100LanIp;
-
-  # Static site, precompressed at build time.
-  daniel-name-site = pkgs.callPackage ../../pkgs/daniel-name-site.nix { domain = name-domain; };
 in
 {
   imports = [
@@ -199,7 +196,8 @@ in
     header Cross-Origin-Embedder-Policy "require-corp"
     # Store files all have mtime 1, a Last-Modified date would be meaningless.
     header -Last-Modified
-    root * ${daniel-name-site}
+    # Static site, precompressed at build time, see ./daniel-name-site.nix.
+    root * ${pkgs.daniel-name-site}
 
     # On the fly compression, for files without a precompressed sidecar.
     encode zstd gzip

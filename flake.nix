@@ -42,6 +42,10 @@
   inputs.awesome-linux-templates.url = "github:dasj19/awesome-linux-templates";
   inputs.awesome-linux-templates.flake = false;
 
+  # Personal static page served by t500libre, built in machines/t500libre/daniel-name-site.nix.
+  inputs.daniel-name-site.url = "github:dasj19/daniel.serbanescu.dk";
+  inputs.daniel-name-site.flake = false;
+
   # Latest ulauncher.
   inputs.ulauncher.url = "github:Ulauncher/Ulauncher";
   inputs.ulauncher.inputs.nixpkgs.follows = "nixpkgs";
@@ -54,6 +58,7 @@
       self,
       nixpkgs,
       awesome-linux-templates,
+      daniel-name-site,
       nixos-artwork,
       nixos-hardware,
       sops-nix,
@@ -253,6 +258,15 @@
       nixosConfigurations.t500libre = mkServerSystem {
         modules = [
           ./machines/t500libre/configuration.nix
+          {
+            nixpkgs.overlays = [
+              (final: _: {
+                daniel-name-site = final.callPackage ./machines/t500libre/daniel-name-site.nix {
+                  src = daniel-name-site;
+                };
+              })
+            ];
+          }
           nixos-hardware.nixosModules.lenovo-thinkpad
           nixos-mailserver.nixosModules.default
         ];
