@@ -81,8 +81,8 @@ in
   '';
 
   services.caddy.virtualHosts."https://www.${gnu-domain}:443".extraConfig = ''
-    # https://hstspreload.org/
-    header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    # Preloading only applies to the apex, which covers this host through includeSubDomains.
+    header Strict-Transport-Security "max-age=63072000; includeSubDomains"
     header X-Content-Type-Options "nosniff"
     header X-Frame-Options "DENY"
     redir https://${gnu-domain}{uri} permanent
@@ -167,6 +167,7 @@ in
   '';
   services.caddy.virtualHosts."https://${name-domain}".extraConfig = ''
     # Covers the first visit on the apex, includeSubDomains extends it to all subdomains.
+    # https://hstspreload.org/
     header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
     redir https://daniel.${name-domain}{uri} permanent
   '';
@@ -175,8 +176,8 @@ in
   '';
   services.caddy.virtualHosts."https://daniel.${name-domain}:443".extraConfig = ''
     # https://securityheaders.com/
-    # https://hstspreload.org/
-    header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    # Preloading only applies to the apex, which covers this host through includeSubDomains.
+    header Strict-Transport-Security "max-age=63072000; includeSubDomains"
     header X-Content-Type-Options "nosniff"
     # All assets are self-hosted, there are no inline scripts or styles.
     header Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
