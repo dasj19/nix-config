@@ -74,6 +74,7 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── archivebox.nix        # Self-hosted internet archiving, with its missing python deps
 │   ├── caddy-browse.nix      # Directory browsing plugin for Caddy
 │   ├── clipvault.nix         # Clipboard history manager for Wayland
+│   ├── daniel-name-site.nix  # Personal static site, precompressed with ETag sidecars at build
 │   ├── duckduckgo-chat-cli.nix # Terminal client for DuckDuckGo's AI chat (Duck.ai)
 │   └── fish-colored-man.nix  # Local fish plugin, pending upstream submission
 ├── .pre-commit-config.yaml   # Pre-commit hooks: nixfmt, statix, deadnix and sorted-lists

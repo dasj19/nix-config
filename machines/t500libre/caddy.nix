@@ -15,6 +15,9 @@ let
   gnu-domain = gitSecrets.gnuDomain;
   name-domain = gitSecrets.nameDomain;
   ideapad-ip = gitSecrets.ideapad100LanIp;
+
+  # Static site, precompressed at build time.
+  daniel-name-site = pkgs.callPackage ../../pkgs/daniel-name-site.nix { domain = name-domain; };
 in
 {
   imports = [
@@ -194,10 +197,18 @@ in
     header Cross-Origin-Resource-Policy "same-site"
     # Only same-origin files are loaded, cross-origin embeds would need CORP or CORS.
     header Cross-Origin-Embedder-Policy "require-corp"
-    root * /var/www/daniel.${name-domain}
+    # Store files all have mtime 1, a Last-Modified date would be meaningless.
+    header -Last-Modified
+    root * ${daniel-name-site}
 
-    # Serve only static files if they exist
-    file_server
+    # On the fly compression, for files without a precompressed sidecar.
+    encode zstd gzip
+    # Serve only static files if they exist, serve precompressed files first.
+    # ETags come from the content hashes in the package's .etag sidecars.
+    file_server {
+      precompressed br zstd gzip
+      etag_file_extensions .etag
+    }
     log {
       output file /var/log/caddy/https-daniel-name-domain.log
     }
@@ -209,4 +220,5 @@ in
 
     domain = "daniel.${name-domain}";
   };
+
 }
