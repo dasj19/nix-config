@@ -103,11 +103,11 @@
     "daniel-name-site": {
       "flake": false,
       "locked": {
-        "lastModified": 1794323812,
-        "narHash": "sha256-Xkb1Aih5dJRpL//FIZcqst2Ct4PrLJxwL88qxcnlpqI=",
+        "lastModified": 1794347633,
+        "narHash": "sha256-uO7kiIORspJJ9OqK4ioe4ThesH/U1KV6iCyYIhCEFy4=",
         "owner": "dasj19",
         "repo": "daniel.serbanescu.dk",
-        "rev": "40293ada719df152445234770faae5302cb9e191",
+        "rev": "150d1c7d696b5d1b66807f5f819c615bb45f7f34",
         "type": "github"
       },
       "original": {
