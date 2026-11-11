@@ -103,11 +103,11 @@
     "daniel-name-site": {
       "flake": false,
       "locked": {
-        "lastModified": 1794347633,
-        "narHash": "sha256-uO7kiIORspJJ9OqK4ioe4ThesH/U1KV6iCyYIhCEFy4=",
+        "lastModified": 1794431249,
+        "narHash": "sha256-2UCed0WqPRI+LE74LF0lD2HnNgP3vWh3G5HyNR8PJGI=",
         "owner": "dasj19",
         "repo": "daniel.serbanescu.dk",
-        "rev": "150d1c7d696b5d1b66807f5f819c615bb45f7f34",
+        "rev": "8113028a1cf1743dada5a0170ddf0c0905549e6a",
         "type": "github"
       },
       "original": {
@@ -272,11 +272,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794222723,
-        "narHash": "sha256-jehPADpSIsWnyNHw/s44OHF9l6Y75QmW74sqO9cEe0A=",
+        "lastModified": 1794425805,
+        "narHash": "sha256-4s5CRvkYX4oAJVZ+zu2bBKFH2gG2GqN6OKHEWgJr1AY=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "919c16cf46a7acf9b44b2c2444bc39aa094eaa85",
+        "rev": "b6ca87f78ec5bafc4b2aef7b29803dcf419266af",
         "type": "github"
       },
       "original": {
