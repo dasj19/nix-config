@@ -8,10 +8,13 @@
 # gzip sidecars for Caddy's file_server precompressed option. Every file gets a
 # ".etag" sidecar with a content hash, read by file_server etag_file_extensions,
 # because all store files share mtime 1 and Caddy's default ETag (mtime + size)
-# would not change on same-size edits.
+# would not change on same-size edits. A security.txt (RFC 9116) is generated,
+# its Expires is one year after expiresFrom (a Unix timestamp).
 
 {
   brotli,
+  domain,
+  expiresFrom ? src.lastModified,
   src,
   stdenvNoCC,
   zstd,
@@ -42,6 +45,18 @@ stdenvNoCC.mkDerivation {
 
     cp -r . $out
     cd $out
+
+    # Replaces the source's own security.txt, if the archive ever ships one.
+    mkdir -p .well-known
+    rm -f .well-known/security.txt
+    cat > .well-known/security.txt <<EOF
+    # Security contact for ${domain} (RFC 9116).
+    # Contact information is displayed on the front page of the website.
+    Contact: https://${domain}/
+    Expires: $(date -u -d @$((${toString expiresFrom} + 365 * 24 * 60 * 60)) +%Y-%m-%dT00:00:00.000Z)
+    Preferred-Languages: en
+    Canonical: https://${domain}/.well-known/security.txt
+    EOF
 
     find . -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.svg' \
       -o -name '*.ico' -o -name '*.json' -o -name '*.xml' -o -name '*.txt' -o -name '*.webmanifest' \) \

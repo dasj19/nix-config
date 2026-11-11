@@ -263,6 +263,9 @@
               (final: _: {
                 daniel-name-site = final.callPackage ./machines/t500libre/daniel-name-site.nix {
                   src = daniel-name-site;
+                  domain = "daniel.${gitSecrets.nameDomain}";
+                  # The daily flake update moves nixpkgs, so security.txt's Expires renews with it.
+                  expiresFrom = nixpkgs.lastModified;
                 };
               })
             ];
