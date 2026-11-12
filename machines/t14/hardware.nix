@@ -98,7 +98,7 @@
 
   # Preferred Linux kernel on t14 - a bleeding edge kernel.
   # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_2;
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_3;
 
   # Clean tmpfs on boot.
   boot.tmp.useTmpfs = true;
