@@ -1,7 +1,8 @@
 # starship: cross-shell prompt configuration.
 # scope: all machines
 #
-# Provides prompt appearance, git status symbols, and disabled modules.
+# Minimal single-line prompt: segments only appear when they carry information
+# (user@host over ssh, git state, slow commands, background jobs, low battery).
 
 {
   # Cross-shell prompt.
@@ -9,90 +10,93 @@
 
   # Starship configuration.
   programs.starship.settings = {
-    # General prompt settings.
+    # General prompt settings, an explicit format keeps language modules out.
     add_newline = false;
-    line_break = {
-      disabled = true;
-    };
-    sudo = {
-      disabled = true;
-    };
+    format = "$username$hostname$directory$git_branch$git_state$git_status$nix_shell$container$cmd_duration$jobs$battery$character";
 
-    # Prompt segments.
+    # Identity, user@host always shown.
     username = {
       show_always = true;
-      format = "[$user]($style)@";
+      format = "[$user]($style)";
     };
     hostname = {
       ssh_only = false;
-      format = "[$ssh_symbol$hostname]($style) :";
+      format = "@[$hostname]($style)";
     };
+
+    # Working directory.
     directory = {
-      format = "[ $path ]($style)";
+      format = " [$path]($style)[$read_only]($read_only_style) ";
+      style = "bold cyan";
+      read_only = " ro";
       truncation_length = 3;
       truncation_symbol = "…/";
     };
-    time = {
-      disabled = false;
-    };
-    status = {
-      disabled = false;
-      map_symbol = true;
-    };
 
-    # Git status symbols.
+    # Git branch, state and status.
+    git_branch = {
+      format = "[$branch]($style) ";
+      style = "purple";
+    };
+    git_state = {
+      format = "[$state( $progress_current/$progress_total)]($style) ";
+    };
     git_status = {
-      disabled = false;
-      conflicted = "🏳";
-      ahead = "🏎💨";
-      behind = "😰";
-      diverged = "😵";
-      up_to_date = "✓";
-      untracked = "🤷";
-      stashed = "📦";
-      modified = "📝";
-      staged = "[++\($count\)](green)";
-      renamed = "👅";
-      deleted = "🗑";
+      format = "([$all_status$ahead_behind]($style) )";
+      style = "yellow";
+      conflicted = "=";
+      ahead = "⇡\${count}";
+      behind = "⇣\${count}";
+      diverged = "⇡\${ahead_count}⇣\${behind_count}";
+      untracked = "?";
+      stashed = "≡";
+      modified = "!";
+      staged = "+";
+      renamed = "»";
+      deleted = "✘";
     };
 
-    # Disabled language modules.
-    php = {
-      disabled = true;
+    # Environments.
+    nix_shell = {
+      format = "[$symbol]($style) ";
+      symbol = "❄";
     };
-    nodejs = {
-      disabled = true;
-    };
-
-    # Prompt symbol.
-    character = {
-      error_symbol = "✗";
-      success_symbol = "❯";
+    container = {
+      format = "[⬢ $name]($style) ";
+      style = "bold red";
     };
 
     # Command duration.
     cmd_duration = {
       min_time = 2000;
-      format = "took [$duration]($style) ";
-    };
-
-    # Battery indicator (laptops only).
-    battery = {
-      disabled = false;
-      full_symbol = "🔋";
-      charging_symbol = "⚡";
-      discharging_symbol = "💀";
-    };
-
-    # Container runtime.
-    container = {
-      disabled = false;
-      style = "bold red";
+      format = "[$duration]($style) ";
+      style = "yellow";
     };
 
     # Background jobs.
     jobs = {
-      disabled = false;
+      format = "[$symbol$number]($style) ";
+      symbol = "✦";
+    };
+
+    # Battery indicator, only when low (laptops only).
+    battery = {
+      format = "[$symbol$percentage]($style) ";
+      full_symbol = "";
+      charging_symbol = "⚡";
+      discharging_symbol = "↓";
+      display = [
+        {
+          threshold = 20;
+          style = "bold red";
+        }
+      ];
+    };
+
+    # Prompt symbol, red after a failed command.
+    character = {
+      success_symbol = "[❯](bold green)";
+      error_symbol = "[❯](bold red)";
     };
   };
 }
