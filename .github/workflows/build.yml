@@ -12,25 +12,27 @@ on:
   # Allows manual run of this workflow from the Actions tab
   workflow_dispatch:
 
-# The jobs only read the repository.
+# The job only reads the repository.
 permissions:
   contents: read
 
 # Enable flakes once for every nix command in this workflow.
 env:
   NIX_CONFIG: extra-experimental-features = nix-command flakes
+  # Prints one "<machine> <toplevel derivation> <toplevel store path>" line per machine.
+  MACHINES: >-
+    c: builtins.concatStringsSep "" (builtins.attrValues (builtins.mapAttrs
+    (name: machine: let t = machine.config.system.build.toplevel; in name + " " + t.drvPath + " " + t.outPath + "\n") c))
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This job validates the flake structure, the other job builds each machine.
-  validate:
+  # A single job validates the flake and builds every machine. There is one
+  # self-hosted runner, so a matrix would run the machines one after another,
+  # each with its own checkout, unlock and evaluation, plus the queueing gaps.
+  build:
     runs-on: self-hosted
-    name: Validate flake
-    timeout-minutes: 30
-
-    # The list of machines, used as the build matrix.
-    outputs:
-      machines: ${{ steps.machines.outputs.machines }}
+    name: Validate and build
+    timeout-minutes: 180
 
     steps:
       # Pinned to the commit of v7.0.1, a moving tag could change the code run on the self-hosted runner.
@@ -54,53 +56,35 @@ jobs:
           echo "Archiving flake inputs to local store..."
           nix flake archive
 
-      # List all machines defined in the flake.
-      - name: List machines
-        id: machines
+      # Evaluate every machine once, then let nix schedule all builds together.
+      # --keep-going builds every machine even when one fails, no result link pins old systems.
+      - name: Build all machines
+        id: build
         run: |
-          machines=$(nix eval --json .#nixosConfigurations --apply builtins.attrNames)
-          echo "Machines: $machines"
-          echo "machines=$machines" >> "$GITHUB_OUTPUT"
+          nix eval --raw .#nixosConfigurations --apply "$MACHINES" > "$RUNNER_TEMP/machines"
+          echo "Building: $(cut -d' ' -f1 "$RUNNER_TEMP/machines" | tr '\n' ' ')"
+          mapfile -t targets < <(awk '{ print $2 "^*" }' "$RUNNER_TEMP/machines")
+          nix build --no-link --keep-going "${targets[@]}"
 
-      # Lock the secrets again, the self-hosted runner keeps the checkout between runs.
-      - name: Locking git secrets
-        if: always()
-        run: if [ -f .git/git-crypt/keys/default ]; then git-crypt lock --force; fi
-
-  # This job builds each machine, once the flake is valid.
-  build:
-    needs: validate
-
-    # The type of runner that the job will run on
-    runs-on: self-hosted
-    timeout-minutes: 120
-
-    # Build parallel in matrix-fashion.
-    strategy:
-      matrix:
-        system: ${{ fromJSON(needs.validate.outputs.machines) }}
-      fail-fast: false
-
-    name: Build ${{ matrix.system }}
-
-    # Steps are a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      # Unlocking secrets using the server's git-crypt key
-      - name: Unlocking git secrets
-        run: git-crypt unlock /etc/nixos/git-crypt-key
-
-      # Building packages for the system, without a result link that would pin it against garbage collection.
-      - name: Build ${{ matrix.system }} packages
-        env:
-          MACHINE: ${{ matrix.system }}
+      # One row per machine in the job summary, also when the build failed.
+      - name: Summarize builds
+        if: ${{ !cancelled() && steps.build.outcome != 'skipped' }}
         run: |
-          nix build ".#nixosConfigurations.$MACHINE.config.system.build.toplevel" \
-            --no-link --keep-going
+          if [ ! -s "$RUNNER_TEMP/machines" ]; then
+            echo "❌ The machines could not be evaluated, see the build step." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          {
+            echo "| Machine | Build |"
+            echo "| --- | --- |"
+            while read -r machine _ out; do
+              if nix path-info "$out" > /dev/null 2>&1; then
+                echo "| $machine | ✅ |"
+              else
+                echo "| $machine | ❌ |"
+              fi
+            done < "$RUNNER_TEMP/machines"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # Print total storage to know when to garbage collect.
       - name: Print total storage resources
