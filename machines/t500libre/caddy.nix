@@ -163,7 +163,7 @@ in
 
   # Daniel + name domain.
   services.caddy.virtualHosts."http://${name-domain}".extraConfig = ''
-    redir https://daniel.${name-domain}{uri} permanent
+    redir https://${name-domain}{uri} permanent
   '';
   services.caddy.virtualHosts."https://${name-domain}".extraConfig = ''
     # Covers the first visit on the apex, includeSubDomains extends it to all subdomains.
