@@ -6,6 +6,8 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
+  pkg-config,
+  sqlite,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -28,6 +30,9 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-kRTBUf2GObUqsDB9ewY42I6vQQQPS6wbmeXuj3EVh1g=";
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ sqlite ];
 
   # 16 tests fail in NixOS.
   doCheck = false;

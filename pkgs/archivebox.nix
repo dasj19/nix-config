@@ -12,6 +12,7 @@
 # provider for them.
 
 {
+  aws-lc,
   bubblewrap,
   buildNpmPackage,
   chromium,
@@ -36,9 +37,19 @@
   wget,
   writeShellScriptBin,
   yt-dlp,
+  zstd,
 }:
 
 let
+  # The cargo setup hook forces the -sys crates onto the system libraries, which
+  # nixpkgs does not give liteparse.
+  liteparse' = liteparse.overrideAttrs (old: {
+    buildInputs = old.buildInputs ++ [
+      aws-lc
+      zstd
+    ];
+  });
+
   # The mercury plugin needs this fork, nixpkgs only has @postlight/parser.
   mercury-parser = buildNpmPackage rec {
     pname = "mercury-parser";
@@ -522,7 +533,7 @@ python.pkgs.buildPythonApplication rec {
       git
       imagemagick
       libjxl
-      liteparse
+      liteparse'
       mercury-parser
       nodejs
       pnpm
