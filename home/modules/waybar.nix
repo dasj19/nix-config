@@ -3,11 +3,7 @@
 #
 # Provides Waybar settings, modules, and styling.
 
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 let
   # A small tofi window in the center of the screen, the defaults (1280x720) are meant for long lists.
@@ -44,23 +40,6 @@ in
   programs.waybar.enable = true;
   # Start with the graphical session, restarted by systemd if it crashes.
   programs.waybar.systemd.enable = true;
-  # @TODO revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs.
-  # Waybar 0.15.0 switches workspaces with the legacy dispatch syntax, rejected by the Lua config of
-  # Hyprland, so clicking a workspace does nothing. Fixed upstream in https://github.com/Alexays/Waybar/pull/5013
-  # cava (audio visualizer module, unused) is disabled because master needs a newer libcava than nixpkgs.
-  programs.waybar.package = (pkgs.waybar.override { cavaSupport = false; }).overrideAttrs (oldAttrs: {
-    version = "0.15.0-unstable-2026-10-19";
-    # New modem (wwan) module, unused and its modemmanager dependency is missing.
-    mesonFlags = oldAttrs.mesonFlags ++ [ (lib.mesonEnable "wwan" false) ];
-    # The version check expects the unstable version, but master still reports v0.15.0.
-    doInstallCheck = false;
-    src = pkgs.fetchFromGitHub {
-      owner = "Alexays";
-      repo = "Waybar";
-      rev = "c15ec02ede4343592a59eb5c2ff4443c9c045f7c";
-      hash = "sha256-mBDWjeeIuFfDZQuBxHu+EpbJ+GMbbSxpRz0WVM2N+ZI=";
-    };
-  });
   programs.waybar.settings = {
     mainBar = {
       layer = "top";

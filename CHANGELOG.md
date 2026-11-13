@@ -12,7 +12,9 @@ TODO:
 - fish: submit the local fish-colored-man plugin upstream (modules/fish.nix)
 - laptop: check upstream why the intelephense vscode extension is marked as non-free (profiles/laptop.nix)
 - laptop: fix upstream backintime needing fcron installed separately (profiles/laptop.nix)
-- waybar: revert to pkgs.waybar once a release after 0.15.0 is in nixpkgs (home/modules/waybar.nix)
+
+2026-11-13
+- waybar: drop the git master override, nixpkgs now ships 0.16.0 with the hyprland lua dispatch fix
 
 2026-11-08
 - nix: drop nixpkgs-fmt and nix-serve, move nixd and nixpkgs-review to the laptop profile
