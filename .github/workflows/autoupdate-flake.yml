@@ -94,8 +94,13 @@ jobs:
             grep -v '^warning:' "$RUNNER_TEMP/flake-update.log"
             echo '```'
             echo "## Package changes"
+            # Plain bash only, the runner has no awk.
+            declare -A previous
+            while read -r machine path; do
+              previous[$machine]=$path
+            done < "$RUNNER_TEMP/old-toplevels"
             while read -r machine new; do
-              old=$(awk -v m="$machine" '$1 == m { print $2 }' "$RUNNER_TEMP/old-toplevels")
+              old=${previous[$machine]:-}
               echo "### $machine"
               if [ -z "$old" ] || ! nix path-info "$old" > /dev/null 2>&1; then
                 echo "Previous system not in the store, no diff."

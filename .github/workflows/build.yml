@@ -56,8 +56,14 @@ jobs:
         id: build
         run: |
           nix eval --raw .#nixosConfigurations --apply "$MACHINES" > "$RUNNER_TEMP/machines"
-          echo "Building: $(cut -d' ' -f1 "$RUNNER_TEMP/machines" | tr '\n' ' ')"
-          mapfile -t targets < <(awk '{ print $2 "^*" }' "$RUNNER_TEMP/machines")
+          # Plain bash only, the runner has no awk.
+          machines=()
+          targets=()
+          while read -r machine drv _; do
+            machines+=("$machine")
+            targets+=("$drv^*")
+          done < "$RUNNER_TEMP/machines"
+          echo "Building: ${machines[*]}"
           nix build --no-link --keep-going "${targets[@]}"
 
       # One row per machine in the job summary, also when the build failed.
