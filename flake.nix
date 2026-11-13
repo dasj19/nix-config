@@ -205,8 +205,15 @@
         '';
       });
 
-      # Sorts the lists checked by `sorted-lists` in place, run it from the repository root.
       apps = forAllSystems (pkgs: {
+        # Moves the pinned GitHub Actions to the newest release of their major version, see lib/update-actions.nix.
+        update-actions = {
+          type = "app";
+          meta.description = "Update the commit pins of the GitHub Actions within their major version";
+          program = nixpkgs.lib.getExe (import ./lib/update-actions.nix { inherit pkgs; });
+        };
+
+        # Sorts the lists checked by `sorted-lists` in place, run it from the repository root.
         sort-lists = {
           type = "app";
           meta.description = "Sort the imports and package lists of all nix files";

@@ -36,7 +36,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
-      # Pinned to the commit of v7.0.1, a moving tag could change the code run on the self-hosted runner.
+      # Pinned to a commit hash, a moving tag could change the code run on the self-hosted runner.
       # The credentials are kept on purpose, the job pushes the updated flake.lock.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

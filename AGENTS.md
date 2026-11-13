@@ -12,7 +12,8 @@ Disable spell-checking for this file: cspell:disable.
 ├── .github/workflows/
 │   ├── autoupdate-flake.yml  # Daily flake update, pushed only if all machines build
 │   ├── build.yml             # Flake check + build of every machine, one job
-│   └── quality-assurance.yml # Lint (statix, deadnix, nixfmt, sorted-lists, actionlint and zizmor flake checks)
+│   ├── quality-assurance.yml # Lint (statix, deadnix, nixfmt, sorted-lists, actionlint and zizmor flake checks)
+│   └── update-actions.yml    # Weekly update of the pinned actions, within their major version
 ├── .vscode/                  # Editor settings (cspell workspace dictionary)
 ├── modules/                  # Shared NixOS modules, imported by machine configs
 │   ├── acme.nix              # ACME/Cloudflare DNS + sops secrets
@@ -44,7 +45,8 @@ Disable spell-checking for this file: cspell:disable.
 │   ├── stylix.nix            # Uniform desktop styling
 │   └── users.nix             # User accounts, sops passwords, sudo-rs
 ├── lib/
-│   └── sorted-lists.nix      # Checks and sorts the imports and package lists, in pure nix
+│   ├── sorted-lists.nix      # Checks and sorts the imports and package lists, in pure nix
+│   └── update-actions.nix    # Updates the pinned GitHub Actions, as a flake app
 ├── settings/                 # Static configuration files (keyboard layouts, etc.)
 │   └── esrodk                # Custom XKB keyboard layout (Spanish with RODK) #cspell:disable-line
 ├── machines/                 # One folder per machine
@@ -132,6 +134,7 @@ Disable spell-checking for this file: cspell:disable.
 - **autoupdate-flake.yml**: daily `nix flake update` on the self-hosted runner. Runs `nix flake check` and builds every machine with the new lock, then commits and pushes `flake.lock` only if all of it passes. Pushes made with `GITHUB_TOKEN` do not trigger `build.yml`, so this job does its validation itself. The job summary lists the updated inputs and a `nix store diff-closures` per machine; the push rebases on master first.
 - **build.yml**: build workflow. Runs on self-hosted runner, only on pushes to master and manual dispatch (never on pull requests, the runner holds the git-crypt key). A single job runs `nix flake check`, then builds every machine from `nixosConfigurations` in one `nix build --keep-going` and writes a per-machine ✅/❌ table to the job summary. No matrix: there is one self-hosted runner, so matrix jobs would only run one after another.
 - **git-crypt on the runner**: every self-hosted job ends with an `if: always()` step that runs `git-crypt lock --force`, so decrypted secrets do not stay in the runner's persistent checkout.
+- **update-actions.yml**: weekly on a GitHub-hosted runner. Runs `nix run .#update-actions`, lints the workflows, then commits and pushes the new pins. Pushing workflow files needs the `ACTIONS_UPDATE_TOKEN` secret (fine-grained token, Contents + Workflows write); without it the job only reports the diff. New major versions are reported, never applied.
 - **Workflow hardening**: pin every action to a commit hash with the version in a comment, set `persist-credentials: false` unless the job pushes, set `timeout-minutes` on every job, and pass `${{ }}` values to `run:` scripts through `env:`. The `zizmor` check enforces most of this.
 - **Experimental features**: CI enables `nix-command flakes` via `extra_nix_config`.
 - **Tools**: linters come from the flake's `checks` output, so CI, pre-commit and local runs use the nixpkgs pinned in `flake.lock`.
@@ -148,6 +151,7 @@ Disable spell-checking for this file: cspell:disable.
 - **statix**: enforced. Run `nix build .#checks.x86_64-linux.statix` locally before committing.
 - **deadnix**: enforced. Reports unused function arguments and let bindings. Run `nix build .#checks.x86_64-linux.deadnix`.
 - **actionlint / zizmor**: enforced for `.github/workflows`. Run `nix build .#checks.x86_64-linux.actionlint .#checks.x86_64-linux.zizmor`.
+- **Action pins**: run `nix run .#update-actions` from the repository root to move every pin to the newest release of its major version. Dependabot is not used.
 - **sorted-lists**: enforced. Run `nix build .#checks.x86_64-linux.sorted-lists` to check, or `nix run .#sort-lists` from the repository root to sort the lists in place.
 - **nix flake check**: Do not run locally, run only in CI.
 - **cspell**: some terms are disabled inline with `# cspell:disable-line` (e.g., `cudnn`, `mkcert`, `xdebug`). Do not add new cspell disables without need.

@@ -1,0 +1,99 @@
+name: Update actions
+
+# Controls when the workflow will run
+on:
+  schedule:
+    - cron: '0 2 * * 1'  # Runs weekly, on Monday at 2:00 UTC
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Never run two updates at the same time.
+concurrency:
+  group: update-actions
+  cancel-in-progress: false
+
+# The default token only reads, pushing changes to workflow files needs the
+# ACTIONS_UPDATE_TOKEN secret: a fine-grained token for this repository with
+# "Contents" and "Workflows" write access. Without it the job only reports.
+permissions:
+  contents: read
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  update:
+    # GitHub-hosted, the update needs no git-crypt key.
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      HAS_TOKEN: ${{ secrets.ACTIONS_UPDATE_TOKEN != '' }}
+
+    steps:
+      # The credentials are kept on purpose, the job pushes the updated workflows.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ secrets.ACTIONS_UPDATE_TOKEN || github.token }}
+          persist-credentials: true
+
+      # Install nix.
+      - name: Install nix
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # Move every pin to the newest release of its major version, newer majors are only reported.
+      - name: Update the pinned actions
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          nix run .#update-actions | tee "$RUNNER_TEMP/update.log"
+          {
+            echo "## Pinned actions"
+            echo '```text'
+            cat "$RUNNER_TEMP/update.log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Skip the remaining steps when no pin has changed.
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet .github/workflows; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Lint the updated workflows before anything reaches master.
+      - name: Lint workflows
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          nix build --no-link --print-build-logs --keep-going \
+            .#checks.x86_64-linux.actionlint \
+            .#checks.x86_64-linux.zizmor
+
+      # Commit and push the new pins, rebasing first as master may have moved.
+      # The push triggers QA and the build of every machine with the new actions.
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true' && env.HAS_TOKEN == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add .github/workflows
+          git commit -m "ci: update pinned actions" -m "$(grep 'updated' "$RUNNER_TEMP/update.log")"
+          git pull --rebase
+          git push
+
+      # Without the token, show the diff to apply by hand with `nix run .#update-actions`.
+      - name: Report changes
+        if: steps.changes.outputs.changed == 'true' && env.HAS_TOKEN != 'true'
+        run: |
+          echo "::warning::ACTIONS_UPDATE_TOKEN is not set, the new pins were not pushed."
+          {
+            echo "## Not pushed, ACTIONS_UPDATE_TOKEN is not set"
+            echo '```diff'
+            git diff .github/workflows
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
