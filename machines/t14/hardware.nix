@@ -96,9 +96,9 @@
     "i915.fastboot=0"
   ];
 
-  # Preferred Linux kernel on t14 - a bleeding edge kernel.
+  # Preferred Linux kernel on t14 - the zen kernel, tuned for desktop responsiveness.
   # Check if kernel was updated: ls -l /run/{booted,current}-system/kernel*
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_7_3;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
 
   # Clean tmpfs on boot.
   boot.tmp.useTmpfs = true;
