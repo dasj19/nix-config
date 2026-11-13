@@ -62,6 +62,11 @@ jobs:
           echo "Machines: $machines"
           echo "machines=$machines" >> "$GITHUB_OUTPUT"
 
+      # Lock the secrets again, the self-hosted runner keeps the checkout between runs.
+      - name: Locking git secrets
+        if: always()
+        run: if [ -f .git/git-crypt/keys/default ]; then git-crypt lock --force; fi
+
   # This job builds each machine, once the flake is valid.
   build:
     needs: validate
@@ -100,3 +105,8 @@ jobs:
       # Print total storage to know when to garbage collect.
       - name: Print total storage resources
         run: df -hl --total | grep  -E '(Use(d|%)|total)'
+
+      # Lock the secrets again, the self-hosted runner keeps the checkout between runs.
+      - name: Locking git secrets
+        if: always()
+        run: if [ -f .git/git-crypt/keys/default ]; then git-crypt lock --force; fi

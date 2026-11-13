@@ -13,10 +13,9 @@ concurrency:
   group: autoupdate-flake
   cancel-in-progress: false
 
-# Push the updated flake.lock and dispatch build.yml.
+# Push the updated flake.lock.
 permissions:
   contents: write
-  actions: write
 
 # Enable flakes once for every nix command in this workflow.
 env:
@@ -65,6 +64,11 @@ jobs:
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # Validate the flake with the updated inputs, build.yml is not run on the pushed commit.
+      - name: Flake check
+        if: steps.changes.outputs.changed == 'true'
+        run: nix flake check
 
       # Build every machine with the updated inputs before anything reaches master.
       - name: Build all machines
@@ -117,11 +121,7 @@ jobs:
           git pull --rebase
           git push
 
-      # Trigger the CI on the new commit, pushes made with GITHUB_TOKEN do not trigger it.
-      # cspell:ignore benc
-      - name: Trigger build
-        if: steps.changes.outputs.changed == 'true'
-        # Pinned to the commit of v1.3.3, a moving tag could change the code run on the self-hosted runner.
-        uses: benc-uk/workflow-dispatch@d004979be141727c7a17c28f603e2facc40d0855 # v1.3.3
-        with:
-          workflow: build.yml
+      # Lock the secrets again, the self-hosted runner keeps the checkout between runs.
+      - name: Locking git secrets
+        if: always()
+        run: if [ -f .git/git-crypt/keys/default ]; then git-crypt lock --force; fi

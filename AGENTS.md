@@ -129,8 +129,9 @@ Disable spell-checking for this file: cspell:disable.
 ## CI
 
 - **quality-assurance.yml**: lint-only workflow. Builds the `statix`, `deadnix`, `nixfmt`, `sorted-lists`, `actionlint` and `zizmor` flake checks, with the nix store cached between runs (keyed on `flake.lock`). Triggers on all pushes and PRs.
-- **autoupdate-flake.yml**: daily `nix flake update` on the self-hosted runner. Builds every machine with the new lock, commits and pushes `flake.lock` only if all builds pass, then dispatches `build.yml`. The job summary lists the updated inputs and a `nix store diff-closures` per machine; the push rebases on master first.
+- **autoupdate-flake.yml**: daily `nix flake update` on the self-hosted runner. Runs `nix flake check` and builds every machine with the new lock, then commits and pushes `flake.lock` only if all of it passes. Pushes made with `GITHUB_TOKEN` do not trigger `build.yml`, so this job does its validation itself. The job summary lists the updated inputs and a `nix store diff-closures` per machine; the push rebases on master first.
 - **build.yml**: build workflow. Runs on self-hosted runner, only on pushes to master and manual dispatch (never on pull requests, the runner holds the git-crypt key). Has `validate` job (`nix flake check` + `nix flake archive`) and `build` job (runs after `validate`, matrix of all machines listed from `nixosConfigurations`).
+- **git-crypt on the runner**: every self-hosted job ends with an `if: always()` step that runs `git-crypt lock --force`, so decrypted secrets do not stay in the runner's persistent checkout.
 - **Workflow hardening**: pin every action to a commit hash with the version in a comment, set `persist-credentials: false` unless the job pushes, set `timeout-minutes` on every job, and pass `${{ }}` values to `run:` scripts through `env:`. The `zizmor` check enforces most of this.
 - **Experimental features**: CI enables `nix-command flakes` via `extra_nix_config`.
 - **Tools**: linters come from the flake's `checks` output, so CI, pre-commit and local runs use the nixpkgs pinned in `flake.lock`.
