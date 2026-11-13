@@ -50,12 +50,6 @@ jobs:
           echo "Running nix flake check..."
           nix flake check
 
-      # Pin all flake inputs for reproducible builds.
-      - name: Flake archive
-        run: |
-          echo "Archiving flake inputs to local store..."
-          nix flake archive
-
       # Evaluate every machine once, then let nix schedule all builds together.
       # --keep-going builds every machine even when one fails, no result link pins old systems.
       - name: Build all machines
