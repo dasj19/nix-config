@@ -26,13 +26,17 @@ jobs:
   validate:
     runs-on: self-hosted
     name: Validate flake
+    timeout-minutes: 30
 
     # The list of machines, used as the build matrix.
     outputs:
       machines: ${{ steps.machines.outputs.machines }}
 
     steps:
-      - uses: actions/checkout@v7
+      # Pinned to the commit of v7.0.1, a moving tag could change the code run on the self-hosted runner.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       # Unlocking secrets using the server's git-crypt key
       - name: Unlocking git secrets
@@ -64,6 +68,7 @@ jobs:
 
     # The type of runner that the job will run on
     runs-on: self-hosted
+    timeout-minutes: 120
 
     # Build parallel in matrix-fashion.
     strategy:
@@ -76,17 +81,22 @@ jobs:
     # Steps are a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       # Unlocking secrets using the server's git-crypt key
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
 
-      # Building packages for the system.
+      # Building packages for the system, without a result link that would pin it against garbage collection.
       - name: Build ${{ matrix.system }} packages
+        env:
+          MACHINE: ${{ matrix.system }}
         run: |
-          nix build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel \
-          --keep-going
+          nix build ".#nixosConfigurations.$MACHINE.config.system.build.toplevel" \
+            --no-link --keep-going
+
       # Print total storage to know when to garbage collect.
       - name: Print total storage resources
         run: df -hl --total | grep  -E '(Use(d|%)|total)'

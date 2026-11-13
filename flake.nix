@@ -89,7 +89,7 @@
       # A function to create a check that runs a linter over the repository.
       mkLintCheck =
         pkgs: name: tool: command:
-        pkgs.runCommand "check-${name}" { nativeBuildInputs = [ tool ]; } ''
+        pkgs.runCommand "check-${name}" { nativeBuildInputs = nixpkgs.lib.toList tool; } ''
           cd ${self}
           ${command}
           touch $out
@@ -189,6 +189,12 @@
         nixfmt = mkLintCheck pkgs "nixfmt" pkgs.nixfmt "find . -name '*.nix' -exec nixfmt --check {} +";
         statix = mkLintCheck pkgs "statix" pkgs.statix "statix check .";
         deadnix = mkLintCheck pkgs "deadnix" pkgs.deadnix "deadnix --fail .";
+        # GitHub workflows, actionlint runs shellcheck on the run scripts.
+        actionlint = mkLintCheck pkgs "actionlint" [
+          pkgs.actionlint
+          pkgs.shellcheck
+        ] "actionlint .github/workflows/*.yml";
+        zizmor = mkLintCheck pkgs "zizmor" pkgs.zizmor "zizmor --offline .github/workflows";
         sorted-lists = pkgs.runCommand "check-sorted-lists" { inherit unsortedReport; } ''
           if [ -n "$unsortedReport" ]; then
             printf '%s' "$unsortedReport" >&2

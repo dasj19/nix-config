@@ -21,6 +21,10 @@ permissions:
 # Enable flakes once for every nix command in this workflow.
 env:
   NIX_CONFIG: extra-experimental-features = nix-command flakes
+  # Prints one "<machine> <toplevel store path>" line per machine.
+  TOPLEVELS: >-
+    c: builtins.concatStringsSep "" (builtins.attrValues (builtins.mapAttrs
+    (name: machine: name + " " + machine.config.system.build.toplevel.outPath + "\n") c))
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,19 +32,28 @@ jobs:
   update:
     # The type of runner that the job will run on
     runs-on: self-hosted
+    timeout-minutes: 240
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v7
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+      # Pinned to the commit of v7.0.1, a moving tag could change the code run on the self-hosted runner.
+      # The credentials are kept on purpose, the job pushes the updated flake.lock.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
 
       # Unlocking secrets using the server's git-crypt key, needed to evaluate the machines.
       - name: Unlocking git secrets
         run: git-crypt unlock /etc/nixos/git-crypt-key
 
-      # Updating the flake input references.
+      # Remember the current system of every machine, to show what the update changes.
+      - name: Record current machines
+        run: nix eval --raw .#nixosConfigurations --apply "$TOPLEVELS" > "$RUNNER_TEMP/old-toplevels"
+
+      # Updating the flake input references, the log lists the changed inputs.
       - name: Run flake update command
-        run: nix flake update
+        run: nix flake update 2>&1 | tee "$RUNNER_TEMP/flake-update.log"
 
       # Skip the remaining steps when no input has changed.
       - name: Check for changes
@@ -65,14 +78,43 @@ jobs:
           echo "Building: $machines"
           nix build --no-link --keep-going "${targets[@]}"
 
+      # Summarize the updated inputs and the package changes of every machine.
+      # A machine whose old system is no longer in the store is listed without a diff.
+      - name: Summarize changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          nix eval --raw .#nixosConfigurations --apply "$TOPLEVELS" > "$RUNNER_TEMP/new-toplevels"
+          {
+            echo "## Updated inputs"
+            echo '```text'
+            grep -v '^warning:' "$RUNNER_TEMP/flake-update.log"
+            echo '```'
+            echo "## Package changes"
+            while read -r machine new; do
+              old=$(awk -v m="$machine" '$1 == m { print $2 }' "$RUNNER_TEMP/old-toplevels")
+              echo "### $machine"
+              if [ -z "$old" ] || ! nix path-info "$old" > /dev/null 2>&1; then
+                echo "Previous system not in the store, no diff."
+                continue
+              fi
+              diff=$(nix store diff-closures "$old" "$new")
+              echo '```text'
+              echo "${diff:-No package changes.}"
+              echo '```'
+            done < "$RUNNER_TEMP/new-toplevels"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       # Commit the updated flake.lock file, only reached when all builds succeeded.
+      # Rebase first, master may have moved during the build.
       - name: Commit and Push Changes
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "GitHub Action Bot"
           git add flake.lock
-          git commit -m "Automated flake update: $(date +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "Automated flake update: $(date +'%Y-%m-%d %H:%M:%S')" \
+            -m "$(grep -v '^warning:' "$RUNNER_TEMP/flake-update.log")"
+          git pull --rebase
           git push
 
       # Trigger the CI on the new commit, pushes made with GITHUB_TOKEN do not trigger it.

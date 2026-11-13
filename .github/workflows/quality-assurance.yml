@@ -9,33 +9,51 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# The job only reads the repository.
+permissions:
+  contents: read
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
       - name: Checkout the code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       # Install nix.
       - name: Install nix
-        uses: cachix/install-nix-action@v31
+        uses: cachix/install-nix-action@3dc140bfc76c49fbd4dd958429132e3746bcb086 # v31.11.5
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
+
+      # Restore the nix store, keyed on flake.lock so the linters are only downloaded after an input update.
+      # GitHub evicts unused caches after 7 days, so no purge step (it would need actions: write).
+      - name: Cache the nix store
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size-linux: 2G
 
       # Run the code linters.
       # The linters are defined as flake checks, so they use the pinned nixpkgs.
       - name: Lint
         run: |
-          echo "Running statix (static analysis), deadnix (unused code), nixfmt (format check) and sorted-lists (list order)..."
+          echo "Running statix (static analysis), deadnix (unused code), nixfmt (format check), sorted-lists (list order), actionlint and zizmor (workflows)..."
           nix build --no-link --print-build-logs --keep-going \
             .#checks.x86_64-linux.statix \
             .#checks.x86_64-linux.deadnix \
             .#checks.x86_64-linux.nixfmt \
-            .#checks.x86_64-linux.sorted-lists
+            .#checks.x86_64-linux.sorted-lists \
+            .#checks.x86_64-linux.actionlint \
+            .#checks.x86_64-linux.zizmor
