@@ -15,6 +15,8 @@
   # ACME defaults with Cloudflare DNS.
   security.acme.acceptTerms = true;
   security.acme.defaults.dnsProvider = "cloudflare";
+  # Look up the zone through Cloudflare's resolver, not the machine's local one.
+  security.acme.defaults.dnsResolver = "1.1.1.1:53";
   security.acme.defaults.credentialFiles = {
     "CLOUDFLARE_EMAIL_FILE" = config.sops.secrets.cloudflare_email.path;
     "CF_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare_dns_api_token.path;
