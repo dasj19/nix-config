@@ -122,6 +122,9 @@ in
   services.caddy.virtualHosts."https://do.${gnu-domain}" = {
     useACMEHost = "do.${gnu-domain}";
     extraConfig = ''
+      # Preloading only applies to the apex, which covers this host through includeSubDomains.
+      # Deferred with ">" so it also replaces an HSTS header sent by the backend.
+      header >Strict-Transport-Security "max-age=63072000; includeSubDomains"
       root * /var/www/do.${gnu-domain}/public
 
       # Serve static files if they exist, otherwise pass to PHP
@@ -146,6 +149,9 @@ in
   services.caddy.virtualHosts."https://media.${name-domain}" = {
     useACMEHost = "media.${name-domain}";
     extraConfig = ''
+      # Preloading only applies to the apex, which covers this host through includeSubDomains.
+      # Deferred with ">" so it also replaces an HSTS header sent by the backend.
+      header >Strict-Transport-Security "max-age=63072000; includeSubDomains"
       reverse_proxy ${ideapad-ip}:2283
     '';
   };
@@ -163,6 +169,9 @@ in
   services.caddy.virtualHosts."https://gen.${name-domain}" = {
     useACMEHost = "gen.${name-domain}";
     extraConfig = ''
+      # Preloading only applies to the apex, which covers this host through includeSubDomains.
+      # Deferred with ">" so it also replaces an HSTS header sent by the backend.
+      header >Strict-Transport-Security "max-age=63072000; includeSubDomains"
       reverse_proxy ${ideapad-ip}:8001
     '';
   };
