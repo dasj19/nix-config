@@ -2,6 +2,10 @@
 # scope: machine
 #
 # Provides Caddy virtual hosts, PHP-FPM pools, and ACME certificates.
+# Certificates come from the NixOS ACME module (Cloudflare DNS challenge, see
+# modules/acme.nix); each https host points at one with useACMEHost, so Caddy
+# serves them instead of running its own ACME. The caddy module gives the
+# caddy group access to these certificates and reloads Caddy on renewal.
 # @todo: make an overall map of the services hosted at the gnu domain.
 
 {
@@ -18,6 +22,7 @@ let
 in
 {
   imports = [
+    ../../modules/acme.nix
     ../../modules/caddy.nix
     ../../modules/php-fpm.nix
   ];
@@ -80,28 +85,32 @@ in
     redir https://${gnu-domain}{uri} permanent
   '';
 
-  services.caddy.virtualHosts."https://www.${gnu-domain}".extraConfig = ''
-    # Preloading only applies to the apex, which covers this host through includeSubDomains.
-    header Strict-Transport-Security "max-age=63072000; includeSubDomains"
-    header X-Content-Type-Options "nosniff"
-    header X-Frame-Options "DENY"
-    redir https://${gnu-domain}{uri} permanent
-    file_server
-  '';
+  services.caddy.virtualHosts."https://www.${gnu-domain}" = {
+    useACMEHost = "${gnu-domain}";
+    extraConfig = ''
+      # Preloading only applies to the apex, which covers this host through includeSubDomains.
+      header Strict-Transport-Security "max-age=63072000; includeSubDomains"
+      header X-Content-Type-Options "nosniff"
+      header X-Frame-Options "DENY"
+      redir https://${gnu-domain}{uri} permanent
+      file_server
+    '';
+  };
 
-  services.caddy.virtualHosts."https://${gnu-domain}".extraConfig = ''
-    # https://hstspreload.org/
-    header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
-    header X-Content-Type-Options "nosniff"
-    header X-Frame-Options "DENY"
-    root * /var/www/${gnu-domain}
-    file_server
-  '';
+  services.caddy.virtualHosts."https://${gnu-domain}" = {
+    useACMEHost = "${gnu-domain}";
+    extraConfig = ''
+      # https://hstspreload.org/
+      header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+      header X-Content-Type-Options "nosniff"
+      header X-Frame-Options "DENY"
+      root * /var/www/${gnu-domain}
+      file_server
+    '';
+  };
   # ACME settings for the gnu domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
   security.acme.certs."${gnu-domain}" = {
-    inherit (config.services.caddy) group;
-
     domain = "${gnu-domain}";
     extraDomainNames = [ "www.${gnu-domain}" ];
   };
@@ -110,21 +119,22 @@ in
   services.caddy.virtualHosts."http://do.${gnu-domain}".extraConfig = ''
     redir https://do.${gnu-domain}{uri} permanent
   '';
-  services.caddy.virtualHosts."https://do.${gnu-domain}".extraConfig = ''
-    root * /var/www/do.${gnu-domain}/public
+  services.caddy.virtualHosts."https://do.${gnu-domain}" = {
+    useACMEHost = "do.${gnu-domain}";
+    extraConfig = ''
+      root * /var/www/do.${gnu-domain}/public
 
-    # Serve static files if they exist, otherwise pass to PHP
-    file_server
-    php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
-    log {
-      output file /var/log/caddy/https-do-gnu-domain.log
-    }
-  '';
+      # Serve static files if they exist, otherwise pass to PHP
+      file_server
+      php_fastcgi unix/${config.services.phpfpm.pools.php84.socket}
+      log {
+        output file /var/log/caddy/https-do-gnu-domain.log
+      }
+    '';
+  };
   # ACME settings for the planning tool domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
   security.acme.certs."do.${gnu-domain}" = {
-    inherit (config.services.caddy) group;
-
     domain = "do.${gnu-domain}";
     extraDomainNames = [ "www.do.${gnu-domain}" ];
   };
@@ -133,14 +143,15 @@ in
   services.caddy.virtualHosts."http://media.${name-domain}".extraConfig = ''
     redir https://media.${name-domain}{uri} permanent
   '';
-  services.caddy.virtualHosts."https://media.${name-domain}".extraConfig = ''
-    reverse_proxy ${ideapad-ip}:2283
-  '';
+  services.caddy.virtualHosts."https://media.${name-domain}" = {
+    useACMEHost = "media.${name-domain}";
+    extraConfig = ''
+      reverse_proxy ${ideapad-ip}:2283
+    '';
+  };
   # ACME settings for the media domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
   security.acme.certs."media.${name-domain}" = {
-    inherit (config.services.caddy) group;
-
     domain = "media.${name-domain}";
     extraDomainNames = [ "www.media.${name-domain}" ];
   };
@@ -149,14 +160,15 @@ in
   services.caddy.virtualHosts."http://gen.${name-domain}".extraConfig = ''
     redir https://gen.${name-domain}{uri} permanent
   '';
-  services.caddy.virtualHosts."https://gen.${name-domain}".extraConfig = ''
-    reverse_proxy ${ideapad-ip}:8001
-  '';
+  services.caddy.virtualHosts."https://gen.${name-domain}" = {
+    useACMEHost = "gen.${name-domain}";
+    extraConfig = ''
+      reverse_proxy ${ideapad-ip}:8001
+    '';
+  };
   # ACME settings for the genealogy domain.
   # https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/
   security.acme.certs."gen.${name-domain}" = {
-    inherit (config.services.caddy) group;
-
     domain = "gen.${name-domain}";
     extraDomainNames = [ "www.gen.${name-domain}" ];
   };
@@ -165,61 +177,69 @@ in
   services.caddy.virtualHosts."http://${name-domain}".extraConfig = ''
     redir https://${name-domain}{uri} permanent
   '';
-  services.caddy.virtualHosts."https://${name-domain}".extraConfig = ''
-    # Covers the first visit on the apex, includeSubDomains extends it to all subdomains.
-    # https://hstspreload.org/
-    header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
-    redir https://daniel.${name-domain}{uri} permanent
-  '';
+  services.caddy.virtualHosts."https://${name-domain}" = {
+    useACMEHost = "${name-domain}";
+    extraConfig = ''
+      # Covers the first visit on the apex, includeSubDomains extends it to all subdomains.
+      # https://hstspreload.org/
+      header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+      redir https://daniel.${name-domain}{uri} permanent
+    '';
+  };
+  # ACME settings for the name domain apex, which only redirects.
+  security.acme.certs."${name-domain}" = {
+    domain = "${name-domain}";
+  };
   services.caddy.virtualHosts."http://daniel.${name-domain}".extraConfig = ''
     redir https://daniel.${name-domain}{uri} permanent
   '';
-  services.caddy.virtualHosts."https://daniel.${name-domain}".extraConfig = ''
-    # https://securityheaders.com/
-    # Preloading only applies to the apex, which covers this host through includeSubDomains.
-    header Strict-Transport-Security "max-age=63072000; includeSubDomains"
-    header X-Content-Type-Options "nosniff"
-    # All assets are self-hosted, there are no inline scripts or styles.
-    header Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
-    # Enforce Subresource Integrity: scripts and styles without a valid integrity attribute are blocked.
-    # The stylesheet link needs crossorigin="anonymous", a no-cors fetch is always blocked.
-    header Integrity-Policy "blocked-destinations=(script style)"
-    # Revalidate on every visit, unchanged files are answered with a cheap 304.
-    header Cache-Control "no-cache"
-    # A personal page without analytics, linked sites need not know the source.
-    header Referrer-Policy "no-referrer"
-    # Only for older browsers, CSP frame-ancestors supersedes it.
-    header X-Frame-Options "DENY"
-    # The page uses none of these features, block them in case a script asks.
-    header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=(), fullscreen=()"
-    # Isolate the window from cross-origin pages that open it or are opened by it.
-    header Cross-Origin-Opener-Policy "same-origin"
-    # Only pages on the same site may load these files, bots fetching the preview image are not affected.
-    header Cross-Origin-Resource-Policy "same-site"
-    # Only same-origin files are loaded, cross-origin embeds would need CORP or CORS.
-    header Cross-Origin-Embedder-Policy "require-corp"
-    # Store files all have mtime 1, a Last-Modified date would be meaningless.
-    header -Last-Modified
-    # Static site, precompressed at build time, see ./daniel-name-site.nix.
-    root * ${pkgs.daniel-name-site}
+  services.caddy.virtualHosts."https://daniel.${name-domain}" = {
+    useACMEHost = "daniel.${name-domain}";
+    extraConfig = ''
+      # https://securityheaders.com/
+      # Preloading only applies to the apex, which covers this host through includeSubDomains.
+      header Strict-Transport-Security "max-age=63072000; includeSubDomains"
+      header X-Content-Type-Options "nosniff"
+      # All assets are self-hosted, there are no inline scripts or styles.
+      header Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; media-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+      # Enforce Subresource Integrity: scripts and styles without a valid integrity attribute are blocked.
+      # The stylesheet link needs crossorigin="anonymous", a no-cors fetch is always blocked.
+      header Integrity-Policy "blocked-destinations=(script style)"
+      # Revalidate on every visit, unchanged files are answered with a cheap 304.
+      header Cache-Control "no-cache"
+      # A personal page without analytics, linked sites need not know the source.
+      header Referrer-Policy "no-referrer"
+      # Only for older browsers, CSP frame-ancestors supersedes it.
+      header X-Frame-Options "DENY"
+      # The page uses none of these features, block them in case a script asks.
+      header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=(), fullscreen=()"
+      # Isolate the window from cross-origin pages that open it or are opened by it.
+      header Cross-Origin-Opener-Policy "same-origin"
+      # Only pages on the same site may load these files, bots fetching the preview image are not affected.
+      header Cross-Origin-Resource-Policy "same-site"
+      # Only same-origin files are loaded, cross-origin embeds would need CORP or CORS.
+      header Cross-Origin-Embedder-Policy "require-corp"
+      # Store files all have mtime 1, a Last-Modified date would be meaningless.
+      header -Last-Modified
+      # Static site, precompressed at build time, see ./daniel-name-site.nix.
+      root * ${pkgs.daniel-name-site}
 
-    # On the fly compression, for files without a precompressed sidecar.
-    encode zstd gzip
-    # Serve only static files if they exist, serve precompressed files first.
-    # ETags come from the content hashes in the package's .etag sidecars.
-    file_server {
-      precompressed br zstd gzip
-      etag_file_extensions .etag
-    }
-    log {
-      output file /var/log/caddy/https-daniel-name-domain.log
-    }
-  '';
+      # On the fly compression, for files without a precompressed sidecar.
+      encode zstd gzip
+      # Serve only static files if they exist, serve precompressed files first.
+      # ETags come from the content hashes in the package's .etag sidecars.
+      file_server {
+        precompressed br zstd gzip
+        etag_file_extensions .etag
+      }
+      log {
+        output file /var/log/caddy/https-daniel-name-domain.log
+      }
+    '';
+  };
   # ACME settings for the daniel name domain.
   # (https://aottr.dev/posts/2024/08/homelab-setting-up-caddy-reverse-proxy-with-ssl-on-nixos/)
   security.acme.certs."daniel.${name-domain}" = {
-    inherit (config.services.caddy) group;
-
     domain = "daniel.${name-domain}";
   };
 

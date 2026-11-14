@@ -54,10 +54,8 @@ in
   services.logind.settings.Login.HandleLidSwitch = "ignore";
   services.logind.settings.Login.HandleLidSwitchDocked = "ignore";
 
-  # ACME properties.
-  security.acme.acceptTerms = true;
+  # ACME properties, the Cloudflare DNS defaults come from modules/acme.nix.
   security.acme.defaults.email = acme-webmaster;
-  security.acme.defaults.dnsProvider = "cloudflare";
   security.acme.defaults.dnsResolver = "1.1.1.1:53";
   security.acme.defaults.dnsPropagationCheck = true;
 
