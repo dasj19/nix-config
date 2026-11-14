@@ -80,7 +80,7 @@ in
     redir https://${gnu-domain}{uri} permanent
   '';
 
-  services.caddy.virtualHosts."https://www.${gnu-domain}:443".extraConfig = ''
+  services.caddy.virtualHosts."https://www.${gnu-domain}".extraConfig = ''
     # Preloading only applies to the apex, which covers this host through includeSubDomains.
     header Strict-Transport-Security "max-age=63072000; includeSubDomains"
     header X-Content-Type-Options "nosniff"
@@ -89,7 +89,7 @@ in
     file_server
   '';
 
-  services.caddy.virtualHosts."https://${gnu-domain}:443".extraConfig = ''
+  services.caddy.virtualHosts."https://${gnu-domain}".extraConfig = ''
     # https://hstspreload.org/
     header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
     header X-Content-Type-Options "nosniff"
@@ -110,7 +110,7 @@ in
   services.caddy.virtualHosts."http://do.${gnu-domain}".extraConfig = ''
     redir https://do.${gnu-domain}{uri} permanent
   '';
-  services.caddy.virtualHosts."https://do.${gnu-domain}:443".extraConfig = ''
+  services.caddy.virtualHosts."https://do.${gnu-domain}".extraConfig = ''
     root * /var/www/do.${gnu-domain}/public
 
     # Serve static files if they exist, otherwise pass to PHP
@@ -133,7 +133,7 @@ in
   services.caddy.virtualHosts."http://media.${name-domain}".extraConfig = ''
     redir https://media.${name-domain}{uri} permanent
   '';
-  services.caddy.virtualHosts."https://media.${name-domain}:443".extraConfig = ''
+  services.caddy.virtualHosts."https://media.${name-domain}".extraConfig = ''
     reverse_proxy ${ideapad-ip}:2283
   '';
   # ACME settings for the media domain.
@@ -174,7 +174,7 @@ in
   services.caddy.virtualHosts."http://daniel.${name-domain}".extraConfig = ''
     redir https://daniel.${name-domain}{uri} permanent
   '';
-  services.caddy.virtualHosts."https://daniel.${name-domain}:443".extraConfig = ''
+  services.caddy.virtualHosts."https://daniel.${name-domain}".extraConfig = ''
     # https://securityheaders.com/
     # Preloading only applies to the apex, which covers this host through includeSubDomains.
     header Strict-Transport-Security "max-age=63072000; includeSubDomains"
