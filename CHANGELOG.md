@@ -13,6 +13,9 @@ TODO:
 - laptop: check upstream why the intelephense vscode extension is marked as non-free (profiles/laptop.nix)
 - laptop: fix upstream backintime needing fcron installed separately (profiles/laptop.nix)
 
+2026-11-15
+- tuxedo-xa15: add opencode, an open source AI agent CLI
+
 2026-11-13
 - waybar: drop the git master override, nixpkgs now ships 0.16.0 with the hyprland lua dispatch fix
 

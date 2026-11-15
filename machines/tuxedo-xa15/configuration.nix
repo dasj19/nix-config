@@ -96,6 +96,7 @@ in
     # Development.
     arduino
     graphviz
+    opencode # Open Source AI Agent.
     php
     php.packages.composer
     pomodoro-gtk
