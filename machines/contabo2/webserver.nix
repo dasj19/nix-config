@@ -70,18 +70,12 @@ in
 
     domain = "${firm-domain}";
     extraDomainNames = [ "www.${firm-domain}" ];
-    dnsProvider = "cloudflare";
-    dnsResolver = "1.1.1.1:53";
-    dnsPropagationCheck = true;
   };
   security.acme.certs."${daniel-domain}" = {
     inherit (config.services.caddy) group;
 
     domain = "${daniel-domain}";
     extraDomainNames = [ "www.${daniel-domain}" ];
-    dnsProvider = "cloudflare";
-    dnsResolver = "1.1.1.1:53";
-    dnsPropagationCheck = true;
   };
 
   # PHP-FPM pools.
