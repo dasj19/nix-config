@@ -63,8 +63,8 @@
   services.dbus.packages = [
     (pkgs.writeTextDir "share/dbus-1/system.d/wpa-supplicant-networkmanager.conf" ''
       <!DOCTYPE busconfig PUBLIC
-       "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
-       "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+        "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+        "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
       <busconfig>
         <policy group="wpa_supplicant">
           <allow send_destination="org.freedesktop.NetworkManager" send_type="signal"/>
