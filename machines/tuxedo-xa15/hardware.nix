@@ -73,9 +73,6 @@
     "tuxedo_keyboard.mode=0"
     "tuxedo_keyboard.brightness=0"
   ];
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.nvidia_x11_beta
-  ];
   boot.blacklistedKernelModules = [
     # Attempt to avoid: nvidia-gpu 0000:06:00.3: i2c timeout error e0000000
     "i2c_nvidia_gpu"
@@ -125,18 +122,14 @@
   # Enable OpenGL
   hardware.graphics.enable = true;
 
-  # Enable NVIDIA drivers for X.
+  # Enable the NVIDIA driver module (also needed on Wayland, despite the name).
   services.xserver.videoDrivers = [
     "nvidia"
   ];
 
-  # Use the NVidia open source kernel module (not to be confused with the
-  # independent third-party "nouveau" open source driver).
-  # Support is limited to the Turing and later architectures. Full list of
-  # supported GPUs is at:
+  # Use the NVIDIA open source kernel module (not the third-party "nouveau" driver),
+  # recommended by NVIDIA for Turing and later GPUs. Supported GPUs:
   # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-  # Only available from driver 515.43.04+
-  # Currently alpha-quality/buggy, so false is currently the recommended setting.
   hardware.nvidia.open = true;
 
   # Enable the Nvidia settings menu,
