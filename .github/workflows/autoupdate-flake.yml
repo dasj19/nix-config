@@ -3,7 +3,7 @@ name: Autoupdate flake
 # Controls when the workflow will run
 on:
   schedule:
-    - cron: '0 1 * * *'  # Runs daily at 1:00 UTC
+    - cron: '19 0 * * *'  # Runs daily at 0:19 UTC
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
