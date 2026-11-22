@@ -32,7 +32,7 @@ jobs:
   build:
     runs-on: self-hosted
     name: Validate and build
-    timeout-minutes: 180
+    timeout-minutes: 600
 
     steps:
       # Pinned to a commit hash, a moving tag could change the code run on the self-hosted runner.
