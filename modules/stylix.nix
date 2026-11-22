@@ -36,5 +36,11 @@
 
   # Rofi is not used, and the stylix target sets the deprecated `programs.rofi.font`.
   # https://github.com/nix-community/stylix/issues/2526
-  home-manager.sharedModules = [ { stylix.targets.rofi.enable = false; } ];
+  # Wayprompt is not used, the stylix target sets `programs.wayprompt` that home-manager removed.
+  home-manager.sharedModules = [
+    {
+      stylix.targets.rofi.enable = false;
+      stylix.targets.wayprompt.enable = false;
+    }
+  ];
 }
