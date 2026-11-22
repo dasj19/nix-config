@@ -45,8 +45,6 @@
     devenv # control development environments with nix.
     go
     mkcert # creates development environment certificates. # cspell:disable-line
-    php83 # PHP.
-    php83Packages.composer # Composer package manager for PHP.
 
     # GUI.
     gcstar # Collection manager.
@@ -60,6 +58,7 @@
 
   # NixOS runs wpa_supplicant as non-root, and the NetworkManager policy denies messages to it by
   # default. This drops signals like DeviceFound, so NetworkManager never sees any Wi-Fi Direct peer.
+  # cspell:ignore busconfig
   services.dbus.packages = [
     (pkgs.writeTextDir "share/dbus-1/system.d/wpa-supplicant-networkmanager.conf" ''
       <!DOCTYPE busconfig PUBLIC
@@ -93,9 +92,9 @@
   # Measures USB traffic bandwidth.
   programs.usbtop.enable = true;
 
-  # Use the hostup1 nix store as binary cache, after cache.nixos.org (priority 40).
+  # Use the hostup1 nix store as binary cache, before cache.nixos.org (priority 40, lower is tried first).
   # Trusted without signatures, root already uses ssh to hostup1 for remote builds.
-  nix.settings.substituters = [ "ssh-ng://hostup1?trusted=true&priority=50" ];
+  nix.settings.substituters = [ "ssh-ng://hostup1?trusted=true&priority=30" ];
 
   # Networking settings.
   networking.hostName = "t14";
