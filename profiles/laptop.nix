@@ -76,7 +76,6 @@ in
     bchunk # converts CD images from BIN/CUE to ISO and CDR tracks.
     cuetools # Utilities for working with cue files and toc files.
     dconf # Desktop-environment conf editor.
-    fcron # Needed by backintime. @todo fix upstream.
     ffmpeg-full # Record, convert and stream audio and video.
     flac # Tools for encoding and decoding the FLAC lossless audio file format.
     jujutsu # Git-compatible alternative VCS.
