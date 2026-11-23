@@ -16,11 +16,15 @@ _:
 
   mailserver.stateVersion = 3;
   # IMAPS only.
-  mailserver.enableImap = false;
-  mailserver.enableImapSsl = true;
+  mailserver.listeners.imap.enable = false;
+  mailserver.listeners.imaps.enable = true;
   # SMTPS only.
-  mailserver.enableSubmission = false;
-  mailserver.enableSubmissionSsl = true;
+  mailserver.listeners.submission.enable = false;
+  mailserver.listeners.submissions.enable = true;
+
+  # Local caching, recursive and DNSSEC-validating resolver, required by the
+  # mailserver since it dropped `localDnsResolver` (which enabled kresd).
+  services.unbound.enable = true;
 
   # Add extended spam information to rspamd.
   services.rspamd.extraConfig = ''
