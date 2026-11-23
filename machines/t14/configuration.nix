@@ -50,6 +50,7 @@
     gcstar # Collection manager.
     gnome-network-displays # Screen casting over Miracast.
     simple-scan # Paper scanning software.
+    (callPackage ./../../pkgs/winpodx.nix { }) # Windows apps through podman and RDP.
 
     # P2P.
     nicotine-plus # soulseek client.
