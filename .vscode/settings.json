@@ -428,8 +428,10 @@
     "sdmmc",
     "searx",
     "secp",
+    "serbanescu",
     "serio",
     "sgptrc",
+    "shellcheck",
     "shellgpt",
     "shmcb",
     "shntool",
@@ -558,6 +560,7 @@
     "ydotool",
     "Zeroconf",
     "zheader",
+    "zizmor",
     "Zstandard",
     "zstd"
   ]
