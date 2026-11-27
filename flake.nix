@@ -301,11 +301,18 @@
         ];
       };
       # END LAPTOPS.
+
       # START IMAGES.
       # Live ISO based on the NixOS graphical installer with GNOME.
+      # Build with: "nix build .#desktop-installer -o ~/destination-folder"
       nixosConfigurations.desktop-installer = mkDefaultSystem {
+        # Used by modules/stylix.nix.
+        specialArgs = {
+          inherit nixos-artwork;
+        };
         modules = [
           ./images/desktop-installer.nix
+          stylix.nixosModules.stylix
         ];
       };
       # END IMAGES.

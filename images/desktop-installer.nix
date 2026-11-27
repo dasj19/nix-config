@@ -16,9 +16,23 @@
 {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+    # Modules shared with the machines, the ones needing sops secrets are left out.
+    ./../modules/fastfetch.nix
+    ./../modules/fish.nix
+    ./../modules/keyboard.nix
+    ./../modules/locale.nix
+    ./../modules/nix.nix
+    ./../modules/starship.nix
+    ./../modules/stylix.nix
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
+
+  # The installer's own user, the shared modules add their groups and nix trust to it.
+  users.primaryUser = "nixos";
+
+  # The ISO has no ssh key for the remote builder set up in modules/nix.nix.
+  nix.distributedBuilds = lib.mkForce false;
 
   # The ISO builder names the file from image.baseName, image.fileName is ignored.
   image.baseName = lib.mkForce "desktop-installer";
