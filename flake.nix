@@ -301,5 +301,17 @@
         ];
       };
       # END LAPTOPS.
+      # START IMAGES.
+      # Live ISO based on the NixOS graphical installer with GNOME.
+      nixosConfigurations.desktop-installer = mkDefaultSystem {
+        modules = [
+          ./images/desktop-installer.nix
+        ];
+      };
+      # END IMAGES.
+
+      # The ISO image of the live system.
+      packages.x86_64-linux.desktop-installer =
+        self.nixosConfigurations.desktop-installer.config.system.build.isoImage;
     };
 }

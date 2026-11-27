@@ -49,6 +49,8 @@ Disable spell-checking for this file: cspell:disable.
 │   └── update-actions.nix    # Updates the pinned GitHub Actions, as a flake app
 ├── settings/                 # Static configuration files (keyboard layouts, etc.)
 │   └── esrodk                # Custom XKB keyboard layout (Spanish with RODK) #cspell:disable-line
+├── images/                   # Bootable media (live ISOs, installers), not deployed machines
+│   └── desktop-installer.nix       # Live ISO from the NixOS GNOME graphical installer
 ├── machines/                 # One folder per machine
 │   ├── <hostname>/
 │   │   ├── configuration.nix # Main config, imports modules + profiles
@@ -111,7 +113,8 @@ Disable spell-checking for this file: cspell:disable.
 - **mkDefaultSystem / mkLaptopSystem / mkServerSystem**: all machines are defined via these helpers. Do not call `nixpkgs.lib.nixosSystem` directly.
 - **specialArgs**: injected into all machines via `mkDefaultSystem`. Keep minimal.
 - **modules**: base modules (`sops-nix`, `home-manager`, `modules/primary-user.nix`) are in `mkDefaultSystem`. Machine-specific modules are in each `configuration.nix`.
-- **nixosConfigurations**: grouped as `# START SERVERS.` / `# START LAPTOPS.` / `# END ...`.
+- **nixosConfigurations**: grouped as `# START SERVERS.` / `# START LAPTOPS.` / `# START IMAGES.` / `# END ...`.
+- **Image outputs**: each image also gets a `packages.x86_64-linux.<name>` output pointing to its image build (e.g. `config.system.build.isoImage`).
 
 ## Machine Config Conventions
 
@@ -122,6 +125,13 @@ Disable spell-checking for this file: cspell:disable.
 - **hostname**: always set `networking.hostName`.
 - **stateVersion**: always set `system.stateVersion`.
 - **hostPlatform**: always set `nixpkgs.hostPlatform` in `hardware.nix`. Do not pass `system` to the `mk*System` helpers.
+
+## Image Conventions
+
+- **images/**: bootable media that is built and written to a disk, never deployed with `nixos-rebuild` or `reup`.
+- **One file per image**: `images/<name>.nix`, with `nixpkgs.hostPlatform`, `networking.hostName` and `system.stateVersion` set in the same file. No `hardware.nix` and no profile.
+- **Base module**: import the nixpkgs installer module through `modulesPath` (e.g. `"${modulesPath}/installer/cd-dvd/installation-cd-graphical-gnome.nix"`).
+- **File name**: set `image.baseName` (with `lib.mkForce`), the ISO builder ignores `image.fileName`.
 
 ## Secrets
 
@@ -168,6 +178,7 @@ Disable spell-checking for this file: cspell:disable.
 - **Clean old generations**: `nh clean all --keep-since 5d --keep 3` or `nhcl` alias
 - **Build specific machine**: `nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel`
 - **Validate all configs**: `nix flake check`
+- **Live ISO**: `nix build .#desktop-installer` builds the GNOME graphical installer ISO (`images/desktop-installer.nix`) into `result/iso/desktop-installer.iso`
 
 ## Naming Conventions
 
